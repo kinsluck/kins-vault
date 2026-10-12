@@ -2,11 +2,13 @@
 <html lang="zh-CN">
 <head>
 <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>普通男生快速脱单法：记住这两点就够了</title>
 <link rel="icon" href="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%20100%20100%22%3E%3Ctext%20y%3D%22.9em%22%20font-size%3D%2290%22%3E%F0%9F%92%98%3C%2Ftext%3E%3C%2Fsvg%3E">
 <style>
   * { margin:0; padding:0; box-sizing:border-box; }
-  body { font-family:"Microsoft YaHei","PingFang SC",sans-serif; color:#2d2a26; background:#f7f5f1; line-height:1.75; font-size:15px; }
+  html { -webkit-text-size-adjust:100%; text-size-adjust:100%; }
+  body { font-family:"Microsoft YaHei","PingFang SC",sans-serif; color:#2d2a26; background:#f7f5f1; line-height:1.75; font-size:15px; overflow-wrap:break-word; }
   .wrap { max-width:860px; margin:0 auto; padding:28px 20px 60px; }
   .hero { background:linear-gradient(135deg,#fdf3f3 0%,#fdeff5 45%,#f3f0ff 100%); border:1px solid #f0dfe3; border-radius:18px; padding:34px 34px 26px; break-inside:avoid; }
   .tag { display:inline-block; font-size:12px; color:#b0566a; background:#fff; border:1px solid #eecbd4; border-radius:999px; padding:2px 12px; margin-right:6px; }
@@ -29,6 +31,7 @@
   th { background:#faf3f0; color:#6d535b; text-align:left; }
   th, td { border:1px solid #f0e2dc; padding:8px 12px; }
   tr:nth-child(even) td { background:#fdfbf9; }
+  .tbl-scroll { overflow-x:auto; -webkit-overflow-scrolling:touch; }
   .quote { background:linear-gradient(90deg,#fff,#fdf5f7); border:1px solid #f2e3e7; border-radius:10px; padding:10px 16px; margin:8px 0; color:#8a4a5e; font-size:14.5px; break-inside:avoid; }
   .quote::before { content:"❝ "; color:#d4718a; font-size:18px; }
   .flow { display:flex; align-items:stretch; flex-wrap:wrap; gap:0; margin:12px 0; }
@@ -46,6 +49,74 @@
   pre { white-space:pre-wrap; font-family:Consolas,"Microsoft YaHei",monospace; font-size:12.8px; color:#5a4a52; background:#faf8f6; border-radius:10px; padding:14px 16px; margin-top:12px; }
   .foot { color:#b3a89e; font-size:12px; text-align:center; margin-top:36px; }
   .badge { display:inline-block; background:#f3ecf9; color:#7a5b98; border-radius:8px; padding:1px 8px; font-size:12px; margin-right:6px; }
+
+  /* ================= 移动端适配（所有 @media 一律垫底） ================= */
+  @media (max-width:640px){
+    body { font-size:16.5px; line-height:1.85; }
+    .wrap { padding:14px 14px 44px; }
+
+    .hero { padding:20px 16px 18px; border-radius:14px; }
+    .tag { font-size:12.5px; padding:3px 11px; margin-bottom:2px; }
+    h1 { font-size:22px; line-height:1.42; margin:10px 0 9px; }
+
+    .meta { font-size:13.5px; line-height:2; }
+    .chips { font-size:13.5px; line-height:2; margin-top:8px; }
+    .chips span { display:inline-block; margin-right:12px; }
+
+    .conclusion { padding:14px 15px; margin-top:16px; font-size:16.5px; line-height:1.8; border-left-width:4px; }
+
+    h2 { font-size:18.5px; line-height:1.5; margin:32px 0 6px; }
+    h2 .no { width:27px; height:27px; line-height:27px; font-size:14px; border-radius:8px; margin-right:8px; }
+    h3 { font-size:16.5px; margin:18px 0 9px; }
+    .sub { font-size:13.5px; line-height:1.8; margin-bottom:11px; }
+
+    .card { padding:16px 15px; border-radius:12px; margin:13px 0; }
+    .card ul { padding-left:19px; }
+    .card li { margin:9px 0; }
+    .card li::marker { font-size:.95em; }
+
+    .quote { font-size:15.5px; padding:11px 14px; line-height:1.8; }
+    .danger { font-size:15px; padding:12px 14px; line-height:1.8; }
+
+    /* 表格：默认不挤压、不横溢出 */
+    .tbl-scroll { margin:12px -2px; }
+    .tbl-scroll table { font-size:14.5px; }
+    th, td { padding:9px 10px; }
+
+    /* 六连筛：三列挤不下 → 改成卡片式逐条排列，决策不再被藏到屏幕外 */
+    .tbl-cards { overflow:visible; margin:10px 0; }
+    .tbl-cards table, .tbl-cards tbody, .tbl-cards tr, .tbl-cards td { display:block; width:auto !important; }
+    .tbl-cards tr:first-child { display:none; }
+    .tbl-cards tr {
+      background:#fff; border:1px solid #f0e2dc; border-radius:10px;
+      margin:9px 0; padding:9px 13px;
+    }
+    .tbl-cards tr:nth-child(even) td { background:transparent; }
+    .tbl-cards td { border:0; padding:1px 0; }
+    .tbl-cards td:first-child { font-size:12.5px; font-weight:bold; color:#9a8d84; letter-spacing:.6px; }
+    .tbl-cards td:last-child { font-size:15.5px; margin-top:3px; }
+
+    /* 流程链：横排改成纵向，箭头转 90° */
+    .flow { flex-direction:column; align-items:stretch; gap:6px; margin:14px 0; }
+    .fstep { min-width:0; text-align:left; padding:10px 14px; font-size:14.5px; border-radius:9px; }
+    .fstep .t { display:inline; font-size:12.5px; margin-right:8px; }
+    .farrow { align-self:flex-start; margin-left:16px; padding:0; line-height:1; transform:rotate(90deg); }
+
+    .funnel-wrap { padding:16px 15px; border-radius:12px; }
+    .funnel-cap { font-size:13.5px; line-height:1.8; }
+
+    details { padding:14px 16px; border-radius:12px; }
+    summary { font-size:16px; padding:3px 0; line-height:1.6; }
+    pre { font-size:13.5px; line-height:2; padding:13px 14px; border-radius:9px; }
+
+    .badge { font-size:12.5px; padding:2px 9px; }
+    .foot { font-size:12.5px; line-height:1.9; margin-top:30px; }
+  }
+
+  @media (max-width:360px){
+    body { font-size:16px; }
+    h1 { font-size:20px; }
+  }
 </style>
 </head>
 <body>
@@ -96,11 +167,13 @@
     <ul>
       <li>从追求者里选最优秀的——跟她自身多优秀关系不大，跟你多优秀关系也不大，<b>只取决于你的竞争对手有多优秀</b>（她闺蜜的男朋友是什么水平）。</li>
     </ul>
+    <div class="tbl-scroll">
     <table>
       <tr><th>女生类型</th><th>特征</th><th>结果</th></tr>
       <tr><td>条件一般</td><td>认识的男人多、追求者多</td><td>自然挑剔</td></tr>
       <tr><td>条件很好</td><td>身边异性量少</td><td>水平一般反而要求不高</td></tr>
     </table>
+    </div>
   </div>
 
   <div class="card">
@@ -130,6 +203,7 @@
 
   <div class="funnel-wrap">
     <h3>六连筛：女朋友是怎么"筛"出来的（02:41 – 03:17）</h3>
+    <div class="tbl-scroll tbl-cards">
     <table>
       <tr><th style="width:88px">序号</th><th>女生的表现</th><th style="width:110px">决策</th></tr>
       <tr><td>第 1 个</td><td>不给联系方式</td><td class="no2">❌ 不选她</td></tr>
@@ -139,6 +213,7 @@
       <tr><td>第 5 个</td><td>能升温，但不愿意做你女朋友</td><td class="no2">❌ 不选她</td></tr>
       <tr><td>第 6 个</td><td>聊天 + 升温 + 答应做你女朋友</td><td class="ok">✅ 最终选择她</td></tr>
     </table>
+    </div>
     <div class="funnel-cap">每一关不推进，就果断换下一位——女朋友就是这么筛选出来的。</div>
   </div>
 
