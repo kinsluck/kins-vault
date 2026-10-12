@@ -1,0 +1,1054 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta content="width=device-width, initial-scale=1.0" name="viewport">
+<title>Godot 游戏开发学习路径 · 顶级开发者建议全指南</title>
+<style>
+  :root{
+    --bg: #0e1420;
+    --bg-soft: #141c2b;
+    --bg-card: #18212f;
+    --bg-card-2: #1d2738;
+    --line: #263349;
+    --line-soft: #1f2a3c;
+    --txt: #dbe4f0;
+    --txt-dim: #93a3ba;
+    --txt-faint: #64748b;
+    --accent: #59a5d8;
+    --accent-2: #478cbf;
+    --accent-glow: rgba(89,165,216,.14);
+    --green: #5fbf8f;
+    --amber: #e0a458;
+    --rose: #e0716f;
+    --violet: #a78bd8;
+    --radius: 14px;
+    --maxw: 900px;
+    --sidebar: 258px;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  body{
+    background:var(--bg);
+    color:var(--txt);
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Hiragino Sans GB","Microsoft YaHei",sans-serif;
+    line-height:1.75;
+    font-size:15.5px;
+    -webkit-font-smoothing:antialiased;
+  }
+  ::selection{background:var(--accent);color:#0b1018}
+
+  /* ============ 布局 ============ */
+  .layout{display:flex;min-height:100vh}
+
+  /* 侧边栏 */
+  .sidebar{
+    width:var(--sidebar);
+    flex:0 0 var(--sidebar);
+    position:sticky;top:0;height:100vh;
+    overflow-y:auto;
+    background:linear-gradient(180deg,#101a29,#0d1420);
+    border-right:1px solid var(--line-soft);
+    padding:26px 18px 40px;
+    scrollbar-width:thin;
+  }
+  .sidebar::-webkit-scrollbar{width:6px}
+  .sidebar::-webkit-scrollbar-thumb{background:#26334a;border-radius:3px}
+  .brand{display:flex;align-items:center;gap:11px;padding:0 6px 20px;border-bottom:1px solid var(--line-soft);margin-bottom:18px}
+  .brand-logo{
+    width:38px;height:38px;flex:0 0 38px;border-radius:11px;
+    background:linear-gradient(140deg,#478cbf,#6fb8e6);
+    display:grid;place-items:center;font-size:19px;font-weight:800;color:#0b1018;
+    box-shadow:0 4px 16px rgba(71,140,191,.35);
+  }
+  .brand-txt b{display:block;font-size:14.5px;letter-spacing:.2px;color:#eaf2fb}
+  .brand-txt span{font-size:11.5px;color:var(--txt-faint);letter-spacing:.4px}
+
+  .nav-label{font-size:10.5px;letter-spacing:1.4px;color:var(--txt-faint);text-transform:uppercase;padding:12px 8px 7px;font-weight:700}
+  .nav a{
+    display:block;padding:7px 11px;border-radius:9px;color:var(--txt-dim);
+    text-decoration:none;font-size:13.5px;transition:.16s;border-left:2px solid transparent;
+  }
+  .nav a:hover{background:var(--accent-glow);color:var(--txt)}
+  .nav a.active{background:var(--accent-glow);color:#bfe0f6;border-left-color:var(--accent);font-weight:600}
+
+  /* 主体 */
+  main{flex:1;min-width:0;padding:0 0 90px}
+  .wrap{max-width:var(--maxw);margin:0 auto;padding:0 34px}
+
+  /* 封面 */
+  .hero{
+    position:relative;overflow:hidden;
+    padding:76px 0 60px;
+    background:radial-gradient(1000px 420px at 15% -10%,rgba(71,140,191,.22),transparent 62%),
+               radial-gradient(700px 340px at 92% 4%,rgba(167,139,216,.14),transparent 60%);
+    border-bottom:1px solid var(--line-soft);
+    margin-bottom:48px;
+  }
+  .hero-inner{max-width:var(--maxw);margin:0 auto;padding:0 34px}
+  .pill{
+    display:inline-flex;align-items:center;gap:8px;
+    background:rgba(89,165,216,.12);border:1px solid rgba(89,165,216,.3);
+    color:#9dd0ee;font-size:12px;font-weight:600;letter-spacing:.6px;
+    padding:6px 14px;border-radius:100px;margin-bottom:22px;
+  }
+  .pill .dot{width:6px;height:6px;border-radius:50%;background:var(--green);box-shadow:0 0 8px var(--green)}
+  h1{font-size:40px;line-height:1.22;font-weight:800;letter-spacing:-.6px;margin-bottom:18px;color:#f2f7fd}
+  h1 em{font-style:normal;background:linear-gradient(120deg,#6fb8e6,#a78bd8);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
+  .hero p.lead{font-size:16.5px;color:var(--txt-dim);max-width:670px;margin-bottom:28px}
+  .hero-stats{display:flex;flex-wrap:wrap;gap:12px}
+  .hstat{
+    background:rgba(255,255,255,.03);border:1px solid var(--line);
+    border-radius:11px;padding:11px 16px;min-width:120px;
+  }
+  .hstat b{display:block;font-size:19px;color:#bfe0f6;font-weight:800;letter-spacing:.3px}
+  .hstat span{font-size:11.5px;color:var(--txt-faint)}
+
+  /* 章节 */
+  section{margin-bottom:60px;scroll-margin-top:22px}
+  .sec-head{display:flex;align-items:flex-start;gap:14px;margin-bottom:22px}
+  .sec-num{
+    flex:0 0 34px;height:34px;border-radius:10px;
+    background:linear-gradient(140deg,#22344c,#1a2637);
+    border:1px solid var(--line);
+    display:grid;place-items:center;font-size:14px;font-weight:800;color:var(--accent);margin-top:3px;
+  }
+  h2{font-size:25px;font-weight:750;letter-spacing:-.3px;color:#eef4fa;line-height:1.35}
+  .sec-head p{font-size:13.5px;color:var(--txt-faint);margin-top:4px}
+  h3{font-size:17.5px;font-weight:700;color:#e4eef8;margin:30px 0 12px;letter-spacing:-.1px}
+  h4{font-size:15px;font-weight:700;color:#cfe0f2;margin:20px 0 9px}
+  p{margin-bottom:13px;color:var(--txt-dim)}
+  p strong,li strong{color:#e8f1fa;font-weight:650}
+  a{color:var(--accent);text-decoration:none;border-bottom:1px solid rgba(89,165,216,.3)}
+  a:hover{border-bottom-color:var(--accent)}
+  ul,ol{margin:0 0 15px 0;padding-left:22px}
+  li{margin-bottom:7px;color:var(--txt-dim)}
+  ul li::marker{color:var(--accent)}
+  ol li::marker{color:var(--accent);font-weight:700}
+  code{
+    font-family:"SF Mono",ui-monospace,Menlo,Consolas,monospace;
+    background:#0b1420;border:1px solid var(--line-soft);border-radius:5px;
+    padding:1.5px 6px;font-size:13px;color:#8fd0f0;
+  }
+  .kbd{color:var(--green)}
+
+  /* 卡片 */
+  .card{
+    background:var(--bg-card);border:1px solid var(--line);
+    border-radius:var(--radius);padding:22px 24px;margin-bottom:16px;
+  }
+  .card h4{margin-top:0}
+  .grid{display:grid;gap:16px}
+  .grid-2{grid-template-columns:repeat(2,1fr)}
+  .grid-3{grid-template-columns:repeat(3,1fr)}
+
+  /* 提示框 */
+  .callout{
+    border-radius:12px;padding:16px 20px;margin:18px 0;
+    border:1px solid var(--line);background:var(--bg-soft);
+    border-left:3px solid var(--accent);font-size:14.5px;
+  }
+  .callout.tip{border-left-color:var(--green)}
+  .callout.warn{border-left-color:var(--amber)}
+  .callout.bad{border-left-color:var(--rose)}
+  .callout .ct{font-weight:700;color:#e8f1fa;display:block;margin-bottom:5px;font-size:14px}
+  .callout p:last-child{margin-bottom:0}
+  .callout.tip .ct{color:#8fe0bb}
+  .callout.warn .ct{color:#f0c98a}
+  .callout.bad .ct{color:#f0a09e}
+
+  /* 时间线 */
+  .phase{
+    position:relative;padding:0 0 8px 34px;margin-bottom:26px;
+    border-left:2px solid var(--line);
+  }
+  .phase:last-child{border-left-color:transparent}
+  .phase::before{
+    content:'';position:absolute;left:-8px;top:4px;width:14px;height:14px;border-radius:50%;
+    background:var(--bg);border:3px solid var(--accent);
+  }
+  .phase.p1::before{border-color:var(--accent)}
+  .phase.p2::before{border-color:var(--green)}
+  .phase.p3::before{border-color:var(--amber)}
+  .phase.p4::before{border-color:var(--violet)}
+  .phase-head{display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin-bottom:10px}
+  .phase-tag{
+    font-size:11px;font-weight:800;letter-spacing:.8px;padding:3px 10px;border-radius:6px;
+    background:var(--accent-glow);color:#9dd0ee;border:1px solid rgba(89,165,216,.3);
+  }
+  .phase.p2 .phase-tag{background:rgba(95,191,143,.12);color:#8fe0bb;border-color:rgba(95,191,143,.3)}
+  .phase.p3 .phase-tag{background:rgba(224,164,88,.12);color:#f0c98a;border-color:rgba(224,164,88,.3)}
+  .phase.p4 .phase-tag{background:rgba(167,139,216,.12);color:#c5b0ec;border-color:rgba(167,139,216,.3)}
+  .phase-head h3{margin:0;font-size:18px}
+  .phase-meta{font-size:12.5px;color:var(--txt-faint)}
+  .deliv{
+    margin-top:12px;background:rgba(95,191,143,.07);border:1px dashed rgba(95,191,143,.35);
+    border-radius:10px;padding:11px 15px;font-size:13.5px;color:#a9dcc5;
+  }
+  .deliv b{color:#c8f0dd}
+
+  /* 开发者卡片 */
+  .dev{
+    background:var(--bg-card);border:1px solid var(--line);border-radius:var(--radius);
+    padding:20px 22px;margin-bottom:15px;position:relative;overflow:hidden;
+    transition:.2s;
+  }
+  .dev:hover{border-color:rgba(89,165,216,.45);transform:translateY(-2px)}
+  .dev::after{
+    content:'';position:absolute;left:0;top:0;bottom:0;width:3px;
+    background:var(--accent);
+  }
+  .dev.d2::after{background:var(--green)}
+  .dev.d3::after{background:var(--amber)}
+  .dev.d4::after{background:var(--violet)}
+  .dev.d5::after{background:var(--rose)}
+  .dev-top{display:flex;align-items:center;gap:12px;margin-bottom:10px;flex-wrap:wrap}
+  .dev-av{
+    width:40px;height:40px;flex:0 0 40px;border-radius:10px;display:grid;place-items:center;
+    font-weight:800;font-size:15px;color:#0b1018;
+    background:linear-gradient(140deg,#6fb8e6,#478cbf);
+  }
+  .dev.d2 .dev-av{background:linear-gradient(140deg,#7fd6a8,#3f9d70)}
+  .dev.d3 .dev-av{background:linear-gradient(140deg,#f0c98a,#c98a3f)}
+  .dev.d4 .dev-av{background:linear-gradient(140deg,#c5b0ec,#7d5fc0)}
+  .dev.d5 .dev-av{background:linear-gradient(140deg,#f0a09e,#c05a58)}
+  .dev-name{font-size:15.5px;font-weight:700;color:#eaf2fb}
+  .dev-sub{font-size:12px;color:var(--txt-faint)}
+  .dev-badge{
+    margin-left:auto;font-size:11px;font-weight:700;padding:3px 10px;border-radius:20px;
+    background:rgba(89,165,216,.1);color:#9dd0ee;border:1px solid rgba(89,165,216,.25);
+  }
+  .dev p{font-size:14px;margin-bottom:9px}
+  .dev .quote{
+    border-left:2px solid var(--line);padding-left:14px;font-style:italic;
+    color:#a9bcd2;font-size:13.5px;margin:12px 0;
+  }
+
+  /* 表格 */
+  .tbl-wrap{overflow-x:auto;margin:18px 0;border:1px solid var(--line);border-radius:12px}
+  table{width:100%;border-collapse:collapse;font-size:13.5px;min-width:520px}
+  th{
+    text-align:left;background:var(--bg-card-2);color:#cfe0f2;font-weight:700;
+    padding:11px 15px;border-bottom:1px solid var(--line);white-space:nowrap;font-size:12.5px;
+    letter-spacing:.3px;
+  }
+  td{padding:11px 15px;border-bottom:1px solid var(--line-soft);color:var(--txt-dim);vertical-align:top}
+  tr:last-child td{border-bottom:none}
+  tbody tr:hover{background:rgba(89,165,216,.04)}
+  td strong{color:#e8f1fa}
+  .tag{
+    display:inline-block;font-size:11px;font-weight:700;padding:2px 8px;border-radius:5px;
+    background:rgba(89,165,216,.12);color:#9dd0ee;white-space:nowrap;
+  }
+  .tag.g{background:rgba(95,191,143,.12);color:#8fe0bb}
+  .tag.a{background:rgba(224,164,88,.12);color:#f0c98a}
+  .tag.v{background:rgba(167,139,216,.12);color:#c5b0ec}
+  .tag.r{background:rgba(224,113,111,.12);color:#f0a09e}
+
+  /* 代码块 */
+  pre{
+    background:#0a1119;border:1px solid var(--line);border-radius:11px;
+    padding:16px 18px;overflow-x:auto;margin:14px 0;
+    font-family:"SF Mono",ui-monospace,Menlo,Consolas,monospace;
+    font-size:12.8px;line-height:1.7;
+  }
+  pre code{background:none;border:none;padding:0;color:#b8cde0}
+  .cm{color:#5a7a94}
+  .kw{color:#c792ea}
+  .fn{color:#82aaff}
+  .st{color:#c3e88d}
+  .nm{color:#f78c6c}
+
+  /* 里程碑 */
+  .ms{display:flex;gap:14px;padding:14px 0;border-bottom:1px solid var(--line-soft)}
+  .ms:last-child{border-bottom:none}
+  .ms-lv{
+    flex:0 0 40px;height:40px;border-radius:10px;display:grid;place-items:center;
+    font-weight:800;font-size:14px;background:var(--bg-card-2);border:1px solid var(--line);color:var(--accent);
+  }
+  .ms-body b{color:#eaf2fb;display:block;margin-bottom:3px;font-size:14.5px}
+  .ms-body span{font-size:13px;color:var(--txt-faint)}
+
+  /* 收尾 */
+  .footer{
+    border-top:1px solid var(--line-soft);margin-top:70px;padding:34px 0 10px;
+    font-size:12.5px;color:var(--txt-faint);text-align:center;
+  }
+  .footer a{color:var(--txt-dim)}
+  .src-list{text-align:left;max-width:640px;margin:0 auto 22px;font-size:12.5px;color:var(--txt-faint)}
+  .src-list li{margin-bottom:5px}
+  .src-list a{color:#7fa8c9}
+
+  /* 移动端 */
+  .menu-btn{display:none}
+  @media(max-width:960px){
+    .sidebar{
+      position:fixed;left:0;top:0;z-index:50;
+      transform:translateX(-100%);transition:.25s;
+    }
+    .sidebar.open{transform:translateX(0)}
+    .menu-btn{
+      display:grid;place-items:center;position:fixed;right:18px;top:18px;z-index:60;
+      width:44px;height:44px;border-radius:12px;background:var(--bg-card);border:1px solid var(--line);
+      color:var(--accent);font-size:20px;cursor:pointer;
+    }
+    .wrap,.hero-inner{padding:0 20px}
+    h1{font-size:29px}
+    .grid-2,.grid-3{grid-template-columns:1fr}
+    .hero{padding:60px 0 44px}
+  }
+  @media(max-width:520px){
+    h1{font-size:24px}
+    h2{font-size:21px}
+    .dev-badge{margin-left:0}
+  }
+</style>
+</head>
+<body>
+
+<button aria-label="菜单" class="menu-btn" id="menuBtn">☰</button>
+
+<div class="layout">
+  <!-- ========== 侧边栏 ========== -->
+  <aside class="sidebar" id="sidebar">
+    <div class="brand">
+      <div class="brand-logo">G</div>
+      <div class="brand-txt">
+        <b>Godot 学习路径</b>
+        <span>Top Devs Playbook</span>
+      </div>
+    </div>
+    <div class="nav" id="nav">
+      <div class="nav-label">认知</div>
+      <a href="#why">01 · 为什么选 Godot</a>
+      <a href="#model">02 · 核心心智模型</a>
+      <a href="#version">03 · 版本与语言选择</a>
+      <div class="nav-label">路线</div>
+      <a href="#roadmap">04 · 四阶段路线图</a>
+      <a href="#milestones">05 · 里程碑项目</a>
+      <div class="nav-label">顶级建议</div>
+      <a href="#devs">06 · 顶级开发者怎么说</a>
+      <a href="#principles">07 · 社区共识原则</a>
+      <a href="#pitfalls">08 · 常见坑与最佳实践</a>
+      <div class="nav-label">资源</div>
+      <a href="#resources">09 · 资源清单</a>
+      <a href="#jams">10 · 游戏 Jam</a>
+      <a href="#habit">11 · 节奏与心态</a>
+      <a href="#sources">12 · 参考来源</a>
+    </div>
+  </aside>
+
+  <!-- ========== 主体 ========== -->
+  <main>
+    <!-- 封面 -->
+    <header class="hero">
+      <div class="hero-inner">
+        <span class="pill"><span class="dot"></span>基于 30+ 份社区资料与顶级开发者公开建议整理</span>
+        <h1>从零到独立发布：<br><em>Godot 游戏开发学习路径</em></h1>
+        <p class="lead">
+          这不是又一份"跟着敲代码"的教程清单。它把 GDQuest、HeartBeast、KidsCanCode、Brackeys 等
+          顶级 Godot 教学者反复强调的方法论，压缩成一条可执行的路线——告诉你<strong>每个阶段该学什么、
+          该产出什么、以及为什么</strong>。
+        </p>
+        <div class="hero-stats">
+          <div class="hstat"><b>4 个</b><span>递进阶段</span></div>
+          <div class="hstat"><b>3–6 月</b><span>完成路线全程</span></div>
+          <div class="hstat"><b>8 个节点</b><span>入门只需掌握这些</span></div>
+          <div class="hstat"><b>Godot 4.7</b><span>当前稳定版（2026）</span></div>
+        </div>
+      </div>
+    </header>
+
+    <div class="wrap">
+
+      <!-- ========== 01 为什么 ========== -->
+      <section id="why">
+        <div class="sec-head">
+          <div class="sec-num">01</div>
+          <div>
+            <h2>为什么选 Godot</h2>
+            <p>先把"值不值得学"这件事说清楚，再谈怎么学</p>
+          </div>
+        </div>
+
+        <p>Godot 是一款采用 <strong>MIT 许可证</strong>的免费开源 2D/3D 游戏引擎。它最大的差异化不是"免费"，而是<strong>没有版税、没有运行时费用、没有收入分成</strong>——你可以完整拥有自己游戏的每一分收入。安装包仅约 100MB，一个可执行文件即可运行，启动快、迭代反馈快。</p>
+
+        <div class="grid grid-2" style="margin:20px 0">
+          <div class="card">
+            <h4>✅ 适合谁</h4>
+            <ul style="margin-bottom:0">
+              <li>做 <strong>2D 游戏</strong>的独立开发者（Godot 的 2D 是引擎原生设计，不是 3D 的降维）</li>
+              <li>零预算、想完全掌控工具链的人</li>
+              <li>快速原型、Game Jam、教育场景</li>
+              <li>喜欢 Python 式语法、想避开 C++/蓝图陡峭曲线的人</li>
+            </ul>
+          </div>
+          <div class="card">
+            <h4>⚠️ 要认清的短板</h4>
+            <ul style="margin-bottom:0">
+              <li><strong>3D 高保真</strong>仍落后于 Unreal / Unity，做风格化中型 3D 没问题</li>
+              <li><strong>主机发布</strong>有摩擦：因 SDK 保密协议，通常需第三方（如 W4 Games）协助移植</li>
+              <li><strong>资产生态</strong>比 Unity Asset Store 小得多，很多工具要自己做</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="callout">
+          <span class="ct">横向对比一句话结论</span>
+          <p>完全零基础 + 零预算 + 主攻 2D → <strong>Godot</strong>；想进 AAA 工作室或做高端 3D → Unity / Unreal。但要注意：<strong>游戏循环、输入、状态、物理这些核心能力是可以跨引擎迁移的</strong>，先在 Godot 打地基，未来按目标再切换也完全来得及。</p>
+        </div>
+      </section>
+
+      <!-- ========== 02 心智模型 ========== -->
+      <section id="model">
+        <div class="sec-head">
+          <div class="sec-num">02</div>
+          <div>
+            <h2>核心心智模型：一切皆节点</h2>
+            <p>不理解这四件事，写多少代码都是"教程复读机"</p>
+          </div>
+        </div>
+
+        <p>Godot 与 Unity/Unreal 最根本的区别在于它的组织方式。<strong>先把心智模型建对，后面所有 API 都只是查手册。</strong></p>
+
+        <div class="grid grid-2" style="margin:20px 0">
+          <div class="card">
+            <h4>🧩 节点 Node</h4>
+            <p style="font-size:14px; margin-bottom:0">最小功能单元。显示图片是 <code>Sprite2D</code>，播声音是 <code>AudioStreamPlayer</code>，角色物理是 <code>CharacterBody2D</code>。节点组合成树，就构成了游戏对象。</p>
+          </div>
+          <div class="card">
+            <h4>🌳 场景 Scene</h4>
+            <p style="font-size:14px; margin-bottom:0">一棵被保存下来的节点树。玩家、敌人、UI、关卡都是独立场景。<strong>场景可被实例化、可嵌套</strong>——这是 Godot 最强大的组合模式，比 Unity 的 Prefab 更彻底。</p>
+          </div>
+          <div class="card">
+            <h4>📡 信号 Signal</h4>
+            <p style="font-size:14px; margin-bottom:0">Godot 版<strong>观察者模式</strong>。节点发信号、其他节点订阅，彼此不需要知道对方在哪。<strong>这是写解耦代码的脊梁</strong>，第一天就该养成习惯。</p>
+          </div>
+          <div class="card">
+            <h4>📦 资源 Resource</h4>
+            <p style="font-size:14px; margin-bottom:0">可共享的数据容器（配置、属性、材质）。本质是<strong>享元模式</strong>——多份对象共享同一份数据，是数据驱动系统的地基。</p>
+          </div>
+        </div>
+
+        <div class="callout tip">
+          <span class="ct">💡 零基础只需先掌握这 8 个节点</span>
+          <p><code>Node2D</code>(容器) · <code>Sprite2D</code>(显示图片) · <code>CharacterBody2D</code>(角色移动) · <code>Camera2D</code>(相机跟随) · <code>CollisionShape2D</code>(碰撞体) · <code>Area2D</code>(检测区域) · <code>Label</code>(文字) · <code>Button</code>(交互)。<br>
+          其余的节点，等你真正需要时再查——这不会耽误你，反而让你跑得更快。</p>
+        </div>
+      </section>
+
+      <!-- ========== 03 版本与语言 ========== -->
+      <section id="version">
+        <div class="sec-head">
+          <div class="sec-num">03</div>
+          <div>
+            <h2>版本与语言选择</h2>
+            <p>开工前先做对的两个决定</p>
+          </div>
+        </div>
+
+        <h3>版本：新手一律用 Godot 4</h3>
+        <p>截至 2026 年，Godot 4 已经非常成熟。稳定的维护节奏如下：</p>
+        <div class="tbl-wrap">
+          <table>
+            <thead><tr><th>版本</th><th>发布时间</th><th>状态</th><th>说明</th></tr></thead>
+            <tbody>
+              <tr><td><strong>4.7.x</strong></td><td>2026 年 6 月起</td><td><span class="tag g">推荐</span></td><td>当前活跃稳定线，持续接收修复</td></tr>
+              <tr><td>4.6.x</td><td>2026 年 1 月</td><td><span class="tag g">维护中</span></td><td>稳定，Polish 阶段</td></tr>
+              <tr><td>4.5.x</td><td>2025 年 9 月</td><td><span class="tag a">仅安全修复</span></td><td>仍可用，但已是上一稳定线</td></tr>
+              <tr><td>3.6.x</td><td>2024 年 9 月</td><td><span class="tag a">LTS</span></td><td>仅用于维护老项目</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="callout warn">
+          <span class="ct">⚠️ 版本不匹配是新手第一大坑</span>
+          <p>Godot 4 修改了 GDScript 语法、节点名称、物理 API 与信号写法。跟着 <strong>Godot 3 教程</strong>做 Godot 4 项目，会让你在报错里浪费大量时间。<strong>看任何教程前，先看发布日期和它用的版本号。</strong></p>
+        </div>
+
+        <h3>语言：GDScript 起步，C# 按需，GDExtension 是逃生舱</h3>
+        <div class="tbl-wrap">
+          <table>
+            <thead><tr><th>语言</th><th>何时选它</th><th>要点</th></tr></thead>
+            <tbody>
+              <tr>
+                <td><strong>GDScript</strong><br><span class="tag g">默认</span></td>
+                <td>所有新手；90% 的独立项目</td>
+                <td>与编辑器深度集成、自动补全原生支持、社区教程绝大多数用它。类 Python，有编程基础者<strong>一两天可上手</strong>。</td>
+              </tr>
+              <tr>
+                <td><strong>C# (.NET)</strong></td>
+                <td>有 Unity / .NET 背景；大型项目需要强类型</td>
+                <td>技能可迁移，但构建更慢、部分引擎特性和它配合不如 GDScript 自然。<strong>可混用</strong>：核心系统用 C#，UI 胶水用 GDScript。</td>
+              </tr>
+              <tr>
+                <td><strong>GDExtension</strong><br>(C++/Rust)</td>
+                <td>性能关键系统：复杂模拟、程序化生成、自定义物理</td>
+                <td>性能收益真实且显著，但学习曲线陡。<strong>务必早期投入</strong>才回本。Rust 路线预算约两周上手。</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="callout tip">
+          <span class="ct">💡 一句话决策</span>
+          <p>先学 GDScript，做完一个小游戏，再评估是否需要别的。<strong>别让"语言 FOMO"耽误你做游戏。</strong>另外立刻养成一个习惯：变量与函数名用 <code>snake_case</code>（如 <code>player_score</code>、<code>move_and_slide</code>），与引擎 API 保持一致。</p>
+        </div>
+      </section>
+
+      <!-- ========== 04 路线图 ========== -->
+      <section id="roadmap">
+        <div class="sec-head">
+          <div class="sec-num">04</div>
+          <div>
+            <h2>四阶段路线图</h2>
+            <p>从"能跑起来"到"能发布"，标注每阶段的产出物</p>
+          </div>
+        </div>
+
+        <p>这条路线综合了多个权威来源的分阶段建议。核心逻辑是：<strong>每个阶段都要有一个可交付的产物</strong>，而不是"学完某个知识点"。</p>
+
+        <div style="margin-top:26px">
+          <div class="phase p1">
+            <div class="phase-head">
+              <span class="phase-tag">PHASE 1</span>
+              <h3>打地基</h3>
+              <span class="phase-meta">约 1–2 个月</span>
+            </div>
+            <p style="margin-bottom:8px"><strong>目标：能独立做出一个可运行的迷你游戏。</strong></p>
+            <ul>
+              <li>从官网下载 <strong>Godot 4.x 标准版</strong>，完成官方文档 <em>Getting Started</em> 全部内容</li>
+              <li>逐字敲完官方 <strong>"Your First 2D Game"</strong>（Dodge the Creeps）——不要复制粘贴，要自己敲</li>
+              <li>掌握核心五件套：<strong>节点与场景、场景树、信号、输入映射、脚本基础</strong></li>
+              <li>学 GDScript 基础：变量、函数、if/else、for 循环、数组；推荐 GDQuest 的 <em>Learn GDScript From Zero</em> 交互式课程</li>
+              <li>大胆折腾编辑器：加节点、建场景、删东西、把 Inspector 每个按钮点一遍</li>
+              <li>加入 Godot Discord / r/godot，先潜水看别人怎么提问</li>
+            </ul>
+            <div class="deliv"><b>🎯 产出物：</b>一个"接住掉落物"级别的小游戏，并用 Git 管理起来。</div>
+          </div>
+
+          <div class="phase p2">
+            <div class="phase-head">
+              <span class="phase-tag">PHASE 2</span>
+              <h3>系统化 · 你的第一个原创项目</h3>
+              <span class="phase-meta">约 2–4 个月</span>
+            </div>
+            <p style="margin-bottom:8px"><strong>目标：脱离教程，独立完成一个完整小游戏。</strong></p>
+            <ul>
+              <li>选一个<strong>小到能做完</strong>的题材：Pong、贪吃蛇、Flappy Bird、顶视角射击、简单解谜——选那个让你兴奋到能完成它的</li>
+              <li>只用已学的知识。卡住时<strong>先查官方类参考文档</strong>，再搜 Q&A，最后才问人（30 分钟原则）</li>
+              <li>逐个主题补齐：<strong>UI（Control 节点/容器）、音频、动画、物理</strong></li>
+              <li>研读官方 Demo 项目中你感兴趣的那些，学习真实项目怎么组织代码</li>
+              <li>开始在意代码质量：场景与脚本最佳实践、信号解耦、避免把所有逻辑塞进主场景</li>
+              <li>开始接触架构概念：<strong>单例（Autoload）、状态机、信号化通信</strong></li>
+            </ul>
+            <div class="deliv"><b>🎯 产出物：</b>一个带 UI、存档、两个以上场景的完整小游戏，并发布到 itch.io 拿反馈。</div>
+          </div>
+
+          <div class="phase p3">
+            <div class="phase-head">
+              <span class="phase-tag">PHASE 3</span>
+              <h3>专项进阶</h3>
+              <span class="phase-meta">按方向选择，1–3 个月</span>
+            </div>
+            <p style="margin-bottom:8px"><strong>目标：把某个方向做深，而不是样样都浅尝。</strong></p>
+            <ul>
+              <li><strong>2D 深入：</strong>TileMap / TileMapLayer、程序化生成、2D 光照与着色器、屏幕特效</li>
+              <li><strong>3D 进阶：</strong>网格、PBR 材质、光照、相机、AnimationTree、Navigation</li>
+              <li><strong>架构进阶：</strong>EventBus 事件总线、资源驱动的数据系统、对象池、状态机模式</li>
+              <li><strong>性能：</strong>开始学用调试器与 Profiler，理解"60 FPS = 每帧 16.67ms"的帧预算思维</li>
+              <li><strong>导出：</strong>至少导出到两个平台（Web 和移动端是好的起点）</li>
+            </ul>
+            <div class="deliv"><b>🎯 产出物：</b>一个多系统融合的项目（如"带战斗的平台跳跃"或"带升级的顶视角射击"）。</div>
+          </div>
+
+          <div class="phase p4">
+            <div class="phase-head">
+              <span class="phase-tag">PHASE 4</span>
+              <h3>完成一个真实项目</h3>
+              <span class="phase-meta">持续</span>
+            </div>
+            <p style="margin-bottom:8px"><strong>目标：体验从原型到发布的完整流程。</strong></p>
+            <ul>
+              <li>从零设计并完成一个原创项目，实现<strong>存档系统、完整 UI、音频、打磨（Juice）</strong></li>
+              <li>加入"手感"：屏幕震动、顿帧、粒子、音效分层——<strong>"能跑"的游戏不等于"好玩"的游戏</strong></li>
+              <li>参加 Game Jam，把作品分享到社区，收集并消化反馈</li>
+              <li>迭代到 v1.0，发布到 Steam / itch.io</li>
+              <li>写开发日志（Devlog），把过程沉淀下来——这既是复盘，也是作品集</li>
+            </ul>
+            <div class="deliv"><b>🎯 产出物：</b>一个你愿意署名的、完整可玩的游戏。</div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ========== 05 里程碑项目 ========== -->
+      <section id="milestones">
+        <div class="sec-head">
+          <div class="sec-num">05</div>
+          <div>
+            <h2>里程碑项目清单</h2>
+            <p>每个小游戏练一组特定能力，按顺序做</p>
+          </div>
+        </div>
+        <p>这是社区里被反复验证的"练习阶梯"。每个项目都<strong>只训练几个明确的能力</strong>，做完再进下一个。</p>
+
+        <div class="card" style="padding:10px 22px">
+          <div class="ms">
+            <div class="ms-lv">1</div>
+            <div class="ms-body"><b>Pong 乒乓球</b><span>向量、碰撞、基础 AI、计分系统</span></div>
+          </div>
+          <div class="ms">
+            <div class="ms-lv">2</div>
+            <div class="ms-body"><b>Asteroids 小行星</b><span>旋转、对象生成、屏幕环绕、射击</span></div>
+          </div>
+          <div class="ms">
+            <div class="ms-lv">3</div>
+            <div class="ms-body"><b>Breakout 打砖块</b><span>反射角度、关卡设计、多实体管理</span></div>
+          </div>
+          <div class="ms">
+            <div class="ms-lv">4</div>
+            <div class="ms-body"><b>2D 平台跳跃</b><span>重力、跳跃、状态机、TileMap</span></div>
+          </div>
+          <div class="ms">
+            <div class="ms-lv">5</div>
+            <div class="ms-body"><b>顶视角射击</b><span>瞄准、direction_to()、敌人波次、生成器</span></div>
+          </div>
+          <div class="ms">
+            <div class="ms-lv">6</div>
+            <div class="ms-body"><b>Roguelike</b><span>程序化生成、回合制逻辑、数据驱动</span></div>
+          </div>
+        </div>
+        <div class="callout tip">
+          <span class="ct">💡 关键心法</span>
+          <p>每个项目做完后，<strong>故意改一个小东西</strong>：调高跳跃高度、加第二种敌人、造一个新收集物、把键盘输入换成手柄。<strong>这些小改动才是你真正学会的地方。</strong></p>
+        </div>
+      </section>
+
+      <!-- ========== 06 顶级开发者 ========== -->
+      <section id="devs">
+        <div class="sec-head">
+          <div class="sec-num">06</div>
+          <div>
+            <h2>顶级开发者怎么说</h2>
+            <p>来自 Godot 教学圈最受尊敬的名字——他们的方法论</p>
+          </div>
+        </div>
+
+        <div class="dev d1">
+          <div class="dev-top">
+            <div class="dev-av">N</div>
+            <div>
+              <div class="dev-name">GDQuest · Nathan Lovato</div>
+              <div class="dev-sub">Godot 教学标杆 · 280K+ 订阅 · 免费课程 + 开源工具作者</div>
+            </div>
+            <span class="dev-badge">系统化课程</span>
+          </div>
+          <p>Godot 社区里最受尊敬的免费教学频道，结构清晰、从入门到进阶成体系。团队自己也产出开源工具，所以他们的教学是"被生产实战验证过"的。</p>
+          <div class="quote">"很多人花了几个月跟着教程，却仍觉得自己不能独立写代码。问题通常不是努力不够，而是<strong>练习的方式</strong>不对。"</div>
+          <p><strong>他提出的"聚焦练习法"（Focused Practice）——本指南最推荐的方法：</strong></p>
+          <ol>
+            <li>选一个你<strong>最弱</strong>的编程方向（最好与你目标游戏相关）；</li>
+            <li>定一个<strong>具体</strong>的机制或模块（如"带爬墙的平台角色"、"A* 网格寻路"、"可拖拽堆叠的背包 UI"）；</li>
+            <li><strong>每天从零写 30 分钟</strong>，不复制昨天的代码，而是重新解决、找出上次遗漏的点；</li>
+            <li>坚持 <strong>3–7 天</strong>，直到它不再让你感到吃力，再换下一个弱点。</li>
+          </ol>
+          <p style="font-size:13.5px; color:var(--txt-faint)">原理：最快的进步发生在"刚好超出你当前能力"的地带。太难会卡死，太熟会停滞。<br>
+          <strong>入门起点：</strong>免费的 <em>Learn GDScript From Zero</em> 交互式课程。</p>
+        </div>
+
+        <div class="dev d2">
+          <div class="dev-top">
+            <div class="dev-av">H</div>
+            <div>
+              <div class="dev-name">HeartBeast · Benjamin Anderson</div>
+              <div class="dev-sub">长篇幅完整项目 · 175K+ 订阅 · 2D RPG / 平台跳跃专精</div>
+            </div>
+            <span class="dev-badge">做完整游戏</span>
+          </div>
+          <p>Godot 独立开发者最常推荐"接在 GDQuest 之后"的频道。特点是<strong>长篇幅、从一个空项目做到可发布的完整游戏</strong>——尤其擅长 2D RPG 与平台跳跃。</p>
+          <div class="quote">"别只学孤立的知识点。跟着一个完整项目走一遍，你才能看到这些系统是怎么咬合在一起的。"</div>
+          <p><strong>适合：</strong>完成入门课程后、想在有引导的情况下做完自己第一个完整游戏的阶段。<br>
+          <strong>注意：</strong>2D 内容强劲，3D 内容偏少。<br>
+          <strong>入门起点：</strong><em>Action RPG</em> 系列（完整的顶视角 RPG）。</p>
+        </div>
+
+        <div class="dev d3">
+          <div class="dev-top">
+            <div class="dev-av">C</div>
+            <div>
+              <div class="dev-name">KidsCanCode · Chris Bradfield</div>
+              <div class="dev-sub">Godot 官方入门指南作者 · 短小精悍</div>
+            </div>
+            <span class="dev-badge">查漏补缺</span>
+          </div>
+          <p>他是 Godot 的资深贡献者，也是<strong>官方入门指南的作者</strong>，可信度无需置疑。视频短、聚焦、一次只讲一个概念——非常适合当你做原型卡在某个具体机制时，精准查一段。</p>
+          <p><strong>适合：</strong>不要把它当主课程，而是当作"机制字典"随时查。文字教程质量也很高，且持续跟进 Godot 4。</p>
+        </div>
+
+        <div class="dev d4">
+          <div class="dev-top">
+            <div class="dev-av">B</div>
+            <div>
+              <div class="dev-name">Brackeys</div>
+              <div class="dev-sub">1.8M+ 订阅 · Godot 4 入门首选</div>
+            </div>
+            <span class="dev-badge">零基础首选</span>
+          </div>
+          <p>游戏开发教学的"启蒙级"频道。2024 年回归后全面转向 Godot 4，教学节奏、项目拆分、颗粒度都极其适合完全新手——多数在职独立开发者都把他列为起点。</p>
+          <div class="quote">"按顺序看，不要跳。"</div>
+          <p><strong>入门起点：</strong><em>How to make a Video Game — Godot Beginner Tutorial</em>（约 80 分钟，做出一个完整 2D 平台游戏，覆盖 Godot 工作方式、玩家、世界、平台、拾取物、敌人、UI、音效、导出全流程）。</p>
+        </div>
+
+        <div class="dev d5">
+          <div class="dev-top">
+            <div class="dev-av">C</div>
+            <div>
+              <div class="dev-name">Clear Code · Godotneers · Queble 等</div>
+              <div class="dev-sub">长课程 / 现代脚本与架构 / 高级系统</div>
+            </div>
+            <span class="dev-badge">进阶补充</span>
+          </div>
+          <p><strong>Clear Code：</strong>长篇幅完整入门课程，适合喜欢"课堂式"完整工作流的人。</p>
+          <p><strong>Godotneers：</strong>清晰的现代 Godot 4 讲解，聚焦脚本、节点、资源、信号、架构与常见玩法模式——<strong>基础掌握后想写出更干净、更可维护的代码时看它。</strong></p>
+          <p><strong>Queble：</strong>深入高级系统（如属性/升级/增益系统），以及"应该改掉的 Godot 坏习惯"这类实战反思内容。</p>
+        </div>
+      </section>
+
+      <!-- ========== 07 社区共识 ========== -->
+      <section id="principles">
+        <div class="sec-head">
+          <div class="sec-num">07</div>
+          <div>
+            <h2>社区共识原则</h2>
+            <p>跨越所有教程、所有人都在强调的几条铁律</p>
+          </div>
+        </div>
+
+        <div class="grid grid-2">
+          <div class="card">
+            <h4>1 · 官方文档是第一资源</h4>
+            <p style="font-size:14px; margin-bottom:0">免费、永远最新、由引擎作者维护。把 <em>Getting Started</em> 和 <em>类参考（Class Reference）</em> 加到书签，每天花 30 分钟读一读，哪怕没全懂。</p>
+          </div>
+          <div class="card">
+            <h4>2 · 做完教程立刻自己造</h4>
+            <p style="font-size:14px; margin-bottom:0">这是逃离"教程地狱"的唯一方法。学完一个机制，<strong>关掉教程，从零自己写一遍</strong>。那种"不知道下一步做什么"的不适感，正是学习发生的地方。</p>
+          </div>
+          <div class="card">
+            <h4>3 · 完整 &gt; 完美</h4>
+            <p style="font-size:14px; margin-bottom:0">"一个完成的不完美游戏，教给你的东西是半途而废的野心项目十倍。" 完成，永远优先于完美。</p>
+          </div>
+          <div class="card">
+            <h4>4 · 极度克制地控制范围</h4>
+            <p style="font-size:14px; margin-bottom:0">新手最大的杀手是"项目太大"。当你觉得一个想法已经够小了——<strong>再砍掉一半</strong>。</p>
+          </div>
+          <div class="card">
+            <h4>5 · 信号解耦从第一天开始</h4>
+            <p style="font-size:14px; margin-bottom:0">别到处硬编码节点引用。早点用信号，能帮你省下几周的架构排错时间。</p>
+          </div>
+          <div class="card">
+            <h4>6 · 一致性胜过强度</h4>
+            <p style="font-size:14px; margin-bottom:0">每天专注 30 分钟，胜过偶尔一次五小时马拉松。游戏开发的概念是层层累积的，断档会付出代价。</p>
+          </div>
+        </div>
+
+        <div class="callout">
+          <span class="ct">关于"该不该先学 Python"</span>
+          <p>不需要。<strong>GDScript 本身就是很好的第一门语言</strong>，它通过即时的视觉反馈保持你的动力，而且教给你可迁移的编程概念。除非你想要的编程能力超出游戏开发，否则直接上 GDScript。</p>
+        </div>
+      </section>
+
+      <!-- ========== 08 常见坑 ========== -->
+      <section id="pitfalls">
+        <div class="sec-head">
+          <div class="sec-num">08</div>
+          <div>
+            <h2>常见坑与最佳实践</h2>
+            <p>别人踩过的坑，你不必再踩一遍</p>
+          </div>
+        </div>
+
+        <h3>🚫 八个高频错误</h3>
+        <div class="callout bad"><span class="ct">1 · 教程地狱</span><p>看了 10+ 教程、甚至完整上完一门课，却仍无法脱离教程自己开工。<strong>解法：</strong>强制自己不看教程做点东西——哪怕只是一个"追着鼠标跑的方块"。设定 30 分钟计时器，坚持不用指南敲代码。</p></div>
+        <div class="callout bad"><span class="ct">2 · 想一次学会所有</span><p>打开节点创建对话框看到几百个节点就懵了。<strong>解法：</strong>忽略 90% 的节点。入门只需那 8 个。</p></div>
+        <div class="callout bad"><span class="ct">3 · 忽略错误信息</span><p>代码不工作，第一反应是去 Reddit 发帖。<strong>解法：</strong>先从上到下读 Godot 调试器的报错——<strong>第一条几乎总是最重要的那条。</strong></p></div>
+        <div class="callout bad"><span class="ct">4 · 混用 Godot 3 教程</span><p>用 Godot 3 的 API 写 Godot 4 项目。<strong>解法：</strong>搜索时给关键词加上 "Godot 4"。</p></div>
+        <div class="callout bad"><span class="ct">5 · <code>get_node()</code> 地狱</span><p>用 <code>get_node("/root/Main/Level/Enemy")</code> 这类硬路径跨场景引用，一旦节点树变动就报 "Node not found!"。<strong>解法：</strong>用信号 + Autoload 单例（见下方 Signal Bus）。</p></div>
+        <div class="callout bad"><span class="ct">6 · <code>_ready()</code> 过载</span><p>把所有初始化都塞进 <code>_ready()</code>。<strong>解法：</strong>它只用来初始化变量；重活、信号连接、生成对象延后到真正需要的事件里。</p></div>
+        <div class="callout bad"><span class="ct">7 · 没有版本控制</span><p>"我很小心，不会搞坏"——直到你把游戏搞坏了却无法回退。<strong>解法：</strong>从第一天就用 Git，哪怕是单人开发。</p></div>
+        <div class="callout bad"><span class="ct">8 · 后端的思维惯性</span><p>过度设计（第一个游戏就想写 ECS）、过早抽象、忽视"手感"、把游戏当 Web 应用（游戏是每秒 60 次的实时模拟，不是请求/响应）。</p></div>
+
+        <h3>✅ 三个值得早点学会的模式</h3>
+
+        <h4>① 场景化思维：一切皆节点，但不是一切塞进一个场景</h4>
+        <p>新手常犯的错误是把玩家控制、敌人 AI、UI 更新、分数管理全写进 <code>Main.gd</code>。正确做法是<strong>模块化场景</strong>：<code>Player</code> 是一个独立场景，只管自己怎么移动、跳跃、播动画、受伤；<code>Enemy</code> 是另一个独立场景，有自己的行为逻辑。</p>
+
+        <h4>② 信号总线（Signal Bus）：解决跨场景通信</h4>
+        <p>跨场景通信的黄金标准。建一个 Autoload 单例作为全局事件中枢，任何节点都能发事件、任何节点都能订阅，彼此不需要知道对方路径——<strong>场景结构怎么改都不怕</strong>。</p>
+        <pre><code><span class="cm"># SignalBus.gd（设为 Autoload / 单例）</span>
+<span class="kw">extends</span> <span class="nm">Node</span>
+<span class="kw">signal</span> player_died
+<span class="kw">signal</span> item_collected(item_name: <span class="nm">String</span>)
+
+<span class="cm"># 发送方：任意场景</span>
+<span class="nm">SignalBus</span>.player_died.<span class="fn">emit</span>()
+
+<span class="cm"># 接收方：任意场景</span>
+<span class="nm">SignalBus</span>.player_died.<span class="fn">connect</span>(_on_player_died)
+
+<span class="kw">func</span> <span class="fn">_on_player_died</span>() -> <span class="kw">void</span>:
+    <span class="cm"># 更新 UI、触发游戏结束流程</span>
+    <span class="fn">print</span>(<span class="st">"Player has died."</span>)</code></pre>
+        <p style="font-size:13.5px; color:var(--txt-faint)">⚠️ 注意：Signal Bus 用过头会变成"信号意面"，难以调试。它适合<strong>全局事件、UI、大型系统</strong>；父子间的局部交互，用直接连接即可。</p>
+
+        <div class="tbl-wrap">
+          <table>
+            <thead><tr><th>通信方式</th><th>优点</th><th>缺点</th><th>建议</th></tr></thead>
+            <tbody>
+              <tr><td><code>get_node()</code> 硬路径</td><td>测试时简单直接</td><td>极脆弱，易 "Node not found!"，强耦合</td><td><span class="tag r">跨场景禁用</span></td></tr>
+              <tr><td>实例化 + 直接连接</td><td>父创建子并立即管理时很顺</td><td>仍有一定耦合</td><td><span class="tag a">局部父子交互</span></td></tr>
+              <tr><td><strong>Signal Bus（Autoload）</strong></td><td>最大程度解耦、全局可达、抗结构变化</td><td>滥用会产生"信号意面"</td><td><span class="tag g">全局事件 / UI 推荐</span></td></tr>
+            </tbody>
+          </table>
+        </div>
+
+        <h4>③ 状态机：管理角色与 AI 行为</h4>
+        <p>玩家有 idle / run / jump / attack 状态，敌人有 patrol / chase / attack 状态。用状态机（enum 或节点式）把这些行为干净地分开，是中期最重要的架构技能。</p>
+
+        <h4>④ 性能思维：先做出来，再做对，最后做快</h4>
+        <ul>
+          <li><strong>60 FPS = 每帧 16.67ms</strong> 的帧预算，所有逻辑都在争抢这个预算</li>
+          <li><strong>别过早优化。</strong>让它跑起来 → 让它好玩 → 再让它变快</li>
+          <li>什么时候才需要在意：数百个敌人、复杂着色器、移动端目标</li>
+          <li>永远先<strong>用分析器找瓶颈</strong>，不要猜。常见优化手段：对象池、关闭屏外节点、空间分区</li>
+        </ul>
+      </section>
+
+      <!-- ========== 09 资源清单 ========== -->
+      <section id="resources">
+        <div class="sec-head">
+          <div class="sec-num">09</div>
+          <div>
+            <h2>资源清单</h2>
+            <p>按优先级排列，附使用建议</p>
+          </div>
+        </div>
+
+        <h3>官方资源（永远排第一）</h3>
+        <div class="tbl-wrap">
+          <table>
+            <thead><tr><th>资源</th><th>用途</th><th>何时用</th></tr></thead>
+            <tbody>
+              <tr><td><strong>官方文档</strong>（含简体中文）</td><td>最权威参考，Getting Started + 类参考</td><td>全程 · 每日查阅</td></tr>
+              <tr><td><strong>官方 Demo 项目</strong>（30+ 个）</td><td>平台跳跃、塔防、RPG、多人等完整示例</td><td>入门–中级 · 每周研读</td></tr>
+              <tr><td><strong>官方 YouTube 频道</strong></td><td>版本特性、深度技术讲解</td><td>全阶段</td></tr>
+              <tr><td><strong>资产库（Asset Library）</strong></td><td>2000+ 社区插件、模板、工具</td><td>按需</td></tr>
+              <tr><td><strong>Godot Q&A / 论坛</strong></td><td>提问与检索已解答问题</td><td>卡住时</td></tr>
+            </tbody>
+          </table>
+        </div>
+
+        <h3>视频教程</h3>
+        <div class="tbl-wrap">
+          <table>
+            <thead><tr><th>频道</th><th>定位</th><th>最适合</th></tr></thead>
+            <tbody>
+              <tr><td><strong>Brackeys</strong></td><td>Godot 4 零基础入门首选</td><td><span class="tag g">完全新手</span></td></tr>
+              <tr><td><strong>GDQuest</strong></td><td>系统化课程 · 从入门到进阶</td><td><span class="tag g">要结构化学习的人</span></td></tr>
+              <tr><td><strong>HeartBeast</strong></td><td>长篇幅完整项目 · 2D RPG / 平台</td><td><span class="tag a">做完入门课之后</span></td></tr>
+              <tr><td><strong>KidsCanCode</strong></td><td>单概念短教程 · 官方入门指南作者</td><td><span class="tag a">查漏补缺</span></td></tr>
+              <tr><td><strong>Clear Code</strong></td><td>长篇幅完整初学者课程</td><td><span class="tag g">课堂式学习</span></td></tr>
+              <tr><td><strong>Godotneers</strong></td><td>现代 Godot 4 脚本与架构</td><td><span class="tag v">进阶·写更干净的代码</span></td></tr>
+              <tr><td><strong>Queble</strong></td><td>高级系统 + "坏习惯"反思</td><td><span class="tag v">中级以上</span></td></tr>
+            </tbody>
+          </table>
+        </div>
+
+        <h3>文字与参考</h3>
+        <div class="grid grid-2">
+          <div class="card">
+            <h4>📖 值得书签</h4>
+            <ul style="margin-bottom:0; font-size:14px">
+              <li><strong>Godot Recipes</strong>——机制手册：暂停菜单、对话系统、程序化关卡，代码片段即取即用</li>
+              <li><strong>Game Programming Patterns</strong>——理解游戏编程模式的高级读物</li>
+              <li><strong>GDQuest Library</strong>——"如何高效练习游戏开发"等深度文章</li>
+            </ul>
+          </div>
+          <div class="card">
+            <h4>🎨 免费素材站</h4>
+            <ul style="margin-bottom:0; font-size:14px">
+              <li><strong>Kenney.nl</strong>——海量免费 2D/3D 素材与音效</li>
+              <li><strong>OpenGameArt.org</strong>——开源艺术资源</li>
+              <li><strong>itch.io/game-assets</strong>——大量免费资产包</li>
+              <li><strong>Freesound.org</strong>——免费音效库</li>
+            </ul>
+          </div>
+        </div>
+
+        <h3>中文资源</h3>
+        <div class="card">
+          <ul style="margin-bottom:0">
+            <li><strong>Godot 官方简体中文文档</strong>——docs.godotengine.org 的 <code>zh-cn</code> 路径，首选参考</li>
+            <li><strong>B 站</strong>——搜索 "Godot"，有大量搬运的精品熟肉（Brackeys 系列、GDQuest 系列）与本土 UP 主的实战教程</li>
+            <li><strong>Godot 中文社区</strong>——中文论坛，适合提问与交流</li>
+            <li><strong>QQ 群 / 微信群</strong>——搜 "Godot 开发"，即时交流</li>
+          </ul>
+        </div>
+        <div class="callout tip">
+          <span class="ct">💡 语言不是障碍</span>
+          <p>2025 年之后，DeepL、浏览器翻译扩展、YouTube 自动字幕让英文资源几乎"零门槛"。<strong>不要因为缺少母语资源就停下脚步。</strong>官方文档本身就有高质量中文版。</p>
+        </div>
+      </section>
+
+      <!-- ========== 10 Game Jam ========== -->
+      <section id="jams">
+        <div class="sec-head">
+          <div class="sec-num">10</div>
+          <div>
+            <h2>游戏 Jam：最快的加速器</h2>
+            <p>用时间压力逼自己做出决定并完成</p>
+          </div>
+        </div>
+
+        <p>Game Jam 是"从看教程到真正发布"之间最短的桥。<strong>时间限制强迫你砍范围、做决定、交付</strong>——这恰恰是新手最需要的能力。第一次参加，目标可以设成"做出最烂的游戏"，反而能解除完美主义的瘫痪。</p>
+
+        <div class="tbl-wrap">
+          <table>
+            <thead><tr><th>Jam</th><th>频率/时长</th><th>特点</th></tr></thead>
+            <tbody>
+              <tr><td><strong>Godot Wild Jam</strong></td><td>每月 · 约 9 天</td><td><span class="tag g">Godot 专属 · 推荐首 Jam</span> 社区活跃友好，Discord 可组队</td></tr>
+              <tr><td><strong>GMTK Game Jam</strong></td><td>每年 · 48 小时</td><td>规模巨大（2 万+ 作品），主题偏机制，四天窗口对上班族友好</td></tr>
+              <tr><td><strong>Ludum Dare</strong></td><td>每年 2 次</td><td>最老牌。Compo 单人 48h / Jam 团队 72h / Extra 三周（不计分，低压）</td></tr>
+              <tr><td><strong>Brackeys Jam</strong></td><td>每年 2 次</td><td><span class="tag g">新手黄金标准</span> 社区支持度极高</td></tr>
+              <tr><td><strong>Trijam</strong></td><td>每周 · 3 小时</td><td>约束极端严苛——正因为如此，是"完成作品"的最佳训练</td></tr>
+              <tr><td><strong>Kenney Jam</strong></td><td>每年 · 48 小时</td><td>只准用 Kenney 免费素材，精力全放在代码与设计上</td></tr>
+              <tr><td><strong>Global Game Jam</strong></td><td>每年 1 月</td><td>线下为主，4 万+ 参与者，最适合本地社交与找队友</td></tr>
+            </tbody>
+          </table>
+        </div>
+
+        <h4>Jam 的范围铁律</h4>
+        <ul>
+          <li>只做<strong>一个核心机制、一个关卡、一种简单美术</strong></li>
+          <li>避开宏大叙事、RPG 元素、复杂多人联机</li>
+          <li>当你觉得"已经够小了"——<strong>再砍一半</strong></li>
+          <li>在高压环境下，<strong>一个完成的可玩游戏永远胜过未完成的杰作</strong></li>
+        </ul>
+        <div class="callout tip">
+          <span class="ct">💡 用数据驱动自己进步</span>
+          <p>建一张表格记录每次 Jam：主题、用时、工具、最终排名、复盘。<strong>当你能看到自己从"1002 名中的 741 名"进步到"286 名中的第 12 名"，那种可见的成长会支撑你度过想放弃的日子。</strong></p>
+        </div>
+      </section>
+
+      <!-- ========== 11 节奏与心态 ========== -->
+      <section id="habit">
+        <div class="sec-head">
+          <div class="sec-num">11</div>
+          <div>
+            <h2>节奏与心态</h2>
+            <p>决定你能走多远的，往往不是天赋而是习惯</p>
+          </div>
+        </div>
+
+        <div class="grid grid-2">
+          <div class="card">
+            <h4>⏱ 15 分钟法则</h4>
+            <p style="font-size:14px">每天打开编辑器、干 15 分钟。就 15 分钟——小到"我没时间"这个借口都不成立。好处是：<strong>难的从来不是工作本身，而是"开始"</strong>。一旦开始，约 7 成的情况你会不知不觉干了 45 分钟。规则只有一条：15 分钟到了想停就停，不带负罪感。<br><br>复利效应惊人：坚持 200 天，足够完成两个 Jam 作品、一个大项目的一半、学会着色器基础。</p>
+          </div>
+          <div class="card">
+            <h4>🎯 30 分钟聚焦练习</h4>
+            <p style="font-size:14px">每天从零实现一个具体机制，坚持 3–7 天直到它不再困难。这是 GDQuest 推荐、并被大量开发者验证的"最快进步法"。<strong>重点不是复制昨天的成果，而是每天重新解决同一个问题，发现你上次遗漏的点，把它做得更好一点点。</strong></p>
+          </div>
+        </div>
+
+        <h3>把作品变成机会</h3>
+        <ul>
+          <li><strong>做 2–3 个完成的小游戏</strong>——范围比打磨更重要</li>
+          <li>至少有一个带"手感"（Juice），证明你懂游戏感受</li>
+          <li>至少有一个体现系统思维（存档、背包、对话系统）</li>
+          <li><strong>展示方式：</strong>可玩的 Web 构建（发布到 itch.io）、短小的玩法 GIF/视频、记录过程的开发日志</li>
+          <li>找队友或求职时，对方真正看的是：<strong>你能不能交付？你懂不懂"手感"？你能不能在约束下工作？你沟通得清不清楚？</strong></li>
+        </ul>
+
+        <div class="callout">
+          <span class="ct">最后一句</span>
+          <p>你已经掌握了最快的路径——但路径本身不产生游戏。<strong>今晚打开编辑器，做那 15 分钟。</strong></p>
+        </div>
+      </section>
+
+      <!-- ========== 12 来源 ========== -->
+      <section id="sources">
+        <div class="sec-head">
+          <div class="sec-num">12</div>
+          <div>
+            <h2>参考来源</h2>
+            <p>本文观点整理自以下公开资料（2026 年 10 月检索）</p>
+          </div>
+        </div>
+        <div class="src-list">
+          <ul style="list-style:none; padding-left:0">
+            <li>· Godot Engine 官方文档与发布政策 — docs.godotengine.org</li>
+            <li>· Godot Engine 官方版本存档与博客 — godotengine.org</li>
+            <li>· GDQuest《How to practice game development effectively》— gdquest.com/library/how_to_practice</li>
+            <li>· GDQuest《Make Professional 2D Games with Godot》课程说明 — gdquest.com</li>
+            <li>· HeartBeast / Brackeys / KidsCanCode / Clear Code / Godotneers 频道定位整理 — learnwithpath、developereducators 的 2026 对比综述</li>
+            <li>· Godot 论坛与 Q&amp;A：Game Jam 建议、新手起点 — forum.godotengine.org、ask.godotengine.org</li>
+            <li>· Godot Learning FAQ：来自 Unity/Unreal 的迁移与入门建议 — godotlearning.com</li>
+            <li>·《Is Godot Too Hard for Beginners?》— egmatic.com</li>
+            <li>· 信号与 Signal Bus 模式技术解析 — openillumi.com</li>
+            <li>· 中文学习路线与资源整理 — godotengine.net.cn、suiyan.cc、juejin.cn、evocosmos.com</li>
+            <li>· 一份完整免费 Godot 教程系列清单 — godotforums.org</li>
+          </ul>
+        </div>
+      </section>
+
+      <div class="footer">
+        <p><strong>Godot 游戏开发学习路径 · 顶级开发者建议全指南</strong></p>
+        <p style="margin-top:6px">整理于 2026 年 10 月 · 内容基于公开资料，具体版本与资源请以官方最新信息为准</p>
+        <p style="margin-top:14px; font-size:11.5px; color:#4d5a6e">本页为单文件内联版本，无外部依赖，可直接在浏览器或预览面板中交互</p>
+      </div>
+
+    </div>
+  </main>
+</div>
+
+<script>
+(function(){
+  // 侧边栏滚动高亮（scroll spy）
+  var links = Array.prototype.slice.call(document.querySelectorAll('#nav a'));
+  var sections = links.map(function(a){
+    var id = a.getAttribute('href').slice(1);
+    return document.getElementById(id);
+  }).filter(Boolean);
+
+  function onScroll(){
+    var pos = window.scrollY + 140;
+    var current = sections[0];
+    for (var i = 0; i < sections.length; i++){
+      if (sections[i].offsetTop <= pos) current = sections[i];
+    }
+    links.forEach(function(a){
+      a.classList.toggle('active', a.getAttribute('href') === '#' + current.id);
+    });
+  }
+  var ticking = false;
+  window.addEventListener('scroll', function(){
+    if (!ticking){
+      window.requestAnimationFrame(function(){ onScroll(); ticking = false; });
+      ticking = true;
+    }
+  });
+  onScroll();
+
+  // 移动端菜单
+  var btn = document.getElementById('menuBtn');
+  var sidebar = document.getElementById('sidebar');
+  btn.addEventListener('click', function(){
+    sidebar.classList.toggle('open');
+  });
+  links.forEach(function(a){
+    a.addEventListener('click', function(){
+      if (window.innerWidth <= 960) sidebar.classList.remove('open');
+    });
+  });
+})();
+</script>
+</body>
+</html>

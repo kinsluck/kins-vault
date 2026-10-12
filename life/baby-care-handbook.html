@@ -1,0 +1,1990 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta content="width=device-width, initial-scale=1, viewport-fit=cover" name="viewport">
+<meta content="light" name="color-scheme">
+<meta content="0-3岁婴幼儿科学养育照护手册：喂养、睡眠、穿衣、清洁、出行、疾病、发育、疫苗、急救与早期发展，依据 WHO / AAP / CDC / 国家卫健委等权威指南编写。" name="description">
+<title>0-3 岁婴幼儿养育照护手册 · 衣食住行速查</title>
+<style>
+:root{
+  --bg:#f6faf8;
+  --card:#ffffff;
+  --ink:#1f2f2a;
+  --ink-soft:#6a7d77;
+  --accent:#2f7d63;
+  --accent-2:#3f9a7a;
+  --accent-soft:#e7f3ee;
+  --line:#e0ebe6;
+  --warn-bg:#fff7e8;
+  --warn-line:#f0c677;
+  --warn-ink:#8a5a12;
+  --danger-bg:#fdeeec;
+  --danger-line:#e9a79f;
+  --danger-ink:#9c2f22;
+  --info-bg:#eef5fb;
+  --info-line:#a9c8e4;
+  --info-ink:#215279;
+  --ok-bg:#eef8f1;
+  --ok-line:#a8d8bd;
+  --ok-ink:#1f6b4a;
+  --radius:14px;
+  --shadow:0 1px 2px rgba(31,47,42,.05),0 8px 24px rgba(31,47,42,.05);
+  --fs-base:16px;
+}
+*{box-sizing:border-box;}
+html{
+  /* 不设 scroll-behavior:smooth：它会让 JS 的 behavior:'auto' 也变成平滑滚动 */
+  -webkit-text-size-adjust:100%;
+  text-size-adjust:100%;
+}
+body{
+  margin:0;background:var(--bg);color:var(--ink);
+  font-family:-apple-system,BlinkMacSystemFont,"PingFang SC","Hiragino Sans GB","Microsoft YaHei","Source Han Sans SC","Noto Sans CJK SC",system-ui,sans-serif;
+  font-size:var(--fs-base);line-height:1.72;
+  -webkit-font-smoothing:antialiased;
+  overflow-x:hidden;
+}
+img,svg{max-width:100%;}
+a{color:var(--accent);text-decoration:none;}
+a:hover{text-decoration:underline;}
+h1,h2,h3,h4{line-height:1.35;margin:0;}
+p{margin:0 0 .7em;}
+ul,ol{margin:.35em 0 .85em;padding-left:1.25em;}
+li{margin:.28em 0;}
+li::marker{color:var(--accent-2);}
+strong{color:#123024;font-weight:700;}
+code{background:var(--accent-soft);padding:1px 5px;border-radius:5px;font-size:.88em;}
+hr{border:none;border-top:1px solid var(--line);margin:1.4em 0;}
+
+/* ============ 置顶常驻搜索栏 ============ */
+.searchbar{
+  position:sticky;top:0;z-index:1000;
+  background:rgba(255,255,255,.93);
+  -webkit-backdrop-filter:saturate(180%) blur(12px);
+  backdrop-filter:saturate(180%) blur(12px);
+  border-bottom:1px solid var(--line);
+  padding-top:env(safe-area-inset-top);
+}
+.searchbar .inner{
+  max-width:1180px;margin:0 auto;padding:10px 20px;
+  display:flex;align-items:center;gap:14px;
+}
+.searchbar .brand{
+  display:flex;align-items:center;gap:7px;flex:none;
+  font-weight:700;font-size:.86rem;color:var(--accent);white-space:nowrap;
+}
+.searchbar .brand .leaf{flex:none;display:block;}
+.searchbar .field{
+  position:relative;flex:1 1 auto;min-width:0;
+  display:flex;align-items:center;
+}
+.searchbar .field .ico{
+  position:absolute;left:12px;top:50%;transform:translateY(-50%);
+  color:#9db3ac;pointer-events:none;display:block;
+}
+.searchbar input#searchInput{
+  width:100%;min-width:0;
+  padding:10px 74px 10px 36px;
+  border:1px solid var(--line);border-radius:11px;
+  background:#fbfffd;color:var(--ink);
+  font-family:inherit;font-size:.94rem;line-height:1.45;
+  outline:none;appearance:none;-webkit-appearance:none;
+}
+.searchbar input#searchInput::placeholder{color:#a6b8b2;}
+.searchbar input#searchInput:focus{
+  border-color:var(--accent-2);
+  box-shadow:0 0 0 3px rgba(63,154,122,.14);
+}
+.searchbar .count{
+  position:absolute;right:44px;top:50%;transform:translateY(-50%);
+  font-size:.75rem;color:var(--accent);white-space:nowrap;pointer-events:none;
+  background:var(--accent-soft);padding:2px 8px;border-radius:999px;
+  opacity:0;transition:opacity .18s;
+}
+.searchbar .count.on{opacity:1;}
+.searchbar .clear{
+  position:absolute;right:8px;top:50%;transform:translateY(-50%);
+  width:28px;height:28px;border-radius:50%;border:none;cursor:pointer;
+  background:transparent;color:#a6b8b2;
+  display:none;align-items:center;justify-content:center;padding:0;
+}
+.searchbar .clear:hover{background:var(--accent-soft);color:var(--accent);}
+.searchbar .clear.on{display:flex;}
+
+/* 搜索结果下拉列表：点击即跳转 */
+.searchbar .results{
+  position:absolute;left:0;right:0;top:100%;
+  margin:6px 10px 0;border-radius:12px;
+  background:#fff;border:1px solid var(--line);
+  box-shadow:0 14px 34px rgba(20,40,34,.16);
+  max-height:min(54vh,430px);overflow-y:auto;-webkit-overflow-scrolling:touch;
+  z-index:1001;
+}
+.searchbar .results[hidden]{display:none;}
+.searchbar .results .r-item{
+  display:block;width:100%;text-align:left;border:none;background:none;
+  padding:10px 13px;cursor:pointer;border-bottom:1px solid rgba(0,0,0,.045);
+  font-family:inherit;
+}
+.searchbar .results .r-item:last-child{border-bottom:none;}
+.searchbar .results .r-item:active{background:#f1f8f5;}
+.searchbar .results .r-sec{
+  font-size:.7rem;color:var(--accent);font-weight:700;
+  margin-bottom:2px;display:block;
+}
+.searchbar .results .r-txt{
+  font-size:.84rem;color:var(--ink);line-height:1.5;
+  display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;
+}
+.searchbar .results .r-txt mark{background:#fff0b8;color:inherit;border-radius:2px;padding:0 1px;}
+.searchbar .results .r-more{
+  padding:8px 13px;font-size:.74rem;color:var(--ink-soft);text-align:center;
+  background:#f7fbf9;
+}
+
+/* 搜索命中高亮 */
+mark.hit{
+  background:#fff0b8;color:inherit;border-radius:3px;
+  padding:0 1px;box-shadow:0 0 0 1px rgba(214,170,50,.3);
+}
+mark.hit.cur{background:#ffb765;box-shadow:0 0 0 2px rgba(214,120,30,.5);}
+[data-searchable].hidden-by-search{display:none !important;}
+.card.search-empty{display:none !important;}
+
+/* ============ 移动端横向章节导航 ============ */
+.mobile-nav{
+  position:sticky;top:0;z-index:999;
+  background:rgba(255,255,255,.95);
+  border-bottom:1px solid var(--line);
+  display:none;
+}
+.mobile-nav .scroll{
+  display:flex;gap:7px;overflow-x:auto;padding:8px 14px;
+  scrollbar-width:none;-ms-overflow-style:none;
+  -webkit-overflow-scrolling:touch;
+  scroll-behavior:smooth;
+}
+.mobile-nav .scroll::-webkit-scrollbar{display:none;}
+.mobile-nav a{
+  flex:none;padding:6px 11px;border-radius:999px;
+  background:#f1f7f4;color:#3d5f55;font-size:.8rem;font-weight:600;
+  white-space:nowrap;
+}
+.mobile-nav a.active{background:var(--accent);color:#fff;}
+
+/* ============ 布局 ============ */
+.hero{
+  background:linear-gradient(165deg,#eaf6f0 0%,#f6faf8 68%);
+  border-bottom:1px solid var(--line);
+  padding:44px 20px 36px;
+}
+.hero-inner{max-width:1180px;margin:0 auto;}
+.kicker{
+  display:inline-block;font-size:.74rem;letter-spacing:.09em;text-transform:uppercase;
+  color:var(--accent);background:#fff;border:1px solid var(--line);
+  padding:4px 11px;border-radius:999px;margin-bottom:14px;font-weight:700;
+}
+.hero h1{font-size:clamp(1.5rem,4.2vw,2.2rem);margin-bottom:12px;letter-spacing:-.01em;}
+.hero .sub{color:#40605a;max-width:76ch;font-size:1rem;}
+.hero .meta{display:flex;flex-wrap:wrap;gap:8px;margin-top:18px;}
+.hero .meta span{
+  font-size:.76rem;color:var(--accent);background:#fff;border:1px solid var(--line);
+  padding:4px 10px;border-radius:999px;
+}
+
+.layout{
+  max-width:1180px;margin:0 auto;padding:26px 20px 60px;
+  display:grid;grid-template-columns:224px minmax(0,1fr);gap:32px;
+  align-items:start;
+}
+.layout > *{min-width:0;}   /* 关键：防止 grid 子项被内容撑破导致整页横向溢出 */
+.toc{position:sticky;top:84px;font-size:.85rem;}
+.toc h4{font-size:.72rem;letter-spacing:.09em;text-transform:uppercase;color:var(--ink-soft);margin-bottom:10px;}
+.toc a{
+  display:block;padding:6px 10px;border-radius:9px;color:#3f5c54;
+  border-left:2px solid transparent;
+}
+.toc a:hover{background:#f1f7f4;text-decoration:none;}
+.toc a.active{background:var(--accent-soft);color:var(--accent);border-left-color:var(--accent);font-weight:700;}
+
+section[id]{scroll-margin-top:84px;margin-bottom:34px;}
+h2.sec{
+  font-size:1.28rem;display:flex;align-items:center;gap:10px;
+  padding-bottom:10px;border-bottom:2px solid var(--accent-soft);margin-bottom:18px;
+}
+h2.sec .n{
+  flex:none;width:30px;height:30px;border-radius:9px;background:var(--accent);color:#fff;
+  display:flex;align-items:center;justify-content:center;font-size:.86rem;font-weight:700;
+}
+h3{font-size:1.05rem;margin:22px 0 10px;color:#17362d;}
+h3:first-of-type{margin-top:0;}
+h4{font-size:.95rem;margin:16px 0 8px;color:#25574a;}
+
+.card{
+  background:var(--card);border:1px solid var(--line);border-radius:var(--radius);
+  padding:18px 20px;margin-bottom:16px;box-shadow:var(--shadow);
+}
+.card > :last-child{margin-bottom:0;}
+
+/* 表格：小屏独立横向滚动，不撑破页面 */
+.table-wrap{overflow-x:auto;-webkit-overflow-scrolling:touch;margin:12px 0;border:1px solid var(--line);border-radius:11px;}
+table{border-collapse:collapse;width:100%;min-width:460px;font-size:.86rem;background:#fff;}
+caption{caption-side:top;text-align:left;font-size:.78rem;color:var(--ink-soft);padding:8px 12px;background:#f7fbf9;}
+th,td{padding:9px 12px;text-align:left;border-bottom:1px solid var(--line);vertical-align:top;}
+th{background:#f2f8f5;font-weight:700;color:#24503f;white-space:nowrap;}
+tbody tr:last-child td{border-bottom:none;}
+
+.callout{
+  border-radius:11px;padding:12px 15px;margin:12px 0;
+  border-left:4px solid var(--info-line);background:var(--info-bg);color:var(--info-ink);
+  font-size:.9rem;
+}
+.callout b{color:inherit;}
+.callout.tip{border-left-color:var(--ok-line);background:var(--ok-bg);color:var(--ok-ink);}
+.callout.warn{border-left-color:var(--warn-line);background:var(--warn-bg);color:var(--warn-ink);}
+.callout.danger{border-left-color:var(--danger-line);background:var(--danger-bg);color:var(--danger-ink);}
+.callout .t{display:block;font-weight:700;margin-bottom:3px;}
+
+.badges{display:flex;flex-wrap:wrap;gap:6px;margin:10px 0;}
+.badges span{
+  font-size:.76rem;background:var(--accent-soft);color:var(--accent);
+  padding:3px 9px;border-radius:999px;font-weight:600;
+}
+.grid2{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:12px;margin:12px 0;}
+.mini{background:#fbfefd;border:1px solid var(--line);border-radius:11px;padding:12px 14px;font-size:.87rem;}
+.mini b{display:block;margin-bottom:4px;color:#1d5040;}
+
+.steps{counter-reset:st;list-style:none;padding-left:0;}
+.steps > li{
+  counter-increment:st;position:relative;padding-left:34px;margin:.5em 0;
+}
+.steps > li::before{
+  content:counter(st);position:absolute;left:0;top:.15em;
+  width:22px;height:22px;border-radius:7px;background:var(--accent-soft);color:var(--accent);
+  font-size:.75rem;font-weight:700;display:flex;align-items:center;justify-content:center;
+}
+
+/* 无结果提示 */
+.no-result{
+  display:none;background:#fff;border:1px dashed var(--line);border-radius:var(--radius);
+  padding:26px 20px;text-align:center;color:var(--ink-soft);
+}
+.no-result.on{display:block;}
+.no-result b{color:var(--ink);}
+
+footer{
+  border-top:1px solid var(--line);background:#fff;
+  padding:26px 20px calc(34px + env(safe-area-inset-bottom));
+  font-size:.82rem;color:var(--ink-soft);
+}
+footer .fin{max-width:1180px;margin:0 auto;}
+footer b{color:#2a4a40;}
+footer ul{margin:.5em 0 1em;}
+
+/* ============ 响应式 ============ */
+@media (max-width:1099px){
+  .layout{grid-template-columns:1fr;gap:0;padding-top:16px;}
+  .toc{display:none;}
+  .mobile-nav{display:block;}
+  section[id]{scroll-margin-top:110px;}
+}
+@media (max-width:768px){
+  :root{--fs-base:15.5px;}
+  .searchbar .inner{padding:9px 16px;gap:10px;}
+  .searchbar .brand{font-size:.8rem;}
+  .searchbar input#searchInput{padding:9px 70px 9px 34px;font-size:.9rem;}
+  .hero{padding:30px 16px 26px;}
+  .layout{padding:14px 14px 48px;}
+  .card{padding:15px 15px;border-radius:12px;}
+  h2.sec{font-size:1.16rem;}
+  h3{font-size:1rem;}
+}
+@media (max-width:460px){
+  .searchbar .inner{padding:8px 12px;gap:8px;}
+  .searchbar .brand .txt{display:none;}
+  .searchbar .brand{gap:0;}
+  .searchbar input#searchInput{padding:9px 64px 9px 33px;font-size:.88rem;border-radius:10px;}
+  .searchbar input#searchInput::placeholder{font-size:.8rem;}
+  .searchbar .count{right:40px;font-size:.7rem;padding:2px 6px;}
+  .searchbar .clear{right:6px;}
+  .searchbar .results{margin:6px 8px 0;max-height:56vh;}
+  table{font-size:.8rem;}
+  th,td{padding:7px 9px;}
+}
+@media (max-width:390px){
+  .searchbar input#searchInput{padding:8px 58px 8px 31px;font-size:.85rem;}
+  .searchbar input#searchInput::placeholder{font-size:.76rem;}
+  .searchbar .count{right:36px;font-size:.66rem;}
+  .searchbar .clear{width:24px;height:24px;}
+}
+@media (max-width:844px) and (orientation:landscape){
+  .searchbar .inner{padding:6px 14px;}
+  .mobile-nav .scroll{padding:5px 12px;}
+  section[id]{scroll-margin-top:88px;}
+  .hero{padding:22px 16px 18px;}
+}
+@media print{
+  .searchbar,.mobile-nav,.toc{display:none !important;}
+  body{background:#fff;font-size:11pt;}
+  .card{box-shadow:none;break-inside:avoid;}
+  section[id]{break-inside:auto;}
+}
+</style>
+</head>
+<body>
+
+<!-- ============ 常驻搜索栏（置顶吸顶） ============ -->
+<div class="searchbar" role="search">
+  <div class="inner">
+    <span class="brand">
+      <svg aria-hidden="true" class="leaf" fill="none" height="18" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" viewBox="0 0 24 24" width="18">
+        <path d="M12 21c0-7 4-12 9-13-1 7-4 11-9 13Z"></path>
+        <path d="M12 21C12 14 8 9 3 8c1 7 4 11 9 13Z"></path>
+        <path d="M12 21v-5"></path>
+      </svg>
+      <span class="txt">0-3 岁照护手册</span>
+    </span>
+    <form action="#" autocomplete="off" class="field" id="searchForm">
+      <svg aria-hidden="true" class="ico" fill="none" height="16" stroke="currentColor" stroke-linecap="round" stroke-width="2.1" viewBox="0 0 24 24" width="16">
+        <circle cx="11" cy="11" r="6.5"></circle>
+        <path d="M16 16 L21 21"></path>
+      </svg>
+      <input aria-label="搜索手册内容" autocapitalize="off" autocomplete="off" autocorrect="off" enterkeyhint="search" id="searchInput" inputmode="search" placeholder="搜索：脐带、黄疸、奶量、辅食、夜醒、发烧、疫苗、呛奶…" spellcheck="false" type="text">
+      <span class="count" id="searchCount"></span>
+      <button aria-label="清空搜索" class="clear" id="searchClear" title="清空" type="button">
+        <svg aria-hidden="true" fill="none" height="15" stroke="currentColor" stroke-linecap="round" stroke-width="2.4" viewBox="0 0 24 24" width="15">
+          <path d="M6 6 L18 18 M18 6 L6 18"></path>
+        </svg>
+      </button>
+    </form>
+  </div>
+  <div class="results" hidden id="searchResults"></div>
+</div>
+
+<!-- ============ 移动端横向章节导航 ============ -->
+<nav aria-label="章节导航" class="mobile-nav" id="mobileNav">
+  <div class="scroll" id="navScroll">
+    <a href="#general">总纲</a>
+    <a href="#feed">喂养</a>
+    <a href="#sleep">睡眠</a>
+    <a href="#wear">穿衣环境</a>
+    <a href="#hygiene">清洁护理</a>
+    <a href="#travel">出行安全</a>
+    <a href="#health">疾病照护</a>
+    <a href="#dev">发育里程碑</a>
+    <a href="#vaccine">疫苗</a>
+    <a href="#firstaid">安全急救</a>
+    <a href="#play">亲子发展</a>
+    <a href="#cheat">速查卡</a>
+    <a href="#refs">依据来源</a>
+  </div>
+</nav>
+
+<header class="hero">
+  <div class="hero-inner">
+    <span class="kicker">0 - 3 岁 · 科学养育照护</span>
+    <h1>婴幼儿养育照护手册：从出生开始的衣食住行</h1>
+    <p class="sub">
+      本手册按「吃得对、睡得安、穿得适、护得净、行得稳、病得明、长得好、防得住」八个方面，
+      把 0～3 岁照护要点整理成可随时查阅的条目。内容依据世界卫生组织（WHO）、美国儿科学会（AAP）、
+      美国疾控中心（CDC）、国家卫生健康委《3 岁以下婴幼儿健康养育照护指南（试行）》及国家免疫规划程序等
+      权威文件编写，用于日常照护参考，<strong>不能替代儿科医生的面诊、诊断与处方</strong>。
+    </p>
+    <div class="meta">
+      <span>WHO · 婴幼儿喂养与身体活动指南</span>
+      <span>AAP · 2022 安全睡眠建议</span>
+      <span>CDC · 发育里程碑（2022 版）</span>
+      <span>国家卫健委 · 养育照护指南</span>
+      <span>国家免疫规划程序（2021 版）</span>
+    </div>
+  </div>
+</header>
+
+<div class="layout">
+  <aside class="toc" id="toc">
+    <h4>目录</h4>
+    <a href="#general">01 总纲：照护框架与体检</a>
+    <a href="#feed">02 吃：喂养与营养</a>
+    <a href="#sleep">03 睡：睡眠与安全睡眠</a>
+    <a href="#wear">04 穿：穿衣与环境</a>
+    <a href="#hygiene">05 住：清洁与日常护理</a>
+    <a href="#travel">06 行：出行与安全座椅</a>
+    <a href="#health">07 疾病与家庭照护</a>
+    <a href="#dev">08 发育里程碑与预警</a>
+    <a href="#vaccine">09 疫苗与接种</a>
+    <a href="#firstaid">10 意外伤害预防与急救</a>
+    <a href="#play">11 亲子互动与早期发展</a>
+    <a href="#cheat">12 一页速查卡</a>
+    <a href="#refs">13 依据来源与使用说明</a>
+  </aside>
+
+  <main class="content">
+
+  <!-- ================= 01 总纲 ================= -->
+  <section id="general">
+    <h2 class="sec"><span class="n">01</span>总纲：照护框架与定期体检</h2>
+
+    <div class="card">
+      <h3>养育照护的五个要素</h3>
+      <p>联合国儿童基金会与 WHO 提出的「养育照护框架」把儿童早期发展拆成五个互相支撑的要素；国家卫健委《3 岁以下婴幼儿健康养育照护指南（试行）》（2022 年 11 月印发）即以此为基础，从六个方面给出家庭指导要点。</p>
+      <div class="grid2">
+        <div class="mini"><b>良好的健康</b>按时体检与接种、疾病及时诊治、口腔与视力听力保健、睡眠与运动充足。</div>
+        <div class="mini"><b>充足的营养</b>0～6 月纯母乳（或配方奶）、满 6 月龄起科学添加辅食、关注铁与维生素 D 等微量营养素。</div>
+        <div class="mini"><b>回应性照护</b>观察并敏锐回应孩子的信号（饥饿、困倦、害怕、想交流），不忽视也不过度干预。</div>
+        <div class="mini"><b>早期学习机会</b>把说话、阅读、游戏融入喂奶、洗澡、穿衣等日常，而不是"额外上课"。</div>
+        <div class="mini"><b>安全保障</b>排查窒息、跌落、烫伤、溺水、中毒、交通伤害等风险，照护者掌握基本急救方法。</div>
+      </div>
+      <div class="callout tip">
+        <span class="t">一句话记住</span>
+        照护的核心不是"把每一项做到满分"，而是<strong>稳定、可预期、有回应</strong>的日常：孩子发出信号 → 你及时恰当回应 → 建立安全依恋。这是 0～3 岁最重要的发展基础。
+      </div>
+    </div>
+
+    <div class="card">
+      <h3>定期健康检查时间表（国家基本公共卫生服务 0～6 岁儿童健康管理）</h3>
+      <p>家长应主动带孩子接受定期健康检查，及早发现消瘦、超重肥胖、发育迟缓、贫血、维生素 D 缺乏性佝偻病、眼病、听力障碍及龋病等问题。</p>
+      <div class="table-wrap">
+        <table>
+          <caption>建议的健康检查节点（各地社区卫生服务中心/乡镇卫生院提供，具体以当地安排为准）</caption>
+          <thead><tr><th>年龄段</th><th>检查时间点</th><th>重点内容</th></tr></thead>
+          <tbody>
+            <tr><td>出院后</td><td>出院后 1 周内</td><td>新生儿访视：体温、呼吸、皮肤黄染、脐带、喂养与排便、体重变化</td></tr>
+            <tr><td>1 岁以内</td><td>满月、3 月龄、6 月龄、8 月龄、12 月龄</td><td>体格生长监测、神经心理行为发育评估、贫血与佝偻病筛查、眼保健与视力检查</td></tr>
+            <tr><td>1～3 岁</td><td>18 月龄、24 月龄、30 月龄、36 月龄</td><td>生长与营养状况、心理行为发育（含孤独症筛查）、口腔检查、视力与听力</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="callout">
+        <span class="t">孤独症谱系障碍筛查</span>
+        国内外主流做法是在 <strong>18 月龄与 24 月龄</strong> 进行专项筛查；发育问题筛查常在 9、18、30 月龄进行。筛查阳性不等于确诊，但需要尽快转诊评估——<strong>越早干预效果越好</strong>。
+      </div>
+    </div>
+
+    <div class="card">
+      <h3>在家怎么监测生长发育</h3>
+      <ul>
+        <li><strong>用生长曲线，不与他人比</strong>：定期测量身长（身高）、体重、头围，描点在《0～3 岁儿童生长发育监测图》上，看孩子<strong>自己的曲线走向</strong>。</li>
+        <li><strong>警示信号</strong>：生长速度明显变缓、停滞或突然加速（曲线跨越两条主要百分位线），应及时就诊。</li>
+        <li><strong>测量要点</strong>：同一时间（如晨起空腹）测、同一姿势（3 岁前躺着量身长）、同一工具，减少误差。</li>
+        <li><strong>头围</strong>：0～2 岁尤其重要，增长过快或过慢都需评估。</li>
+      </ul>
+      <div class="badges"><span>每月记录一次</span><span>看曲线趋势</span><span>异常尽早面诊</span></div>
+    </div>
+
+    <div class="card">
+      <h3>照护者自身状态同样重要</h3>
+      <p>指南明确要求养育人主动关注自身健康，定期体检，及时缓解养育焦虑，保持身心健康。产后情绪低落常见，若持续超过 2 周、影响睡眠与照料能力，或出现伤害自己/孩子的念头，请立即寻求专业帮助（产科、精神心理科或拨打心理援助热线）。</p>
+      <div class="callout warn">
+        <span class="t">绝对不要做</span>
+        无论多疲惫、孩子哭闹多久，<strong>都不能摇晃、猛摔或击打婴儿</strong>。剧烈摇晃可致「摇晃婴儿综合征」——脑出血、视网膜出血甚至死亡。感到情绪失控时，把婴儿安全放在小床上，离开房间几分钟，深呼吸后再回来。
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= 02 喂养 ================= -->
+  <section id="feed">
+    <h2 class="sec"><span class="n">02</span>吃：喂养与营养</h2>
+
+    <div class="card">
+      <h3>0～6 月龄：以奶为唯一食物</h3>
+      <h4>母乳喂养</h4>
+      <ul>
+        <li><strong>开奶</strong>：出生后尽早皮肤接触，<strong>1 小时内开始哺乳</strong>；初乳量少但足够，不要因"看起来没奶"而放弃。</li>
+        <li><strong>按需哺乳</strong>：每天 <strong>8～10 次以上</strong>，母婴同室，夜间也喂；充分吸吮是促进泌乳最有效的方法。</li>
+        <li><strong>6 个月内纯母乳</strong>：不需额外喂水和其他食物（口服补液盐、维生素/药物滴剂除外）。母乳喂养可持续至 2 岁及以上。</li>
+        <li><strong>判断吃够没</strong>：出生后前几天每天排尿逐渐增多，第 5～6 天起每天 6 片以上明显湿尿布、大便由黑绿胎便转黄、体重在出生 1 周左右回升至出生体重并稳步增长、喂后满足安静——比"喝了多少毫升"更可靠。</li>
+        <li><strong>母亲支持</strong>：心情愉悦、睡眠充足、营养均衡有助于泌乳；持续奶量不足应在医生/哺乳顾问评估指导下处理，不要自行盲目加奶粉。</li>
+        <li><strong>早产儿</strong>：母乳仍是首选，提倡母亲亲自喂养与袋鼠式护理；胎龄 &lt;34 周或出生体重 &lt;2000 g 及体重增长缓慢者，应遵医嘱添加母乳强化剂。</li>
+      </ul>
+
+      <h4>配方奶喂养</h4>
+      <ul>
+        <li><strong>冲调</strong>：严格按罐体说明的水量与奶粉量配比，先加水后加粉；水温按产品说明（通常 40～50 ℃），<strong>不可自行加浓、加糖、加米粉</strong>。</li>
+        <li><strong>现配现用</strong>：冲好的奶尽快喝完，室温放置超过 2 小时应丢弃；剩奶不保留、不反复加热。</li>
+        <li><strong>奶量与频次</strong>：按需喂养为主，下表仅作参考区间，个体差异很大，<strong>以生长曲线和尿量、精神状态为准</strong>。</li>
+      </ul>
+
+      <div class="table-wrap">
+        <table>
+          <caption>奶量参考区间（仅为一般参考，非硬性标准；早产儿、疾病状态请遵医嘱）</caption>
+          <thead><tr><th>月龄</th><th>每次奶量（参考）</th><th>每日次数（参考）</th><th>备注</th></tr></thead>
+          <tbody>
+            <tr><td>出生 1～3 天</td><td>初乳，每次几毫升</td><td>按需，8～12 次以上</td><td>胃容量极小，频繁小量正常</td></tr>
+            <tr><td>1 周～1 月</td><td>约 60～90 ml</td><td>约 8 次以上</td><td>按需哺乳，不必定时</td></tr>
+            <tr><td>1～3 月</td><td>约 90～150 ml</td><td>约 7～8 次</td><td>夜间喂奶次数逐渐减少</td></tr>
+            <tr><td>4～6 月</td><td>约 150～210 ml</td><td>约 5～6 次</td><td>全天总奶量约 800～1000 ml</td></tr>
+            <tr><td>6～12 月</td><td>—</td><td>约 4～5 次</td><td>辅食增加，全天奶量约 600～800 ml</td></tr>
+            <tr><td>12～36 月</td><td>—</td><td>2～3 次</td><td>全天奶类约 350～500 ml，可引入原味乳制品</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="callout">
+        <span class="t">奶瓶喂养姿势</span>
+        婴儿取斜坡位（半坐），<strong>奶瓶底高于奶嘴</strong>，让奶液充满奶嘴减少吞气；奶嘴孔不可过大（倒置时应成滴而非成线流出）。喂奶时不要堵住鼻孔，边喂边观察面色。喂完竖抱拍嗝。
+      </div>
+    </div>
+
+    <div class="card">
+      <h3>拍嗝、溢奶与吐奶</h3>
+      <ul>
+        <li><strong>拍嗝方法</strong>：喂奶后竖抱，让头靠在肩上，<strong>空心掌</strong>自下往上轻拍背部 5～15 分钟，直到打嗝；也可让孩子坐在腿上、身体略前倾，托住下巴轻拍。母乳喂养可在换侧时拍一次。</li>
+        <li><strong>溢奶</strong>：少量奶液从嘴角流出，是常见的生理现象，与贲门发育不成熟有关，多在 6 月龄后逐渐减轻。</li>
+        <li><strong>减少溢奶</strong>：喂奶后保持竖直体位 20～30 分钟，右侧卧位一会儿再平躺；避免喂得过急、过多；换尿布等操作放在喂奶前。</li>
+        <li><strong>吐奶后处理</strong>：立即将孩子<strong>侧卧</strong>，清理口鼻分泌物，防止误吸。</li>
+      </ul>
+      <div class="callout danger">
+        <span class="t">这些情况要就医</span>
+        喷射状呕吐（尤其 2～3 周龄后逐渐加重、每次吃完必喷）；呕吐物带<strong>血</strong>或<strong>黄绿色胆汁</strong>；频繁呕吐伴精神萎靡、尿少、前囟凹陷；吐奶伴体重不增、呛咳青紫。以上需排查幽门狭窄、肠套叠、胃食管反流病等。
+      </div>
+      <div class="callout warn">
+        <span class="t">一定不要做</span>
+        不要在婴儿<strong>仰卧</strong>时增加枕头或垫高床垫来"防吐奶"——睡眠表面必须平坦（见「睡眠」章节）；不要在孩子哭闹、大笑时强行喂奶，以免呛入气道。
+      </div>
+    </div>
+
+    <div class="card">
+      <h3>6 月龄起：辅食添加</h3>
+      <p>WHO 与我国指南一致建议：<strong>满 6 月龄（180 天）起</strong>在继续母乳喂养的同时开始添加辅食；早产儿按校正胎龄 4～6 月开始并遵医嘱。过早（&lt;4 月）或过晚添加都可能影响生长发育。</p>
+      <h4>添加原则</h4>
+      <ul>
+        <li><strong>由一种到多种</strong>：每次只加一种新食物，适应 <strong>2～3 天</strong> 无异常后再加下一种，便于识别过敏或不耐受。</li>
+        <li><strong>由少量到多量、由稀到稠、由细到粗</strong>：从富含铁的泥糊状食物开始（强化铁米粉、肉泥、肝泥），逐步过渡到碎末、小块、手指食物。</li>
+        <li><strong>单一制作</strong>：婴幼儿辅食应单独制作，选新鲜、优质、清洁的食材与水；<strong>不加糖、不加盐</strong>及刺激性调味品。</li>
+        <li><strong>鼓励自主进食</strong>：让孩子抓握、尝试自己吃，允许弄脏——这是发展进食技能的必要过程。</li>
+      </ul>
+
+      <h4>吃什么（7 类食物，每日不少于 4 种）</h4>
+      <div class="badges">
+        <span>谷薯类</span><span>豆类及坚果类</span><span>动物性食物（鱼禽肉及内脏）</span><span>蛋</span>
+        <span>富含维生素 A 的蔬果</span><span>其他蔬果</span><span>奶类及奶制品</span>
+      </div>
+      <p>每日辅食种类<strong>不少于 4 种</strong>，且至少应包含<strong>一种动物性食物、一种蔬菜、一种谷薯类</strong>。WHO 2023 年《6～23 月龄婴幼儿辅食喂养指南》进一步强调：肉、鱼、蛋类等动物性食物<strong>每天</strong>摄入，蔬果<strong>每天</strong>摄入，豆类坚果种子类<strong>经常</strong>摄入；谷类优先全谷物、减少精制谷物。</p>
+
+      <div class="table-wrap">
+        <table>
+          <caption>辅食频次与质地（我国指南与 WHO 建议基本一致，个别计数方式略有差异）</caption>
+          <thead><tr><th>月龄</th><th>辅食次数</th><th>质地</th><th>要点</th></tr></thead>
+          <tbody>
+            <tr><td>6～8 月龄</td><td>每天 1～3 次（我国：1～2 次；WHO：2～3 次）</td><td>泥糊状、稠粥、软烂</td><td>从强化铁米粉、肉泥、肝泥开始；可加 1 次点心</td></tr>
+            <tr><td>9～12 月龄</td><td>每天 2～4 次（我国：2～3 次；WHO：3～4 次）</td><td>碎末状、小颗粒、手指食物</td><td>约 8 月龄起可给手指食物，练习抓握咀嚼</td></tr>
+            <tr><td>12～24 月龄</td><td>3 餐家庭食物 + 2 次加餐</td><td>家庭食物（切碎、软烂）</td><td>每餐约 3/4 碗～1 碗（250 ml 碗），继续母乳</td></tr>
+            <tr><td>24～36 月龄</td><td>3 餐 + 1～2 次加餐</td><td>接近成人，少盐少油</td><td>培养专注进食、参与分餐摆餐具</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <h4>过敏原食物：现在的做法是"及时引入"，不是回避</h4>
+      <ul>
+        <li>过去主张延迟引入易致敏食物，<strong>这一做法已被推翻</strong>。里程碑性研究（LEAP，发表于 NEJM）显示：对高风险婴儿（重度湿疹和/或鸡蛋过敏），在 <strong>4～6 月龄</strong> 起规律摄入含花生食物，可将 5 岁时花生过敏风险降低约 <strong>80%</strong>；LEAP-On、LEAP-Trio 随访显示这种保护可持续到 12 岁。</li>
+        <li><strong>一般建议</strong>：花生与熟鸡蛋等常见过敏原可在<strong>约 6 月龄</strong>（不早于 4 月龄）随其他辅食一起引入；牛奶、大豆、小麦、坚果、芝麻、鱼、贝类也不需要刻意延迟。</li>
+        <li><strong>高风险婴儿</strong>（重度湿疹、已确诊鸡蛋过敏）：应在医生指导下评估（可能需要皮肤点刺或特异性 IgE 检测）后，尽早（4～6 月龄）引入花生制品。</li>
+        <li><strong>持续规律摄入</strong>：引入后要每周数次、作为日常饮食一部分持续吃，才能维持耐受。</li>
+        <li><strong>安全形态</strong>：<strong>绝不给整粒花生、整颗坚果、整粒葡萄、果冻等</strong>易致窒息食物；花生应做成稀释花生酱、加在粥糊中。首次引入安排在白天、孩子健康时，观察 2 小时。</li>
+      </ul>
+
+      <h4>1 岁前不要给 / 要限制的东西</h4>
+      <ul>
+        <li><strong>不要给</strong>：蜂蜜（肉毒杆菌风险，1 岁前禁）、纯牛奶作为主要奶源（6 月龄内禁；6～11 月可作辅食少量全脂奶；12 月龄前不宜替代母乳/配方奶）、整颗坚果与硬糖、果冻、含糖饮料、无糖甜味剂、高糖高盐高反式脂肪食物。</li>
+        <li><strong>要限制</strong>：100% 果汁（WHO 建议限制，且不替代水果本身）。</li>
+        <li><strong>饮水</strong>：添加辅食后可少量给白水（餐后、用杯练习）；1 岁后逐渐增加，不喝含糖饮料。</li>
+      </ul>
+    </div>
+
+    <div class="card">
+      <h3>微量营养素：维生素 D、铁、钙</h3>
+      <div class="table-wrap">
+        <table>
+          <caption>常见补充建议（务必在医生指导下按个体情况执行）</caption>
+          <thead><tr><th>营养素</th><th>谁需要</th><th>建议</th></tr></thead>
+          <tbody>
+            <tr><td>维生素 D</td><td>所有足月儿</td><td>出生后数日内开始，每天 <strong>400 IU</strong>（母乳与配方奶喂养均需按医嘱评估）</td></tr>
+            <tr><td>维生素 D</td><td>早产儿 / 低出生体重儿</td><td>生后数日内开始每天 <strong>800～1000 IU</strong>，3 个月后改为每天 400 IU；具体遵医嘱</td></tr>
+            <tr><td>铁</td><td>早产 / 低出生体重儿</td><td>出生后 2～4 周起按 <strong>2 mg/(kg·d)</strong> 补充铁元素（含配方奶与母乳强化剂中的量）</td></tr>
+            <tr><td>铁</td><td>纯母乳喂养的足月儿</td><td>4～6 月龄起根据情况适当补铁，预防缺铁性贫血；首选富铁辅食（肉泥、肝泥、强化铁米粉）</td></tr>
+            <tr><td>钙、维生素 A 等</td><td>按需</td><td>酌情补充，优先通过膳食满足，补充剂需遵医嘱</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="callout tip">
+        <span class="t">补充剂安全</span>
+        维生素 D 是脂溶性维生素，<strong>过量的危害与不足同样真实</strong>。不要同时服用多种含维生素 D 的复合制剂；瓶装滴剂要按说明取量，放在孩子拿不到的地方。
+      </div>
+    </div>
+
+    <div class="card">
+      <h3>母乳的挤出、储存与加热</h3>
+      <div class="table-wrap">
+        <table>
+          <caption>储存时间参考（CDC / 母乳喂养医学会；健康足月儿家庭使用，早产或住院婴儿请遵医嘱）</caption>
+          <thead><tr><th>储存方式</th><th>温度</th><th>建议时长</th></tr></thead>
+          <tbody>
+            <tr><td>室温</td><td>≤25 ℃</td><td>最好 <strong>4 小时内</strong>（清洁条件可延长至 6～8 小时，越短越好）</td></tr>
+            <tr><td>冷藏</td><td>≤4 ℃</td><td>最好 <strong>4 天内</strong>（清洁条件最长 8 天）</td></tr>
+            <tr><td>冷冻</td><td>-18 ℃ 及以下</td><td>最好 <strong>6 个月内</strong>，最长 12 个月</td></tr>
+            <tr><td>保温冰包</td><td>带冰排</td><td>约 24 小时，到达后立即喂或冷藏/冷冻</td></tr>
+            <tr><td>已解冻</td><td>冷藏中</td><td>24 小时内用完（从完全解冻起算），<strong>不可再次冷冻</strong></td></tr>
+            <tr><td>喝剩的奶</td><td>—</td><td>喂哺开始后 2 小时内未喝完应丢弃</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <ul>
+        <li><strong>容器</strong>：用玻璃或食品级硬塑料瓶、专用储奶袋，密封良好；不用一次性奶瓶内胆或非储奶用途的塑料袋。每次存 <strong>60～120 ml</strong>（一顿量），标注日期，按"先进先出"使用。</li>
+        <li><strong>位置</strong>：放冰箱<strong>内部</strong>而非门架上，减少温度波动。</li>
+        <li><strong>解冻与加热</strong>：提前放冷藏室解冻，或用流动温水冲淋；再用 <strong>不超过 40 ℃</strong> 的温水隔水加热。喂前滴几滴在手腕内侧试温。</li>
+        <li><strong>禁止</strong>：微波炉加热（受热不均易烫伤、破坏营养）、直接煮沸、反复加热、室温解冻。</li>
+      </ul>
+    </div>
+
+    <div class="card">
+      <h3>喂养行为：回应性喂养与进食习惯</h3>
+      <ul>
+        <li><strong>读懂信号</strong>：饥饿信号（咂嘴、吃手、转头寻乳、烦躁）与饱足信号（闭嘴、扭头、推开、放松）。<strong>不强迫喂食</strong>，也不以"吃完这口"为目标。</li>
+        <li><strong>进餐环境</strong>：固定位置、固定时间、安静少干扰；关掉电视、收起玩具，专注进食。</li>
+        <li><strong>支持自主</strong>：鼓励用手抓、用勺、用杯；允许吃得慢、吃得乱。25～36 月龄可邀请参与分餐、摆餐具。</li>
+        <li><strong>控制时间</strong>：每次进餐约 20～30 分钟，超时收走，不当追喂；两餐之间不无限量吃零食。</li>
+        <li><strong>安全</strong>：进食须<strong>坐姿</strong>，不跑动、不躺卧、不说笑打闹、不边走边喂；照护者全程在旁。</li>
+      </ul>
+      <div class="callout danger">
+        <span class="t">易致窒息的食物（3 岁前特别当心）</span>
+        整粒坚果与花生、果冻、整颗葡萄/圣女果/蓝莓（应切四瓣）、爆米花、硬糖、大块肉与香肠（应切细碎）、圆形坚硬小颗粒食物、大勺花生酱。另有<strong>硬币、纽扣电池、磁力珠、笔帽、气球碎片</strong>等非食物物品同样高危。
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= 03 睡眠 ================= -->
+  <section id="sleep">
+    <h2 class="sec"><span class="n">03</span>睡：睡眠与安全睡眠</h2>
+
+    <div class="card">
+      <h3>需要睡多久（WHO 5 岁以下儿童 24 小时活动/久坐/睡眠指南）</h3>
+      <div class="table-wrap">
+        <table>
+          <caption>睡眠总量包含夜间睡眠与白天小睡</caption>
+          <thead><tr><th>月龄/年龄</th><th>24 小时睡眠总量</th><th>特点</th></tr></thead>
+          <tbody>
+            <tr><td>0～3 月龄</td><td>14～17 小时</td><td>昼夜不分，睡眠与吃奶交替，单次睡眠段短</td></tr>
+            <tr><td>4～11 月龄</td><td>12～16 小时</td><td>逐渐形成昼夜节律，白天 2～3 次小睡</td></tr>
+            <tr><td>1～2 岁</td><td>11～14 小时</td><td>作息规律，白天 1～2 次小睡</td></tr>
+            <tr><td>3～4 岁</td><td>10～13 小时</td><td>可保留 1 次午睡，入睡与醒来时间规律</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p>睡眠不足不只影响情绪与注意力，还与超重肥胖风险相关（夜间睡不够常常是因为屏幕时间挤占了睡眠）。<strong>规律比"睡够总时长"更容易做到，也更重要</strong>：固定的睡前流程、固定的起床时间，能帮孩子建立稳定生物钟。</p>
+    </div>
+
+    <div class="card">
+      <h3>安全睡眠：AAP 2022 年建议要点（降低婴儿猝死综合征与睡眠相关死亡）</h3>
+      <p>这是本手册中最需要"照做不商量"的部分。婴儿 1 岁以内，尤其是前 6 个月，睡眠环境的所有细节都直接关系生命安全。</p>
+      <ol class="steps">
+        <li><strong>仰卧入睡</strong>：每一次睡眠（含午睡）都把孩子<strong>仰面放下</strong>，直到满 1 岁。孩子自己翻身后能翻回来，可以让他保持自己选择的姿势，但每次放下仍要仰卧。</li>
+        <li><strong>硬、平、不倾斜的睡眠表面</strong>：使用符合安全标准的婴儿床/摇篮，配与型号匹配的<strong>床垫 + 紧绷床单</strong>，床垫与床框之间无缝隙。倾斜超过 10° 的睡眠产品不安全；不要使用床中床、婴儿巢、吊床、纸箱床等非标准产品。</li>
+        <li><strong>床内清空</strong>：除紧绷床单外<strong>什么都不放</strong>——不放枕头、被子、毛毯、床围、毛绒玩具、防滚垫、床垫软垫。怕冷就<strong>增加穿着层数或用睡袋</strong>，而不是盖被子（防止蒙头与缠绕）。</li>
+        <li><strong>同房不同床</strong>：睡在父母房间、靠近父母床，但<strong>在独立的婴儿床/摇篮里</strong>，<strong>至少前 6 个月</strong>（出生后 90% 的突发意外死亡发生在前 6 个月）。</li>
+        <li><strong>绝不在沙发、扶手椅、软垫上睡</strong>：无论是否有人陪，风险可高至约 67 倍，是 AAP 最强烈禁止的情形。</li>
+        <li><strong>避免过热</strong>：穿盖比成人多一层即可；出汗、面颊发红、胸部发烫都是过热信号；<strong>不要给室内婴儿戴帽子</strong>（出生最初数小时与 NICU 除外）。</li>
+        <li><strong>安抚奶嘴</strong>：睡眠时使用可降低 SIDS 风险。母乳喂养儿等母乳喂养稳定、奶量充足、体重增长正常后再引入；不强迫、睡着后掉落不必塞回。</li>
+        <li><strong>远离烟、酒与药物</strong>：孕期与产后不吸烟、不饮酒、不使用大麻与违禁药物；避免二手烟与三手烟环境。</li>
+        <li><strong>按时接种疫苗</strong>：没有证据表明疫苗与 SIDS 相关，接种可能反而有保护作用。</li>
+        <li><strong>不要依赖家用监护设备</strong>：家用心肺监护仪、可穿戴血氧/心率监测设备未被证实能降低 SIDS 风险，可能带来虚假安全感。</li>
+        <li><strong>清醒时趴着玩（tummy time）</strong>：在医院回家后即可开始，每天多次短时进行，需<strong>成人全程看护</strong>——有助于运动发育并减少扁头。</li>
+        <li><strong>婴儿在汽车安全座椅、推车、摇椅、背带中睡着时</strong>，到达目的地后应尽快转移到平坦的睡眠表面，不要让孩子长时间在里面睡。</li>
+      </ol>
+      <div class="callout danger">
+        <span class="t">关于襁褓与"防惊跳"</span>
+        襁褓要注意：紧贴但不压迫胸腹、<strong>一旦孩子开始尝试翻身（多约 3 月龄）就应停止包裹</strong>，否则翻身后面朝下无法自救；不要在襁褓外加盖毯子。市面上任何宣称"防 SIDS""防猝死"的睡垫、体位固定器、监测器都不被推荐。
+      </div>
+      <div class="callout warn">
+        <span class="t">关于同床睡</span>
+        现有证据不足以支持推荐同床睡。AAP 尊重很多家庭的现实选择，但明确列出高危情形（如父母吸烟、饮酒或使用镇静药物、极度疲劳、早产儿/低出生体重儿）。如果选择同床，至少要做到：硬床垫、无多余被褥枕头、不将婴儿置于成人之间、不在沙发/水床/软床上睡，并当面咨询医生评估家庭具体情况。
+      </div>
+    </div>
+
+    <div class="card">
+      <h3>睡眠环境清单</h3>
+      <div class="grid2">
+        <div class="mini"><b>温度与湿度</b>室温 22～26 ℃、湿度 50%～60% 较为舒适；判断冷热摸<strong>后颈与胸背</strong>，不以手脚温度为准。</div>
+        <div class="mini"><b>光线</b>夜间睡眠保持昏暗安静；白天小睡不必完全遮光，帮助建立昼夜节律。</div>
+        <div class="mini"><b>噪声</b>可用持续、低音量的白噪音（约 40～60 分贝），播放设备远离婴儿床，不要整夜大音量播放。</div>
+        <div class="mini"><b>床的位置</b>远离窗户、窗帘绳、暖气、电线、悬挂物与可攀爬家具。</div>
+      </div>
+    </div>
+
+    <div class="card">
+      <h3>建立入睡习惯：从依赖抱睡到自己入睡</h3>
+      <ul>
+        <li><strong>识别困倦信号</strong>：揉眼、打哈欠、眼神发直、烦躁哭闹。过度疲劳反而更难入睡，抓住信号及时安排睡觉。</li>
+        <li><strong>固定睡前流程</strong>：约 15～30 分钟，顺序一致，如：洗澡 → 换尿布穿睡袋 → 关灯调暗 → 安静哼唱/讲故事 → 放进小床。流程本身就是睡眠信号。</li>
+        <li><strong>在"困但还醒着"时放下</strong>：让入睡发生在小床上，而不是在怀里睡着后再转移——这是减少夜醒求助的关键。</li>
+        <li><strong>逐渐减少抱睡、摇睡、奶睡</strong>：我国托育保育指导也明确提出减少抱睡、摇睡等安抚行为；可先缩短怀抱时间，改为床上轻拍、低声安抚。</li>
+        <li><strong>夜醒是正常的</strong>：婴儿睡眠周期短，夜间醒来会再入睡需要练习；夜醒时先观察片刻，用低刺激方式安抚（轻拍、低声），避免开大灯、抱起玩耍、喂食成为习惯性依赖（新生儿期按需喂养除外）。</li>
+        <li><strong>白天小睡</strong>：避免傍晚过晚的小睡影响夜间入睡；1～2 岁通常 1～2 次，3 岁多为 1 次午睡，午睡不宜过晚过长。</li>
+      </ul>
+      <div class="callout">
+        <span class="t">睡眠中的观察</span>
+        照护者应留意睡眠时的<strong>面色、呼吸与睡姿</strong>：呼吸暂停、面色发青或苍白、异常出汗、异常打鼾或张口呼吸，都应就医评估。
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= 04 穿衣与环境 ================= -->
+  <section id="wear">
+    <h2 class="sec"><span class="n">04</span>穿：穿衣与环境温度</h2>
+
+    <div class="card">
+      <h3>穿多少：比成人多一层</h3>
+      <ul>
+        <li><strong>通用原则</strong>：婴儿比成人<strong>多穿一层</strong>即可（AAP 安全睡眠建议的表述是"比成人在同样环境中舒适穿着多一层"）。这不是"越多越好"。</li>
+        <li><strong>怎么判断</strong>：摸<strong>后颈和胸背</strong>——温热干爽=合适；出汗潮湿、面颊发红、烦躁=过热；后颈发凉=偏冷。<strong>手脚偏凉是正常的</strong>，因为末梢循环尚未发育完善，不能以此判断冷热。</li>
+        <li><strong>过热的危害</strong>：过度包裹与蒙头是睡眠相关死亡的危险因素之一，比"稍微凉一点"危险得多。</li>
+        <li><strong>分层穿</strong>：用"薄内层 + 可加减的中间层"的方式，方便随室内外温差、活动量随时增减。外出时多带一件。</li>
+        <li><strong>睡眠时</strong>：用睡袋（按体重选厚度 TOG 值）替代被子；穿睡袋时里面衣服应相对轻薄，避免"睡袋 + 厚衣 + 盖被"三重叠加。</li>
+      </ul>
+      <div class="table-wrap">
+        <table>
+          <caption>穿衣参考（仅作一般参考，须结合孩子个体与活动状态调整）</caption>
+          <thead><tr><th>环境</th><th>参考着装</th><th>提醒</th></tr></thead>
+          <tbody>
+            <tr><td>室温 24～26 ℃</td><td>薄棉连体衣（短袖或长袖单层）</td><td>多数室内无需帽子</td></tr>
+            <tr><td>室温 20～23 ℃</td><td>棉质长袖连体衣 + 薄睡袋/薄外套</td><td>活动后摸后颈加减</td></tr>
+            <tr><td>室温 &lt;20 ℃</td><td>内层 + 夹层 + 睡袋/厚外套</td><td>仍应避免蒙头与过度包裹</td></tr>
+            <tr><td>夏季外出</td><td>轻薄透气浅色衣物、遮阳帽、遮阳篷</td><td>避开正午强晒时段；6 月龄内避免阳光直射</td></tr>
+            <tr><td>冬季外出</td><td>分层 + 防风外套 + 帽子（户外）</td><td>进入室内及时脱帽脱外层</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <div class="card">
+      <h3>衣物选择与护理</h3>
+      <ul>
+        <li><strong>材质</strong>：优先柔软透气的纯棉、浅色；新生儿衣物洗涤后穿着，减少残留化学物质刺激。</li>
+        <li><strong>安全细节</strong>：<strong>不穿带帽绳、长系带</strong>的衣服（勒颈风险）；纽扣、装饰物要牢固；不佩戴项链、手链、发卡等小物件；袜子要合脚防滑（学步期）。</li>
+        <li><strong>纸尿裤/尿布</strong>：选择透气、吸水好、尺寸合适的产品；腰腿处不勒出红痕；新生儿脐带未脱落时，<strong>前缘向下折叠</strong>避开残端。</li>
+        <li><strong>洗涤</strong>：与大人的内衣分开洗，用婴幼儿专用或温和无香洗涤剂，充分漂洗；不用柔顺剂（残留易刺激皮肤）；阳光晾晒或烘干。</li>
+        <li><strong>更换频率</strong>：纸尿裤一般每 2～3 小时检查一次，排便后立即更换；夏季出汗多时及时换衣。</li>
+      </ul>
+    </div>
+
+    <div class="card">
+      <h3>居家环境</h3>
+      <div class="grid2">
+        <div class="mini"><b>温湿度</b>室温 22～26 ℃、湿度 50%～60%；冬季取暖注意加湿，但加湿器需每日换水、定期清洁。</div>
+        <div class="mini"><b>通风</b>每天开窗通风 2～3 次，每次 20～30 分钟；通风时把孩子移到其他房间避风。</div>
+        <div class="mini"><b>空气与烟</b>家中全面禁烟（含阳台、卫生间、车内）；避免香薰、杀虫剂、强清洁剂气味。</div>
+        <div class="mini"><b>光照</b>保证白天有自然光照射，有助于昼夜节律；夜间睡眠保持昏暗。</div>
+        <div class="mini"><b>宠物</b>有宠物的家庭要防止抓咬、避免婴儿与宠物独处，宠物驱虫与免疫按期进行。</div>
+        <div class="mini"><b>噪声</b>远离装修、KTV、工业噪声等强声环境；不使用耳机。</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= 05 清洁护理 ================= -->
+  <section id="hygiene">
+    <h2 class="sec"><span class="n">05</span>住：清洁与日常护理</h2>
+
+    <div class="card">
+      <h3>洗澡</h3>
+      <ul>
+        <li><strong>环境</strong>：关闭门窗，浴室温度约 <strong>26～28 ℃</strong>，提前备好干净衣物、纸尿裤、浴巾、润肤霜，减少抱出时的温差刺激。</li>
+        <li><strong>水温</strong>：<strong>38～40 ℃</strong>（用手肘内侧或水温计试温，以不烫为宜）；湿疹宝宝可略低（约 37 ℃）。</li>
+        <li><strong>时间</strong>：每次 <strong>5～10 分钟</strong>，不宜过长。</li>
+        <li><strong>频率</strong>：不必每天使用沐浴露。夏季可每天洗，春秋约 2～3 天一次，冬季 3～5 天一次（视活动量与出汗）；平日可用温水擦拭面部、颈部褶皱与会阴部。早产儿/低体重儿出生 1 周内以擦浴为主。</li>
+        <li><strong>步骤</strong>：先洗脸（由内眼角向外），再洗头（托住头颈、护住耳朵），最后洗身体；重点清洁颈部、腋下、腹股沟等褶皱处；洗后立即用浴巾轻轻<strong>蘸干</strong>（不搓擦），褶皱处尤其要擦干。</li>
+        <li><strong>洗后</strong>：3 分钟内涂抹婴幼儿保湿霜，锁住水分。<strong>胎脂不必强洗</strong>，会自然吸收。</li>
+        <li><strong>安全</strong>：<strong>一秒钟都不能离开</strong>——哪怕接电话、开门，也必须先把孩子抱出。浴盆内水深不超过几厘米，绝不让孩子单独留在水中。</li>
+      </ul>
+    </div>
+
+    <div class="card">
+      <h3>脐带护理（新生儿期）</h3>
+      <ol class="steps">
+        <li><strong>保持干燥清洁</strong>：残端与脐窝保持干燥是预防脐炎的关键；洗澡时尽量避免浸泡，或洗后立即擦干并消毒。</li>
+        <li><strong>消毒方法</strong>：用棉签蘸 <strong>75% 酒精或碘伏</strong>，从脐窝中心由内向外螺旋擦拭，每天 1～2 次（具体遵医生或访视人员指导）。</li>
+        <li><strong>避免摩擦</strong>：纸尿裤前缘向下折叠，不遮盖残端，防止尿液浸湿。</li>
+        <li><strong>脱落时间</strong>：一般出生后 <strong>1～2 周</strong> 自然脱落；脱落后可继续消毒 2～3 天至完全愈合，可能有少量血丝属常见。</li>
+      </ol>
+      <div class="callout danger">
+        <span class="t">脐部异常信号（需就医）</span>
+        脐周<strong>红肿、发热、有脓性分泌物或臭味、渗血不止、脐部有肉芽样突起、孩子哭闹拒奶或发热</strong>。不要自行涂抹偏方粉末或药膏。
+      </div>
+    </div>
+
+    <div class="card">
+      <h3>黄疸：怎么判断、什么时候必须就医</h3>
+      <ul>
+        <li><strong>生理性黄疸</strong>：约 60% 足月儿、80% 早产儿会出现；多在出生后 <strong>2～3 天</strong> 出现，<strong>7～10 天</strong> 消退（早产儿可延至 3～4 周）。</li>
+        <li><strong>有助消退</strong>：早期充分喂养有助于胆红素排出；可在自然光下观察黄染范围与程度。</li>
+        <li><strong>观察方法</strong>：在自然光下看皮肤与眼白；留意尿色、大便颜色（大便变白/陶土色是危险信号）、吃奶与精神状态。</li>
+      </ul>
+      <div class="callout danger">
+        <span class="t">黄疸就医指征</span>
+        出生 <strong>24 小时内</strong> 即出现黄染；黄染<strong>迅速加重、10 天后仍不消退或反而加深</strong>；伴嗜睡、吸奶无力、拒奶、尖声哭叫、呕吐、大便颜色变浅或发白。这些提示可能是病理性黄疸，需尽快就诊评估，必要时光疗。<strong>不要靠晒太阳"晒退"严重黄疸，也不要自行喂葡萄糖水。</strong>
+      </div>
+    </div>
+
+    <div class="card">
+      <h3>皮肤护理</h3>
+      <h4>日常保湿</h4>
+      <ul>
+        <li>新生儿皮肤屏障薄弱，洗澡后 3 分钟内涂抹无香精婴幼儿保湿霜；干燥季节或湿疹宝宝每天可用 2～3 次。</li>
+        <li>选用温和、弱酸性、无香精的清洁与护肤产品；不随意使用成人护肤品与精油。</li>
+      </ul>
+      <h4>湿疹（特应性皮炎）</h4>
+      <ul>
+        <li><strong>核心是保湿与减少刺激</strong>：足量、频繁使用保湿剂；洗澡水温约 36～38 ℃、时间 5～10 分钟；穿柔软宽松纯棉衣物；居室凉爽通风清洁。</li>
+        <li><strong>避免诱因</strong>：尘螨、宠物毛屑、化纤与羊毛衣物、刺激性洗涤剂、过热出汗。</li>
+        <li><strong>剪指甲／夜间可戴棉手套</strong>，避免抓破继发感染。</li>
+        <li><strong>用药遵医嘱</strong>：外用糖皮质激素是控制炎症的一线药物，<strong>不要自行购买或自行停药</strong>，也不要用"纯天然"偏方替代；合并感染（脓疱、黄痂渗液、周围红肿）需就医使用抗菌药物。</li>
+      </ul>
+      <h4>尿布疹（红屁股）</h4>
+      <ul>
+        <li><strong>预防</strong>：勤换尿布，便后立即用温水冲洗（不用含酒精/香精湿巾反复擦），轻拍吸干；每天让臀部暴露空气一段时间；选用透气纸尿裤、尺寸合适。</li>
+        <li><strong>护理</strong>：每次清洁后涂<strong>氧化锌或凡士林类护臀霜</strong>形成保护层；<strong>不用爽身粉</strong>（吸水结块反而刺激）。</li>
+        <li><strong>就医</strong>：皮疹持续加重、出现水疱脓疱、渗液溃烂、鲜红色边界清晰的斑块（可能合并念珠菌）、伴发热，应及时就诊。</li>
+      </ul>
+    </div>
+
+    <div class="card">
+      <h3>口腔护理</h3>
+      <ul>
+        <li><strong>开始时间</strong>：<strong>萌出第一颗乳牙</strong> 就应开始清洁牙齿。出牙前可用清洁纱布蘸温开水轻轻擦拭牙龈与口腔黏膜。</li>
+        <li><strong>工具</strong>：按出牙情况选用纱布、指套牙刷或儿童软毛牙刷，<strong>早晚各一次</strong>，家长帮助完成（6 岁以下都需家长协助/监督）。</li>
+        <li><strong>含氟牙膏用量</strong>：<strong>3 岁以下用薄薄一层（米粒大小）</strong>，3～6 岁用豌豆大小；用后擦去泡沫或吐出，不必强行漱口。</li>
+        <li><strong>防奶瓶龋</strong>：不要让孩子含着奶瓶（尤其含奶、果汁）入睡；睡前清洁牙齿后只喝白水。</li>
+        <li><strong>首次口腔检查</strong>：第一颗乳牙萌出后（约 6 月龄）即可进行，<strong>最迟不超过 1 岁</strong>；此后建议每 3～6 个月检查一次。我国 5 岁儿童乳牙龋患率高达 71.9%，早预防很关键。</li>
+        <li><strong>出牙期不适</strong>：牙龈肿胀、流口水、爱咬东西常见，可给冷藏（非冷冻）的牙胶。避免使用含局麻药成分的"出牙凝胶"。</li>
+      </ul>
+    </div>
+
+    <div class="card">
+      <h3>五官与私处护理</h3>
+      <ul>
+        <li><strong>眼睛</strong>：用干净湿棉球由内眼角向外擦拭分泌物，一次一颗；分泌物增多、眼白发红、畏光需就医。避免强光直射与长时间近距离用眼；<strong>2 岁以内不建议看电子屏幕</strong>。</li>
+        <li><strong>耳朵</strong>：<strong>不要自行掏耳朵</strong>，不要用棉签深入外耳道；洗澡游泳防止进水与呛水；远离强噪声与耳机；避免头部耳部外伤。</li>
+        <li><strong>鼻子</strong>：鼻塞可用生理性海水鼻喷剂或滴剂软化后轻揉鼻翼，让分泌物自行排出；不强行抠挖。打喷嚏、轻微鼻塞在婴儿中很常见。</li>
+        <li><strong>私处</strong>：女婴由前向后擦拭，避免粪便污染尿道口；男婴不强行翻洗包皮，用清水清洗外部即可。发现红肿、分泌物异常、排尿哭闹应就医。</li>
+        <li><strong>指甲</strong>：用婴儿专用圆头指甲剪，趁睡眠或安静时修剪，剪平并磨圆边缘，防止抓伤面部（不要剪得过短）。</li>
+      </ul>
+    </div>
+
+    <div class="card">
+      <h3>用品清洁</h3>
+      <ul>
+        <li><strong>奶瓶与吸奶器</strong>：每次使用后立即清洗，专用刷子刷洗缝隙，消毒（蒸汽、煮沸或消毒器）并干燥存放；吸奶器管路若发霉立即更换。</li>
+        <li><strong>玩具</strong>：入口玩具每天清洗消毒；毛绒玩具定期洗涤晾晒；玩具出现破损、掉漆、小零件松动立即弃用。</li>
+        <li><strong>床上用品</strong>：床单、睡袋定期清洗（婴儿床内保持清空）；不要使用床围。</li>
+        <li><strong>抚触与按摩</strong>：可在洗澡后进行轻柔抚触（室温 ≥26 ℃、双手温暖、力度轻柔），有助于亲子联结与放松；脐带未脱落、皮肤破损或有感染时避开相应部位。</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- ================= 06 出行 ================= -->
+  <section id="travel">
+    <h2 class="sec"><span class="n">06</span>行：出行与安全座椅</h2>
+
+    <div class="card">
+      <h3>乘车安全：这是婴幼儿最容易被低估的致命风险</h3>
+      <ul>
+        <li><strong>必须使用儿童安全座椅</strong>：我国法规规定 4 岁以下儿童乘车必须使用儿童安全座椅，12 岁以下不得坐副驾驶。研究表明正确使用安全座椅可显著降低婴儿死亡风险（相关研究提示可降低约 71%）。</li>
+        <li><strong>反向安装</strong>：不满 1 岁（我国指南表述）／2 岁以下（多方专业建议）应使用<strong>反向（面朝后）</strong>座椅；反向安装能把碰撞冲击力分散到背部与头颈支撑区，大幅降低颈椎损伤风险。</li>
+        <li><strong>安装位置</strong>：<strong>后排</strong>，中间位置通常最安全（若车型中间不适合安装则用两侧）。</li>
+        <li><strong>绝不怀抱乘车</strong>：碰撞瞬间成人根本抱不住，孩子会成为"人肉气囊"。</li>
+        <li><strong>厚外套先脱</strong>：穿厚羽绒服或棉服坐座椅会因压缩产生松动间隙，应脱掉外套或盖在安全带外面；安全带应贴身、无扭曲、无多余松弛。</li>
+        <li><strong>3 个月以下</strong>颈部力量薄弱，需使用带新生儿头枕/内衬的座椅并确保头部有支撑、气道不被压迫；座椅倾斜角度按产品说明。</li>
+        <li><strong>绝不单独留孩子在车内</strong>：熄火后车内温度可迅速升高或降低，婴儿体温调节能力差，体温下降速度比成人快，短时间内即可致命。把包或手机放在后排，提醒自己下车必查。</li>
+        <li><strong>车内物品</strong>：不要放可移动的硬物、带吸盘玩具、模型等，急刹时会成为抛射物；安全气囊附近严禁放置物品。</li>
+      </ul>
+      <div class="callout warn">
+        <span class="t">二手座椅与事故后座椅</span>
+        来源不明、无使用说明、超过使用年限、或经历过碰撞事故的安全座椅<strong>不要继续使用</strong>；也不要使用网上购买的"通用型减震垫"改变座椅结构。
+      </div>
+    </div>
+
+    <div class="card">
+      <h3>抱、背、推：日常出行姿势与器具</h3>
+      <ul>
+        <li><strong>抱姿</strong>：始终<strong>托住头颈</strong>（3 月龄内尤其重要）；横抱时保持头部略高；不要单手拎腋下、不要剧烈摇晃。</li>
+        <li><strong>竖抱拍嗝</strong>：让头靠在肩上，一手托住头背，另一手拍背，不给颈部独立承重压力。</li>
+        <li><strong>背带/背巾</strong>：选能支撑头颈、让髋关节呈"青蛙腿"（膝高于臀、大腿外展）的产品；不遮挡口鼻、保持呼吸道通畅；早产儿、呼吸不稳或体重过轻者慎用，须咨询医生。</li>
+        <li><strong>推车</strong>：可平躺的推车更安全（新生儿不长时间坐斜躺式）；使用五点式安全带；停稳一定锁刹车，不挂在把手上的重物以防翻倒；不让孩子单独留在推车中睡觉过久。</li>
+      </ul>
+    </div>
+
+    <div class="card">
+      <h3>户外活动、日晒与防虫</h3>
+      <ul>
+        <li><strong>户外时长</strong>：鼓励每天户外活动。WHO 建议：1～2 岁与 3～4 岁儿童每天各种强度的身体活动累计<strong>不少于 180 分钟</strong>；不足 1 岁的婴儿每天多次活动，清醒时<strong>俯卧（趴着玩）累计至少 30 分钟</strong>，且每次被束缚（推车、安全座椅、高脚椅、背着）<strong>不超过 1 小时</strong>。</li>
+        <li><strong>日光</strong>：适度日晒有助于合成维生素 D，但 6 月龄以内应<strong>避免阳光直射</strong>，以遮阳伞、衣物、帽子等物理遮挡为主；6 月龄以上可使用适合婴幼儿的防晒产品并注意及时补涂。</li>
+        <li><strong>时间选择</strong>：夏季避开上午 10 点至下午 4 点强紫外线时段；冬季注意保暖但不要过度包裹。</li>
+        <li><strong>防蚊虫</strong>：优先物理防蚊（蚊帐、长袖、纱窗）；2 月龄以内不建议使用化学驱蚊剂，2 月龄以上按产品说明选择适合儿童的浓度并避免涂抹手部（防止入口）。被虫咬后局部冷敷，出现大面积红肿、发热、化脓需就医。</li>
+        <li><strong>环境安全</strong>：外出前检查活动场地：远离车道、车库、水边、台阶、破损设施；避免去人多拥挤易发生踩踏的场所。</li>
+      </ul>
+      <div class="callout danger">
+        <span class="t">溺水是一岁后意外死亡的重要原因</span>
+        婴儿在家中的水盆、浴缸、水桶、马桶中即可溺水：<strong>水深几厘米就足以致命</strong>。任何时候只要有水，就必须有人一臂距离内全程看护；用完立即清空水盆、盖上马桶盖、关好浴室门。户外水域（含充气泳池）必须有成人贴身看护，不能靠"我就在旁边看着手机"。
+      </div>
+    </div>
+
+    <div class="card">
+      <h3>带娃外出与旅行的实用清单</h3>
+      <div class="grid2">
+        <div class="mini"><b>喂养用品</b>母乳/配方奶或辅食、奶瓶与清洁用品、围兜、保温水杯、一次性围兜或餐垫。</div>
+        <div class="mini"><b>更换用品</b>足量纸尿裤、湿巾或纱布、防水垫、备用衣物（至少 1～2 套）、脏衣袋。</div>
+        <div class="mini"><b>健康用品</b>体温计、退热药（遵医嘱并知剂量）、口服补液盐、创可贴、保湿霜、驱蚊/防晒（按龄）、常用药与孩子病历/过敏信息卡。</div>
+        <div class="mini"><b>安全用品</b>安全座椅或背带、遮阳篷、防走失措施（人多场所牵手腕或使用防走失带）。</div>
+        <div class="mini"><b>时间安排</b>吃完奶后半小时再出发；途中安排休息，避免长时间被束缚；保持规律作息与接种计划。</div>
+        <div class="mini"><b>行程原则</b>疾病期、发热期、刚接种后 24～48 小时内尽量不远行；有基础疾病的孩子出行前咨询医生。</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= 07 疾病照护 ================= -->
+  <section id="health">
+    <h2 class="sec"><span class="n">07</span>疾病与家庭照护</h2>
+
+    <div class="card">
+      <h3>发热：先看年龄和状态，不只看体温数字</h3>
+      <ul>
+        <li><strong>测温</strong>：婴幼儿推荐<strong>腋温</strong>（更安全易行）或耳温/额温（需注意操作误差）。腋温 ≥37.3～37.5 ℃ 可视为发热；≥38.5 ℃ 为较高热；39 ℃ 以上为高热。建议固定部位与方法，记录体温曲线与伴随症状。</li>
+        <li><strong>核心原则</strong>：<strong>退热的目标是让孩子舒服，不是把数字压到正常</strong>。若体温较高但精神好、能吃能玩，可先观察与物理降温；若明显不适（烦躁、睡不好、酸痛），再考虑用药。</li>
+      </ul>
+      <div class="table-wrap">
+        <table>
+          <caption>退热药使用要点（务必按体重计算；首次使用前建议咨询医生或药师）</caption>
+          <thead><tr><th>药物</th><th>可用月龄</th><th>单次剂量</th><th>间隔</th><th>每日上限</th></tr></thead>
+          <tbody>
+            <tr><td>对乙酰氨基酚</td><td>≥2 月龄</td><td>10～15 mg/kg</td><td>4～6 小时</td><td>不超过 75 mg/kg/日</td></tr>
+            <tr><td>布洛芬</td><td>≥6 月龄</td><td>5～10 mg/kg</td><td>6～8 小时</td><td>不超过 40 mg/kg/日</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <ul>
+        <li><strong>禁用</strong>：阿司匹林（可能引发瑞氏综合征）、安乃近等；<strong>不要给婴幼儿服用成人药或复方感冒药</strong>（成分重复易过量，含退热成分的复方药尤甚）。</li>
+        <li><strong>不要常规交替使用两种退热药</strong>，除非医生明确指示。两次用药之间不加服同类药物。</li>
+        <li><strong>物理降温</strong>：减少衣物、保持室温 22～26 ℃、多喂奶/水、少量多次补充口服补液盐；可用温水（约 32～34 ℃）擦拭颈部、腋窝、腹股沟。<strong>禁止酒精擦浴</strong>（可致中毒）与冰水/冰袋直接接触皮肤（易引起寒战）。</li>
+        <li><strong>绝不捂汗</strong>：捂被发汗会阻碍散热，可使体温进一步升高甚至诱发惊厥。</li>
+      </ul>
+      <div class="callout danger">
+        <span class="t">发热必须立即就医的情形</span>
+        <ul style="margin:.3em 0 0">
+          <li><strong>3 月龄以下婴儿出现发热</strong>（无论体温高低）——免疫系统不成熟，可能是严重感染；</li>
+          <li>高热持续不退（39 ℃ 以上超过 2～3 天）、反复发热超过 3 天；</li>
+          <li>伴抽搐、颈项强直、意识不清、精神萎靡、难以唤醒；</li>
+          <li>伴呼吸急促/费力、口唇发紫、面色发灰、大片皮疹或瘀点；</li>
+          <li>伴剧烈呕吐、频繁腹泻、明显脱水（尿少、哭无泪、口唇干、前囟凹陷）；</li>
+          <li>有先天性心脏病、免疫缺陷、癫痫等基础疾病。</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="card">
+      <h3>热性惊厥：家长该做什么、不该做什么</h3>
+      <ol class="steps">
+        <li><strong>保持镇定，把孩子放到平坦安全处</strong>（地上或大床上），移开周围硬物与尖角物件。</li>
+        <li><strong>侧卧、解开衣领</strong>，让口鼻分泌物自然流出，避免误吸。</li>
+        <li><strong>不要往嘴里塞任何东西</strong>（手指、筷子、毛巾都不行，可能造成牙齿损伤或窒息）；不要强行按压四肢；不要掐人中。</li>
+        <li><strong>记录发作时间、表现</strong>（哪侧肢体、是否双眼上翻、有无意识丧失），这对医生判断非常重要。</li>
+        <li><strong>多数发作在 1～3 分钟内自行停止</strong>；若超过 5 分钟、反复发作或发作后长时间未清醒，<strong>立即拨打 120</strong>。</li>
+        <li>发作停止后尽快就医评估病因（尤其首次发作）。</li>
+      </ol>
+    </div>
+
+    <div class="card">
+      <h3>腹泻、呕吐与脱水</h3>
+      <ul>
+        <li><strong>腹泻</strong>：继续喂养（母乳/配方奶照常，不必人为稀释），避免高糖饮品（果汁、汽水会加重腹泻）。</li>
+        <li><strong>补液是核心</strong>：使用<strong>口服补液盐（ORS）</strong>，<strong>少量、多次</strong>喂（小勺或喂药器每次几毫升），不要一次大量灌。ORS 应按说明用<strong>干净水</strong>整包配比，不要自行调整浓度。</li>
+        <li><strong>不要自行用止泻药</strong>（尤其含洛哌丁胺等成分）与成人肠胃药；也不常规使用抗生素，除非医生明确需要。</li>
+        <li><strong>呕吐</strong>：暂停 10～15 分钟后小量补液，逐步增加；呕吐后保持侧卧清理口鼻。</li>
+        <li><strong>继续进食</strong>：可给易消化的软食（粥、面条、软饭），暂停新辅食；腹泻好转后逐步恢复正常饮食。</li>
+      </ul>
+      <div class="callout danger">
+        <span class="t">脱水与就医信号</span>
+        尿量明显减少（6 小时以上无尿或尿布持续干）、哭时无泪、口唇干燥、前囟或眼窝凹陷、精神萎靡、皮肤弹性差；
+        大便带血或呈果酱样（警惕肠套叠）、持续剧烈呕吐、腹痛阵发性哭闹不止、高热不退——<strong>立即就医</strong>。
+      </div>
+    </div>
+
+    <div class="card">
+      <h3>便秘、肠绞痛与胀气</h3>
+      <ul>
+        <li><strong>便秘的判断</strong>：不只是"几天没拉"，而是<strong>大便干硬、排便费力疼痛</strong>。纯母乳喂养儿数天一次软便可能是正常的（攒肚）。</li>
+        <li><strong>家庭处理</strong>：增加含纤维的辅食（蔬果泥、全谷物）；保证水分；顺时针轻柔按摩腹部、做蹬自行车样屈腿运动；建立固定排便习惯（餐后坐便盆）。<strong>不自行使用开塞露或泻药</strong>（需遵医嘱）。</li>
+        <li><strong>肠绞痛</strong>：多见于 0～4 月龄，表现为傍晚定时、难以安抚的长时间哭闹，生长发育正常。常用安抚方法：襁褓包裹、飞机抱（俯卧于前臂、头略侧偏）、轻拍背部或顺时针按摩腹部、白噪音、轻柔走动。</li>
+        <li><strong>胀气</strong>：正确含乳/防胀气奶瓶减少吞气；喂后拍嗝 10～15 分钟；喂后 1 小时顺时针按摩腹部。</li>
+        <li><strong>需要就医</strong>：哭闹伴发热、呕吐、血便、腹部明显胀硬、体重不增、哭声尖锐或阵发性加剧（警惕肠套叠），或 4 月龄后仍持续剧烈哭闹。</li>
+      </ul>
+    </div>
+
+    <div class="card">
+      <h3>呼吸道症状与常见感染</h3>
+      <ul>
+        <li><strong>感冒/上呼吸道感染</strong>：多为病毒性、有自限性。处理重点是<strong>补液、鼻腔清洁（生理性海水）、保证睡眠与湿度</strong>。<strong>不给婴幼儿使用复方感冒药与镇咳药</strong>（副作用风险大、获益有限）；不要用蜂蜜（1 岁内禁）。</li>
+        <li><strong>呼吸困难的信号</strong>：呼吸次数明显增快（小婴儿 &gt;60 次/分、安静状态下）、鼻翼扇动、吸气时胸骨上窝或肋间凹陷、口唇发紫、呻吟、呼吸暂停——<strong>立即就医</strong>。</li>
+        <li><strong>中耳炎</strong>：发热、夜间哭闹加重、不断抓耳朵、耳朵流液。<strong>不要自行掏耳或滴药</strong>；需医生检查后决定是否用药。</li>
+        <li><strong>咳嗽</strong>：保持空气湿润、避免烟雾；咳嗽是清除分泌物的保护反射，重点观察呼吸状态而非止咳。</li>
+        <li><strong>皮疹</strong>：伴发热的皮疹、按压不褪色的出血点或瘀斑、迅速扩散的皮疹，均需尽快就医。</li>
+      </ul>
+    </div>
+
+    <div class="card">
+      <h3>过敏反应</h3>
+      <ul>
+        <li><strong>常见表现</strong>：进食后口周红疹、荨麻疹、呕吐腹泻、反复湿疹加重；呼吸道症状（咳嗽、喘鸣、鼻塞）。</li>
+        <li><strong>严重过敏（过敏性休克）</strong>：呼吸困难、喉鸣、声音嘶哑、面色苍白或发绀、精神萎靡、意识不清、皮肤湿冷——<strong>立即拨打 120</strong>，让孩子平卧、抬高下肢（若呼吸费力可取坐位或半坐位）。</li>
+        <li><strong>记录与就医</strong>：初次引入新食物安排在白天，出现反应立即停止该食物并记录进食内容、时间与症状，就医评估；确诊过敏后严格回避并制定应急方案。</li>
+        <li><strong>不要自行做"过敏原检测"或购买成分不明的"脱敏"产品</strong>；不要因担心过敏而无原则推迟辅食引入（见喂养章节）。</li>
+      </ul>
+    </div>
+
+    <div class="card">
+      <h3>家庭用药安全十条</h3>
+      <ol>
+        <li>所有药物放在孩子<strong>看不见、够不到</strong>（最好上锁）的地方；不要在孩子面前把药说成"糖果"。</li>
+        <li>按<strong>体重</strong>计算剂量，使用随药附带的量具（滴管、量杯、喂药器），不用家用汤匙估算。</li>
+        <li>不自行加量、不缩短间隔；两次用药时间要记录（写在纸上或手机备忘录）。</li>
+        <li>不把成人药掰半给婴幼儿；不同时服用成分重复的复方制剂。</li>
+        <li>用药前核对药名、有效期、开瓶日期（滴剂与混悬液开瓶后保存期有限）。</li>
+        <li>抗生素只在医生明确处方时使用，<strong>用足疗程</strong>，不自行停药。</li>
+        <li>喂药时不要捏鼻子强行灌药（呛咳误吸风险），可少量分次或用喂药器沿口角缓慢注入。</li>
+        <li>孩子呕吐、腹泻时谨慎用药，注意脱水状态下的用药调整（遵医嘱）。</li>
+        <li>益生菌等需用温水/温奶冲服（避免高温），与抗生素间隔 2 小时以上。</li>
+        <li>出现药物不良反应（皮疹、明显呕吐、精神异常）立即停药并就医，同时带上药品外包装。</li>
+      </ol>
+    </div>
+  </section>
+
+  <!-- ================= 08 发育里程碑 ================= -->
+  <section id="dev">
+    <h2 class="sec"><span class="n">08</span>发育里程碑与预警信号</h2>
+
+    <div class="card">
+      <h3>怎么用这张表</h3>
+      <p>美国疾控中心（CDC）与美国儿科学会（AAP）在 <strong>2022 年</strong> 联合修订了发育里程碑清单，一个重要变化是：每条里程碑描述的是<strong>约 75% 的同龄儿童</strong>能做到的事（而不是"平均水平"）。含义是：如果孩子<strong>还不会</strong>，他就已经落在少数一侧，值得主动询问医生，而不是等"再大点看看"。</p>
+      <ul>
+        <li>里程碑是<strong>了解与沟通的工具，不是考试</strong>。早几周晚几周都很常见。</li>
+        <li>值得重视的模式：<strong>多个领域同时落后</strong>、<strong>明显晚于该年龄</strong>、或<strong>曾经会的技能退步丢失</strong>。</li>
+        <li>早产儿按<strong>校正月龄</strong>（从预产期算起）评估，通常到 2 岁左右。</li>
+      </ul>
+    </div>
+
+    <div class="card">
+      <h3>0～12 月龄里程碑</h3>
+      <div class="table-wrap">
+        <table>
+          <caption>四大领域：社交情绪 / 语言沟通 / 认知 / 运动与身体</caption>
+          <thead><tr><th>年龄</th><th>社交情绪</th><th>语言沟通</th><th>认知</th><th>运动</th></tr></thead>
+          <tbody>
+            <tr>
+              <td><strong>2 月龄</strong></td>
+              <td>被抱起或说话时会安静；看你的脸；见到你显得高兴</td>
+              <td>哭以外会发出声音；对大声有反应</td>
+              <td>视线会跟随你移动；会盯着玩具看几秒</td>
+              <td>趴着能抬头；四肢活动；手能短暂张开</td>
+            </tr>
+            <tr>
+              <td><strong>4 月龄</strong></td>
+              <td>主动微笑引起你注意；会咯咯笑；用表情动作吸引你</td>
+              <td>发出咿呀声（cooing）；你说话他会回应发声；头转向你的声音</td>
+              <td>看到乳房/奶瓶会张嘴；盯着自己的手看</td>
+              <td>竖抱时头稳；手里放玩具会握住；趴着能用肘撑起</td>
+            </tr>
+            <tr>
+              <td><strong>6 月龄</strong></td>
+              <td>认识熟人；喜欢看镜子里的自己；会大笑</td>
+              <td>和你轮流发音；会吐泡泡；发出尖叫声</td>
+              <td>把东西放进嘴里探索；伸手抓玩具；不想吃时会闭嘴</td>
+              <td>从趴翻到仰卧；趴着双臂撑起；坐着时用手支撑</td>
+            </tr>
+            <tr>
+              <td><strong>9 月龄</strong></td>
+              <td>对陌生人害羞、黏人或害怕；表情丰富；你离开时有反应</td>
+              <td>发出"mamamama""babababa"等重复音节；会伸手要抱</td>
+              <td>东西掉落后会去找；两件物品对敲</td>
+              <td>能自己坐起来；独坐稳；两手传递物品；用手指耙取食物</td>
+            </tr>
+            <tr>
+              <td><strong>12 月龄</strong></td>
+              <td>会玩拍手游戏（如"打哇哇"）；对熟人明显亲昵</td>
+              <td>会挥手再见；会叫"妈妈""爸爸"（有指向）；听懂"不"</td>
+              <td>会把东西放进容器；会找藏起来的东西</td>
+              <td>扶站；扶家具走；扶杯喝水；用拇指食指捏取小物件</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <div class="card">
+      <h3>12～36 月龄里程碑</h3>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>年龄</th><th>社交情绪</th><th>语言沟通</th><th>认知</th><th>运动</th></tr></thead>
+          <tbody>
+            <tr>
+              <td><strong>15 月龄</strong></td>
+              <td>模仿其他孩子玩；把喜欢的东西拿给你看；兴奋时拍手；抱玩偶</td>
+              <td>除"爸爸妈妈"外尝试说 1～2 个词；听到名称会看对应物品；能听懂带手势的指令</td>
+              <td>会尝试正确使用物品（杯子、电话、书）；能叠 2 块积木</td>
+              <td>自己走几步；用手指自己抓东西吃</td>
+            </tr>
+            <tr>
+              <td><strong>18 月龄</strong></td>
+              <td>离开你会回头确认你在；会指给你看有趣的东西；会配合穿衣</td>
+              <td>除"爸爸妈妈"外尝试说 3 个以上词；能执行不带手势的一步指令</td>
+              <td>模仿你做家务；简单玩法（推玩具车）</td>
+              <td>独走稳；会涂画；用杯喝水；自己用手抓饭吃</td>
+            </tr>
+            <tr>
+              <td><strong>24 月龄</strong></td>
+              <td>注意到别人受伤或难过；看别的孩子会互动</td>
+              <td>会说至少两个词的短语（"要奶奶"）；按指令指认书中图片；能指认 2 个身体部位</td>
+              <td>一只手拿东西同时用另一只手做事；会玩简单假装游戏</td>
+              <td>会跑；会踢球；能用勺自己吃饭；能扶栏上下楼梯</td>
+            </tr>
+            <tr>
+              <td><strong>30 月龄</strong></td>
+              <td>和其他孩子并排玩；会展示"这是我的"；开始出现情绪波动与坚持己见</td>
+              <td>约掌握 50 个词；会说"我""我们"；能执行两步指令</td>
+              <td>会用物品假装（如喂玩偶）；能拧开瓶盖</td>
+              <td>双脚跳起；会自己脱部分衣物；能画横线</td>
+            </tr>
+            <tr>
+              <td><strong>36 月龄</strong></td>
+              <td>能和小朋友一起玩、轮流（需引导）；能说出自己的名字与年龄</td>
+              <td>会说短句、能被陌生人听懂大部分；会问"为什么"</td>
+              <td>会玩有情节的假装游戏；能认识常见颜色；能搭高积木</td>
+              <td>会骑三轮车/滑步车；能自己穿脱简单衣物；能单脚站片刻</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="callout">
+        <span class="t">语言发展的提醒</span>
+        语言主要靠"输入"：多和孩子面对面说话、描述正在做的事、读绘本、回应他的发音。
+        <strong>2 岁仍不会说两个词的短语</strong>、<strong>不会模仿动作或词语</strong>、<strong>对呼唤名字没有反应</strong>，应尽快就医评估听力与发育。
+      </div>
+    </div>
+
+    <div class="card">
+      <h3>预警信号：出现以下情况请尽快就医评估</h3>
+      <div class="table-wrap">
+        <table>
+          <caption>国家卫健委《指南》附件"儿童心理行为发育问题预警征象筛查"与国家基本公共卫生服务筛查工具的核心思路</caption>
+          <thead><tr><th>月龄</th><th>预警征象（出现任一即需评估）</th></tr></thead>
+          <tbody>
+            <tr><td>3 月龄</td><td>对很大声音没有反应；逗引时不发音或不会微笑；俯卧时不会抬头</td></tr>
+            <tr><td>6 月龄</td><td>发音少、不会笑出声；紧握拳不松开；不会伸手抓物；不能扶坐</td></tr>
+            <tr><td>8 月龄</td><td>听到声音无应答；不会区分生人与熟人；不会传递玩具；不会独坐</td></tr>
+            <tr><td>12 月龄</td><td>呼唤名字无反应；不会模仿"再见"；不会扶物站立；不会用拇食指对捏小物品</td></tr>
+            <tr><td>18 月龄</td><td>不会有意识叫"爸爸""妈妈"；不会按要求指人或物；与人无目光交流；不会独走</td></tr>
+            <tr><td>24 月龄</td><td>不会说两个词的短语；不会扶栏上楼梯；不会表示大小便需求；不会跑</td></tr>
+            <tr><td>30 月龄</td><td>不会说短句；不会用勺；不会双足跳；兴趣单一、刻板（如长时间只玩同一物品、转圈）</td></tr>
+            <tr><td>36 月龄</td><td>不会说自己的名字；不会和小朋友一起玩；不能理解简单指令；不会模仿成人动作</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="callout warn">
+        <span class="t">任何年龄都要警惕</span>
+        与人对视少、对呼唤名字没有反应、对拥抱等身体接触没有回应、重复刻板动作（转圈、摇晃、排列物品）、语言或技能<strong>退步</strong>——这些都提示需要专业发育评估，不要等待。
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= 09 疫苗 ================= -->
+  <section id="vaccine">
+    <h2 class="sec"><span class="n">09</span>疫苗与接种</h2>
+
+    <div class="card">
+      <h3>为什么必须按时接种</h3>
+      <ul>
+        <li>免疫规划疫苗（一类疫苗）由国家免费提供，监护人应依法保证适龄儿童按时接种；接种记录（预防接种证）入托、入学、出国都要查验。</li>
+        <li>接种可以<strong>推迟但不能提前</strong>：因生病、外出、缺货而延迟，只要补齐全部剂次，通常不影响最终保护效果，但会延后获得保护。</li>
+        <li>没有任何证据表明疫苗与婴儿猝死综合征（SIDS）相关；相反，按时接种可能对降低风险有保护作用。</li>
+      </ul>
+      <div class="callout danger">
+        <span class="t">不要相信的说法</span>
+        「疫苗导致自闭症」已被大规模研究反复否定（原始论文被撤稿）；「一次打两针会伤身体」也不成立——同一月龄需要接种两种及以上免疫规划疫苗时，可同时接种，但应在<strong>不同部位</strong>注射。
+      </div>
+    </div>
+
+    <div class="card">
+      <h3>国家免疫规划疫苗儿童免疫程序（2021 年版，免费一类疫苗）</h3>
+      <div class="table-wrap">
+        <table>
+          <caption>接种时间点为"可以接种该剂次的最小年龄"，达到年龄后应尽早接种</caption>
+          <thead><tr><th>接种时间</th><th>疫苗</th><th>剂次</th><th>预防疾病</th></tr></thead>
+          <tbody>
+            <tr><td>出生时</td><td>乙肝疫苗（HepB）</td><td>第 1 剂（出生 24 小时内完成）</td><td>乙型肝炎</td></tr>
+            <tr><td>出生时</td><td>卡介苗（BCG）</td><td>1 剂（&lt;3 月龄完成）</td><td>结核病（尤其结核性脑膜炎、粟粒性结核）</td></tr>
+            <tr><td>1 月龄</td><td>乙肝疫苗</td><td>第 2 剂</td><td>乙型肝炎</td></tr>
+            <tr><td>2 月龄</td><td>脊灰灭活疫苗（IPV）</td><td>第 1 剂</td><td>脊髓灰质炎</td></tr>
+            <tr><td>3 月龄</td><td>脊灰灭活疫苗 / 百白破（DTaP）</td><td>IPV 第 2 剂；DTaP 第 1 剂</td><td>脊灰、百日咳、白喉、破伤风</td></tr>
+            <tr><td>4 月龄</td><td>脊灰减毒活疫苗（bOPV）/ 百白破</td><td>bOPV 第 1 剂（口服）；DTaP 第 2 剂</td><td>同上</td></tr>
+            <tr><td>5 月龄</td><td>百白破</td><td>第 3 剂</td><td>百日咳、白喉、破伤风</td></tr>
+            <tr><td>6 月龄</td><td>乙肝疫苗 / A 群流脑多糖疫苗（MPSV-A）</td><td>HepB 第 3 剂；MPSV-A 第 1 剂</td><td>乙肝、流行性脑脊髓膜炎</td></tr>
+            <tr><td>8 月龄</td><td>麻腮风疫苗（MMR）/ 乙脑减毒活疫苗（JE-L）</td><td>各第 1 剂</td><td>麻疹、风疹、腮腺炎、流行性乙型脑炎</td></tr>
+            <tr><td>9 月龄</td><td>A 群流脑多糖疫苗</td><td>第 2 剂</td><td>流行性脑脊髓膜炎</td></tr>
+            <tr><td>18 月龄</td><td>百白破 / 麻腮风 / 甲肝减毒活疫苗</td><td>DTaP 第 4 剂；MMR 第 2 剂；HepA 1 剂</td><td>相应传染病</td></tr>
+            <tr><td>2 岁</td><td>乙脑减毒活疫苗（若选灭活疫苗按 4 剂程序）</td><td>第 2 剂</td><td>流行性乙型脑炎</td></tr>
+            <tr><td>3 岁</td><td>A 群 C 群流脑多糖疫苗</td><td>第 1 剂</td><td>流行性脑脊髓膜炎</td></tr>
+            <tr><td>4 岁</td><td>脊灰减毒活疫苗（口服）</td><td>第 2 剂</td><td>脊髓灰质炎</td></tr>
+            <tr><td>6 岁</td><td>白破疫苗（DT）/ A+C 流脑 / 乙脑灭活疫苗</td><td>各 1 剂（按所选程序）</td><td>白喉、破伤风、流脑、乙脑</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p>注：乙脑疫苗有减毒活疫苗（2 剂程序）与灭活疫苗（4 剂程序，第 1、2 剂间隔 7～10 天）两种，按当地供应选择；甲肝也有减毒活疫苗（1 剂）与灭活疫苗（2 剂）两种。二类疫苗（自费）如轮状病毒、手足口病（EV71）、水痘、流感、13 价肺炎球菌结合疫苗等，可与医生讨论后选择接种。具体以当地疾控/接种门诊的安排与最新程序为准。</p>
+    </div>
+
+    <div class="card">
+      <h3>接种前后注意事项</h3>
+      <div class="grid2">
+        <div class="mini"><b>接种前</b>如实告知医生孩子健康状况与过敏史、既往接种反应；发热、急性疾病期一般暂缓；带好预防接种证。</div>
+        <div class="mini"><b>接种后留观</b>必须在接种场所<strong>观察 30 分钟</strong>再离开（急性过敏反应多发生在此期间）。</div>
+        <div class="mini"><b>口服脊灰疫苗</b>服苗前后半小时内不宜进食热食及哺乳。</div>
+        <div class="mini"><b>当日护理</b>接种部位保持清洁，避免搔抓；可正常洗澡（保持针眼清洁干燥）；避免剧烈活动，多饮水，注意休息。</div>
+        <div class="mini"><b>卡介苗正常反应</b>接种后 3～4 周局部出现红肿、小脓疱、破溃结痂，最后留小瘢痕，属正常过程，不必处理；若腋下淋巴结明显肿大或有脓液，应就医。</div>
+        <div class="mini"><b>常见反应</b>接种后少数孩子出现局部红肿疼痛、低热、食欲差，一般 1～2 天自行缓解，不需特殊处理。</div>
+      </div>
+      <div class="callout danger">
+        <span class="t">接种后需立即就医</span>
+        高热持续不退（尤其伴精神萎靡）、抽搐、呼吸困难或喘鸣、面色苍白或发绀、全身大片皮疹/荨麻疹、注射部位严重红肿化脓、持续尖叫哭闹数小时。出现以上情况请立即就诊并告知医生接种时间与疫苗名称。
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= 10 意外伤害预防与急救 ================= -->
+  <section id="firstaid">
+    <h2 class="sec"><span class="n">10</span>意外伤害预防与急救</h2>
+
+    <div class="card">
+      <h3>先记住：急救的通用顺序</h3>
+      <ol class="steps">
+        <li><strong>确保现场安全</strong>（车辆、火源、电线、水、毒物），不要让自己也变成伤员。</li>
+        <li><strong>判断意识与呼吸</strong>：轻拍呼唤，观察胸廓起伏，观察 5～10 秒。</li>
+        <li><strong>呼叫帮助</strong>：能自己打就自己打；不能就请旁人拨打 <strong>120</strong>，并说明地址、孩子月龄、发生了什么、目前状态。</li>
+        <li><strong>不给没有意识的孩子喂水喂食</strong>；怀疑颈椎受伤时不要随意搬动头部。</li>
+        <li><strong>持续观察</strong>并记录时间线，等待救援时保持孩子温暖。</li>
+      </ol>
+    </div>
+
+    <div class="card">
+      <h3>气道异物梗阻（呛噎）：分龄处理</h3>
+      <p>先分清程度：<strong>轻度梗阻</strong>——还能咳嗽、发声、哭、说话，应<strong>鼓励他继续咳嗽</strong>，不要拍背干扰（婴儿可轻拍）；<strong>重度梗阻</strong>——不能发声、不能咳嗽、面色发青、双手抓喉（婴儿表现为无法哭出声），必须立即施救。</p>
+      <h4>1 岁以下婴儿：5 次拍背 + 5 次胸部冲击（严禁腹部冲击）</h4>
+      <ol class="steps">
+        <li>将婴儿<strong>面朝下</strong>放在前臂上，用手稳固托住<strong>下颌</strong>（避免捂住口鼻），保持<strong>头低脚高</strong>，前臂支撑在大腿上。</li>
+        <li>用<strong>掌根</strong>在肩胛骨连线中点连续拍击 <strong>5 次</strong>，力度轻柔但要有明显震荡感。</li>
+        <li>若异物未排出，把婴儿迅速<strong>翻转成面朝上</strong>（仍头低脚高），托住后脑。</li>
+        <li>用<strong>掌根</strong>在<strong>两乳头连线中点下方</strong>做 <strong>5 次胸部冲击</strong>，深度约胸廓前后径的 1/3（新指南推荐掌根按压替代旧的双指按压，力度比拍背稍重）。</li>
+        <li>重复「5 次拍背 + 5 次胸部冲击」，每次循环观察口腔是否有异物排出（能看到才取出，<strong>不要盲目伸指掏挖</strong>）。</li>
+        <li>若婴儿失去意识、呼吸停止，立即开始心肺复苏（见下）并持续到专业人员到达。</li>
+      </ol>
+      <div class="callout danger">
+        <span class="t">为什么不能对婴儿做腹部冲击</span>
+        婴儿腹壁薄弱、肝脾等脏器未发育成熟且位置偏高，腹部冲击极易造成内脏损伤，因此<strong>1 岁以下严禁腹部冲击</strong>。
+      </div>
+      <h4>1 岁以上儿童：5 次背部拍击 + 5 次腹部冲击</h4>
+      <ol class="steps">
+        <li>让孩子身体略前倾、张口，施救者站在其身后或斜后方，双脚前后分开呈弓步保持稳定。</li>
+        <li>用掌根在孩子<strong>肩胛骨连线中点</strong>拍击 5 次。</li>
+        <li>若未排出，转为腹部冲击：一手握拳，拳眼对准<strong>脐上两横指</strong>（避开肚脐与胸骨），另一手包住拳头，向内、向上呈 45° 冲击 5 次。儿童力度约 3～5 kg（远小于成人），避免过度用力造成内脏损伤。</li>
+        <li>交替重复，直至异物排出或孩子失去意识（转为心肺复苏）。</li>
+      </ol>
+      <div class="callout">
+        <span class="t">异物排出后</span>
+        仍需<strong>密切观察至少 15 分钟</strong>，并尽快就医检查（可能有残留异物或并发症）。若发生呕吐，立即将头转向一侧防止二次窒息。
+        <strong>预防</strong>：进食保持坐姿、不说笑不跑动；不给 3 岁以下整粒坚果、果冻、硬糖、整颗葡萄；小物件（硬币、纽扣电池、磁力珠、笔帽、气球）全部收好。
+      </div>
+    </div>
+
+    <div class="card">
+      <h3>心肺复苏（CPR）要点：婴儿与幼儿</h3>
+      <ul>
+        <li><strong>判断</strong>：无反应 + 无正常呼吸（或仅有濒死喘息）→ 立即开始；请旁人或自己开免提拨打 120。</li>
+        <li><strong>婴儿（1 岁以下）</strong>：在坚硬平面上，按压位置为<strong>两乳头连线中点下方</strong>，用<strong>两指</strong>或<strong>双手环抱双拇指</strong>法按压，深度约 <strong>4 cm</strong>（约胸廓前后径 1/3），频率 <strong>100～120 次/分</strong>；每次按压后让胸廓完全回弹。</li>
+        <li><strong>幼儿（1 岁以上）</strong>：可用单手掌根或双手掌根按压胸部中央（胸骨下半段），深度约 <strong>5 cm</strong>，频率 100～120 次/分。</li>
+        <li><strong>通气</strong>：单人施救按 <strong>30 次按压 : 2 次人工呼吸</strong> 循环；不会或不愿做人工呼吸时，持续做<strong>单纯胸外按压</strong>也比不做更好。人工呼吸每次吹气约 1 秒，见到胸廓轻微起伏即可，避免过度用力吹气。</li>
+        <li><strong>不要中断</strong>：除非孩子恢复呼吸或专业人员接手，否则持续按压；AED 若能取得则按语音提示使用（婴儿可用儿科电极片/衰减器）。</li>
+      </ul>
+      <div class="callout warn">
+        <span class="t">强烈建议</span>
+        父母与所有照护者（包括祖辈与保姆）都应参加一次<strong>线下急救培训</strong>并动手练习。文字描述无法替代肌肉记忆。
+      </div>
+    </div>
+
+    <div class="card">
+      <h3>烧烫伤：冲、脱、泡、盖、送</h3>
+      <ol class="steps">
+        <li><strong>冲</strong>：立即用<strong>流动冷水</strong>冲洗创面，<strong>至少 20 分钟</strong>（直到疼痛明显减轻），可降温止痛、减轻损伤深度。<strong>不要用冰块</strong>（可致低体温与冻伤）。</li>
+        <li><strong>脱</strong>：冲洗过程中小心脱去或剪开覆盖的衣物与饰品；若已粘在皮肤上，不要强行撕扯。</li>
+        <li><strong>泡</strong>：面积较小的部位可继续浸在冷水中；<strong>大面积烫伤或小婴儿不要长时间浸泡</strong>，以免体温过低。</li>
+        <li><strong>盖</strong>：用干净、不掉毛的纱布或布单<strong>松松覆盖</strong>创面，防止污染。</li>
+        <li><strong>送</strong>：尽快就医。面积较大、面部/手部/会阴部烫伤、水疱较大、皮肤发白发黑、涉及呼吸道（吸入热烟）者应<strong>立即急诊或拨打 120</strong>。</li>
+      </ol>
+      <div class="callout danger">
+        <span class="t">绝对不要做</span>
+        涂抹<strong>牙膏、酱油、蜂蜜、蛋清、锅灰、紫药水</strong>等任何偏方；不要刺破水疱（保持完整对减少瘢痕很重要）；不要用棉签反复擦拭创面。
+        <strong>预防</strong>：热水杯与锅柄转向内侧、餐桌不用拖到边缘的桌布、热水器水温调至 48 ℃ 以下、电热设备与取暖器加防护、洗澡先放冷水再放热水并用手肘试温。
+      </div>
+    </div>
+
+    <div class="card">
+      <h3>其他常见意外伤害</h3>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>类型</th><th>现场处理</th><th>就医</th></tr></thead>
+          <tbody>
+            <tr>
+              <td>跌落/碰撞</td>
+              <td>不要立即抱起搬动，先观察意识与肢体活动；无异常再抱起安抚；头部着地后 24～48 小时内观察呕吐、嗜睡、瞳孔不等大、抽搐（局部包块可冷敷）</td>
+              <td>失去意识、呕吐（尤其喷射状）、抽搐、嗜睡难唤醒、耳鼻流液或流血、囟门膨隆——立即急诊</td>
+            </tr>
+            <tr>
+              <td>溺水</td>
+              <td>迅速抱离水面，检查呼吸；无呼吸立即 CPR（<strong>溺水急救先给 2～5 次人工呼吸</strong>再开始按压循环）</td>
+              <td>所有溺水事件（即使看起来正常）都必须就医评估</td>
+            </tr>
+            <tr>
+              <td>误服/中毒</td>
+              <td>立即移开毒物、保留包装或呕吐物样本；<strong>不要自行催吐</strong>（强酸强碱、石油类催吐会造成二次损伤）</td>
+              <td>立即拨打 120 或急诊，告知误服物质、量与时间</td>
+            </tr>
+            <tr>
+              <td>触电</td>
+              <td>先切断电源或用干燥绝缘物移开电源，再接触孩子</td>
+              <td>所有触电均需就医（可能有心律与深部损伤）</td>
+            </tr>
+            <tr>
+              <td>鼻出血</td>
+              <td>坐位身体略前倾，捏住鼻翼软骨处持续 10 分钟，冷敷鼻梁；不要仰头（血液流入咽部易呛咳）</td>
+              <td>15～20 分钟仍不止、量大、反复、伴面色苍白</td>
+            </tr>
+            <tr>
+              <td>动物抓咬</td>
+              <td>大量流动水与肥皂冲洗伤口至少 15 分钟，碘伏消毒，不包扎过紧</td>
+              <td>所有咬伤/破皮抓伤均需就医评估狂犬病与破伤风处置</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <div class="card">
+      <h3>家庭安全排查：按月龄逐项过一遍</h3>
+      <div class="grid2">
+        <div class="mini"><b>睡眠区</b>无松软被褥、无床围玩具；婴儿床栏杆间距合格、螺丝牢固；远离窗帘绳与电线。</div>
+        <div class="mini"><b>地面与通道</b>收好小物件与电线；家具尖角装防撞角；楼梯口装安全门；地面防滑、无积水。</div>
+        <div class="mini"><b>厨房</b>热锅柄朝内、不使用垂到边缘的桌布；刀与清洁剂上锁；做饭时孩子不在厨房或固定在安全区。</div>
+        <div class="mini"><b>浴室</b>水盆水桶用完立即清空、马桶盖关闭；热水器限温；不在浴盆中留下孩子独处一秒。</div>
+        <div class="mini"><b>窗户与阳台</b>装限位器与防护栏（间距不能卡住头颈）；不摆放可攀爬家具；不让孩子单独在阳台。</div>
+        <div class="mini"><b>药与化学品</b>药品、洗涤剂、干燥剂、酒精、驱蚊液全部上锁或置于孩子够不到的高处；不存放于饮料瓶中。</div>
+        <div class="mini"><b>玩具</b>无小零件脱落、无尖角、无长绳；气球碎片及时清理；符合年龄段标识。</div>
+        <div class="mini"><b>用电</b>插座装保护盖；台灯、加湿器电线收好；不使用劣质充电设备。</div>
+        <div class="mini"><b>外出</b>安全座椅、牵手法则、反光衣物、避开车辆盲区；不让孩子单独在车内或水边。</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= 11 亲子互动 ================= -->
+  <section id="play">
+    <h2 class="sec"><span class="n">11</span>亲子互动与早期发展</h2>
+
+    <div class="card">
+      <h3>回应性照护：比任何早教课程都重要</h3>
+      <ul>
+        <li><strong>什么是回应性照护</strong>：敏锐察觉孩子的信号（哭声、表情、动作、发声），并及时、恰当地回应。它不是"一哭就抱"的教条，也不是"哭了不抱以免惯坏"的冷漠，而是<strong>稳定、可预期、有温度</strong>的互动。</li>
+        <li><strong>为什么要这样做</strong>：安全依恋是情绪调节、语言与认知发展的地基。孩子通过与主要照护者的大量你来我往，学习"我的信号有用""世界是安全的"。</li>
+        <li><strong>怎么做</strong>：喂奶、换尿布、洗澡、穿衣、散步的每一个日常环节都是互动机会——描述你正在做的事、模仿他的发音、等他的回应、轮流"对话"。</li>
+        <li><strong>避免的两种极端</strong>：长期忽视（哭闹无人回应、很少互动）与过度刺激（不断逗弄、频繁换玩具、屏幕代替人）。</li>
+      </ul>
+    </div>
+
+    <div class="card">
+      <h3>每天该做多少：身体活动与屏幕时间</h3>
+      <div class="table-wrap">
+        <table>
+          <caption>依据 WHO《5 岁以下儿童身体活动、久坐行为与睡眠指南》（2019）与我国指南</caption>
+          <thead><tr><th>年龄</th><th>身体活动</th><th>束缚时间</th><th>屏幕时间</th><th>睡眠</th></tr></thead>
+          <tbody>
+            <tr><td>0～1 岁</td><td>每天多次活动；清醒时<strong>俯卧累计 ≥30 分钟</strong></td><td>每次不超过 1 小时</td><td><strong>不建议</strong>看电子屏幕</td><td>14～17 h（0～3 月）/12～16 h（4～11 月）</td></tr>
+            <tr><td>1～2 岁</td><td>各类活动累计 <strong>≥180 分钟/天</strong></td><td>每次不超过 1 小时</td><td>1 岁<strong>不建议</strong>；2 岁不超过 1 小时</td><td>11～14 h</td></tr>
+            <tr><td>3～4 岁</td><td>≥180 分钟/天，其中<strong>≥60 分钟中高强度</strong></td><td>每次不超过 1 小时</td><td>不超过 1 小时，越少越好</td><td>10～13 h</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <ul>
+        <li><strong>我国指南的表述</strong>：2 岁以内不建议观看或使用电子屏幕；2 岁以上每天累计不超过 1 小时，且每次不超过 20 分钟。</li>
+        <li><strong>久坐不等于屏幕</strong>：看绘本、讲故事、唱歌、拼图等<strong>有照护者互动的安静活动</strong>非常有价值，是被鼓励的；要减少的是"被屏幕占住"和"被束缚不动"。</li>
+      </ul>
+    </div>
+
+    <div class="card">
+      <h3>分月龄的互动玩耍要点</h3>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>月龄</th><th>可以做的事</th><th>发展什么</th></tr></thead>
+          <tbody>
+            <tr><td>0～3 月</td><td>面对面说话、模仿他的表情与发音；黑白卡/人脸图；每天多次短时俯卧；温柔抚触与包裹</td><td>视觉追踪、声音反应、颈部力量、安全感</td></tr>
+            <tr><td>4～6 月</td><td>摇铃与抓握玩具；照镜子；念儿歌做动作；俯卧取玩具；开始"你发一声我发一声"</td><td>手眼协调、翻身、轮流互动、牙牙学语</td></tr>
+            <tr><td>7～9 月</td><td>藏找玩具（物体恒存）；对敲物品；扶着坐玩；把玩具放进拿出；读布书</td><td>理解"看不见仍存在"、精细动作、因果认知</td></tr>
+            <tr><td>10～12 月</td><td>拍手游戏、挥手再见；套杯、投球入盒；扶走练习；说出物品名称并指认</td><td>模仿、初步语言、站立行走、共同注意</td></tr>
+            <tr><td>13～18 月</td><td>叠积木、涂鸦、推拉玩具；简单"帮忙"任务（递东西）；命名日常物品</td><td>精细动作、语言理解、自主意识</td></tr>
+            <tr><td>19～24 月</td><td>假装游戏（喂娃娃、开汽车）；分类配对（颜色/形状）；跑跳攀爬；一起看绘本讲故事</td><td>象征性游戏、词汇爆发、大运动</td></tr>
+            <tr><td>25～36 月</td><td>拼图、串珠、玩沙水；角色扮演；共同参与家务；回答"为什么"；和同伴并排/合作玩</td><td>问题解决、语言表达、社交技能、情绪调节</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="callout tip">
+        <span class="t">最好的玩具</span>
+        你本人、你的声音、以及日常物品（纸盒、勺、布、球）。不需要昂贵玩具，也不需要识字卡"教学"。<strong>高质量的陪伴 = 面对面 + 有回应 + 每天重复</strong>。
+      </div>
+    </div>
+
+    <div class="card">
+      <h3>情绪与行为：理解而不是对抗</h3>
+      <ul>
+        <li><strong>1 岁后情绪爆发是发育现象</strong>：大脑负责自控的前额叶远未成熟，孩子不是"故意捣乱"，而是"还不会调节"。</li>
+        <li><strong>有效做法</strong>：先<strong>命名情绪</strong>（"你很生气，因为玩具被拿走了"）→ 陪伴等待情绪回落 → 再讲规则或提供选择（"你可以拿这个换"）。</li>
+        <li><strong>不做的</strong>：打骂、羞辱、威胁（"再哭就不要你了"）、冷处理长时间不理、在情绪高峰讲道理。</li>
+        <li><strong>规则要少而稳定</strong>：与安全相关的规则绝不妥协（安全座椅、插座、热水、马路），其他可以给选择空间。</li>
+        <li><strong>作息稳定是情绪稳定的前提</strong>：睡眠不足、饥饿、过度疲劳时，任何孩子都更容易崩溃。</li>
+        <li><strong>心理安全</strong>：避免孩子遭遇忽视、虐待、暴力或威胁性语言；这些打击可能产生伴随终身的不利影响。若家庭存在冲突、暴力或照护者情绪问题，请尽早寻求专业帮助。</li>
+      </ul>
+    </div>
+
+    <div class="card">
+      <h3>如厕训练与自理能力</h3>
+      <ul>
+        <li><strong>时机</strong>：多数孩子在 18～30 月龄之间才逐渐具备能力。信号包括：尿布能保持干燥 2 小时以上、能自己走到便盆、对马桶感兴趣、能表达"要尿尿"、能自己脱提裤子。</li>
+        <li><strong>方法</strong>：白天先开始，餐后或睡醒时坐便盆 2～5 分钟；用鼓励而非批评；出现意外时平静清洗更换，不惩罚、不嘲笑。</li>
+        <li><strong>不要做</strong>：过早强迫训练、把便（长时间把尿）、因失败责备。夜间控尿通常更晚，多数到 3～5 岁才稳定，不属于"训练失败"。</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- ================= 12 速查卡 ================= -->
+  <section id="cheat">
+    <h2 class="sec"><span class="n">12</span>一页速查卡</h2>
+
+    <div class="card">
+      <h3>关键数字速查</h3>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>项目</th><th>参考值</th><th>备注</th></tr></thead>
+          <tbody>
+            <tr><td>纯母乳喂养</td><td>0～6 月龄</td><td>不需额外喂水；每天 8～10 次以上按需哺乳</td></tr>
+            <tr><td>辅食开始</td><td>满 6 月龄（180 天）</td><td>早产儿按校正胎龄 4～6 月，遵医嘱</td></tr>
+            <tr><td>辅食种类</td><td>每日 ≥4 种</td><td>至少 1 种动物性食物 + 1 种蔬菜 + 1 种谷薯</td></tr>
+            <tr><td>维生素 D</td><td>足月儿 400 IU/日</td><td>出生后数日起；早产儿 800～1000 IU/日，3 个月后改 400 IU</td></tr>
+            <tr><td>睡眠总量</td><td>0～3 月 14～17 h；4～11 月 12～16 h；1～2 岁 11～14 h；3～4 岁 10～13 h</td><td>含小睡</td></tr>
+            <tr><td>安全睡眠</td><td>仰卧、硬平不倾斜、床内清空、同房不同床至少 6 个月</td><td>持续到 1 岁</td></tr>
+            <tr><td>洗澡</td><td>水温 38～40 ℃，室温 26～28 ℃，5～10 分钟</td><td>频率按季节 2～3 天至每天</td></tr>
+            <tr><td>脐带脱落</td><td>出生后 1～2 周</td><td>75% 酒精由内向外消毒，保持干燥</td></tr>
+            <tr><td>生理性黄疸</td><td>2～3 天出现，7～10 天消退</td><td>24 小时内出现或持续加重须就医</td></tr>
+            <tr><td>趴着玩</td><td>清醒时累计 ≥30 分钟/天</td><td>必须成人看护</td></tr>
+            <tr><td>屏幕时间</td><td>2 岁内不建议；2 岁以上 ≤1 h/天、每次 ≤20 min</td><td>WHO：3～4 岁 ≤1 h/天</td></tr>
+            <tr><td>含氟牙膏</td><td>3 岁以下米粒大小，3～6 岁豌豆大小</td><td>第一颗乳牙萌出即开始刷牙</td></tr>
+            <tr><td>安全座椅</td><td>4 岁以下必须使用；1 岁以内（建议 2 岁以内）反向安装</td><td>后排，不坐副驾驶，不怀抱乘车</td></tr>
+            <tr><td>母乳储存</td><td>室温 4 h；冷藏 4 天；冷冻 6 个月（最长 12 个月）</td><td>解冻后 24 h 内用完，不可再冻；不用微波炉</td></tr>
+            <tr><td>退热药</td><td>对乙酰氨基酚 ≥2 月龄 10～15 mg/kg q4～6h；布洛芬 ≥6 月龄 5～10 mg/kg q6～8h</td><td>禁用阿司匹林；3 月龄以下发热直接就医</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <div class="card">
+      <h3>危险信号：出现即就医/急救</h3>
+      <div class="grid2">
+        <div class="mini"><b>立即拨打 120</b>呼吸停止或仅有濒死喘息、意识不清、抽搐持续 &gt;5 分钟、严重过敏（呼吸困难、面色苍白/发绀）、溺水、误服毒物、大面积烫伤、头部重击后失去意识。</div>
+        <div class="mini"><b>立即就医（3 月龄以下）</b>任何发热、拒奶、精神萎靡、哭声微弱或尖叫、皮肤发花或发青、呼吸增快、脐部红肿流脓。</div>
+        <div class="mini"><b>尽快就医</b>发热伴皮疹或瘀点、持续高热超过 2～3 天、明显脱水（尿少、哭无泪、前囟凹陷）、腹泻带血或果酱样便、阵发性腹痛哭闹、耳痛或耳流液。</div>
+        <div class="mini"><b>尽早评估发育</b>不看人眼、呼唤名字无反应、1 岁不会扶站、18 月龄不会有意识叫爸妈、2 岁不会说两词短语、任何技能退步。</div>
+      </div>
+    </div>
+
+    <div class="card">
+      <h3>急救三件套</h3>
+      <div class="grid2">
+        <div class="mini"><b>呛噎（&lt;1 岁）</b>5 次拍背（头低脚高，掌根拍肩胛骨中点）+ 5 次胸部冲击（两乳头连线中点下方，掌根），交替；<strong>禁腹部冲击</strong>。</div>
+        <div class="mini"><b>呛噎（≥1 岁）</b>5 次背部拍击 + 5 次腹部冲击（脐上两横指，向内向上 45°），交替。</div>
+        <div class="mini"><b>烫伤</b>冲（流动冷水 ≥20 分钟）→ 脱 → 泡 → 盖（干净纱布）→ 送。不涂牙膏/酱油，不刺破水疱。</div>
+        <div class="mini"><b>CPR</b>无反应 + 无呼吸 → 按压 100～120 次/分；婴儿深度约 4 cm（两指/双拇指法），幼儿约 5 cm；30:2；持续到救援到达。</div>
+      </div>
+    </div>
+
+    <div class="card">
+      <h3>最容易做错的十件事</h3>
+      <ol>
+        <li>给婴儿<strong>侧睡或趴睡</strong>，或在床上放枕头、被子、毛绒玩具。</li>
+        <li>把孩子<strong>捂得太热</strong>（比成人多一层就够了）。</li>
+        <li>1 岁内给<strong>蜂蜜</strong>；3 岁内给整粒坚果、果冻、整颗葡萄。</li>
+        <li>纯母乳期额外<strong>频繁喂水</strong>（6 月龄内一般不需要）。</li>
+        <li>发热时<strong>捂汗</strong>，或用酒精擦浴。</li>
+        <li>给婴幼儿服用<strong>成人药或复方感冒药</strong>，或用汤匙估量剂量。</li>
+        <li>让孩子<strong>含着奶瓶</strong>（尤其含奶）入睡。</li>
+        <li>乘车时<strong>抱着孩子</strong>或使用不匹配/来源不明的安全座椅。</li>
+        <li>把婴儿<strong>单独留在车内、水盆边、浴缸里、床上高处</strong>哪怕一分钟。</li>
+        <li>因担心过敏而<strong>推迟所有辅食</strong>，或长期只喂稀粥米糊（营养不足、能量密度低）。</li>
+      </ol>
+    </div>
+  </section>
+
+  <!-- ================= 13 来源 ================= -->
+  <section id="refs">
+    <h2 class="sec"><span class="n">13</span>依据来源与使用说明</h2>
+
+    <div class="card">
+      <h3>主要依据文件</h3>
+      <ul>
+        <li>国家卫生健康委《3 岁以下婴幼儿健康养育照护指南（试行）》，2022 年 11 月印发（含附件：0～3 岁儿童生长发育监测图、儿童心理行为发育问题预警征象筛查表、6～24 月龄婴幼儿辅食添加要点、亲子交流与玩耍要点）。</li>
+        <li>国家卫生健康委《国家免疫规划疫苗儿童免疫程序及说明（2021 年版）》。</li>
+        <li>国家卫生健康委《托育机构保育指导大纲（试行）》（睡眠、进餐、生活与卫生习惯等保育要点）。</li>
+        <li>世界卫生组织（WHO）：《6～23 月龄婴幼儿辅食喂养指南》（2023）、婴幼儿喂养全球战略与事实清单、《5 岁以下儿童身体活动、久坐行为与睡眠指南》（2019）。</li>
+        <li>美国儿科学会（AAP）：《Sleep-Related Infant Deaths: Updated 2022 Recommendations》（Pediatrics, 2022；doi:10.1542/peds.2022-057990）及其技术报告。</li>
+        <li>美国疾控中心（CDC）与 AAP：CDC「Learn the Signs. Act Early.」发育里程碑清单（2022 年修订版，含 2～36 月龄各节点）；CDC 母乳储存与准备指引。</li>
+        <li>美国国家过敏与传染病研究所（NIAID）《Addendum Guidelines for the Prevention of Peanut Allergy》及 LEAP / LEAP-On / LEAP-Trio 研究（NEJM 等）。</li>
+        <li>中华医学会儿科学分会及相关专业期刊（《中华儿科杂志》等）的临床指南与科普共识；国内三甲医院儿科、口腔科、皮肤科科普内容。</li>
+        <li>中国《儿童安全座椅》相关法规要求（4 岁以下儿童乘车须使用安全座椅，12 岁以下不得坐副驾驶）。</li>
+      </ul>
+    </div>
+
+    <div class="card">
+      <h3>怎么用这本手册</h3>
+      <ul>
+        <li><strong>顶部搜索框常驻</strong>：输入关键词（如"黄疸""奶量""夜醒""呛奶""疫苗"）即可实时过滤，弹出结果列表，<strong>点条目直接跳到对应段落</strong>；也可按键盘"回车/前往"逐个跳到命中处。</li>
+        <li><strong>手机上</strong>：顶部还有横向章节条，可左右滑动手动点按；页面支持横竖屏。</li>
+        <li><strong>建议打印</strong>：第 12 章「一页速查卡」适合打印贴在冰箱或育儿区，覆盖关键数字与危险信号。打印时搜索栏与导航会自动隐藏。</li>
+      </ul>
+    </div>
+
+    <div class="card">
+      <h3>使用边界（请务必阅读）</h3>
+      <ul>
+        <li>本手册是<strong>科普性照护参考</strong>，内容为公开权威指南的整理汇总，<strong>不构成医疗建议，也不能替代医生的面诊、检查、诊断与处方</strong>。</li>
+        <li>指南会更新，各地卫生服务安排与疫苗程序可能有差异，具体请以<strong>当地疾控、接种门诊、社区卫生服务中心和接诊医生</strong>的意见为准。</li>
+        <li>早产儿、低出生体重儿、存在先天性疾病或慢性病的孩子，喂养、补充剂、睡眠与活动安排<strong>需按医生个体化指导</strong>执行。</li>
+        <li>任何用药（包括退热药、补充剂、外用药）都应<strong>先咨询医生或药师</strong>，尤其是 3 月龄以下婴儿。</li>
+        <li>本手册<strong>不能替代线下急救培训</strong>。请为自己和家人安排一次正规的心肺复苏与海姆立克培训。</li>
+      </ul>
+      <div class="callout danger">
+        <span class="t">紧急情况</span>
+        发现孩子<strong>呼吸停止、意识不清、抽搐不止、严重过敏、溺水、误服毒物、大面积烫伤</strong>等，请<strong>立即拨打 120</strong>，不要犹豫、不要自行观察等待。
+      </div>
+    </div>
+  </section>
+
+
+
+
+
+  </main>
+</div>
+
+<div class="no-result" id="noResult">
+  <p><b>没有找到「<span id="nrTerm"></span>」相关内容</b></p>
+  <p>可以试试更短的关键词：如「黄疸」「奶量」「夜醒」「发烧」「疫苗」「呛奶」「湿疹」。</p>
+  <p style="font-size:.85rem; margin-top:8px">提示：输入多个词时，需要这些词<strong>出现在同一段落</strong>才会命中；搜不到就减少关键词试试。</p>
+</div>
+
+<footer>
+  <div class="fin">
+    <p><b>免责声明</b>：本手册为科普性照护参考，汇编自公开的权威指南与官方文件，不构成医疗建议。
+      每个孩子的发育节奏与身体状况不同，出现任何异常或把握不准的情况，请及时咨询儿科医生或前往医疗机构；
+      紧急情况（呼吸停止、意识不清、抽搐不止、误服毒物等）请立即拨打 120。</p>
+    <p>所有数据均标注依据来源，见 <a href="#refs">依据来源与使用说明</a>。</p>
+  </div>
+</footer>
+
+<script>
+(function(){
+  'use strict';
+
+  /* ================= 通用工具 ================= */
+  function esc(s){ return s.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'); }
+
+  var searchbar = document.querySelector('.searchbar');
+  var mobileNav = document.getElementById('mobileNav');
+
+  // 吸顶总高度（搜索栏 + 移动端导航条）
+  function navHeight(){
+    var h = 0;
+    if(searchbar && getComputedStyle(searchbar).display !== 'none') h += searchbar.getBoundingClientRect().height;
+    if(mobileNav && getComputedStyle(mobileNav).display !== 'none') h += mobileNav.getBoundingClientRect().height;
+    return h;
+  }
+
+  /* ================= 锚点跳转：瞬时定位 + 持续校正 ================= */
+  var scrollRaf = null;
+  function goTo(id, flash){
+    var el = document.getElementById(id);
+    if(!el) return;
+    if(scrollRaf) cancelAnimationFrame(scrollRaf);
+    var gap = navHeight() + 14;
+    var maxScroll = Math.max(document.documentElement.scrollHeight - window.innerHeight, 0);
+    var target = Math.min(Math.max(el.getBoundingClientRect().top + window.pageYOffset - gap, 0), maxScroll);
+    // 必须是 'instant'：'auto' 会跟随 CSS scroll-behavior，可能变成慢动画
+    window.scrollTo({ top: target, left: 0, behavior: 'instant' });
+
+    var checks = 0, lastWant = target, stable = 0;
+    (function verify(){
+      scrollRaf = requestAnimationFrame(function(){
+        var pos = el.getBoundingClientRect().top + window.pageYOffset - gap;
+        var want = Math.min(Math.max(pos, 0), maxScroll);
+        if(Math.abs(want - window.pageYOffset) > 2){
+          window.scrollTo({ top: want, left: 0, behavior: 'instant' });
+          lastWant = want; stable = 0;
+        } else if(Math.abs(want - lastWant) < 1){ stable++; }
+        if(++checks < 36 && stable < 6){ verify(); }
+        else { scrollRaf = null; }
+      });
+    })();
+
+    if(flash !== false){
+      var h = el.querySelector('h2.sec');
+      if(h){
+        h.style.transition = 'none';
+        h.style.color = 'var(--accent)';
+        requestAnimationFrame(function(){
+          h.style.transition = 'color 1.1s ease';
+          h.style.color = '';
+        });
+      }
+    }
+  }
+
+  document.addEventListener('click', function(e){
+    var a = e.target.closest('a[href^="#"]');
+    if(!a) return;
+    var id = a.getAttribute('href').slice(1);
+    if(!id || !document.getElementById(id)) return;
+    e.preventDefault();
+    centerChip(a);
+    goTo(id);
+    if(history.replaceState) history.replaceState(null, '', '#' + id);
+    setActiveSection(id);
+  });
+
+  /* ================= 移动端导航：横向居中 + 当前章节高亮 ================= */
+  var navScroll = document.getElementById('navScroll');
+  function centerChip(a){
+    if(!navScroll || !navScroll.contains(a)) return;
+    var left = a.offsetLeft - navScroll.clientWidth / 2 + a.offsetWidth / 2;
+    navScroll.scrollTo({ left: Math.max(left, 0), behavior: 'smooth' });
+  }
+  var navLinks = navScroll ? Array.prototype.slice.call(navScroll.querySelectorAll('a')) : [];
+  var tocLinks = Array.prototype.slice.call(document.querySelectorAll('#toc a'));
+  function setActiveSection(id){
+    navLinks.concat(tocLinks).forEach(function(a){
+      a.classList.toggle('active', a.getAttribute('href') === '#' + id);
+    });
+  }
+  // 滚动时同步高亮
+  var sections = Array.prototype.slice.call(document.querySelectorAll('main section[id]'));
+  if('IntersectionObserver' in window && sections.length){
+    var io = new IntersectionObserver(function(entries){
+      var best = null;
+      entries.forEach(function(en){
+        if(en.isIntersecting){ if(!best || en.intersectionRatio > best.intersectionRatio) best = en; }
+      });
+      if(best) setActiveSection(best.target.id);
+    }, { rootMargin: '-' + Math.round(navHeight() + 20) + 'px 0px -55% 0px', threshold: [0, .15, .4, .8] });
+    sections.forEach(function(s){ io.observe(s); });
+  }
+
+  /* ================= 搜索：块级注册 ================= */
+  var BLOCK_SEL = 'h3, h4, p, ul, ol, dl, table, .callout, .badges, .steps, .grid2, .mini';
+  var nodes = [];
+  function registerBlocks(root, scopeSel){
+    root.querySelectorAll(scopeSel).forEach(function(scope){
+      scope.setAttribute('data-card', '');
+      scope.querySelectorAll(BLOCK_SEL).forEach(function(b){
+        if(b.__registered) return;                                       // 幂等：同一元素只登记一次
+        if(b.parentElement && b.parentElement.closest('[data-searchable]')) return;  // 祖先已登记则跳过
+        if(b.querySelector('[data-searchable]')) return;                  // 内部已有更细的块则跳过
+        b.__registered = true;
+        b.setAttribute('data-searchable', '');
+        b.__raw = b.innerHTML;
+        nodes.push(b);
+      });
+    });
+  }
+  registerBlocks(document.querySelector('main'), 'main .card, main .mini, main .grid2, main section[id]');
+
+  var input    = document.getElementById('searchInput');
+  var clearBtn = document.getElementById('searchClear');
+  var countEl  = document.getElementById('searchCount');
+  var noResult = document.getElementById('noResult');
+  var nrTerm   = document.getElementById('nrTerm');
+  var resultsEl= document.getElementById('searchResults');
+  var form     = document.getElementById('searchForm');
+  var timer = null, composing = false, lastVal = '', appliedQ = null, curHit = -1;
+
+  function resetSearch(){
+    // 注意：绝不能整块重建 innerHTML 恢复卡片——会让已登记的块变成游离节点，搜索从此失效
+    nodes.forEach(function(el){
+      el.innerHTML = el.__raw;
+      el.classList.remove('hidden-by-search');
+      el.style.removeProperty('display');
+    });
+    document.querySelectorAll('main .card').forEach(function(c){ c.classList.remove('search-empty'); });
+    document.querySelectorAll('main section[id]').forEach(function(s){ s.style.removeProperty('display'); });
+    if(noResult) noResult.classList.remove('on');
+    if(countEl){ countEl.textContent = ''; countEl.classList.remove('on'); }
+    closeResults();
+    curHit = -1;
+  }
+
+  function secTitle(sec){
+    if(!sec) return '';
+    var h = sec.querySelector('h2.sec');
+    if(!h) return sec.id || '';
+    var clone = h.cloneNode(true);
+    var n = clone.querySelector('.n'); if(n) n.remove();
+    return clone.textContent.trim();
+  }
+
+  function buildResults(q, re, total, hits){
+    if(!resultsEl) return;
+    resultsEl.innerHTML = '';
+    if(!q){ resultsEl.hidden = true; return; }
+    var shown = 0, LIMIT = 12;
+    var frag = document.createDocumentFragment();
+    (hits || []).forEach(function(el){
+      if(shown >= LIMIT) return;
+      var text = (el.__raw || '').replace(/<[^>]+>/g, ' ').replace(/\s+/g, ' ');
+      re.lastIndex = 0;
+      var m = re.exec(text);
+      if(!m){                      // 关键词被标签切断时，退化为取段落开头
+        m = { index: 0 };
+      }
+      var idx = m.index;
+      var start = Math.max(0, idx - 16);
+      var end = Math.min(text.length, idx + q.length + 32);
+      var snippet = (start > 0 ? '…' : '') + text.slice(start, end).replace(re, function(mm){
+        return '<mark>' + mm + '</mark>';
+      }) + (end < text.length ? '…' : '');
+      var sec = el.closest('section');
+      var item = document.createElement('button');
+      item.type = 'button'; item.className = 'r-item';
+      item.innerHTML = '<span class="r-sec">' + (sec ? secTitle(sec) : '') + '</span>' +
+                       '<span class="r-txt">' + snippet + '</span>';
+      item.addEventListener('click', function(){
+        resultsEl.hidden = true;
+        jumpToBlock(el);
+        if(sec) setActiveSection(sec.id);
+      });
+      frag.appendChild(item);
+      shown++;
+    });
+    if(shown === 0){ resultsEl.hidden = true; return; }
+    resultsEl.appendChild(frag);
+    if(total > shown){
+      var more = document.createElement('div');
+      more.className = 'r-more';
+      more.textContent = '共 ' + total + ' 处，正文已高亮；点击上方条目可直接跳转';
+      resultsEl.appendChild(more);
+    }
+    resultsEl.hidden = false;
+  }
+
+  function closeResults(){ if(resultsEl) resultsEl.hidden = true; }
+
+  function jumpToBlock(el){
+    var gap = navHeight() + 14;
+    var maxScroll = Math.max(document.documentElement.scrollHeight - window.innerHeight, 0);
+    var target = Math.min(Math.max(el.getBoundingClientRect().top + window.pageYOffset - gap, 0), maxScroll);
+    window.scrollTo({ top: target, left: 0, behavior: 'instant' });
+    var mk = el.querySelector('mark.hit');
+    document.querySelectorAll('mark.hit.cur').forEach(function(x){ x.classList.remove('cur'); });
+    if(mk) mk.classList.add('cur');
+    var checks = 0;
+    (function verify(){
+      requestAnimationFrame(function(){
+        var want = Math.min(Math.max(el.getBoundingClientRect().top + window.pageYOffset - gap, 0), maxScroll);
+        if(Math.abs(want - window.pageYOffset) > 2){
+          window.scrollTo({ top: want, left: 0, behavior: 'instant' });
+        }
+        if(++checks < 30) verify();
+      });
+    })();
+  }
+
+  function jumpNextHit(){
+    var marks = document.querySelectorAll('main mark.hit');
+    if(!marks.length) return false;
+    curHit = (curHit + 1) % marks.length;
+    var mk = marks[curHit];
+    var block = mk.closest('[data-searchable]') || mk;
+    var gap = navHeight() + 14;
+    var maxScroll = Math.max(document.documentElement.scrollHeight - window.innerHeight, 0);
+    document.querySelectorAll('mark.hit.cur').forEach(function(x){ x.classList.remove('cur'); });
+    mk.classList.add('cur');
+
+    // 落点策略：默认对齐所在段落；若命中处比段落顶部低较多，则以命中处本身为基准，
+    // 这样同一段里有多处命中时，连续回车也能看到视口逐条移动。
+    function anchorTop(){
+      var mkTop = mk.getBoundingClientRect().top + window.pageYOffset;
+      var blkTop = block.getBoundingClientRect().top + window.pageYOffset;
+      return (mkTop - blkTop > 60) ? (mkTop - 60) : blkTop;
+    }
+    var target = Math.min(Math.max(anchorTop() - gap, 0), maxScroll);
+    window.scrollTo({ top: target, left: 0, behavior: 'instant' });
+    var checks = 0;
+    (function verify(){
+      requestAnimationFrame(function(){
+        var want = Math.min(Math.max(anchorTop() - gap, 0), maxScroll);
+        if(Math.abs(want - window.pageYOffset) > 2){
+          window.scrollTo({ top: want, left: 0, behavior: 'instant' });
+        }
+        if(++checks < 30) verify();
+      });
+    })();
+    var sec = block.closest('section');
+    if(sec) setActiveSection(sec.id);
+    return true;
+  }
+
+  function doSearch(qRaw){
+    var q = (qRaw || '').trim();
+    if(q === appliedQ) return;          // 同值重复触发（keyup/轮询）直接跳过，保住 cur 高亮与滚动位置
+    if(lastVal !== q) lastVal = q;
+    resetSearch();
+    appliedQ = q;
+    if(!q) return;
+
+    if(clearBtn) clearBtn.classList.add('on');
+    // 宽松匹配：
+    //  · 中文与字母/数字之间的空格视为同一词（"维生素 D" = "维生素D"，"6 月龄" = "6月龄"）
+    //  · 其余空格表示多个词，采用"都要出现"（AND）语义
+    //  · 词内字符之间允许空白，以容纳排版空隙
+    var qq = q.replace(/([\u4e00-\u9fa5])\s+(?=[A-Za-z0-9])/g, '$1')
+              .replace(/([A-Za-z0-9])\s+(?=[\u4e00-\u9fa5])/g, '$1');
+    var parts = qq.split(/\s+/).filter(Boolean);
+    var pats = parts.map(function(word){
+      return word.split('').map(function(ch){ return esc(ch); }).join('\\s*');
+    });
+    var re = new RegExp(pats.join('|'), 'gi');            // 高亮用：一次替换，避免嵌套标记
+    var andRes = pats.map(function(pp){ return new RegExp(pp, 'i'); });
+    var total = 0, hitSections = {}, hits = [];
+
+    nodes.forEach(function(el){
+      // 判定看"纯文本"、替换只作用于文本片段——绝不碰标签与属性，
+      // 否则会出现"把 href 属性里的字母也替换掉"导致的高亮丢失与计数虚高。
+      var raw = el.__raw;
+      var plain = raw.replace(/<[^>]*>/g, ' ');
+      var all = andRes.every(function(rr){ return rr.test(plain); });
+      if(!all){ el.classList.add('hidden-by-search'); return; }
+      var n = 0;
+      var replaced = raw.split(/(<[^>]*>)/).map(function(seg){
+        if(seg.charAt(0) === '<') return seg;
+        return seg.replace(re, function(m){ n++; return '<mark class="hit">' + m + '</mark>'; });
+      }).join('');
+      if(n === 0){ el.classList.add('hidden-by-search'); return; }
+      total += n;
+      el.innerHTML = replaced;
+      var sec = el.closest('section');
+      if(sec) hitSections[sec.id] = true;
+      hits.push(el);
+    });
+
+    document.querySelectorAll('main .card').forEach(function(c){
+      var anyVisible = Array.prototype.some.call(
+        c.querySelectorAll('[data-searchable]'),
+        function(x){ return !x.classList.contains('hidden-by-search'); }
+      );
+      if(!anyVisible) c.classList.add('search-empty');
+    });
+
+    document.querySelectorAll('main section[id]').forEach(function(s){
+      if(!hitSections[s.id]) s.style.display = 'none';
+    });
+
+    var anyHit = Object.keys(hitSections).length > 0;
+    if(anyHit){
+      if(countEl){ countEl.textContent = total + ' 处'; countEl.classList.add('on'); }
+      if(noResult) noResult.classList.remove('on');
+    } else {
+      if(noResult){ noResult.classList.add('on'); if(nrTerm) nrTerm.textContent = q; }
+      if(countEl) countEl.classList.remove('on');
+    }
+    buildResults(q, re, total, hits);
+  }
+
+  /* -------- 输入绑定（兼容 iOS / 中文输入法 / Edge） -------- */
+  function scheduleSearch(delay){
+    if(timer) clearTimeout(timer);
+    timer = setTimeout(function(){ doSearch(input.value); }, delay == null ? 140 : delay);
+  }
+
+  if(input){
+    input.addEventListener('input', function(){ if(composing) return; scheduleSearch(120); });
+    input.addEventListener('compositionstart', function(){ composing = true; });
+    input.addEventListener('compositionend', function(){ composing = false; scheduleSearch(60); });
+    ['change','keyup','search','paste','cut'].forEach(function(evt){
+      input.addEventListener(evt, function(){ if(composing) return; scheduleSearch(120); });
+    });
+
+    // 回车 / iOS 键盘「前往」：搜索并跳到第一个（下一个）命中处
+    var lastEnterAt = 0;
+    function handleEnter(src){
+      var now = Date.now();
+      if(now - lastEnterAt < 500) return;   // keydown 与 submit 双触发时只算一次
+      lastEnterAt = now;
+      if(timer) clearTimeout(timer);
+      doSearch(input.value);
+      if(!jumpNextHit() && src === 'keydown') input.blur();
+    }
+    input.addEventListener('keydown', function(e){
+      if(e.key === 'Enter' || e.keyCode === 13){ e.preventDefault(); handleEnter('keydown'); }
+      if(e.key === 'Escape'){ input.value = ''; doSearch(''); input.blur(); }
+    });
+    if(form){
+      form.addEventListener('submit', function(e){ e.preventDefault(); handleEnter('submit'); });
+    }
+
+    // 兜底轮询：覆盖语音输入、自动填充等
+    setInterval(function(){
+      if(composing) return;
+      if(input.value !== lastVal){ lastVal = input.value; doSearch(input.value); }
+    }, 350);
+
+    input.addEventListener('blur', function(){
+      if(input.value !== lastVal){ lastVal = input.value; doSearch(input.value); }
+    });
+
+    // 点击页面其它位置收起结果列表
+    document.addEventListener('click', function(e){
+      if(resultsEl && !resultsEl.hidden && !e.target.closest('.searchbar')) closeResults();
+    }, true);
+  }
+
+  if(clearBtn){
+    function clearAll(e){
+      if(e) e.preventDefault();
+      input.value = ''; lastVal = ''; composedSafe();
+      doSearch(''); input.focus();
+    }
+    function composedSafe(){ composing = false; }
+    clearBtn.addEventListener('click', clearAll);
+    clearBtn.addEventListener('touchend', clearAll, {passive:false});
+  }
+
+  // 快捷键：/ 聚焦搜索，Esc 清空
+  document.addEventListener('keydown', function(e){
+    var tag = (e.target.tagName || '').toLowerCase();
+    if(tag === 'input' || tag === 'textarea') return;
+    if(e.key === '/' ){ e.preventDefault(); if(input) input.focus(); }
+  });
+
+  // 打开即带 hash 时定位
+  if(location.hash && document.getElementById(location.hash.slice(1))){
+    setTimeout(function(){ goTo(location.hash.slice(1)); }, 120);
+  }
+})();
+</script>
+
+</body>
+</html>

@@ -9,7 +9,7 @@
 [![License](https://img.shields.io/badge/license-MIT-blue?style=flat-square)](LICENSE)
 [![PRs](https://img.shields.io/badge/PRs-welcome-ff69b4?style=flat-square)](#-反馈与建议)
 
-**12 个页面 · 5 个分类 · 单文件 · 零依赖**
+**14 个页面 · 6 个分类 · 单文件 · 零依赖**
 
 </div>
 
@@ -52,6 +52,7 @@ kins-vault/
 ├── games/                              # 🎮 游戏攻略
 │   ├── baldurs-gate-3-walkthrough/     #   含 198 张实机截图
 │   └── tales-of-destiny-2-guide.html   #   宿命传说2攻略
+├── dev/                                # 🧑‍💻 开发与编程
 ├── visual/                             # 📊 数据可视化
 ├── life/                               # 🏠 生活指南
 ├── gear/                               # 🔧 硬件与装备
@@ -66,6 +67,12 @@ kins-vault/
 | :--- | :--- |
 | [**博德之门3 · 任务全流程图文攻略**](https://kinsluck.github.io/kins-vault/games/baldurs-gate-3-walkthrough/) | 逐幕推进的全任务流程，198 张实机截图对照，跟着走不迷路 |
 | [**宿命传说2攻略**](https://kinsluck.github.io/kins-vault/games/tales-of-destiny-2-guide.html) | 战斗系统与流程要点整理，传说系列的经典一作 |
+
+### 🧑‍💻 开发与编程
+
+| 页面 | 简介 |
+| :--- | :--- |
+| [**Godot 游戏开发学习路径**](https://kinsluck.github.io/kins-vault/dev/godot-learning-path.html) | 汇总顶级开发者建议的学习路线：从入门到能独立做出游戏的推荐顺序 |
 
 ### 📊 数据可视化
 
@@ -83,6 +90,7 @@ kins-vault/
 | [**原木风装修避坑指南**](https://kinsluck.github.io/kins-vault/life/wood-style-renovation-guide.html) | 「十几万的高级感，都是实木给的」—— 落地要点与避坑清单 |
 | [**啤酒探索清单**](https://kinsluck.github.io/kins-vault/life/beer-exploration-list.html) | 以施纳德 5 号 / 督威三花 / 金麦为基准的风味坐标 |
 | [**普通男生快速脱单法**](https://kinsluck.github.io/kins-vault/life/dating-guide.html) | 资源 · 筛选 · 搭讪，双视频整合后的方法梳理 |
+| [**0-3 岁婴幼儿养育照护手册**](https://kinsluck.github.io/kins-vault/life/baby-care-handbook.html) | 从出生开始的衣食住行速查：喂养、睡眠、穿盖、日常护理要点 |
 
 ### 🔧 硬件与装备
 
