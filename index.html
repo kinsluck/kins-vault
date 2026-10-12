@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Kins Vault · 日常思考的 HTML 收纳盒</title>
+<meta name="description" content="日常思考与总结的 HTML 存档 —— 想法做成能点开的网页。">
+<link rel="icon" href="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%20100%20100%22%3E%3Ctext%20y%3D%22.9em%22%20font-size%3D%2290%22%3E%F0%9F%97%84%EF%B8%8F%3C%2Ftext%3E%3C%2Fsvg%3E">
+<style>
+  :root{
+    --bg:#f6f7f9;
+    --card:#ffffff;
+    --ink:#1b1f24;
+    --ink-2:#4a5460;
+    --ink-3:#8b95a3;
+    --line:#e6e9ee;
+    --accent:#4f6bed;
+    --radius:14px;
+  }
+  *{box-sizing:border-box}
+  html{-webkit-text-size-adjust:100%}
+  body{
+    margin:0;
+    background:var(--bg);
+    color:var(--ink);
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Hiragino Sans GB","Microsoft YaHei","Source Han Sans SC",sans-serif;
+    line-height:1.65;
+    -webkit-font-smoothing:antialiased;
+  }
+  .wrap{max-width:1080px;margin:0 auto;padding:0 22px}
+
+  /* ---------- 头部 ---------- */
+  header{padding:62px 0 30px;text-align:center}
+  .logo{font-size:52px;line-height:1;margin-bottom:14px}
+  h1{font-size:34px;letter-spacing:-.4px;margin:0 0 10px;font-weight:700}
+  .tagline{margin:0 auto;max-width:560px;color:var(--ink-2);font-size:15.5px}
+  .stats{display:flex;justify-content:center;gap:10px;flex-wrap:wrap;margin-top:22px}
+  .stat{
+    background:var(--card);border:1px solid var(--line);border-radius:999px;
+    padding:5px 14px;font-size:13px;color:var(--ink-2)
+  }
+  .stat b{color:var(--ink);font-weight:600}
+
+  /* ---------- 搜索 ---------- */
+  .search{max-width:420px;margin:30px auto 0;position:relative}
+  .search input{
+    width:100%;padding:11px 16px 11px 40px;font-size:14.5px;font-family:inherit;
+    color:var(--ink);background:var(--card);border:1px solid var(--line);
+    border-radius:999px;outline:none;transition:border-color .15s,box-shadow .15s;
+  }
+  .search input::placeholder{color:var(--ink-3)}
+  .search input:focus{border-color:var(--accent);box-shadow:0 0 0 3px rgba(79,107,237,.12)}
+  .search .ico{
+    position:absolute;left:15px;top:50%;transform:translateY(-50%);
+    font-size:14px;opacity:.5;pointer-events:none
+  }
+
+  /* ---------- 分类 ---------- */
+  main{padding:44px 0 20px}
+  section{margin-bottom:46px}
+  .sec-head{display:flex;align-items:baseline;gap:10px;margin-bottom:18px}
+  .sec-head h2{font-size:18px;margin:0;font-weight:650;letter-spacing:-.2px}
+  .sec-head .num{
+    font-size:12px;color:var(--ink-3);border:1px solid var(--line);
+    border-radius:999px;padding:1px 9px;background:var(--card)
+  }
+  .sec-head .rule{flex:1;height:1px;background:var(--line)}
+
+  .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(288px,1fr));gap:16px}
+
+  /* ---------- 卡片 ---------- */
+  .card{
+    display:flex;flex-direction:column;gap:9px;
+    background:var(--card);border:1px solid var(--line);border-radius:var(--radius);
+    padding:18px 18px 16px;text-decoration:none;color:inherit;
+    transition:transform .16s ease,box-shadow .16s ease,border-color .16s ease;
+  }
+  .card .top{display:flex;align-items:center;gap:11px}
+  .card .emoji{font-size:24px;line-height:1;flex:none}
+  .card h3{margin:0;font-size:15.5px;font-weight:640;letter-spacing:-.15px}
+  .card p{margin:0;font-size:13.5px;color:var(--ink-2);flex:1}
+  .card .tags{display:flex;gap:6px;flex-wrap:wrap;margin-top:2px}
+  .tag{
+    font-size:11.5px;color:var(--ink-3);background:var(--bg);
+    border:1px solid var(--line);border-radius:6px;padding:1px 7px
+  }
+  .card .go{font-size:12.5px;color:var(--accent);font-weight:550;margin-top:4px}
+  .card .go::after{content:" →"}
+
+  .empty{display:none;text-align:center;color:var(--ink-3);padding:50px 0;font-size:14.5px}
+
+  /* ---------- 底部 ---------- */
+  footer{
+    border-top:1px solid var(--line);margin-top:20px;padding:26px 0 46px;
+    text-align:center;color:var(--ink-3);font-size:13px
+  }
+  footer a{color:var(--ink-2);text-decoration:none;border-bottom:1px solid var(--line)}
+  footer .sub{display:block;margin-top:6px;font-size:12.5px}
+
+  /* ---------- 交互（悬停仅限精确指针） ---------- */
+  @media (hover:hover) and (pointer:fine){
+    .card:hover{transform:translateY(-2px);border-color:#d3d9e6;box-shadow:0 8px 22px rgba(24,39,75,.08)}
+    footer a:hover{color:var(--accent);border-color:var(--accent)}
+  }
+
+  /* ---------- 响应式（一律垫底） ---------- */
+  @media (max-width:640px){
+    header{padding:44px 0 24px}
+    h1{font-size:27px}
+    .logo{font-size:44px}
+    .tagline{font-size:14.5px}
+    .grid{grid-template-columns:1fr}
+    main{padding:34px 0 10px}
+    section{margin-bottom:38px}
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <header>
+    <div class="logo">🗄️</div>
+    <h1>Kins Vault</h1>
+    <p class="tagline">日常思考的收纳盒 —— 把脑子里的想法，做成能点开的 HTML。不用装环境，点开就能看。</p>
+    <div class="stats">
+      <span class="stat"><b>12</b> 个页面</span>
+      <span class="stat"><b>5</b> 个分类</span>
+      <span class="stat">单文件 · 零依赖</span>
+    </div>
+    <div class="search">
+      <span class="ico">🔍</span>
+      <input id="q" type="search" placeholder="搜点什么…（游戏 / 气候 / 装修 / 啤酒）" autocomplete="off">
+    </div>
+  </header>
+
+  <main id="main">
+
+    <section>
+      <div class="sec-head"><h2>🎮 游戏攻略</h2><span class="num">2</span><span class="rule"></span></div>
+      <div class="grid">
+        <a class="card" href="games/baldurs-gate-3-walkthrough/" data-k="博德之门3 任务 全流程 图文攻略 博德之门 rpg 拉瑞安 bg3">
+          <div class="top"><span class="emoji">🐉</span><h3>博德之门3 · 任务全流程图文攻略</h3></div>
+          <p>逐幕推进的全任务流程，198 张实机截图对照，跟着走不迷路。</p>
+          <div class="tags"><span class="tag">图文攻略</span><span class="tag">198 张截图</span></div>
+          <span class="go">打开攻略</span>
+        </a>
+        <a class="card" href="games/tales-of-destiny-2-guide.html" data-k="宿命传说2 攻略 传说系列 战斗 ps2 宿命传说 tali">
+          <div class="top"><span class="emoji">⚔️</span><h3>宿命传说2攻略</h3></div>
+          <p>战斗系统与流程要点整理，传说系列的经典一作。</p>
+          <div class="tags"><span class="tag">攻略</span><span class="tag">RPG</span></div>
+          <span class="go">打开攻略</span>
+        </a>
+      </div>
+    </section>
+
+    <section>
+      <div class="sec-head"><h2>📊 数据可视化</h2><span class="num">3</span><span class="rule"></span></div>
+      <div class="grid">
+        <a class="card" href="visual/dali-climate.html" data-k="大理 气温 湿度 体感温度 可视化 气候 天气">
+          <div class="top"><span class="emoji">⛰️</span><h3>大理 · 逐日气温湿度可视化</h3></div>
+          <p>2025.01.01 – 2026.10.07 逐日气温 / 湿度 / 体感温度曲线。</p>
+          <div class="tags"><span class="tag">气候</span><span class="tag">可视化</span></div>
+          <span class="go">查看图表</span>
+        </a>
+        <a class="card" href="visual/foshan-climate.html" data-k="佛山 气温 湿度 体感温度 可视化 气候 天气">
+          <div class="top"><span class="emoji">🌴</span><h3>佛山 · 逐日气温湿度可视化</h3></div>
+          <p>同一区间的逐日气温 / 湿度 / 体感温度曲线，可与其他城市横向对照。</p>
+          <div class="tags"><span class="tag">气候</span><span class="tag">可视化</span></div>
+          <span class="go">查看图表</span>
+        </a>
+        <a class="card" href="visual/kyoto-climate.html" data-k="京都 气温 湿度 体感温度 可视化 气候 日本">
+          <div class="top"><span class="emoji">⛩️</span><h3>京都 · 逐日气温湿度可视化</h3></div>
+          <p>同一区间的逐日气温 / 湿度 / 体感温度曲线，四季分野一目了然。</p>
+          <div class="tags"><span class="tag">气候</span><span class="tag">可视化</span></div>
+          <span class="go">查看图表</span>
+        </a>
+      </div>
+    </section>
+
+    <section>
+      <div class="sec-head"><h2>🏠 生活指南</h2><span class="num">4</span><span class="rule"></span></div>
+      <div class="grid">
+        <a class="card" href="life/dali-erhai-rental-research.html" data-k="大理 洱海 租房 调研 总结 旅居 房租">
+          <div class="top"><span class="emoji">🌊</span><h3>大理洱海边各区域租房调研</h3></div>
+          <p>洱海边各区域的租金、环境与生活便利度对比总结。</p>
+          <div class="tags"><span class="tag">调研</span><span class="tag">租房</span></div>
+          <span class="go">看结论</span>
+        </a>
+        <a class="card" href="life/wood-style-renovation-guide.html" data-k="原木风 装修 避坑 指南 实木 家居 设计">
+          <div class="top"><span class="emoji">🪵</span><h3>原木风装修避坑指南</h3></div>
+          <p>「十几万的高级感，都是实木给的」—— 原木风落地要点与避坑清单。</p>
+          <div class="tags"><span class="tag">装修</span><span class="tag">避坑</span></div>
+          <span class="go">看指南</span>
+        </a>
+        <a class="card" href="life/beer-exploration-list.html" data-k="啤酒 精酿 探索 清单 施纳德 督威 金麦 风味">
+          <div class="top"><span class="emoji">🍺</span><h3>啤酒探索清单</h3></div>
+          <p>以施纳德 5 号 / 督威三花 / 金麦为基准的风味坐标探索清单。</p>
+          <div class="tags"><span class="tag">清单</span><span class="tag">精酿</span></div>
+          <span class="go">看清单</span>
+        </a>
+        <a class="card" href="life/dating-guide.html" data-k="脱单 方法 搭讪 筛选 资源 社交 恋爱">
+          <div class="top"><span class="emoji">💘</span><h3>普通男生快速脱单法</h3></div>
+          <p>资源 · 筛选 · 搭讪 —— 双视频整合后的方法梳理。</p>
+          <div class="tags"><span class="tag">方法论</span><span class="tag">社交</span></div>
+          <span class="go">看方法</span>
+        </a>
+      </div>
+    </section>
+
+    <section>
+      <div class="sec-head"><h2>🔧 硬件与装备</h2><span class="num">2</span><span class="rule"></span></div>
+      <div class="grid">
+        <a class="card" href="gear/redmi-g27u-monitor-review.html" data-k="小米 Redmi G27U 显示器 评测 4K 160Hz 双模 ips hdr">
+          <div class="top"><span class="emoji">🖥️</span><h3>小米 Redmi G27U 显示器评测笔记</h3></div>
+          <p>4K 160Hz 双模 IPS 实测笔记：色域、亮度、接口与调校取舍。</p>
+          <div class="tags"><span class="tag">硬件评测</span><span class="tag">显示器</span></div>
+          <span class="go">看评测</span>
+        </a>
+        <a class="card" href="gear/emulator-report-2026.html" data-k="模拟器 现状 报告 第七世代 第九世代 ps3 xbox360 switch 掌机">
+          <div class="top"><span class="emoji">🕹️</span><h3>主机模拟器开发现状报告 · 2026</h3></div>
+          <p>第七世代 → 第九世代，各家模拟器开发现状的横向盘点。</p>
+          <div class="tags"><span class="tag">行业报告</span><span class="tag">模拟器</span></div>
+          <span class="go">看报告</span>
+        </a>
+      </div>
+    </section>
+
+    <section>
+      <div class="sec-head"><h2>📚 阅读笔记</h2><span class="num">1</span><span class="rule"></span></div>
+      <div class="grid">
+        <a class="card" href="reading/nature-t2dm-review.html" data-k="Nature 综述 2型糖尿病 胰岛素抵抗 代谢 医学 科普 认知">
+          <div class="top"><span class="emoji">🧬</span><h3>Nature 重磅综述：2型糖尿病</h3></div>
+          <p>「根本不是血糖高那么简单」—— 关于 2 型糖尿病的认知重塑。</p>
+          <div class="tags"><span class="tag">医学科普</span><span class="tag">综述</span></div>
+          <span class="go">读笔记</span>
+        </a>
+      </div>
+    </section>
+
+    <div class="empty" id="empty">🔍 没有匹配的页面，换个词试试？</div>
+
+  </main>
+
+  <footer>
+    <a href="https://github.com/kinsluck/kins-vault" target="_blank" rel="noopener">在 GitHub 上查看源码</a>
+    <span class="sub">Kins Vault · 日常思考的收纳盒 · 用 ❤️ 和一点点强迫症维护着</span>
+  </footer>
+
+</div>
+
+<script>
+(function () {
+  var q = document.getElementById('q');
+  var empty = document.getElementById('empty');
+  var sections = Array.prototype.slice.call(document.querySelectorAll('main section'));
+
+  function apply() {
+    var kw = q.value.trim().toLowerCase();
+    var total = 0;
+
+    sections.forEach(function (sec) {
+      var cards = Array.prototype.slice.call(sec.querySelectorAll('.card'));
+      var shown = 0;
+
+      cards.forEach(function (card) {
+        var hay = (card.getAttribute('data-k') || '') + ' ' + card.textContent;
+        var hit = kw === '' || hay.toLowerCase().indexOf(kw) !== -1;
+        card.style.display = hit ? '' : 'none';
+        if (hit) shown++;
+      });
+
+      sec.style.display = shown ? '' : 'none';
+      total += shown;
+    });
+
+    empty.style.display = total ? 'none' : 'block';
+  }
+
+  q.addEventListener('input', apply);
+
+  // 让 Esc 快速清空
+  q.addEventListener('keydown', function (e) {
+    if (e.key === 'Escape') { q.value = ''; apply(); }
+  });
+})();
+</script>
+</body>
+</html>

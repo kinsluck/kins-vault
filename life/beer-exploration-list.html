@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>啤酒探索清单 · 基于施纳德5号 / 督威三花 / 金麦</title>
+<style>
+  :root{
+    --paper:#FBF8F3; --card:#FFFFFF; --ink:#2C2318; --muted:#7A6E5E;
+    --line:#E8E0D4; --amber:#B8742A; --amber-soft:#FBF0E2;
+    --c-wheat:#B98A2B; --c-belgian:#95506B; --c-japan:#3D7CA3;
+  }
+  *{box-sizing:border-box; margin:0; padding:0;}
+  body{
+    background:var(--paper); color:var(--ink);
+    font-family:"PingFang SC","Hiragino Sans GB","Microsoft YaHei",system-ui,-apple-system,sans-serif;
+    font-size:15px; line-height:1.7; -webkit-font-smoothing:antialiased;
+  }
+  .wrap{max-width:920px; margin:0 auto; padding:0 20px 72px;}
+  header{padding:52px 0 32px; border-bottom:1px solid var(--line);}
+  .eyebrow{font-size:12px; letter-spacing:.14em; color:var(--amber); font-weight:500; margin-bottom:14px;}
+  h1{font-size:30px; line-height:1.35; font-weight:600; letter-spacing:-.01em;}
+  .sub{margin-top:14px; color:var(--muted); font-size:14.5px; max-width:640px;}
+  h2{font-size:19px; font-weight:600; margin:44px 0 6px; display:flex; align-items:center; gap:10px;}
+  h2 .bar{width:4px; height:18px; border-radius:2px; background:var(--amber); flex:none;}
+  .note{color:var(--muted); font-size:13.5px; margin-bottom:18px;}
+  .profile{display:grid; grid-template-columns:repeat(auto-fit,minmax(220px,1fr)); gap:14px; margin-top:22px;}
+  .pcard{background:var(--card); border:1px solid var(--line); border-radius:12px; padding:18px 20px;}
+  .pcard .tag{font-size:11.5px; letter-spacing:.08em; color:var(--amber); font-weight:500;}
+  .pcard .nm{font-size:16px; font-weight:600; margin:6px 0 8px;}
+  .pcard .ds{font-size:13.5px; color:var(--muted); line-height:1.65;}
+  .verdict{margin-top:22px; background:var(--amber-soft); border-radius:12px; padding:20px 22px; font-size:14.5px; line-height:1.75;}
+  .verdict b{color:var(--amber); font-weight:600;}
+  .filters{display:flex; flex-wrap:wrap; gap:8px; align-items:center; margin:24px 0 20px; padding-bottom:18px; border-bottom:1px solid var(--line);}
+  .chip{border:1px solid var(--line); background:var(--card); color:var(--muted); border-radius:999px; padding:7px 16px; font-size:13.5px; cursor:pointer; font-family:inherit; transition:all .15s;}
+  .chip:hover{border-color:#CFC4B2; color:var(--ink);}
+  .chip.on{background:var(--ink); border-color:var(--ink); color:#fff;}
+  .switch{margin-left:auto; display:flex; align-items:center; gap:8px; font-size:13.5px; color:var(--muted); cursor:pointer; user-select:none;}
+  .switch input{width:16px; height:16px; accent-color:var(--amber); cursor:pointer;}
+  .group{margin-top:34px;}
+  .ghead{display:flex; align-items:baseline; gap:12px; flex-wrap:wrap; margin-bottom:4px;}
+  .ghead .dot{width:9px; height:9px; border-radius:50%; flex:none; align-self:center;}
+  .ghead h3{font-size:16.5px; font-weight:600;}
+  .ghead .cnt{font-size:12.5px; color:var(--muted);}
+  .gdesc{font-size:13.5px; color:var(--muted); margin-bottom:16px; padding-left:21px;}
+  .list{display:grid; gap:12px;}
+  .item{background:var(--card); border:1px solid var(--line); border-radius:12px; padding:17px 20px; display:grid; grid-template-columns:1fr auto; gap:14px; align-items:start;}
+  .item .nm{font-size:15.5px; font-weight:600; display:flex; align-items:center; gap:8px; flex-wrap:wrap;}
+  .badge{font-size:11px; font-weight:500; padding:2px 8px; border-radius:999px; background:var(--amber-soft); color:var(--amber); letter-spacing:.02em;}
+  .style{font-size:12.5px; color:var(--muted); margin-top:3px;}
+  .why{font-size:13.5px; color:#4A4034; margin-top:9px; line-height:1.65;}
+  .side{text-align:right; white-space:nowrap;}
+  .price{font-size:13.5px; font-weight:600; color:var(--ink);}
+  .abv{font-size:12.5px; color:var(--muted); margin-top:4px;}
+  .channels{display:grid; grid-template-columns:repeat(auto-fit,minmax(240px,1fr)); gap:12px; margin-top:6px;}
+  .ch{background:var(--card); border:1px solid var(--line); border-radius:12px; padding:16px 18px;}
+  .ch .cn{font-size:14.5px; font-weight:600; margin-bottom:7px;}
+  .ch .cd{font-size:13px; color:var(--muted); line-height:1.7;}
+  .tips{list-style:none; margin-top:6px;}
+  .tips li{position:relative; padding-left:20px; margin-bottom:11px; font-size:14px; line-height:1.7;}
+  .tips li::before{content:""; position:absolute; left:0; top:11px; width:6px; height:6px; border-radius:50%; background:var(--amber);}
+  .starter{margin-top:16px; background:var(--card); border:1px solid var(--line); border-radius:12px; padding:20px 22px;}
+  .starter .st{font-size:14.5px; font-weight:600; margin-bottom:12px;}
+  .starter ol{margin-left:20px; font-size:14px; line-height:1.9;}
+  .starter ol b{font-weight:600;}
+  footer{margin-top:52px; padding-top:22px; border-top:1px solid var(--line); font-size:12.5px; color:var(--muted); line-height:1.75;}
+  .hidden{display:none !important;}
+  @media (max-width:600px){
+    header{padding:36px 0 26px;} h1{font-size:23px;}
+    .item{grid-template-columns:1fr;} .side{text-align:left;}
+    .switch{margin-left:0; width:100%;}
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <header>
+    <div class="eyebrow">BEER SHORTLIST</div>
+    <h1>啤酒探索清单</h1>
+    <p class="sub">从你常喝的 <b>施纳德 5 号 / 督威三花 / 三得利金麦</b> 出发，按三条技术路线铺开的可购买清单。价格为 2026 年国内电商参考价，促销期波动较大。</p>
+  </header>
+
+  <h2><span class="bar"></span>先解码你的口味</h2>
+  <div class="profile">
+    <div class="pcard">
+      <div class="tag">SCHNEIDER WEISSE TAP 5</div>
+      <div class="nm">施纳德 5 号 多花小麦</div>
+      <div class="ds">小麦基底 + 大量后投酒花。8.2%vol、18.5°P，酒体浑浊厚重，柑橘与热带水果香突出，苦度却被压得很低。</div>
+    </div>
+    <div class="pcard">
+      <div class="tag">DUVEL TRIPEL HOP</div>
+      <div class="nm">督威三花</div>
+      <div class="ds">比利时烈性金色艾尔。9.5%vol，三次投花 + 干投，果香与辛香料交织，沙口强烈、收口干爽，酒精藏得极好。</div>
+    </div>
+    <div class="pcard">
+      <div class="tag">SUNTORY KINMUGI</div>
+      <div class="nm">三得利金麦</div>
+      <div class="ds">日式清爽型。约 5%vol、11.2°P，麦芽甜香柔和，泡沫如奶油般绵密，收尾干净利落，几乎无苦感。</div>
+    </div>
+  </div>
+  <div class="verdict">三款跨度很大，但共同点很清楚：<b>香气要浓、苦度要克制、酒体要有骨架但不齁</b>。所以下面按「酒花小麦」「比利时烈性艾尔」「日式清爽」三条线各自的进阶方向来推。</div>
+
+  <h2><span class="bar"></span>推荐清单</h2>
+  <div class="filters">
+    <button class="chip on" data-f="all">全部</button>
+    <button class="chip" data-f="wheat">酒花小麦线</button>
+    <button class="chip" data-f="belgian">比利时烈性线</button>
+    <button class="chip" data-f="japan">日式清爽线</button>
+    <label class="switch"><input type="checkbox" id="newOnly">只看我没喝过的</label>
+  </div>
+  <div id="list"></div>
+
+  <h2><span class="bar"></span>购买渠道速查</h2>
+  <div class="channels">
+    <div class="ch"><div class="cn">京东自营 / 天猫超市</div><div class="cd">最稳的渠道。施纳德、督威、卡美里特、西麦尔、唯森、日系全线基本都有行货，整箱价常低于线下。注意看批次与保质期。</div></div>
+    <div class="ch"><div class="cn">盒马 / 山姆 / Ole' / BLT</div><div class="cd">适合随手买德式小麦和日式拉格，山姆常有整箱大包装。进口超市是淘日式精酿和稀少比利时款的地方。</div></div>
+    <div class="ch"><div class="cn">抖音商城 / 拼多多百亿补贴</div><div class="cd">整箱单瓶价常最低，但店铺鱼龙混杂，务必确认是「原装进口」而非国内灌装，并核对生产日期。</div></div>
+    <div class="ch"><div class="cn">精酿酒吧 / 酒类专营店</div><div class="cd">常陆野猫头鹰、更多美式浑浊 IPA 这类小众款，线上不好找，线下反而稳定。</div></div>
+  </div>
+
+  <h2><span class="bar"></span>喝之前注意</h2>
+  <ul class="tips">
+    <li><b>温度</b>：德式小麦 4–6℃，比利时金色艾尔 6–8℃，日式拉格 3–5℃。温度高 1℃ 酒精感就会明显上浮。</li>
+    <li><b>倒法</b>：德式小麦顺瓶身慢倒，最后留约 2cm 连酵母一起摇匀倒入，否则酒体与香气都少一截。</li>
+    <li><b>杯型</b>：酒精 8%vol 以上的用郁金香杯聚香；日式拉格用直筒杯即可，泡沫层是风味的保护层。</li>
+    <li><b>别囤高度酒</b>：酒花香气衰减很快，认包装上的生产日期，优先选半年内的批次；啤酒越新鲜越好喝。</li>
+    <li><b>分量</b>：施纳德 5/6 号、督威三花这类 8%vol 以上，一次 330–500ml 就够了。</li>
+  </ul>
+
+  <div class="starter">
+    <div class="st">如果只想先买 5 支试水，就买这 5 支</div>
+    <ol>
+      <li><b>施纳德 6 号 Aventinus</b> —— 同酒厂的"加厚版"，最懂你口味的一次进阶</li>
+      <li><b>督威 经典</b> —— 把三花拉回原点，喝出这瓶酒的骨架</li>
+      <li><b>西麦尔三料</b> —— 比利时三料的标杆，检验你是否真的爱这一族</li>
+      <li><b>唯森 酵母小麦白啤</b> —— 德式小麦的基准线，建立你的味觉坐标</li>
+      <li><b>惠比寿 金罐</b> —— 日式里最"德味"的一支，金麦的向上一步</li>
+    </ol>
+  </div>
+
+  <footer>
+    本清单基于公开在售信息与风味参数整理，价格随促销波动，仅供选购参考。饮酒请适量，未成年人禁止饮酒。
+  </footer>
+</div>
+
+<script>
+var DATA = [
+  {cat:"wheat", name:"施纳德 Tap 5 多花小麦", style:"酒花小麦（Hopfenweisse）", abv:"8.2%vol / 18.5°P", price:"500ml×6 ≈118–138 元", where:"京东自营", drunk:true,
+   why:"你正在喝的这支。德国原装进口，国内由施纳德京东自营旗舰店长期在售，有货就可以直接囤。"},
+  {cat:"wheat", name:"施纳德 Tap 6 Aventinus 双倍博克小麦", style:"双倍小麦博克（Weizenbock）", abv:"8.2%vol", price:"≈25–35 元/瓶", where:"京东 / 天猫", drunk:false,
+   why:"同酒厂最浓郁的一款。香蕉、李子、丁香、焦糖层层叠叠，酒体更厚，可以理解为 5 号的加厚版。"},
+  {cat:"wheat", name:"施纳德 Tap 2 水晶小麦", style:"水晶小麦（过滤型）", abv:"5%vol", price:"≈20 元/瓶", where:"京东 / 天猫超市", drunk:false,
+   why:"同厂最清爽的一支。用来做口味对照，能明显喝出 5 号里的酒花到底贡献了多少。"},
+  {cat:"wheat", name:"唯森 Weihenstephaner 酵母小麦白啤", style:"德式小麦（Hefeweizen）", abv:"5.4%vol", price:"500ml×6 ≈82 元", where:"天猫超市", drunk:false,
+   why:"德式小麦的教科书：香蕉 + 丁香酯酚香，泡沫极绵密，苦度极低。建立德式小麦基准线必喝。"},
+  {cat:"wheat", name:"唯森 Vitus 双倍小麦博克", style:"双倍小麦博克", abv:"7.7%vol", price:"≈30 元/瓶", where:"京东 / 天猫", drunk:false,
+   why:"把德式小麦的浓度和香气再推高一级，比白啤更接近你要的「厚 + 香」。"},
+  {cat:"wheat", name:"保拉纳 柏龙 小麦白啤", style:"德式小麦", abv:"5.5%vol", price:"330ml×24 ≈150–200 元", where:"京东 / 山姆 / 商超", drunk:false,
+   why:"国内普及度最高的德式小麦之一，口粮级价格、风味稳定，做日常囤货不会踩雷。"},
+  {cat:"wheat", name:"教士 / 范佳乐 小麦白啤", style:"德式小麦", abv:"5%vol", price:"≈8–12 元/瓶", where:"便利店 / 商超", drunk:false,
+   why:"最容易随手买到的一支。虽然比施纳德平淡，但作为常备口粮完全够用。"},
+  {cat:"wheat", name:"常陆野猫头鹰 白啤", style:"日式小麦（日本茨城）", abv:"5.5%vol", price:"进口超市 / 精酿店", where:"Ole' / 精酿酒吧", drunk:false,
+   why:"正好卡在「日式 × 香气型小麦」的交叉点上——你三条线里的两个偏好，这一瓶同时满足。"},
+
+  {cat:"belgian", name:"督威 经典 Duvel", style:"比利时金色艾尔", abv:"8.5%vol", price:"≈15–20 元/瓶", where:"京东 / 商超", drunk:false,
+   why:"三花的母版。沙口更细、收口更干，喝过它才知道三花在哪些地方加了酒花。"},
+  {cat:"belgian", name:"督威 6.66", style:"酒花加强型金色艾尔", abv:"6.66%vol", price:"330ml×6 ≈120 元", where:"京东自营", drunk:false,
+   why:"同厂新酒花款，香气取向最贴近三花，度数却更友好，适合日常喝。"},
+  {cat:"belgian", name:"马杜斯 Maredsous 6 / 8 / 10", style:"修道院风格艾尔", abv:"6 / 8 / 10%vol", price:"≈15–25 元/瓶", where:"京东 / 天猫", drunk:false,
+   why:"督威集团旗下。数字越大越厚重，8 号和 10 号的焦糖与深色果香很足，适合往浓郁方向延伸。"},
+  {cat:"belgian", name:"卡美里特 Tripel Karmeliet", style:"比利时三料（Tripel）", abv:"8.4%vol", price:"330ml×24 ≈270 元", where:"京东 / 天猫 / 拼多多", drunk:false,
+   why:"大麦 + 小麦 + 燕麦三谷混酿，香草与柑橘香精致复杂，八度多的酒精几乎感觉不到烈。"},
+  {cat:"belgian", name:"西麦尔三料 Westmalle Tripel", style:"特拉普修道院三料", abv:"9.5%vol", price:"≈20–30 元/瓶", where:"京东", drunk:false,
+   why:"被称为「三料之母」，果香、辛香料与明确苦味平衡得极好，是这一族的必修课。"},
+  {cat:"belgian", name:"小精灵 La Chouffe", style:"比利时金色艾尔", abv:"8%vol", price:"≈20–25 元/瓶", where:"京东 / 进口超市", drunk:false,
+   why:"芫荽籽与柑橘香突出，度数不低却极易入口，是三花之外最讨喜的一支金色艾尔。"},
+  {cat:"belgian", name:"智美 白帽 / 蓝帽", style:"修道院三料 / 四料", abv:"8% / 9%vol", price:"≈20–30 元/瓶", where:"京东 / 山姆", drunk:false,
+   why:"想往更深色、更醇厚、更复杂的口味走，从白帽过渡到蓝帽是最顺的路径。"},
+  {cat:"belgian", name:"金龙 Gulden Draak / 匹拉特 Piraat", style:"比利时烈性艾尔", abv:"10.5%vol", price:"≈25–35 元/瓶", where:"京东 / 精酿店", drunk:false,
+   why:"更烈更甜，焦糖与深色果香浓郁，适合当餐后酒慢慢喝。"},
+
+  {cat:"japan", name:"三得利 金麦", style:"日式清爽型", abv:"约 5%vol / 11.2°P", price:"350ml×6 ≈55–70 元", where:"京东 / 天猫国际", drunk:true,
+   why:"你正在喝的一支。同价位里泡沫最绵密、麦香最扎实，日剧里晚酌那一口就是它。"},
+  {cat:"japan", name:"三得利 万志 The Premium Malt's", style:"日式皮尔森", abv:"5.5%vol", price:"≈15–20 元/罐", where:"电商 / 进口超市", drunk:false,
+   why:"三得利的高端线，二次煮熬工艺让麦香与花香明显更足，是金麦最直接的「向上一步」。"},
+  {cat:"japan", name:"麒麟 一番榨 生啤", style:"日式拉格", abv:"5%vol", price:"350ml×6 ≈96 元", where:"天猫国际 / 京东", drunk:false,
+   why:"只取第一道麦汁，麦香纯净，苦度适中不寡淡，日常口粮里最稳的一支。"},
+  {cat:"japan", name:"麒麟 一番榨 无糖", style:"无糖拉格", abv:"5%vol", price:"≈10–15 元/罐", where:"京东 / 天猫", drunk:false,
+   why:"去掉糖分但风味没塌，收口更干更干净，怕甜或怕胀的人首选。"},
+  {cat:"japan", name:"麒麟 秋味（季节限定）", style:"季节限定拉格", abv:"6%vol", price:"≈15 元/罐", where:"天猫 / 京东", drunk:false,
+   why:"比一番榨更浓、麦芽甜感更重，秋天限定，见到就可以试。"},
+  {cat:"japan", name:"朝日 Super Dry 超爽生啤（日本本土版）", style:"干爽型拉格", abv:"5%vol", price:"340ml×24 ≈398 元", where:"京东自营", drunk:false,
+   why:"定义「辛口」的标杆，干爽利落、杀口感强，配油炸和烧烤时解腻能力最强。"},
+  {cat:"japan", name:"三宝乐 SAPPORO 黑标", style:"日式拉格", abv:"5%vol", price:"≈12–18 元/罐", where:"京东 / 天猫超市", drunk:false,
+   why:"北海道水源酿造，麦香干净利落、不上头，是日式拉格里的清爽正统。"},
+  {cat:"japan", name:"惠比寿 Yebisu 金罐 / 蓝罐", style:"全麦日式拉格", abv:"5%vol", price:"≈15–20 元/罐", where:"电商 / 进口超市", drunk:false,
+   why:"100% 麦芽、陈酿时间更长，口感圆润饱满带花香，是日系里最「德味」的一支。"},
+  {cat:"japan", name:"奥利恩 Orion 生啤（冲绳）", style:"冲绳风格拉格", abv:"5%vol", price:"进口超市 / 电商", where:"Ole' / 京东", drunk:false,
+   why:"苦味清晰有力，草本酒花香配熟成谷物尾韵，配红烧肉和炭烤海鲜非常合拍。"}
+];
+
+var GROUPS = [
+  {cat:"wheat",   title:"酒花小麦线",       color:"var(--c-wheat)",   desc:"贴着施纳德 5 号走：小麦基底 + 大量后投酒花，酒体浑浊饱满、香气外放，苦度却被压得很低。"},
+  {cat:"belgian", title:"比利时烈性艾尔线", color:"var(--c-belgian)", desc:"贴着督威三花走：核心是「九度却不觉得烈」，果香、辛香料与干爽收口并存。"},
+  {cat:"japan",   title:"日式清爽线",       color:"var(--c-japan)",   desc:"贴着金麦走：麦香干净、泡沫绵密、苦度极低，同赛道里比金麦再上一步的几支。"}
+];
+
+var root = document.getElementById("list");
+var state = {f:"all", newOnly:false};
+
+function card(d){
+  var badge = d.drunk ? '<span class="badge">你常喝</span>' : '';
+  var hide = state.newOnly && d.drunk ? ' hidden' : '';
+  return '<div class="item'+hide+'">' +
+      '<div><div class="nm">' + d.name + badge + '</div>' +
+      '<div class="style">' + d.style + ' · ' + d.where + '</div>' +
+      '<div class="why">' + d.why + '</div></div>' +
+      '<div class="side"><div class="price">' + d.price + '</div>' +
+      '<div class="abv">' + d.abv + '</div></div>' +
+    '</div>';
+}
+
+function render(){
+  var html = '';
+  GROUPS.forEach(function(g){
+    if (state.f !== "all" && state.f !== g.cat) return;
+    var items = DATA.filter(function(d){ return d.cat === g.cat; });
+    html += '<div class="group"><div class="ghead">' +
+        '<span class="dot" style="background:' + g.color + '"></span>' +
+        '<h3>' + g.title + '</h3>' +
+        '<span class="cnt">' + items.length + ' 款</span></div>' +
+      '<div class="gdesc">' + g.desc + '</div>' +
+      '<div class="list">' + items.map(card).join('') + '</div></div>';
+  });
+  root.innerHTML = html || '<p class="note">没有匹配的酒款。</p>';
+}
+
+Array.prototype.forEach.call(document.querySelectorAll(".chip"), function(c){
+  c.addEventListener("click", function(){
+    Array.prototype.forEach.call(document.querySelectorAll(".chip"), function(x){ x.classList.remove("on"); });
+    c.classList.add("on");
+    state.f = c.getAttribute("data-f");
+    render();
+  });
+});
+document.getElementById("newOnly").addEventListener("change", function(e){
+  state.newOnly = e.target.checked;
+  render();
+});
+render();
+</script>
+</body>
+</html>
