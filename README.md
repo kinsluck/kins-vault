@@ -92,7 +92,7 @@ kins-vault/
 | [**原木风装修避坑指南**](https://kinsluck.github.io/kins-vault/life/wood-style-renovation-guide.html) | 「十几万的高级感，都是实木给的」—— 落地要点与避坑清单 |
 | [**装修全流程总结**](https://kinsluck.github.io/kins-vault/life/renovation-full-process-guide.html) | 不误工期、不被忽悠、不踩坑 —— 从开工到验收的完整流程梳理 |
 | [**啤酒探索清单**](https://kinsluck.github.io/kins-vault/life/beer-exploration-list.html) | 以施纳德 5 号 / 督威三花 / 金麦为基准的风味坐标 |
-| [**普通男生快速脱单法**](https://kinsluck.github.io/kins-vault/life/dating-guide.html) | 资源 · 筛选 · 搭讪，双视频整合后的方法梳理 |
+| [**普通男生快速脱单法**](https://kinsluck.github.io/kins-vault/life/dating-guide.html) | 「记住这两点就够了」：打破资源边界、只做筛选不做改变 |
 | [**0-3 岁婴幼儿养育照护手册**](https://kinsluck.github.io/kins-vault/life/baby-care-handbook.html) | 从出生开始的衣食住行速查：喂养、睡眠、穿盖、日常护理要点 |
 
 ### 🔧 硬件与装备
