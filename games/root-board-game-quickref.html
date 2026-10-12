@@ -1,0 +1,992 @@
+<!DOCTYPE html>
+<html data-page-node-id="2eFHbnuAooMbTWs21yoSik" lang="zh-CN">
+<head data-page-node-id="bYU9KDe7KofyNyXMEdtTD5">
+<meta data-page-node-id="s6KZtJAwfkahnFJBvFhpIN" charset="UTF-8">
+<meta data-page-node-id="18JnTKNsFsTbCOCQeRvAok" content="width=device-width, initial-scale=1.0" name="viewport">
+<title data-page-node-id="YXhzJGuwXJWbmJfrkq3fN0" data-pnid-children="XFMhrXEpFwOfrEkN1EMvhe">茂林源记 · 快速回忆 & 规则速查</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%20100%20100%22%3E%3Ctext%20y%3D%22.9em%22%20font-size%3D%2290%22%3E%F0%9F%8C%B2%3C%2Ftext%3E%3C%2Fsvg%3E">
+<style data-page-node-id="dRJXof0egWOr6Lfm8KTm8r" data-pnid-children="TORcLbgGUKVgU8qoYchmgP">
+:root{
+  --bg:#f6f1e7;
+  --paper:#fffdf8;
+  --ink:#2f2a24;
+  --ink-soft:#5d564c;
+  --line:#e3d9c6;
+  --accent:#8c5a2b;
+  --cat:#c96a2b;
+  --cat-bg:#fdf0e4;
+  --bird:#3f6fb0;
+  --bird-bg:#e9f0fa;
+  --alliance:#3f7d4e;
+  --alliance-bg:#e8f4ea;
+  --vagabond:#7a5aa0;
+  --vagabond-bg:#f1eafa;
+  --warn:#b8443a;
+  --warn-bg:#fbeceb;
+  --gold:#c9982f;
+}
+*{box-sizing:border-box;}
+html{
+  scroll-behavior:smooth;
+  -webkit-text-size-adjust:100%;   /* iOS 横屏不放大字号 */
+  text-size-adjust:100%;
+}
+body{
+  margin:0;
+  font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Hiragino Sans GB","Microsoft YaHei",sans-serif;
+  background:var(--bg);
+  color:var(--ink);
+  line-height:1.75;
+  font-size:16px;
+  -webkit-tap-highlight-color:transparent;  /* 去掉 iOS 点击灰块 */
+  overflow-x:hidden;
+  -webkit-overflow-scrolling:touch;
+}
+a{color:var(--accent);}
+img,svg{max-width:100%;height:auto;}
+
+/* ---------- 布局 ---------- */
+.wrap{max-width:1120px;margin:0 auto;padding:0 20px 80px;}
+.layout{display:grid;grid-template-columns:230px 1fr;gap:36px;align-items:start;}
+/* 关键：网格项默认 min-width:auto 会被内容（如长表格）撑开，导致整页横向溢出 */
+.layout > *{min-width:0;}
+main{min-width:0;overflow-wrap:break-word;}
+
+/* 安全区（iPhone 刘海/底部横条） */
+@supports(padding:max(0px)){
+  .wrap{padding-left:max(20px,env(safe-area-inset-left));padding-right:max(20px,env(safe-area-inset-right));}
+  .top-link{bottom:max(22px,calc(env(safe-area-inset-bottom) + 14px));right:max(22px,calc(env(safe-area-inset-right) + 14px));}
+}
+
+/* ---------- 头部 ---------- */
+header.hero{
+  background:linear-gradient(150deg,#2f3a2b 0%,#455138 55%,#5c4a2e 100%);
+  color:#f6f1e7;
+  padding:52px 24px 44px;
+  margin-bottom:34px;
+  position:relative;
+  overflow:hidden;
+}
+header.hero::after{
+  content:"";
+  position:absolute;inset:0;
+  background-image:radial-gradient(circle at 12% 30%, rgba(255,255,255,.07) 0 2px, transparent 3px),
+                   radial-gradient(circle at 78% 70%, rgba(255,255,255,.05) 0 3px, transparent 4px),
+                   radial-gradient(circle at 45% 15%, rgba(255,255,255,.04) 0 2px, transparent 3px);
+  background-size:120px 120px,180px 180px,90px 90px;
+  pointer-events:none;
+}
+.hero-inner{max-width:1120px;margin:0 auto;position:relative;z-index:1;}
+.hero .kicker{
+  display:inline-block;letter-spacing:.32em;font-size:.72rem;text-transform:uppercase;
+  color:#d9c8a5;border:1px solid rgba(217,200,165,.4);border-radius:999px;
+  padding:4px 14px;margin-bottom:16px;
+}
+.hero h1{margin:0 0 10px;font-size:2.35rem;letter-spacing:.04em;font-weight:700;}
+.hero p.sub{margin:0;color:#cfc7b6;font-size:1rem;max-width:720px;}
+.hero .meta{margin-top:20px;display:flex;flex-wrap:wrap;gap:10px;}
+.hero .meta span{
+  font-size:.8rem;background:rgba(255,255,255,.09);border-radius:6px;
+  padding:5px 12px;color:#e5ddca;border:1px solid rgba(255,255,255,.1);
+}
+
+/* ---------- 侧边导航 ---------- */
+nav.toc{
+  position:sticky;top:24px;
+  background:var(--paper);border:1px solid var(--line);border-radius:14px;
+  padding:18px 16px;font-size:.88rem;
+  box-shadow:0 2px 10px rgba(90,70,40,.05);
+}
+nav.toc h3{margin:0 0 12px;font-size:.78rem;letter-spacing:.18em;color:var(--ink-soft);text-transform:uppercase;font-weight:600;}
+nav.toc a{
+  display:block;padding:6px 10px;border-radius:8px;color:var(--ink-soft);
+  text-decoration:none;transition:.15s;border-left:2px solid transparent;
+}
+nav.toc a:hover{background:var(--bg);color:var(--accent);border-left-color:var(--accent);}
+
+/* ---------- 移动端顶部横向导航（默认隐藏，窄屏显示） ---------- */
+.mobile-nav{
+  display:none;
+  position:sticky;top:0;z-index:40;
+  background:rgba(246,241,231,.94);
+  -webkit-backdrop-filter:saturate(180%) blur(12px);
+  backdrop-filter:saturate(180%) blur(12px);
+  border-bottom:1px solid var(--line);
+  margin:0 -20px 18px;
+  padding:8px 0;
+}
+.mobile-nav .scroller{
+  display:flex;gap:8px;overflow-x:auto;
+  -webkit-overflow-scrolling:touch;
+  scrollbar-width:none;
+  padding:0 16px;
+  scroll-padding-left:16px;
+}
+.mobile-nav .scroller::-webkit-scrollbar{display:none;}
+.mobile-nav a{
+  flex:0 0 auto;white-space:nowrap;
+  font-size:.82rem;color:var(--ink-soft);text-decoration:none;
+  background:var(--paper);border:1px solid var(--line);border-radius:999px;
+  padding:7px 14px;line-height:1.2;transition:.15s;
+}
+.mobile-nav a:active{background:var(--accent);color:#fff;border-color:var(--accent);}
+
+/* ---------- 区块 ---------- */
+/* scroll-margin-top 预留吸顶导航高度，避免锚点跳转后标题被遮住 */
+section{margin-bottom:44px;scroll-margin-top:20px;}
+h2.sec{
+  font-size:1.42rem;margin:0 0 6px;display:flex;align-items:center;gap:12px;
+  letter-spacing:.02em;
+}
+h2.sec .num{
+  display:inline-flex;align-items:center;justify-content:center;
+  width:34px;height:34px;border-radius:10px;background:var(--accent);color:#fff;
+  font-size:.95rem;flex:none;font-weight:700;
+}
+.sec-note{color:var(--ink-soft);font-size:.9rem;margin:0 0 20px;padding-left:46px;}
+
+/* ---------- 卡片 ---------- */
+.card{
+  background:var(--paper);border:1px solid var(--line);border-radius:14px;
+  padding:22px 24px;margin-bottom:16px;
+  box-shadow:0 2px 10px rgba(90,70,40,.045);
+}
+.card h3{margin:0 0 12px;font-size:1.06rem;display:flex;align-items:center;gap:9px;}
+.card h3 .dot{width:9px;height:9px;border-radius:50%;background:var(--accent);flex:none;}
+.card h4{margin:18px 0 8px;font-size:.96rem;color:var(--ink);}
+.card h4:first-child{margin-top:0;}
+
+/* ---------- 阶段时间轴 ---------- */
+.phases{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-top:6px;}
+.phase{
+  border-radius:12px;padding:18px 18px 16px;border:1px solid var(--line);
+  background:var(--paper);position:relative;
+}
+.phase .tag{
+  font-size:.7rem;letter-spacing:.16em;text-transform:uppercase;font-weight:700;
+  display:inline-block;padding:3px 9px;border-radius:6px;margin-bottom:10px;
+}
+.phase.dawn{border-top:3px solid #d99b3c;}
+.phase.dawn .tag{background:#fbf0dc;color:#a9701b;}
+.phase.day{border-top:3px solid #e0b93a;}
+.phase.day .tag{background:#fbf4d8;color:#96760f;}
+.phase.dusk{border-top:3px solid #6a5a86;}
+.phase.dusk .tag{background:#efeaf6;color:#584778;}
+.phase p{margin:0;font-size:.9rem;color:var(--ink-soft);}
+.phase .en{font-size:.76rem;color:#9a9282;display:block;}
+
+/* ---------- 流程步骤 ---------- */
+ol.flow{margin:0;padding-left:0;list-style:none;counter-reset:s;}
+ol.flow>li{
+  counter-increment:s;position:relative;padding:0 0 16px 40px;
+  border-left:2px solid var(--line);margin-left:12px;
+}
+ol.flow>li:last-child{border-left-color:transparent;padding-bottom:0;}
+ol.flow>li::before{
+  content:counter(s);position:absolute;left:-13px;top:0;
+  width:24px;height:24px;border-radius:50%;background:var(--paper);
+  border:2px solid var(--accent);color:var(--accent);
+  display:flex;align-items:center;justify-content:center;
+  font-size:.76rem;font-weight:700;
+}
+ol.flow>li b{color:var(--ink);}
+
+/* ---------- 表格 ---------- */
+.tablewrap{overflow-x:auto;border:1px solid var(--line);border-radius:12px;margin:6px 0 4px;}
+table{border-collapse:collapse;width:100%;font-size:.88rem;background:var(--paper);min-width:560px;}
+th,td{padding:11px 14px;text-align:left;border-bottom:1px solid var(--line);vertical-align:top;}
+th{background:#f2ead9;font-weight:600;color:var(--ink);font-size:.84rem;letter-spacing:.02em;white-space:nowrap;}
+tbody tr:last-child td{border-bottom:none;}
+tbody tr:hover{background:#faf6ec;}
+
+/* ---------- 派系卡 ---------- */
+.factions{display:grid;grid-template-columns:1fr 1fr;gap:16px;}
+.faction{border-radius:14px;padding:20px 22px;border:1px solid var(--line);background:var(--paper);}
+.faction.cat{border-top:4px solid var(--cat);background:var(--cat-bg);}
+.faction.bird{border-top:4px solid var(--bird);background:var(--bird-bg);}
+.faction.alliance{border-top:4px solid var(--alliance);background:var(--alliance-bg);}
+.faction.vagabond{border-top:4px solid var(--vagabond);background:var(--vagabond-bg);}
+.faction.feat{grid-column:1/-1;}
+.faction h3{margin:0 0 4px;font-size:1.1rem;}
+.faction .role{font-size:.82rem;color:var(--ink-soft);margin:0 0 12px;font-style:italic;}
+.faction ul{margin:0;padding-left:18px;font-size:.9rem;}
+.faction ul li{margin-bottom:5px;}
+.faction .abilities{margin-top:12px;display:flex;flex-wrap:wrap;gap:6px;}
+.faction .abilities span{
+  font-size:.76rem;background:rgba(255,255,255,.75);border:1px solid rgba(0,0,0,.08);
+  border-radius:6px;padding:3px 9px;color:var(--ink-soft);
+}
+
+/* ---------- 提示框 ---------- */
+.callout{
+  border-radius:12px;padding:16px 20px;margin:16px 0;font-size:.9rem;
+  border-left:4px solid var(--accent);background:#faf5ea;color:var(--ink-soft);
+}
+.callout.remind{border-left-color:var(--gold);background:#fdf7e6;}
+.callout.warn{border-left-color:var(--warn);background:var(--warn-bg);color:#7a3a34;}
+.callout b{color:var(--ink);}
+.callout .ttl{display:block;font-weight:700;color:var(--ink);margin-bottom:4px;font-size:.9rem;}
+
+/* ---------- 徽章 ---------- */
+.badges{display:flex;flex-wrap:wrap;gap:8px;margin-top:4px;}
+.badge{
+  font-size:.78rem;padding:5px 11px;border-radius:999px;background:#efe7d6;
+  color:var(--accent);border:1px solid #e0d3ba;font-weight:600;
+}
+.badge.gold{background:#fbf1d8;color:#a9781a;border-color:#eddcb1;}
+
+/* ---------- 速查卡 ---------- */
+.cheat{
+  background:#2f2a24;color:#f0e9dc;border-radius:14px;padding:24px 26px;
+  border:1px solid #4a4033;
+}
+.cheat h3{color:#f6e9c9;margin:0 0 16px;font-size:1.1rem;}
+.cheat .grid{display:grid;grid-template-columns:1fr 1fr;gap:14px 26px;}
+.cheat .item{border-left:2px solid #6b5a3e;padding-left:12px;}
+.cheat .item b{color:#e8c97f;display:block;font-size:.85rem;margin-bottom:2px;}
+.cheat .item p{margin:0;font-size:.85rem;color:#cfc6b5;}
+
+/* 骰子可视化 */
+.dice-vis{display:flex;gap:10px;margin:12px 0;flex-wrap:wrap;align-items:center;}
+.die{
+  width:44px;height:44px;border-radius:9px;background:var(--paper);border:2px solid var(--line);
+  display:flex;align-items:center;justify-content:center;font-weight:700;font-size:1rem;color:var(--ink);
+  box-shadow:0 2px 6px rgba(90,70,40,.1);
+}
+.die.hi{background:#e9f0fa;border-color:var(--bird);color:var(--bird);}
+.die.lo{background:#fdf0e4;border-color:var(--cat);color:var(--cat);}
+.arrow{color:var(--ink-soft);font-size:1.2rem;}
+
+/* 页脚 */
+footer{
+  max-width:1120px;margin:40px auto 0;padding:22px 24px 0;border-top:1px solid var(--line);
+  color:#8a8172;font-size:.8rem;
+}
+footer p{margin:0 0 6px;}
+
+/* ---------- 回到顶部（触屏易点） ---------- */
+.top-link{
+  position:fixed;right:22px;bottom:22px;width:46px;height:46px;border-radius:50%;
+  background:var(--accent);color:#fff;display:flex;align-items:center;justify-content:center;
+  text-decoration:none;font-size:1.15rem;box-shadow:0 4px 14px rgba(140,90,43,.35);z-index:50;
+}
+
+/* ============================================================
+   响应式断点
+   · ≥1100px  桌面：双栏 + 吸顶侧边导航
+   · 769–1099px iPad 横屏 / 竖屏：单栏 + 顶部横向导航（居中限宽）
+   · ≤768px   手机 / iPad 竖屏：单栏 + 顶部横向导航 + 放宽排版
+   · ≤420px   小屏手机：紧凑排版
+   ============================================================ */
+
+/* --- iPad 竖屏 / 平板：取消双栏，改用顶部横向导航 --- */
+@media(max-width:1099px){
+  .layout{grid-template-columns:1fr;gap:0;}
+  nav.toc{display:none;}
+  .mobile-nav{display:block;}
+  .sec-note{padding-left:0;}
+  /* 锚点跳转时给吸顶导航留出高度 */
+  section{scroll-margin-top:76px;}
+  /* 底部留白：让最后几节也能滚到吸顶导航下方，不会被页面底部卡住 */
+  .wrap{padding-bottom:calc(80px + 45vh);}
+  /* 平板下内容限宽居中，避免一行过长 */
+  main{max-width:760px;margin:0 auto;width:100%;}
+}
+
+/* --- iPad 横屏：内容可稍宽 --- */
+@media(min-width:769px) and (max-width:1099px){
+  main{max-width:820px;}
+}
+
+/* --- 手机 & iPad 竖屏窄幅 --- */
+@media(max-width:768px){
+  body{font-size:16px;line-height:1.8;}
+  .wrap{padding:0 16px 64px;}
+  .mobile-nav{margin:0 -16px 16px;}
+
+  .hero{padding:38px 18px 30px;margin-bottom:22px;}
+  .hero h1{font-size:1.52rem;line-height:1.3;}
+  .hero p.sub{font-size:.92rem;}
+  /* kicker 在窄屏允许换行，避免被 letter-spacing 撑破 */
+  .hero .kicker{
+    letter-spacing:.1em;font-size:.6rem;line-height:1.5;
+    padding:5px 12px;border-radius:10px;max-width:100%;
+    white-space:normal;
+  }
+  .hero .meta{gap:7px;margin-top:14px;}
+  .hero .meta span{font-size:.72rem;padding:4px 9px;}
+
+  section{margin-bottom:34px;}
+  h2.sec{font-size:1.2rem;gap:10px;align-items:flex-start;}
+  h2.sec .num{width:28px;height:28px;font-size:.82rem;border-radius:8px;margin-top:3px;}
+
+  .card{padding:18px 16px;border-radius:12px;}
+  .card h3{font-size:1rem;}
+  .card h4{font-size:.94rem;}
+
+  /* 三阶段改为竖排，更易读 */
+  .phases{grid-template-columns:1fr;gap:10px;}
+  .phase{padding:14px 16px;}
+
+  /* 派系卡单列 */
+  .factions{grid-template-columns:1fr;gap:12px;}
+  .faction{padding:18px 16px;}
+  .faction ul{padding-left:16px;}
+
+  /* 速查卡单列 */
+  .cheat{padding:20px 16px;border-radius:12px;}
+  .cheat .grid{grid-template-columns:1fr;gap:12px;}
+
+  /* 流程步骤：缩短缩进 */
+  ol.flow>li{padding:0 0 14px 34px;margin-left:10px;}
+  ol.flow>li::before{width:22px;height:22px;left:-12px;font-size:.72rem;}
+
+  /* 表格：加大触控行高，去掉 hover 效果 */
+  table{min-width:480px;font-size:.86rem;}
+  th,td{padding:12px 12px;}
+  tbody tr:hover{background:transparent;}
+
+  .callout{padding:14px 16px;font-size:.88rem;}
+
+  /* 骰子稍放大，方便看清 */
+  .die{width:42px;height:42px;font-size:1rem;}
+
+  .top-link{width:44px;height:44px;right:16px;bottom:16px;}
+}
+
+/* --- 小屏手机 --- */
+@media(max-width:420px){
+  body{font-size:15px;}
+  .wrap{padding:0 13px 56px;}
+  .mobile-nav{margin:0 -13px 14px;}
+  .hero{padding:32px 15px 26px;}
+  .hero h1{font-size:1.38rem;}
+  .hero p.sub{font-size:.88rem;}
+  .hero .kicker{letter-spacing:.06em;font-size:.56rem;}
+
+  .card{padding:16px 13px;}
+  .card h3{font-size:.96rem;}
+  .cheat{padding:18px 13px;}
+  .cheat .item b{font-size:.82rem;}
+  .cheat .item p{font-size:.82rem;}
+
+  table{min-width:420px;font-size:.82rem;}
+  th,td{padding:11px 10px;}
+  .badge{font-size:.74rem;padding:4px 9px;}
+  .faction .abilities span{font-size:.72rem;}
+}
+
+/* --- 横屏手机：压缩头部，留出更多正文空间 --- */
+@media(max-height:500px) and (orientation:landscape){
+  .hero{padding:26px 20px 22px;margin-bottom:18px;}
+  .hero h1{font-size:1.4rem;}
+  .hero .meta{display:none;}
+  .mobile-nav{margin-bottom:12px;}
+}
+
+/* --- 触屏设备：去掉 hover 反馈，改用 active，避免“粘住”态 --- */
+@media(hover:none){
+  nav.toc a:hover{background:transparent;color:var(--ink-soft);border-left-color:transparent;}
+  tbody tr:hover{background:transparent;}
+  .mobile-nav a:active{background:var(--accent);color:#fff;}
+}
+
+/* --- 尊重系统「减弱动态效果」 --- */
+@media(prefers-reduced-motion:reduce){
+  html{scroll-behavior:auto;}
+  *{transition:none !important;}
+}
+</style>
+</head>
+<body data-page-node-id="yAWkh480HFAy3ZUC1BlqH1">
+
+<header data-page-node-id="hP9t666HWAO3XDoECMFoCV" class="hero">
+  <div data-page-node-id="lnPrLG9vYxjeg4hhOe7PDE" class="hero-inner">
+    <span data-page-node-id="MYlJVU6fx3uEGB4T8WZyCp" class="kicker"><!--pnid:dnEZiBz8jHYMoFwiCp8cwA-->Root · A Game of Woodland Might and Right</span>
+    <h1 data-page-node-id="ybctqkmDJBBqEzvXqvV9pu"><!--pnid:iwMapDAnWmYgus40B2abgA-->茂林源记 · 快速回忆 &amp; 规则速查</h1>
+    <p data-page-node-id="2IiU5IWcC9uS11HiwJfY3s" class="sub"><!--pnid:UN33LMSDp2lDkJ2XTylZuw-->好久没玩，规则忘得差不多了？这一页帮你 10 分钟找回手感：先用最短的篇幅把整局游戏串一遍，再用速查卡随时翻细节。只讲「怎么玩」，不讲「怎么赢」——思路留给你自己。</p>
+    <div data-page-node-id="9tDO5yU0V1wxfyIfWRYStJ" class="meta">
+      <span data-page-node-id="FnTPfBDHmQVy1mvel1sDW3"><!--pnid:2B20Dp5JKhjPM9J8k0n0Vj-->2–4 人</span>
+      <span data-page-node-id="DfWNK8kxdivolawz6LnrTI"><!--pnid:x0PkANaBMLvaG3TTGDCiGU-->60–90 分钟</span>
+      <span data-page-node-id="rjSOxsgMStXcKt7AqAq5tF"><!--pnid:8umZIIp9YDITrOavxgBTVS-->10 岁以上</span>
+      <span data-page-node-id="pz4afeKWRMBSAJSHi7dcqO"><!--pnid:6dyMQJhVRmUQew5yjeEaah-->非对称对战</span>
+      <span data-page-node-id="6jtkctcWIelkrojf1EsteL"><!--pnid:5t0QF25P1skZNOx5M1cmlF-->基础版 4 派系</span>
+    </div>
+  </div>
+</header>
+
+<div data-page-node-id="KmVIdkEzoWR4EbAlyk7egl" class="wrap">
+
+<!--pnid:C1TEFTOf18PjGR5sP2BwHI--><!-- 移动端 / iPad 顶部横向目录 -->
+<nav data-page-node-id="7vJKdlanTDaVmryxOatanY" aria-label="章节导航" class="mobile-nav">
+  <div data-page-node-id="g6lmYjsshwGKkBzO5yxCkj" class="scroller" id="navScroller">
+    <a data-page-node-id="No9mCF6RZ2XZck6RiLp7Eq" href="#recall"><!--pnid:u6o81FC5YRxWsHGWETQQb9-->① 三分钟回忆</a>
+    <a data-page-node-id="YK8EmHtOMeNLrqSkuLTGgo" href="#goal"><!--pnid:gY5zgnkFmCJVefgAXnlTde-->② 怎么算赢</a>
+    <a data-page-node-id="T8aIJ7ftipwadhihaQzfw5" href="#map"><!--pnid:T1vdVYHJhEm0BUMQXujZYz-->③ 地图与领地</a>
+    <a data-page-node-id="jQiF8MXTAbQ1npLqQJJiJi" href="#turn"><!--pnid:b8qmr3fyCFi2c87Jmp5V08-->④ 回合做什么</a>
+    <a data-page-node-id="CmdlVRtPqriI1s4Qyc8qdF" href="#actions"><!--pnid:d0YdsMGL7A69sZXxF4Piv4-->⑤ 通用行动</a>
+    <a data-page-node-id="UGRjEskLe82dxkeigTFJ9W" href="#battle"><!--pnid:4DrnC3SBvJS0tAHH0zzzAu-->⑥ 战斗流程</a>
+    <a data-page-node-id="i8Or4UPVMyZCgM7vxnTAf6" href="#cards"><!--pnid:HU4vSplW93J42tF3vQF6a7-->⑦ 卡牌锻造</a>
+    <a data-page-node-id="Y3mcjDZOJOcuQKYNf5wcnh" href="#factions"><!--pnid:wt6cREg70i77oi7bs5WwoD-->⑧ 四派系</a>
+    <a data-page-node-id="mheHVedvnoqgVpWElGphdy" href="#setup"><!--pnid:40OCT5NvJTKCZ7fWQTpEiP-->⑨ 开局设置</a>
+    <a data-page-node-id="xSDDEIx7zFnyqmMMi9eWip" href="#cheat"><!--pnid:IzmQXPIs62OuvV2QwjRYn9-->⑩ 速查卡</a>
+    <a data-page-node-id="vDblatINE6TG9VPhMbb8yG" href="#trouble"><!--pnid:5V8YNEuB2eoLW4HtJzDRJU-->⑪ 易错点</a>
+  </div>
+</nav>
+
+<div data-page-node-id="HRu8xGbFj1ydRocmYwwhcc" class="layout">
+
+  <!--pnid:JJz8P6wF2GxL1fyDCkKkLU--><!-- ============ 侧边导航 ============ -->
+  <nav data-page-node-id="FG7E8SH7NHiqkOszAGnRaL" class="toc">
+    <h3 data-page-node-id="SkS5mOp0wg3EwHL4hYypxN"><!--pnid:Ndw4MNTprfK9WN4007MCU6-->目录</h3>
+    <a data-page-node-id="kokRxh4XiHhkEFa4wjpvXD" href="#recall"><!--pnid:ZqwONAVgTdCR0qNTvgirMi-->① 三分钟回忆</a>
+    <a data-page-node-id="vY9L88D5lthfNAlRxzLYl7" href="#goal"><!--pnid:npNYuq8njzE1hKl4cqS2ZH-->② 怎么算赢</a>
+    <a data-page-node-id="2UNFWMvpXtM3RZKsXSuHIb" href="#map"><!--pnid:WzC4bp7xrcG4zrMBlgv0ro-->③ 地图与领地</a>
+    <a data-page-node-id="7WZ8A1xGF6E7aOOUx5cjn8" href="#turn"><!--pnid:dGCrzCxGQX7xG2Qe3tS4Pg-->④ 一个回合做什么</a>
+    <a data-page-node-id="sVki5xh8m82Yb3A1g3T6UV" href="#actions"><!--pnid:kbNe0Kdvf5jO4659md4OlH-->⑤ 通用行动</a>
+    <a data-page-node-id="dMBHmHMy8CPLPkOrbzGb1n" href="#battle"><!--pnid:GtHJ0ewVY533dUxY3Kcuk2-->⑥ 战斗全流程</a>
+    <a data-page-node-id="M2bvMObqQgFwgAtMrCTNyO" href="#cards"><!--pnid:Mmc44Eni5ATUU6ChiNFSSm-->⑦ 卡牌与锻造</a>
+    <a data-page-node-id="ggq3Mshz26LVpmYgxE4r0P" href="#factions"><!--pnid:FGSmIpi8KhxQBXDXAhmMfh-->⑧ 四派系特性</a>
+    <a data-page-node-id="jGc3iSDbL2gtLGPQF8dyQZ" href="#setup"><!--pnid:q4IPtbWnHmPhGpOaB9stQk-->⑨ 开局设置</a>
+    <a data-page-node-id="zyF61obPT3PgmwkEJ6AWnh" href="#cheat"><!--pnid:bpXgvKzEovPyG2cubpbWB9-->⑩ 一页速查卡</a>
+    <a data-page-node-id="1Mri4UftrDUt9tlNVfYHLe" href="#trouble"><!--pnid:IC00k0htcSwxTicJzWfVwD-->⑪ 易错点</a>
+  </nav>
+
+  <!--pnid:64DB9MimBCgFsHM83KjDBa--><!-- ============ 正文 ============ -->
+  <main data-page-node-id="Ha0ILXI48pFaRRJWCJZOhc">
+
+  <!--pnid:Cs07UkUWxMOd16HVx91zF2--><!-- ① 三分钟回忆 -->
+  <section data-page-node-id="IngmWjb0ELHAaeTS8uT01M" id="recall">
+    <h2 data-page-node-id="XWCl4ZAexT0RkEPWvLOudl" class="sec"><span data-page-node-id="YIvhDYF825OtQXFm7otKWq" class="num"><!--pnid:FLHuepv1CO4kNtlojGfxNc-->01</span><!--pnid:QlV9oP6n55RbQRymMfvh6f-->三分钟回忆：这游戏到底在干嘛</h2>
+    <p data-page-node-id="QV7NoSvUKyxNqITDaFyWQK" class="sec-note"><!--pnid:J8Y2FImlXHGUjYvy7J0shT-->如果你只有 3 分钟，看这一节就够了。</p>
+
+    <div data-page-node-id="5rTtjM12MiTDhwlAp6g3yG" class="card">
+      <p data-page-node-id="LOMTv8Xh6D3XVw2qrgh4sZ" style="margin-top:0"><!--pnid:Sf0BGsFbHhJ0Qap7YOxtfm-->森林里住着狐狸、兔子、老鼠三族小动物。几位玩家各自带领一个<b data-page-node-id="mHQJ65WbeOa7qaQitHxU7r"><!--pnid:hPs9ZVYFdNdPBeWlmlSAhH-->完全不同</b><!--pnid:cgpxKvRWihW8GFgQOzyahP-->的势力，为了争夺森林的统治权而战。这是一款<b data-page-node-id="HNRQz8FmojGdEsaXZzKl87"><!--pnid:khHODR35hhc4QYBjZtKVQB-->非对称</b><!--pnid:0jDjULh3LlQuXBTzQuTTLt-->游戏——每个派系的行动方式、得分方式都不一样，所以「回合流程」对所有人都一样，但「回合里能做什么」因人而异。</p>
+      <p data-page-node-id="hr5TtzoTrZJP7na8bYtlLy"><!--pnid:kugfDaINkLUx1F5sZ7ev0e-->整局游戏按<b data-page-node-id="OkgXyZNwPhZ7hYT3PAsHCv"><!--pnid:uX30sMEErMoE2RGVkndKE2-->回合</b><!--pnid:dKTTtjW8pvkbZBfJMhh3oG-->轮流进行，每个回合固定分三个阶段：</p>
+      <div data-page-node-id="vYgb470fXL7DinN0ooqb23" class="phases">
+        <div data-page-node-id="o7aQx1YcHVJcnEOYAZD5sy" class="phase dawn">
+          <span data-page-node-id="AoppqQ4dl0bdJB9rsgmHUu" class="tag"><!--pnid:1RU7fPeYVECsmfQ34u7KH0-->Birdsong</span>
+          <b data-page-node-id="UaohYTFdK5QJyxO59STw0N"><!--pnid:iwY9EEiCExa21bQXsoOVOA-->清晨</b>
+          <p data-page-node-id="tCLRmhJZCVL1ms7P9rENV6"><!--pnid:Xy8vnHCDjBPDAyaOok55JW-->准备与收成：补资源、处理自己派系的例行事务。</p>
+          <span data-page-node-id="GjQBECLDmDm9LsERodRYJe" class="en"><!--pnid:Q0CTv0A9mqklTkGC6GnTNf-->例：猫收木材</span>
+        </div>
+        <div data-page-node-id="tn4GHk63wv7YvmUWxsTdr3" class="phase day">
+          <span data-page-node-id="LWkhzQGrvBCsvfOXVCw7wN" class="tag"><!--pnid:DlCPa8K4x5DtQfQZQeKohy-->Daylight</span>
+          <b data-page-node-id="d98kENLqNNL7qxWqaIhXze"><!--pnid:iJ8ENgkYBqZ7e7C3RMTlpI-->白天</b>
+          <p data-page-node-id="TILOjOs4RwPwqcp4FZOWSe"><!--pnid:pQP5U8Rg5rwc764LLlD7Uv-->主行动阶段：移动、战斗、建造、派系专属行动都在这。</p>
+          <span data-page-node-id="pBcv3qyX25k93G79wZ91Sj" class="en"><!--pnid:bD72LLCnbDDtcigKVEQCfQ-->大部分决策都在这里</span>
+        </div>
+        <div data-page-node-id="uSpGi1nEosquuY79KR4LUF" class="phase dusk">
+          <span data-page-node-id="cn37edpvPQcTJFDtVUPpf6" class="tag"><!--pnid:o4NMj1jLOI1bibZngVYk0F-->Evening</span>
+          <b data-page-node-id="dQkpeQ3TnksTeF78y2W81Q"><!--pnid:jfNtDng6rusHT1Rl01PDfL-->黄昏</b>
+          <p data-page-node-id="RFxevr4lmhR4nySojI4DOM"><!--pnid:UqGWSJAwcIoJrtSCi1IuVa-->结算与补牌：结算计分、把手牌补到上限。</p>
+          <span data-page-node-id="rjsb58dfmSpxMwuI9oXnJ5" class="en"><!--pnid:QVrQpIxrMPF6LRS3bHwfEy-->例：飞鹰结算鸟巢</span>
+        </div>
+      </div>
+
+      <div data-page-node-id="DPfOydkn6BpYpkiBLf8T28" class="callout remind" style="margin-top:20px">
+        <span data-page-node-id="td2JaB85mb6LcF80L2ydkP" class="ttl"><!--pnid:h0rzdpUt19CNmQtr8GByaf-->一句话串起整局</span><!--pnid:lTTypz7ch1mdPZ3f3SKq0G-->
+        每回合「清晨准备 → 白天行动 → 黄昏结算补牌」，谁先攒够 <b data-page-node-id="nTvtxlmxFF9ezHV5Bbhot3"><!--pnid:AP0RjkFH7YfNkzLJ4txKB4-->30 分</b><!--pnid:yfPXJy7LXzPR8DMOpr3QbL-->（或完成特殊胜利条件）谁就赢。就这么简单——复杂的部分全在「你那个派系」四个字里。
+      </div>
+    </div>
+  </section>
+
+  <!--pnid:0sf7MDfMyWtePVDuS0EWp8--><!-- ② 怎么算赢 -->
+  <section data-page-node-id="7Nru38FCAi3sk85jv9tW51" id="goal">
+    <h2 data-page-node-id="VVR1475O8w0pw4Aw27WJ8y" class="sec"><span data-page-node-id="R5cGzjVm0qccLyxFqKrOwb" class="num"><!--pnid:t7mEfqjmWYBkibzZtKgpIX-->02</span><!--pnid:yTw5iPOrOZsLuOEvmnYZhd-->怎么算赢</h2>
+    <p data-page-node-id="H5Oc1iRImM0Bu88sQJfjEX" class="sec-note"><!--pnid:q9mZJqP0VKWGchgXDI7ZCQ-->两种取胜方式，二选一。</p>
+    <div data-page-node-id="cAsJE0b68HajvCEhjFa3B0" class="card">
+      <h3 data-page-node-id="hRCQmsxlq24D75f83bz3Bh"><span data-page-node-id="I0TNDH2dwuB5hyQ9SNIPCE" class="dot"></span><!--pnid:9FT4ey1XdCirT0UkLzz6kI-->方式一：先到 30 分</h3>
+      <p data-page-node-id="uaCQvbWhwETg7KQ6bJDdJe" style="margin-top:0; color:var(--ink-soft)"><!--pnid:XMNKMhVcuevIlQXcCembcg-->最常规的赢法。<b data-page-node-id="RsrjyxTm2EFlzhHYfHpNyw"><!--pnid:SWtVkMaLiAv9Fm5sWyl4kR-->当有玩家达到 30 分或以上时，游戏在当前玩家回合结束后立刻结束</b><!--pnid:Zu24FD9ngb06kAtbWXinrn-->，分数最高者获胜。如果达到 30 分的同回合出现多人平手，由当前回合玩家获胜。</p>
+
+      <h3 data-page-node-id="RagGY86jTI8wyizzbnRpAA" style="margin-top:22px"><span data-page-node-id="3fwhBMGlKKdvxoCiX9IG3p" class="dot" style="background:var(--gold)"></span><!--pnid:U15tqNVbusa2vXdEXDekzW-->方式二：打出统治牌（Dominance），改变胜利条件</h3>
+      <p data-page-node-id="gSS7WhYRLQKen04VZCQvqy" style="color:var(--ink-soft)"><!--pnid:dqOSOtDOBMnQfnojoZc0b2-->当你有 <b data-page-node-id="KOtvsmw0d7UwZAot2Wy5md"><!--pnid:1XSWzwRXDESrbXfdH94SFq-->至少 10 分</b><!--pnid:nBfnbSrqZ34LHuoWTXDn8i-->时，可以选择在<b data-page-node-id="jpp5whJh7EgwxUh6w5iX1T"><!--pnid:rvXpgXm7fPACGvtj9Px8sQ-->白天阶段</b><!--pnid:5w1fhFJCkAEgqBhKoJVixK-->打出一张「统治牌」放到自己的游戏区：</p>
+      <ul data-page-node-id="QuvFhCNNIZhKBgsflKWVot" style="color:var(--ink-soft)">
+        <li data-page-node-id="TvktgJEDlc1YiRwIgD5z8Y"><!--pnid:AruUjZJIrqvvHt69srmnZL-->打出后，你的计分标记从分数轨移除，<b data-page-node-id="bF0Rffxh9HgrrtErqztaug"><!--pnid:RGz9M1A31uNBgnYeR5nSYz-->不再能靠 30 分获胜</b><!--pnid:Paucycntzv0PuV0Tncr0QM-->。</li>
+        <li data-page-node-id="zscvQqY7Xz9a0Oobvmji38"><!--pnid:GNJaG7rh24wIyJaxPZPWxR-->改为必须完成统治牌上写明的占领条件——通常是「在自己的回合开始时，占据 3 个指定类型的领地」；打的是鸟/百搭统治牌，则需占据 2 个对角领地。</li>
+        <li data-page-node-id="8XFR6qxFDUIBj9OEhrBKXC"><!--pnid:ckaXFjce2HpDNAkyVS7eZt-->这张牌一旦打出就不可撤销、不可替换，也不占用手牌上限。</li>
+      </ul>
+      <div data-page-node-id="lhhiF2bPMuOcPM2CjBih9Y" class="badges" style="margin-top:14px">
+        <span data-page-node-id="qXt7oiOQX84LzPnGm27g4r" class="badge"><!--pnid:aNLJoBmjuoUDnzFEy10Tm6-->分数来源：建造建筑</span>
+        <span data-page-node-id="sSpz9didbYpmYcXRU4Ofnk" class="badge"><!--pnid:oIvsLvS5qYGyVs7c7dDj01-->放置指示物</span>
+        <span data-page-node-id="MflKw0LQCwOLgeaU8vHcfP" class="badge"><!--pnid:z5jh4nRSeFS1GTJZO43tsN-->锻造道具</span>
+        <span data-page-node-id="Ytzr0CjwMU7vJlrwBuDcQ0" class="badge"><!--pnid:6xuxtLzLQk5bBRNw8nqrFr-->移除对手建筑/指示物（+1 分）</span>
+        <span data-page-node-id="bCmVUIVTY6dgDLoCVE4Jod" class="badge"><!--pnid:AEy0LLfXpkORmh8cMpD7XX-->派系专属得分</span>
+      </div>
+      <div data-page-node-id="jVOHTDzSI5iksZVRDJomSN" class="callout warn" style="margin-top:16px">
+        <span data-page-node-id="4bzhx6W01e2NU3ZSg0XsX7" class="ttl"><!--pnid:xkSQ4MLF7uwGIJG12AQpar-->顺带一提：移除得分</span><!--pnid:oeprcHhP54J7CjFHJtXa8Q-->
+        任何方式移除对手的<b data-page-node-id="yWP5lOBMhBPZ91oBs1MOcJ"><!--pnid:f0BQTOhFtcENfvNV5SDMAH-->建筑或指示物</b><!--pnid:9CyrGIjltOSAUoutqtWNws-->，每次 +1 分（士兵不算）。这是所有派系通用的加分项，战斗和派系效果都会触发。
+      </div>
+    </div>
+  </section>
+
+  <!--pnid:yp1ia5FZaHzckwDDTdtYwW--><!-- ③ 地图与领地 -->
+  <section data-page-node-id="JiowEM7PFP9dozRhdnDYHx" id="map">
+    <h2 data-page-node-id="dfUodouIp7FkxWJCjiL2re" class="sec"><span data-page-node-id="XCyloFFfRVl43bgHQSEqfM" class="num"><!--pnid:ZPMIwyotQVZVdL9neWiXXU-->03</span><!--pnid:USG9hoGV1IkI5z1m8PaaTh-->地图与领地：把版图读懂</h2>
+    <p data-page-node-id="B4WHhdG0o5un4GL79rTfH1" class="sec-note"><!--pnid:D7dekpnItKsniSAxdmOUnX-->地图上有 12 个领地，用道路相连，被道路围起来的区域叫树林。</p>
+    <div data-page-node-id="J8JdBrwt67NYxWjMjW4TCu" class="card">
+      <div data-page-node-id="1sBXXTbgdst5ZhL6NzbaHm" class="tablewrap">
+        <table data-page-node-id="7Z1A9AqI1gJEoCprL08vX7">
+          <thead data-page-node-id="KfArynecTVEGTvz5dVyt9e">
+            <tr data-page-node-id="nbmx533EceOzsNrR9oIS8S"><th data-page-node-id="BP6jWVB94WGMtAvIshp6Vh"><!--pnid:lDxcYkNt3GkG5sqRKgvJxd-->地图元素</th><th data-page-node-id="lGXvOdll4RHn7a68NFmtY6"><!--pnid:ryez7ImfjPsDJVXEHQWsRg-->说明</th></tr>
+          </thead>
+          <tbody data-page-node-id="fN5HZmXuAo2PeRIZL1uRXo">
+            <tr data-page-node-id="n6GQAUwq4sjf1NCgLO2KUt"><td data-page-node-id="NYsMqz49IxelgimoMqfhHg"><b data-page-node-id="mW7eAwM89qol86NkMY7anC"><!--pnid:CYvbtzGJDhXOpdEUuAbivV-->领地（Clearings）</b></td><td data-page-node-id="Zve5HnBeU9WxGobhYxQEdU"><!--pnid:JE1Ge4stRh2By9p2quSxQt-->圆形区域，是各方建立势力、放置士兵与建筑的地方。每个领地有 <b data-page-node-id="IMKsXwTQLQlNdyc4Qqclvy"><!--pnid:qv2TgtKv7PYNSPxEyzOedL-->1–3 个建筑槽</b><!--pnid:b7htLW4yqbBuevbJWF4LDm-->。</td></tr>
+            <tr data-page-node-id="32O70NSBZhA4HBUqHQhH0i"><td data-page-node-id="OOnDIkUHJccYiWbqZ4gRQe"><b data-page-node-id="7WOfls3plOY8cVOkYrwREl"><!--pnid:gV6zccl5Qot7EWi5Qe42wi-->领地类型</b></td><td data-page-node-id="9pxNZRxPJ0R1QnD0di6LY4"><!--pnid:eViqRHXTvsYU6sZDp0xIcI-->分<b data-page-node-id="P4MmNcxzEnuSNmbqELAxOs"><!--pnid:jSPZ29m7XPKSgoKzw6P8u4-->狐狸、老鼠、兔子</b><!--pnid:fAsPuYvq85caUodiygUXOM-->三种，用符号和颜色标出。类型决定了「要花哪种卡」「能否在哪建造」。</td></tr>
+            <tr data-page-node-id="HTVTk2pu6Oz7JzIJJmAwuN"><td data-page-node-id="DlRTMdFsjeFehEC2cYiyl2"><b data-page-node-id="idXPTpu16B91nRLlD75KFz"><!--pnid:HBkJJQxKnevAdEeXNltyw3-->道路（Paths）</b></td><td data-page-node-id="UkUisYvpGtiSAqmDqNk4rw"><!--pnid:2jXniylFTAgjojKDI5YE8K-->连接两个领地。普通移动必须沿道路走到相邻领地。</td></tr>
+            <tr data-page-node-id="WJ1AN2ns11Gp47bD32sO9N"><td data-page-node-id="3WcTjdENMIBoYwopouosSt"><b data-page-node-id="t3fH0qXAVeUWmwWkMd1sqA"><!--pnid:3vsvv0DpHFpdWLOrdoPduB-->树林（Forests）</b></td><td data-page-node-id="oaq6V6jENAn6xHZ3VDGxK7"><!--pnid:plrLpRcXYvDjEkg8ZIC9oe-->被道路完全包围的区域，<b data-page-node-id="a0TFN3GYXmjyzSpsNJExoB"><!--pnid:8G7RF6NrHYxZpfTt5e2eDs-->大多数派系不能进入，只有流浪游侠可以</b><!--pnid:mPAco4QcLUzxdILuB5UW3I-->。</td></tr>
+            <tr data-page-node-id="Uhwr30hh5n0opk7MYM3r3H"><td data-page-node-id="6CWr5ezntFZhFCy5FnyMOg"><b data-page-node-id="xc0D7f7vEQbenBCqk6S5Yz"><!--pnid:KVj4a3hgs310Ou7era2sTP-->建筑槽</b></td><td data-page-node-id="sYLy8P69vWgv7sTNtI53AS"><!--pnid:gMIGhtBNfl4NxNG9Se7iF0-->放建筑的位置。槽满了就不能再建。一个槽只能放 1 个建筑。</td></tr>
+            <tr data-page-node-id="zFdRjTYEK91cMTvGFCKca1"><td data-page-node-id="fDIJmQN9aSI3FwRtnWOhCo"><b data-page-node-id="ukAemrbiUro0EHwXm76dhS"><!--pnid:9Op3fB9NSGzKDges3biHEQ-->废墟（Ruins）</b></td><td data-page-node-id="pf74TXfXZKSBwML2d7DyLG"><!--pnid:FMP268Q9neZ9Ca9buKdlBQ-->标着「R」的建筑槽。废墟占着槽时无法建造；只有流浪游侠探索后才会移除、恢复可用。<b data-page-node-id="N5jWGTB5oghbvaRejmM5Jh"><!--pnid:1i0DZlgaKuTcJApwZNfHHH-->若本局没有游侠，废墟整局都在，那些槽全程不可用。</b></td></tr>
+            <tr data-page-node-id="XgP1SFCWQ03ZNB7mRjoFpF"><td data-page-node-id="YSZS2O1llWa4lfC03UgDAJ"><b data-page-node-id="91b9456ZqVHwpDJd3NBzfu"><!--pnid:CnhqBkUL5V7USu40rhcXzM-->道具供应堆</b></td><td data-page-node-id="2zSLmr6VErQYkcHeg8T8Cu"><!--pnid:NHoYwRyWQEw3ayH4Q77d2D-->地图上方，放 12 个道具。流浪游侠尤其依赖它。</td></tr>
+            <tr data-page-node-id="KKP11XAeUythDY0IbtNFle"><td data-page-node-id="fZFzrMgmW1TlFjTxiosfHW"><b data-page-node-id="jPoYjBhJSXYGkvzue6vpQF"><!--pnid:Gt9dg8WOts4mSsOmcxFN3Y-->计分轨</b></td><td data-page-node-id="1v2tPcs5xVKFSLipAa1HQU"><!--pnid:ja1hi0ZSVtfygDNRhgh9cG-->地图下方，各派系标记从 0 出发。</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <h4 data-page-node-id="lF9rkJfYyltVq1hGkgZDOV" style="margin-top:24px"><!--pnid:qdyKTfU3UD88d53ZykU4cD-->什么是「控制 / 统治」一个领地？</h4>
+      <p data-page-node-id="8JWb8v2EJMwsKry5kxZUCD" style="color:var(--ink-soft); margin-top:0"><!--pnid:mdawqCADNtQmwmd6aAMXDc-->如果一个领地里，你的<b data-page-node-id="iAdZgU3nx6SYGEyTDtZTCk"><!--pnid:iFQcqGdLATlBActavY8OVa-->士兵 + 建筑总数</b><!--pnid:Q4oGK7a2ZnzNuKLUfvJvUu-->比其他任何玩家都多，你就<b data-page-node-id="PBce5FhPeyirpcYgti9Psu"><!--pnid:XkfCkvVEmAoWioARj6YCuJ-->控制（统治）</b><!--pnid:lJ9yq7NhopwSIU9nvHpxGe-->了这个领地。<b data-page-node-id="vpBPwM2XZv4Iu4YmAkqH4r"><!--pnid:Fo3crwSxG0vt1NomApmRiL-->指示物不计入</b><!--pnid:SlTDkZtbTWu302udnS3NoM-->控制判断。</p>
+      <div data-page-node-id="oq9GvJ9NWWAWPUgEkR085X" class="tablewrap">
+        <table data-page-node-id="VdBV0jybUnvVpa7A8UctFE">
+          <thead data-page-node-id="KWATD7In2tdNDTw213bBBP"><tr data-page-node-id="5U2183KDbowqZvdmhIWl8L"><th data-page-node-id="PLqMqWtbrsCcC1LOYPwNMV"><!--pnid:ab8iMucWdcUrhnwxSFeROm-->情况</th><th data-page-node-id="Vfwfi4dMPBXu2hDBaHSHMB"><!--pnid:4OdQ1wGmFJPqHnOhlePZIz-->谁控制</th></tr></thead>
+          <tbody data-page-node-id="jBmBPBmgzBs5ekVIx8QF1S">
+            <tr data-page-node-id="c8IzbSQBiuJINwy8Miviqt"><td data-page-node-id="5jxB6PXxEo06GoEJrA4uLG"><!--pnid:jSxVIcA7nhT07mOZlcrUil-->你的士兵+建筑总数最多</td><td data-page-node-id="66lfTpLAPs7uLFGacLGZx9"><!--pnid:IyOqSvhDWaQZ0ePba5mQGt-->你控制</td></tr>
+            <tr data-page-node-id="wh3gO9di4yCzgE6JCVj5d0"><td data-page-node-id="NMcnQxhTAEfVvv19Ag7q0Y"><!--pnid:OlgnWsD97nHQOT2nA6buwh-->与其他玩家平手</td><td data-page-node-id="QL2mOEmQT1m3xw8wJROUfr"><b data-page-node-id="VGV9l6hL6eAptl06uWfJOC"><!--pnid:pnRDC116mathxkQCnrcxH0-->无人控制</b><!--pnid:ZXHwClGLQ5eQSWI9kK69as-->（例外：飞鹰王朝平手时也算它控制）</td></tr>
+            <tr data-page-node-id="d56Etpcq2Ek9wU3QWp3IXi"><td data-page-node-id="d9WB89AlWNAOFRKBixtwlJ"><!--pnid:0iAEcJNBXp0m9iQazXRoiQ-->流浪游侠</td><td data-page-node-id="GVKCQkkniWDNxqNS4aIRw9"><b data-page-node-id="N8NtBYPfITiiA5OzdEt9I2"><!--pnid:7uD2TUS5bUCVVKyN3VU7dS-->永远不能控制领地</b><!--pnid:3CNmblRVjwVcRpgzzduhIX-->，也不能阻止别人控制</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div data-page-node-id="slgJuAqfZHnlnCSgDt4Fwu" class="callout remind" style="margin-top:16px">
+        <span data-page-node-id="8n183c5cZ41VjlOlfTa2vD" class="ttl"><!--pnid:rLR6LtSNLkrm4CAq30IFQi-->为什么要控制？</span><!--pnid:snj7pxHr5S0fIdGQJxOCnO-->
+        很多行动都要求「你必须控制某个领地」才能进行——最典型的就是建造和移动。开局第一件事就是看清自己控制着哪些地。
+      </div>
+    </div>
+  </section>
+
+  <!--pnid:4CJIW0Dpp2lcC0hU4Rjx5F--><!-- ④ 一个回合做什么 -->
+  <section data-page-node-id="j6ydxGIqVTdI1iNv6v5FuY" id="turn">
+    <h2 data-page-node-id="dKgLWZfbt7v7UeT0MubdNI" class="sec"><span data-page-node-id="gUIEC5OF3Zh5ljME5dUwTg" class="num"><!--pnid:Z9Xs1NK8jtMdJmLoxZznFr-->04</span><!--pnid:cfZvr32cFvvXi3EigVBaHI-->一个回合做什么：三个阶段</h2>
+    <p data-page-node-id="0TEVT2sYfyiUPdGuJGtYn9" class="sec-note"><!--pnid:mbHTM395XF9hYOCAgj0Tvj-->所有派系共用这套骨架，细节填进各自的面板里。</p>
+    <div data-page-node-id="ERGvby0lLAFn2RAy6VdpAf" class="card">
+      <ol data-page-node-id="WU9hkU7ieu7UKLarVIDZtt" class="flow">
+        <li data-page-node-id="3IEThzQ39B8cX3y3yr2Efe">
+          <b data-page-node-id="J0fJP1Nhvu3nm174ANZpGZ"><!--pnid:XJzRZ8aoKwh79in8BUI2vh-->清晨（Birdsong）</b><br data-page-node-id="p6eSCrnsYtCJwlZBBZdIqc">
+          <span data-page-node-id="nZtaD9i4bjjeW0mJATXglo" style="color:var(--ink-soft)"><!--pnid:8ebvqrdSBS4TayhOZR5alf-->执行你派系面板上「清晨」栏的例行事务。各派系差异极大，例如：猫侯爵收割木材、飞鹰王朝处理法令、森林联盟放下/结算特殊标记、流浪游侠调整起始站位等。</span>
+        </li>
+        <li data-page-node-id="I4H2LMpMGi7YJtzbgtbGkq">
+          <b data-page-node-id="y74kZXMibUmWApmjHmXyiq"><!--pnid:wdZMESX6EY3Auox8SskKlT-->白天（Daylight）</b><br data-page-node-id="PwcvuIR2x8VP6x5DDljmsc">
+          <span data-page-node-id="OWbiwYJHNX5mHd8iQI2n8y" style="color:var(--ink-soft)"><!--pnid:DjmHjdr1MTUSIgCwiI7H8u-->主行动阶段。按面板指示执行行动——通用行动（移动、战斗、建造、锻造）＋本派系专属行动。<b data-page-node-id="8zXrZOK7u701TOLqP3GK1t"><!--pnid:cAAw1odOchm3hNkYxzrXbv-->大部分决策都在这一刻。</b></span>
+        </li>
+        <li data-page-node-id="Xoa02dEQ2VYOLZJvlNDxFm">
+          <b data-page-node-id="th2dhH8wo0qwcIpEP1JSba"><!--pnid:1b4Qnx9Bj0ofHQsqhqQAlp-->黄昏（Evening）</b><br data-page-node-id="YWwarqn6OCAbCXB1p5SmRb">
+          <span data-page-node-id="wWEcQj3oJaeYeW64YSYb77" style="color:var(--ink-soft)"><!--pnid:kJmwH0X4X04oeQUf3celod-->结算你派系面板上「黄昏」栏的内容（例如猫侯爵结算得分、飞鹰王朝检查鸟巢数量计分），然后<b data-page-node-id="qfgnDWypLR5HTuvmOiXRIt"><!--pnid:9LZnVZK2NU3lIu8pI2d4tx-->抽牌补至手牌上限</b><!--pnid:oAVkIdQ5AuUJWSaeHyf04X-->，回合结束。</span>
+        </li>
+      </ol>
+      <div data-page-node-id="NH0yKqtOEj03M3TDxSWnck" class="callout" style="margin-top:6px">
+        <span data-page-node-id="VsgEtiNb5C01RDAE9K4TlM" class="ttl"><!--pnid:VtVXxZFSrP1x46w6EDDacS-->通用小规则</span><!--pnid:vv7JlwCNpJCMRDTo0fkyF3-->
+        抽牌后若超过手牌上限（通常是 5 张），由你自己选择弃掉多余的。任何时候都可以查看弃牌堆。公共牌堆抽空时，把弃牌堆重洗成新牌堆。
+      </div>
+    </div>
+  </section>
+
+  <!--pnid:xfD2af7L7YvAJzq5w5xYzP--><!-- ⑤ 通用行动 -->
+  <section data-page-node-id="p9y6CZJtDCWq3P9Oed2xyQ" id="actions">
+    <h2 data-page-node-id="u1mhrQh6bUaby1vj2AkDAe" class="sec"><span data-page-node-id="EaqlulgtvYEFMvdHxxbnzT" class="num"><!--pnid:U0Bukh50KRwSMEDqbeYiZ8-->05</span><!--pnid:f4X1IBldnn2IBLG8TZe2XW-->通用行动：所有人都会用到</h2>
+    <p data-page-node-id="Swws2FJ9fhUrXG7aFCGnEc" class="sec-note"><!--pnid:du2lZOLqMoLSn6wLSE7Gjl-->这些是「关键行动」，除非派系能力另有说明，大多数派系都要遵守。</p>
+
+    <div data-page-node-id="CoNuZ3oPKuxbVyJCZFnlNu" class="card">
+      <h3 data-page-node-id="f6UAr4sW7p9WCCRfJK8tkj"><span data-page-node-id="7HSAVxvKEM8zmIzK6qmZWg" class="dot"></span><!--pnid:F5GUSmWTOc4Dtxvt9NEdDt-->移动（Move）</h3>
+      <p data-page-node-id="g0yYTwUIl5QK12fZ1Cc94H" style="margin-top:0; color:var(--ink-soft)"><!--pnid:BDbSuswQDpGdMr5Em7NVNl-->从一个领地选<b data-page-node-id="m4u8WFAEcyO7L91QWfSILi"><!--pnid:jqmvD1vydPxrdnqEQD28iZ-->任意数量</b><!--pnid:kbAoND1tFkLeGE1IdtMmBY-->你的士兵，沿道路走到一个相邻领地。这就是「1 次移动」。</p>
+      <ul data-page-node-id="kuOobPokCdBSBrFqw6yZ9o" style="color:var(--ink-soft)">
+        <li data-page-node-id="S5iG0o5tzsM4uCtCXNmv7n"><b data-page-node-id="wjbR2nIT7IjXnIjTfyXq2k"><!--pnid:Ic0Khk7Yg5KphSnsccGurn-->关键限制：</b><!--pnid:JBjGAqgT1dW5Q1tW9XPxoB-->起点或终点，<b data-page-node-id="pyCz2fw4cGkGDFvv0DteNM"><!--pnid:uh1b9e816RUZofEqIKDsbr-->至少有一个是你控制的领地</b><!--pnid:0dhkeDKsQO9mQC3HkhkPQ5-->才能移。</li>
+        <li data-page-node-id="R8EB0pHBLVWgJuKHZY7Kdh"><!--pnid:ojAFD8zDSSsj3MLjSfbjNi-->不追究某个士兵被移动了几次，只看「离开 → 进入」的次数。</li>
+        <li data-page-node-id="jihaOFSmO3fP5parANTOXU"><!--pnid:gJHoUK8qvkmvwaGdZBeipp-->注意区分「离开」和「进入」——有些规则专门强调其中一个。</li>
+        <li data-page-node-id="4XbOdTButnuauIwoJ4gViF"><b data-page-node-id="OVYYOyCKaqaaFvVexuvtDy"><!--pnid:ECruXOkDe3Kq3ZfpNXXNX4-->例外：</b><!--pnid:rwxsrbrcDFYgFDXODzYFAp-->流浪游侠有自己的移动规则（可无视控制权，还能进树林）。</li>
+      </ul>
+    </div>
+
+    <div data-page-node-id="7sQ28nO65ixPmuqed7BLDm" class="card">
+      <h3 data-page-node-id="PkH2OzbrjUcwflEYGEoEkZ"><span data-page-node-id="T9L2r9NKofrVS70FGLZGqa" class="dot"></span><!--pnid:JFBEXphUaIP96zl43NLuxK-->战斗（Battle）</h3>
+      <p data-page-node-id="kqeALEjEAVRFu5dFTD0IJG" style="margin-top:0; color:var(--ink-soft)"><!--pnid:wo8yjTT6AVPbaQ2gSndBb2-->在一个领地，命令你的士兵攻击一位对手的配件。完整流程见下一节「战斗全流程」。</p>
+    </div>
+
+    <div data-page-node-id="U9OBNIZ3yX9leOOVtktwWP" class="card">
+      <h3 data-page-node-id="U0TvTeRHrJ5vqB2ukM7JUt"><span data-page-node-id="CLPtYHogFTToTZRiLvcZBg" class="dot"></span><!--pnid:4ebspx861dxhAhoejPDNcr-->锻造（Craft）</h3>
+      <p data-page-node-id="i7ZlMsikjI3MzCXYE8BPAU" style="margin-top:0; color:var(--ink-soft)"><!--pnid:IcHSDpDjsI30zHrt7Qxoq9-->打出一张牌并支付其左下角所示费用，换取牌面上的效果或道具。不同派系用不同的「锻造用配件」来支付：</p>
+      <div data-page-node-id="fWXxYRNXOACjFkTyFJAGUk" class="tablewrap">
+        <table data-page-node-id="mtAm5r3XmzriuWQqRlPzNw">
+          <thead data-page-node-id="5HoHd2UV8WED44dst3eeIu"><tr data-page-node-id="UyXq9QSQhr1fUB44gfZnFQ"><th data-page-node-id="MXqCQIAlchBqRXQ8yuoGpH"><!--pnid:jojAbEzHwdgsy906gH1KE6-->派系</th><th data-page-node-id="LmVMqIIEjVeBdLOeOHu4Pz"><!--pnid:F24Z5WP3wSpxe8jh9WdeLJ-->用什么锻造</th></tr></thead>
+          <tbody data-page-node-id="RV2LY3MglZEEfTnAtMIKQ4">
+            <tr data-page-node-id="y7UvQOL2AoEcHRGXTURH52"><td data-page-node-id="4BOE6k3fXqImK6r9EgC3dO"><!--pnid:axN6TFvag80GxDe2u4mtBS-->猫侯爵</td><td data-page-node-id="nuXf9zKjaEfmRFBfbVc2S6"><!--pnid:CUKpctpYfn3CbLNGZixlxz-->工坊</td></tr>
+            <tr data-page-node-id="ecoiG5t5NeDZ7JwhpbbAX2"><td data-page-node-id="8atJo5trctAooKT1svwCS6"><!--pnid:dRX5hu9JvRL8wCz1tYrj1D-->飞鹰王朝</td><td data-page-node-id="RLzNShQvwqLX3tpcAnk1sx"><!--pnid:ZX9wTq6XkQT7WbEfCMlOMI-->鸟巢</td></tr>
+            <tr data-page-node-id="HpfvCs5CfLPmq0h8F2KWlT"><td data-page-node-id="yClI8ueRHBKAjbWHuQF0sG"><!--pnid:VC7KZUf9VSxylCruT7ImtG-->森林联盟</td><td data-page-node-id="7zUTaFvzab4LeIdh4a7pHj"><!--pnid:19cF1k7fUNa3lzEiUBnKr7-->民意指示物</td></tr>
+            <tr data-page-node-id="WvVQYzq7gqGsMsfG5zFyLa"><td data-page-node-id="R1mfMTZqUeS1XKEDBGWf9H"><!--pnid:0T7WkXnqKwqrGlVGRsIENj-->流浪游侠</td><td data-page-node-id="IycvWZsr6uCnszYO0pQrBV"><!--pnid:aj6Fw29xhQnXF97jwd2BDi-->所在领地的类型 + 背包里的槌子</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div data-page-node-id="woX0vLHBhNb7PnbbLnRhtr" class="callout warn" style="margin-top:14px">
+        <span data-page-node-id="7Sok4GfO0lWyYIs6Zx863Y" class="ttl"><!--pnid:cGIWbOD7PLbdG2MjK8m6jN-->锻造的坑</span><!--pnid:UHeEqUmFunznAYARje7luB-->
+        同一个锻造用配件，<b data-page-node-id="BokT3vuBj2myE1sJtFDLvo"><!--pnid:iDIqTpYtwN1kGbfWDGWXj7-->一回合只能用一次</b><!--pnid:q1cIrfHdZSLHI2G6O2VYd6-->。若供应堆里已经没有对应道具，则该牌<b data-page-node-id="d2xpAazROq49JVfpEd2bMZ"><!--pnid:PHeV5JDzYWr6RK4VxRaNJQ-->不能锻造</b><!--pnid:uH38XIMOZWurEARlJxY926-->。
+      </div>
+    </div>
+  </section>
+
+  <!--pnid:2larZY10PTNAOYsGYJiHx3--><!-- ⑥ 战斗全流程 -->
+  <section data-page-node-id="4DgC8ikXuFkbvgrpmR2hMl" id="battle">
+    <h2 data-page-node-id="ZOB8nNElE7KpZgVFIfHYWd" class="sec"><span data-page-node-id="LXbbuCG1K4jd9cHjY4ourp" class="num"><!--pnid:DXj6wHncuhrVPhgaAdSKeH-->06</span><!--pnid:IYhuGLdPnBw0XTjpeILA1C-->战斗全流程：两枚 12 面骰</h2>
+    <p data-page-node-id="gwhm7sgBmhVe0VcyNtq3to" class="sec-note"><!--pnid:grIEi0dh1rwssjbqj3Pv9k-->整个游戏最需要「重新记起」的部分，按顺序走一遍就不会错。</p>
+
+    <div data-page-node-id="SNys5mA0CxJ4uX6d5yjIMQ" class="card">
+      <h4 data-page-node-id="s3V28C0IYylXbhzenPSu3M" style="margin-top:0"><!--pnid:2aK1H6go97Enqd5tgMAUYr-->结算顺序（务必按这个顺序）</h4>
+      <ol data-page-node-id="Vw7DVQ5fZgQcdU6kYZIvuO" class="flow" style="margin-top:10px">
+        <li data-page-node-id="nbzgzZwgzUkyUD56yJEUwN"><b data-page-node-id="dEkslEd4KHOT7yjkEeY0Hy"><!--pnid:wVhx5MRQBQyGACvkT5PRAo-->先结算奇袭牌（Ambush）</b></li>
+        <li data-page-node-id="wwoTTp8dSldToTwJKg7S1x"><b data-page-node-id="a4Zo1cmeOnKPe66UQfa97N"><!--pnid:78sfNsg1x9hH7CR3Y3ih2j-->再掷两枚骰子，分配命中值</b></li>
+        <li data-page-node-id="korknDYu1VjMbDlGpots9M"><b data-page-node-id="Kt6L4nFiCH5w5ZzIIg2jkF"><!--pnid:L6B8ddJY7fDB4RTHbyFK4g-->再看目标是否「毫无防备」</b></li>
+        <li data-page-node-id="SDntfJBTQq3cs9aReTmwL4"><b data-page-node-id="A1MGvUu305LbeRRyhe7wL0"><!--pnid:0RLM0qOrUDlIc5KkO5Rcp0-->最后双方各自移除配件</b></li>
+      </ol>
+
+      <h4 data-page-node-id="SUXH05WA549sheg2PqlLeK"><!--pnid:N1ZCc9WtaLhzH7MafBMcee-->第一步：奇袭牌</h4>
+      <p data-page-node-id="fOUleT9cdQE0VB0TeHDLa5" style="color:var(--ink-soft); margin-top:0"><!--pnid:cN2PURh0vKl9loTuDVSNJ7-->掷骰<b data-page-node-id="GPJMVjb2d8vmlJuoZ7U3Ae"><!--pnid:ayklbbFgX25kRnJ4Si2Elj-->之前</b><!--pnid:hnzzUSB9tZCZhMBqIuhQwR-->，看战斗发生领地的类型（狐狸/鼠/兔）：</p>
+      <ul data-page-node-id="eUhZznoye00ZPladFItMP7" style="color:var(--ink-soft)">
+        <li data-page-node-id="UrxnioBay8n1S9qPEBBeIL"><b data-page-node-id="RaIp0A8B6jR1iFeka5mLce"><!--pnid:Q8qh8AmP6wF5GvxFLFSiIC-->防御方先</b><!--pnid:gSJBFdxRZjYIlqWkUCRYKo-->打出与领地类型相同的奇袭牌 → 立刻对攻击方造成 <b data-page-node-id="86FMG7sTtI1YHOpWZkqcBZ"><!--pnid:IioayEmZKlucfXgaqz9oNy-->2 点命中</b><!--pnid:wCV49MC6x4X1xMhKhbaKEI-->。</li>
+        <li data-page-node-id="9mftompxBvzSUffGkEtGFk"><!--pnid:l0ZFGP7mSEUrBlE0H9iO2b-->防御方<b data-page-node-id="YnGFaMllxbTiVR4vnOaw0Z"><!--pnid:ysbm0pBqmEAClytyUf38dB-->即使没有士兵也能打奇袭</b><!--pnid:gDbzvLHXd62wWJtYd7i7hg-->。</li>
+        <li data-page-node-id="6LV4swhZdOOVbqjZ4XsP38"><!--pnid:jyod7FO4cawOeLDCWwLchm-->攻击方可以在防御方打出后，用一张同类型奇袭牌来<b data-page-node-id="6hTL00p3nDiLqUEn6frwEo"><!--pnid:2EgbQ2D2hjpXn4nywPZHOR-->抵消</b><!--pnid:lTYNagBszpDcqVf00WzT1y-->。</li>
+        <li data-page-node-id="svcMjMRMgocCkV5HRZ58Ji"><!--pnid:QDg2BLF884isyeRf07EUuP-->攻击方<b data-page-node-id="FmKZu0KZHYzXi0IF9AzUJJ"><!--pnid:5kxm4t3EXsEXzBk0NMis6D-->不能</b><!--pnid:HhhVdDFDdqmrbWzX2YQEwx-->主动用奇袭牌作为攻击手段。</li>
+        <li data-page-node-id="y7hjvatUBRGCcCLdfaEklw"><!--pnid:k6A2JHTuqakBN3mKNwCX8O-->如果奇袭把攻击方士兵全部移除 → 战斗<b data-page-node-id="JUsFhYRcyHXlcHK0eG6CRl"><!--pnid:krMEyGojpNcnVhCRnwTekq-->立即中断</b><!--pnid:bWI7tJoVRnJzghS63rBZZv-->。</li>
+      </ul>
+
+      <h4 data-page-node-id="HRfGHtXDOSXCrMfDkATaa9"><!--pnid:lXTkF2bBcCxhBJ1ZQbXnje-->第二步：掷骰与命中值</h4>
+      <p data-page-node-id="yFbQ59RnsoPC4Q93Aw0QtB" style="color:var(--ink-soft); margin-top:0"><!--pnid:ZlUp75YhALgnWu2eDSJ6D5-->双方各掷 2 枚骰子。取两枚中较大者为<b data-page-node-id="EZtrlPVWuiY2r59tyBWxVN"><!--pnid:qcHIBE8lCwTpffNC9gLPQI-->攻击方</b><!--pnid:zDHOwONTjuxCgpN39pd2fd-->的命中值，较小者为<b data-page-node-id="L49S4UqMfu4EcmCwuZwr0U"><!--pnid:07fBpBj0jkzqgdntmSQIYf-->防御方</b><!--pnid:WNVljENudKvN3tCo0Bd0Xq-->的命中值，双方<b data-page-node-id="3LrNx9qVesdyGnJ1fTSahx"><!--pnid:Q1nH31c8QR1K1I4ayWLEuW-->同时</b><!--pnid:y9bZKeBPj30WmWnSFQwWAr-->造成伤害。</p>
+      <div data-page-node-id="Z5VqeUak3kVF4z4eF8hToW" class="dice-vis">
+        <span data-page-node-id="PbVYVQtkyJ4dre9pC0VRDZ" class="die hi"><!--pnid:zg9X0k6SKkFFO3UZBPYUju-->5</span><span data-page-node-id="Ge1GFHzDxWC5L4yyzVBnEC" class="die"><!--pnid:A2rdTkuKKqs58ApUwCqmrL-->2</span>
+        <span data-page-node-id="JANQtkeWv5yYmMIMyss0OW" class="arrow"><!--pnid:0E4GDnoHB3P7zowFVgCL6o-->→</span>
+        <span data-page-node-id="BxkIirotRNnfT3hIFvBzBn" style="font-size:.86rem; color:var(--ink-soft)"><!--pnid:ywRDI4MwUpEkQK0yxemfnZ-->攻击方（较大值）造成 <b data-page-node-id="8hxLgCayYHDpJ9eheS2jTc" style="color:var(--bird)"><!--pnid:QkOxiSGdVYg7DddAewHrI5-->5</b><!--pnid:sYdxnfVB4xud49kgi8oEV1--> 点命中</span>
+      </div>
+      <div data-page-node-id="qhMJRiQCvzkq4hPfmxR41n" class="dice-vis">
+        <span data-page-node-id="iNKNTTsCexejF9S17U5e9x" class="die lo"><!--pnid:hisiMKy6u97lpXDnNPtbrF-->2</span><span data-page-node-id="92OKOknFpkW8ttc1eGWr3j" class="die"><!--pnid:ijrhQWIWXIAsNi9klJvM8I-->2</span>
+        <span data-page-node-id="y80gb5skvdK2Qd6hSN5jeY" class="arrow"><!--pnid:BPHsaxEZc98b90mLLi3SOt-->→</span>
+        <span data-page-node-id="ZbFOEFmEx24Bv8EaePNNXY" style="font-size:.86rem; color:var(--ink-soft)"><!--pnid:RlFoBmTirq5yVBRI3KgqeR-->防御方（较小值）造成 <b data-page-node-id="In8iNgfq2xMRRsBhTlIjue" style="color:var(--cat)"><!--pnid:TysrJfwr2SmtLtWzIJ5OSy-->2</b><!--pnid:vMC7gZxFVwTKBI1t9KJrrY--> 点命中</span>
+      </div>
+      <div data-page-node-id="SrvETVvHEtcNxfJpKzuFTS" class="badges" style="margin:6px 0 4px">
+        <span data-page-node-id="zbKG0RWGkqn6azdEIJOlSa" class="badge"><!--pnid:JoGT6vC4wUr0lAdP6HY2SP-->例：掷出 5 和 2 → 攻 5 / 守 2</span>
+        <span data-page-node-id="pWydd8yOcheB6ErgNN3LcC" class="badge"><!--pnid:rWiLeJrNMCDUt8S9o94v2T-->掷出 3 和 0 → 攻 3 / 守 0</span>
+      </div>
+      <p data-page-node-id="icVnfUT2tCOERC9HgSQzam" style="color:var(--ink-soft); font-size:.88rem"><b data-page-node-id="6DU5ENGraxTyZF07dDhgOA"><!--pnid:sQXffwNmwVfAmB0NCpdAOr-->命中上限：</b><!--pnid:njYEyX9JVsmT6JGmUzBzxU-->你造成的命中值<b data-page-node-id="3RqQzQGHWAw6wU1L4EBxcB"><!--pnid:UrlbmBu8dZerobGeBWgO9c-->不能超过</b><!--pnid:wu5U9ftMO32Mc9efSZS8q6-->你在这个领地参战的<b data-page-node-id="vXA0lCVXjMb2FHmyKU6agv"><!--pnid:EEgVRDPHxYTSc6xvypXjQ5-->士兵数量</b><!--pnid:1UkHE0Gk0nKA3vDTdO8tDW-->（游侠以「未损坏的剑」数量为上限）。卡牌和派系效果造成的额外命中不受此限。</p>
+
+      <h4 data-page-node-id="dqrSUgbThUAnuRIuB3FBQx"><!--pnid:avdfsNKxgFgWSgzWF1N58Y-->第三步：毫无防备的目标</h4>
+      <p data-page-node-id="nJtx2B9YJoNbjdB4L3RylB" style="color:var(--ink-soft); margin-top:0"><!--pnid:N7ElBa1xjEhKj3ej4Yt9Bw-->如果防御方在该领地<b data-page-node-id="XHU7ozicwfa3yAjpYjPpnd"><!--pnid:wLvqoFR8zpUrOFeOiMej51-->一个士兵都没有</b><!--pnid:Uj0wFACynfr3ezcwa8AzbU-->（只有建筑/指示物），攻击方在分配完骰子后，可<b data-page-node-id="A3HWKisg16cycOUaxr6fQW"><!--pnid:pAAAU1DKpBEfpcOEttCUYa-->无视命中上限额外 +1 点命中</b><!--pnid:vcf155P0v8AMLQdp66MR8f-->。游侠若没有完好的剑，也算「毫无防备」。</p>
+
+      <h4 data-page-node-id="Zq5sRMXx1syA5m4uluhAAq"><!--pnid:0uQXiIfr2at3VajSLw5UYO-->第四步：移除配件</h4>
+      <ul data-page-node-id="LmNLc8BkXChREGTSGRduIz" style="color:var(--ink-soft)">
+        <li data-page-node-id="YqAzmewmwNj9UXDRqnHzeM"><!--pnid:31sz3fBXGDPwM14KOxkRgm-->每 1 点命中，移除对方 1 个配件（士兵/建筑/指示物）。</li>
+        <li data-page-node-id="sIqZr0pMM35oVBJvB6DuJ8"><b data-page-node-id="WsxjBbWW6BA9KPFG1w9rBO"><!--pnid:QMyYYGEdNm8mBMfvuv2tq2-->由承受命中的一方自己选择</b><!--pnid:vFm1EUwrJj6Cd550km0RDP-->移除哪些配件——但<b data-page-node-id="L32GWCC292gnrQCMTJ8OqE"><!--pnid:RFxe1dd8KQaG70CTdbENZ8-->必须优先移除士兵</b><!--pnid:ivYF4qsbpF557QXPKKTL8C-->，士兵移除完才能动建筑和指示物。</li>
+        <li data-page-node-id="9fRB5NNiaOBUJ4CokfZWQd"><!--pnid:bTKmbpVDwmp1ROdZlOGT7Q-->被别人移除的<b data-page-node-id="wxj5jZbQHBLcnuPJrODYyY"><!--pnid:ruh5fRrhO9xSlun6WUKQq9-->建筑或指示物</b><!--pnid:nVkN29OuW0MRCjD7rugqv3-->，每次让<b data-page-node-id="CZlen41AydRdFY4AFvszFO"><!--pnid:PgHfwLedFiydSS74CfofFV-->移除方</b><!--pnid:iacpnQ22B2q54VRazmV5OL--> +1 分。</li>
+      </ul>
+    </div>
+
+    <div data-page-node-id="Qr9DRqKx5AibcajZdbJ9SQ" class="card">
+      <h3 data-page-node-id="ItlmJyrDAsngPyZYd2GrC9"><span data-page-node-id="sZdUBE0Oi49XpF3CpxhWGc" class="dot" style="background:var(--alliance)"></span><!--pnid:SN4Jkk6gkAVP5zJq1VMPJM-->战斗唯一的大例外：森林联盟</h3>
+      <p data-page-node-id="cdrkqhihqeeBqynFx2oWNS" style="margin-top:0; color:var(--ink-soft)"><!--pnid:J8G7hezbUhtwtrt9Cn9zvx-->森林联盟的「游击战」特性：战斗时它<b data-page-node-id="f1RHYI8w1IWpcSn6wkt8co"><!--pnid:8SMsWz9HPcrrWmfJat8ZZX-->永远取两枚骰子里较大的那个</b><!--pnid:njMJGk5Bjcp8XVhCFbAtqb-->（无论攻守）。跟联盟打之前，先确认这条。</p>
+    </div>
+  </section>
+
+  <!--pnid:ItHv64FCuChWD6mBHUSQrc--><!-- ⑦ 卡牌与锻造 -->
+  <section data-page-node-id="YnvRdtw9G3mS5iVwH8meh6" id="cards">
+    <h2 data-page-node-id="fxUB9oI02lMVnmhpUk1gq2" class="sec"><span data-page-node-id="vvSrs6mwfpdbpDSSaFdRs6" class="num"><!--pnid:UJPPpBvU8JB1LA1j2a0cu4-->07</span><!--pnid:YFwVLiPrcAN3xcx7kL5NxD-->卡牌与锻造：三种效果，四种类型</h2>
+    <p data-page-node-id="Ck8WLBwxijr6hNK2vgqrzm" class="sec-note"><!--pnid:n5RbcrEF7lM0nVaMZ13BTa-->手牌既是费用，也是效果，还是锻造材料。</p>
+
+    <div data-page-node-id="Ug5QWTSd9Gy4i4fkjE0NT8" class="card">
+      <h4 data-page-node-id="QEvZWl9L2mixj0vUeYaXPP" style="margin-top:0"><!--pnid:m4CtEHFzXwpkOulGifG7gG-->卡牌的四种类型（左上角符号）</h4>
+      <div data-page-node-id="ZccJxfqeZHw1l359b0RiNk" class="badges" style="margin-bottom:6px">
+        <span data-page-node-id="FnMcGUDjHuF2iVYIJUwnjS" class="badge"><!--pnid:Fot4a28gOzQdBIDPeGSZVc-->🦊 狐狸</span>
+        <span data-page-node-id="xumKYHpJ6kcA6Ric4SCBnW" class="badge"><!--pnid:BFlYa3p9ztBX9gwF5goGDI-->🐭 老鼠</span>
+        <span data-page-node-id="F4SwOhUcJPC1mabjcdKN47" class="badge"><!--pnid:g1BGAiLZ4LlvtTFEXwQ8tz-->🐰 兔子</span>
+        <span data-page-node-id="XXTGFCRMS3Xh9Klq1Y43yU" class="badge gold"><!--pnid:TNzBnFCBJi8ZNurKT0k40W-->🦅 飞鹰 · 百搭</span>
+      </div>
+      <p data-page-node-id="9jElBNFrMVlOJQMazgZjT6" style="color:var(--ink-soft); font-size:.9rem; margin-top:8px">
+        <b data-page-node-id="lfuJfjL0aeJAafUNRmx3Zq"><!--pnid:8CPXfLYlV3HzGmbwagdaSV-->飞鹰牌是百搭牌</b><!--pnid:NilxsQe8ozxq6JoX78x7aj-->：需要支付某种动物牌时，它可以当作狐狸/老鼠/兔子任意一种使用。<br data-page-node-id="m5USToEDeNEYBj6HCMYtAr">
+        <b data-page-node-id="pxbPhWTHUXS6C7tSw6NH1J"><!--pnid:CTck2zf93ZpuKt97Cpxfmk-->但反过来不成立</b><!--pnid:NHb8QVld38vlgQeBBhgTuK-->：如果规则明确要求「飞鹰牌」，你就只能用飞鹰牌，不能用其他类型顶替。
+      </p>
+
+      <h4 data-page-node-id="UX2WBU6ozyqWmrlKVLo0c2"><!--pnid:Hbqc6TzDK2RQ4O05Le1XqL-->花牌 vs 锻造</h4>
+      <ul data-page-node-id="67eANdMVW1XoteIMYRUbYY" style="color:var(--ink-soft)">
+        <li data-page-node-id="WsnPPvRQ2BOOi3KoXz1vZQ"><b data-page-node-id="G0PucFK2TwiXxyztlI4wGx"><!--pnid:fXKmcf8wKa67hdxNX68wU3-->花牌</b><!--pnid:RlmyTICvvPDET4oFfHjp77-->：把牌当作「费用」支付（请求动物们帮忙/提供工作/交换物资）。</li>
+        <li data-page-node-id="lNJJqa7tfNtfKYN40R6KCi"><b data-page-node-id="nySn6pevmKUw9qsYg589rb"><!--pnid:eRjPOmcGZDbrSzqQOY3Mvr-->锻造</b><!--pnid:BYuFfI4Wj0r16HBBKdFvMD-->：打出牌，使用其<b data-page-node-id="VG84k4Q6fkngVI1hSKhtUk"><!--pnid:1HAdiLA3qLZAY7WHNpdrfe-->左下角的锻造费用 + 牌面下方效果</b><!--pnid:WBSkqFAtIzyohIUcDAjmxw-->，换取道具或效果。</li>
+      </ul>
+
+      <h4 data-page-node-id="yndQQP1Z10uucETGJpTSTC"><!--pnid:YfZ7KC2qJhTBU8iHj36bck-->按效果分三种</h4>
+      <div data-page-node-id="8z80UM5dBuV8SpZWeUoJ0I" class="tablewrap">
+        <table data-page-node-id="0fvJFxO9gGlxfg0sNjidSC">
+          <thead data-page-node-id="G6VDyOALwR5lsNR5FUQDTX"><tr data-page-node-id="q4XyDWknCUYe3MjlOwr0hO"><th data-page-node-id="Gva4nZ7fwziHtH0R4w6VuT"><!--pnid:sSCyIK3wwo7ccEkdZPNsVd-->类型</th><th data-page-node-id="FYuCGEVRfjxckVY9tHjM3X"><!--pnid:5ETTNMIL8jgDMSXGvV6FYY-->文字框颜色</th><th data-page-node-id="SP7XYRdVUvx7Npctc2JtLb"><!--pnid:HQbLobjlSUm45dYG1pUGgb-->怎么用</th></tr></thead>
+          <tbody data-page-node-id="vOC6bvmzuuvww3WbGDASPJ">
+            <tr data-page-node-id="xjgLDn43HRa7Qcf5UU1pju"><td data-page-node-id="6HeRWcBncDVTYjxXYZGteP"><b data-page-node-id="NIqXo81AP7yHXbwUCsylKC"><!--pnid:zgFI4Oqf2RjHdhjDsC1lrL-->持续效果</b></td><td data-page-node-id="bsJoplQa1Jo0et0lyyjfKI"><!--pnid:wR5mcqyeupOW5XgHzWntmG-->蓝色/银色</td><td data-page-node-id="5umtxgVwB4d3dtKcQoBHAE"><!--pnid:7VHQGIC6KFL4oGqMNbAvbX-->锻造后置于一旁留待后续，持续生效。已拥有同名持续效果则不能再锻造同名牌。</td></tr>
+            <tr data-page-node-id="pj8R5lxGQcY9YCpRAzOOjM"><td data-page-node-id="RPFzQ76HS2rXh859fBATeA"><b data-page-node-id="HOV8BpGS5pUvJTfJ49WD49"><!--pnid:GdhTXJmo13WWxNEHYSPeUs-->即时效果</b></td><td data-page-node-id="65eZTK5jy3DJzQ7RiiQJLe"><!--pnid:Mz5ziKDjWM0rZ5g2mhENak-->黄色</td><td data-page-node-id="vNMa5ow2iR488iFVV7BN2n"><!--pnid:WFh9aWhtphYt6L5ughp8yC-->立刻结算效果，然后弃掉。</td></tr>
+            <tr data-page-node-id="3E9Y3Fh1JMAKfpYd4nqttm"><td data-page-node-id="qh3bU03F5iNRsZ4uqnDgNE"><b data-page-node-id="xqIDtH83JszcTUTtYBBRop"><!--pnid:DUtizEzuaR5r86y2AqQaCQ-->奇袭牌</b></td><td data-page-node-id="QGd8hJItHok2HN0D8O9NcF"><!--pnid:7reiNWESIntuKqD0CZSRPz-->红色</td><td data-page-node-id="rd3Uif7k0OX7usEEsxRCne"><!--pnid:QbX5OnOebC7CryPNDcJTUv-->只能在战斗掷骰前打出，见上一节战斗流程。</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div data-page-node-id="9tXjWWdJRMTDucD8Qs5mVB" class="callout remind" style="margin-top:16px">
+        <span data-page-node-id="14ChF2LsZbYHBEf7LsQIn8" class="ttl"><!--pnid:LbSjUj7RfxiHLI2EpLalvV-->锻造的奖励</span><!--pnid:KPfgdM4TXm1eKVCA3zhnvD-->
+        锻造出「仍有库存」的道具时，你立刻获得牌面所示分数。若供应堆里该道具已空，则<b data-page-node-id="VuzC18ib9aP8i5l2IQCs8h"><!--pnid:WdmBOp7KXOWXF4H9ypBguz-->不能锻造</b><!--pnid:0qg19PWrwnzUbqrFK9VJ5p-->这张牌。
+      </div>
+    </div>
+  </section>
+
+  <!--pnid:MceXlPgy96M50cM5DvsdGL--><!-- ⑧ 四派系特性 -->
+  <section data-page-node-id="jNDBrQB1GPCOebKzZkv1wP" id="factions">
+    <h2 data-page-node-id="U0YW2s7gp5JXEstdEeXju8" class="sec"><span data-page-node-id="K9MGCEmpVvnQzx3UtAutm6" class="num"><!--pnid:76kfp1uI4V4MXbV1svCypH-->08</span><!--pnid:sNWv40CfXQVDot3RpLSnPg-->基础版四派系：只记特性，不记打法</h2>
+    <p data-page-node-id="gPnDUvShmk1Ibdk8fGSBpJ" class="sec-note"><!--pnid:j7LOLR2jNeVJay54gQ3sDk-->下面只列出「规则层面必须知道」的能力与流程骨架。具体怎么走、何时该做什么，交给你自己判断。</p>
+
+    <div data-page-node-id="wDZi3u64PG064Yej1npbb3" class="factions">
+
+      <!--pnid:CFTm1hSuqtoZgQr7kyGIDQ--><!-- 猫 -->
+      <div data-page-node-id="9ez354W4IofAUlGEWssAnZ" class="faction cat">
+        <h3 data-page-node-id="H7HJyVf47uUkz5vYwbmKiy"><!--pnid:HYXC1qxotUQatcxLiOTrnl-->猫侯爵 <span data-page-node-id="hW9w8gFvcrbgTnZdVXQVGZ" style="font-size:.8rem; color:var(--ink-soft)"><!--pnid:IyXujT6HepBHTUsJ7fkRQF-->Marquise de Cat</span></h3>
+        <p data-page-node-id="bBqIzMf4K1ivnDu0CYo4o0" class="role"><!--pnid:tOz7Ey1pQLNX4vD6gNcHXt-->森林的征服者，靠建造与工业扩张</p>
+        <div data-page-node-id="pXXSNltk9uH5QexLxR7crc" class="abilities">
+          <span data-page-node-id="qJ34yaWZxYOEmEjEd7nDmS"><!--pnid:Sct5MjaWHAAfeAqocQLHCk-->城堡</span><span data-page-node-id="ltHlfjlxWnL2VPk5OTWFA8"><!--pnid:6004S95xA2qjr3FUkDAssn-->战地医院</span>
+        </div>
+        <ul data-page-node-id="sqp7nAkj5DztSc1MaoPKpr" style="margin-top:12px">
+          <li data-page-node-id="kj8VHwMcnHRhKwXAxsVRCG"><b data-page-node-id="dYGoQQFyHLVrV9bU60Oywf"><!--pnid:BufcLwS4Rs5T9GDL6ZWn9w-->城堡：</b><!--pnid:8blPD0mPzkWK6Z00qH5XBT-->只有猫能在城堡所在领地放置配件，其他玩家只能靠移动把自己的配件挪进去。城堡一旦被移除便无法重建，同时也失去「战地医院」。</li>
+          <li data-page-node-id="pn4hG7El5A5IhQd0TC8xtr"><b data-page-node-id="nqDqmg4GSnaI9t04PLJ5za"><!--pnid:nifAEZY2BAUAfZGmzHlmnD-->战地医院：</b><!--pnid:7ZEzaFelALz7aSImiWGZFo-->自己的士兵在某个领地阵亡时，可花 1 张与该领地类型相同的牌，把这些士兵全部放回城堡领地。</li>
+          <li data-page-node-id="DNUwtVPGsm47p5rZbhGzz0"><b data-page-node-id="IOpMOyMJi9FXB7p8RSCSn9"><!--pnid:8i8r3rZ2TDzloHsB7lK7cs-->清晨：</b><!--pnid:svHxEnqNiR4m7TxJzvX6E9-->每个锯木厂产出 1 个木材指示物（「破坏森林」）。</li>
+          <li data-page-node-id="ZPlZnAgt9nnPPmEKH8iZHh"><b data-page-node-id="agpjRrhmCzPjcaNuQd9JcA"><!--pnid:7s4nASlXg6ab4c375JWmq2-->白天：</b><!--pnid:igj7gdoR055S88FKQCKeEg-->依次「启动锻造」，然后从 战斗 / 行军 / 招募 / 建筑 / 加班 中任选<b data-page-node-id="zMnMbpEIY4L2FVeEvgTP0d"><!--pnid:taDcarpOufwujkskrPVIBB-->共 3 次</b><!--pnid:hhTonuL7VbZVahiIp7dUBI-->执行（可打出飞鹰牌额外 +1 次）。</li>
+          <li data-page-node-id="whtSQlNfb3DqmAYtHEPds5"><b data-page-node-id="cBQJ0PODnBqj9ff18jn4l5"><!--pnid:zlZh22cUl6xLQv77NVmOR2-->黄昏：</b><!--pnid:qznrZKQZW8QGDyXaus7UrF-->抽 1 张牌（有抽牌奖励符号则加抽），补至上限。</li>
+        </ul>
+        <p data-page-node-id="XAF9QelVXjbaxt4anat7BO" style="font-size:.85rem; color:var(--ink-soft); margin:12px 0 0"><b data-page-node-id="PsxBVzmjG2nbkyU21rSDXL"><!--pnid:bHz93mVtEuNISQXUBJDKK7-->计分：</b><!--pnid:55ZAAtwa3DL2jkWIv9lNDG-->每次建造建筑，立刻获得建筑条上对应分数；建筑被移除后再建可重复得分。</p>
+      </div>
+
+      <!--pnid:dLndt8gpKlDvu53qUO1W2b--><!-- 飞鹰 -->
+      <div data-page-node-id="wsAC2NjU9FXZMTDZsO3oOo" class="faction bird">
+        <h3 data-page-node-id="Vls11n6Ptgk4Bhx2QfpPLn"><!--pnid:Gy165uDbr0evJLGj6EQheO-->飞鹰王朝 <span data-page-node-id="eEvq67japxLVbR4mRlelAY" style="font-size:.8rem; color:var(--ink-soft)"><!--pnid:I3YbvV68T394foN6JkesbI-->Eyrie Dynasties</span></h3>
+        <p data-page-node-id="RQn8aBHQT8VS3nWB1AmU4H" class="role"><!--pnid:bk0sW1kGroaOlnPwD6UR3Q-->昔日的统治者，靠法令运作，也因法令崩盘</p>
+        <div data-page-node-id="tp0iXhRhj2j5SLTpEAHhEJ" class="abilities">
+          <span data-page-node-id="yVHD1qTis3vC3DszHctn9b"><!--pnid:oToFQbyHTtgfhfdDZu79pf-->森林之主</span><span data-page-node-id="52AcZdmD7UwPPeNZflKAyU"><!--pnid:TZAJQISPvHVF5tJXcRNeTM-->重武轻商</span><span data-page-node-id="b0uFKe39lRyy7cMdnz5TGV"><!--pnid:aOTqqYtqbxMe9MStgNejoi-->领袖</span><span data-page-node-id="rDvsPFRoi2Dpm3s0sVza0z"><!--pnid:SC2TbJMyoikiyZRAwDWnei-->法令栏</span><span data-page-node-id="ciJ5hRHfGu1bDJltMfKE4a"><!--pnid:EMaCJofxjqOHorNsW0zMtp-->动乱</span>
+        </div>
+        <ul data-page-node-id="9LY7w1DQ02B9z2SHON6NXn" style="margin-top:12px">
+          <li data-page-node-id="owkCZjlBmDewRHDpJ0AmH1"><b data-page-node-id="7eozRoKcKRVbDYxObIBJ8d"><!--pnid:oAzkPojmWCqRnynoLqXZE2-->森林之主：</b><!--pnid:JYPg6eP5Xg19rv7d9L5vfE-->结算领地控制时，若飞鹰与其他派系<b data-page-node-id="Joit0DFLKbYDfQ05IQSw3Z"><!--pnid:O4uPxxmqsXzYyxVrRCVQFz-->平手，飞鹰控制该地</b><!--pnid:0ZPsyh4hcmVvGEz1Tv13Nq-->（需该地有飞鹰士兵或建筑）。</li>
+          <li data-page-node-id="JxyZfA0ctS0P3wh45qh55d"><b data-page-node-id="XopLf7xjzN0zkt20KBpoDn"><!--pnid:nsm1N9onn51UfWJszmEbLr-->重武轻商：</b><!--pnid:kg8V8hqslxcagukVcsqJF7-->飞鹰锻造道具时，无论牌面多少分，<b data-page-node-id="8syUYO6se3qyuPZV9WxgYp"><!--pnid:E2denq7Cgk4GsK57aFMgXn-->只获得 1 分</b><!--pnid:wQDDIx4Goewj5YuOQ9DvEz-->。</li>
+          <li data-page-node-id="D3s7jlVhWHSEAZhGSfxRZa"><b data-page-node-id="oHkYZgIO8cwxmduyjM6CPv"><!--pnid:Pd96fMr3g45nMJqwb4IT5z-->法令栏：</b><!--pnid:DTlPzFzLpgk79PjCXnv7eP-->飞鹰不能自由行动，只能按 招募 → 移动 → 战斗 → 建造 四列法令依次执行。</li>
+          <li data-page-node-id="QsE7lMmRzT382BW1zlRTU9"><b data-page-node-id="WIYWroJyF2eT0FsjohoEO2"><!--pnid:RsfKijpBeTbja1wONDzhRP-->清晨：</b><!--pnid:S396axPr1RbCBHl22It2mi-->①无手牌则抽 1 张；②<b data-page-node-id="p6wHVQX1q8tmGZWRPG650j"><!--pnid:vHjrwa7BmOGQstqBPk9A97-->必须</b><!--pnid:moXnk7xFhJVBzRUdURAtuW-->从手牌向法令栏增加 1–2 张法令（每回合最多加 1 张飞鹰牌）；③若无鸟巢，在合法的领地放置 1 个鸟巢 + 3 个士兵。</li>
+          <li data-page-node-id="zUdfJC45Bgg6awiFHKiwPw"><b data-page-node-id="BAGFqAZpfo01WUdGOMmIB5"><!--pnid:88WnmLrNEtCahC0gfLpEYt-->白天：</b><!--pnid:DaWcKyXR3IrUmGf1m8OOS6-->先启动锻造，再从左到右结算法令栏。</li>
+          <li data-page-node-id="bqOEYuum7ViUG5Num2GcQe"><b data-page-node-id="jwtFnt73rs19nsvSqTSABj"><!--pnid:mGl2FgE39PgHe4cVhGYNUW-->黄昏：</b><!--pnid:RJzdTaRSFBQgAgh47p2S63-->按鸟巢数量结算得分（+抽牌补牌）。</li>
+          <li data-page-node-id="yiXTiByu7FnUx6ADugHkoT"><b data-page-node-id="GtaRz6Lz6pGWpt8iop9uEQ"><!--pnid:Lz0KShEW2LYKFDqzrRy0tC-->动乱：</b><!--pnid:N6pmHH3JRtck61HFKuoj1d-->法令只增不减。若某回合无法完整执行某条法令 → 立刻动乱：按法令中的飞鹰牌数量扣分，弃掉所有法令、更换领袖，直接进入黄昏。</li>
+        </ul>
+        <p data-page-node-id="xevI8UB6EviWOTn3c7WXTu" style="font-size:.85rem; color:var(--ink-soft); margin:12px 0 0"><b data-page-node-id="8VhuAj13kJPjstD8xZJm7y"><!--pnid:eF0hkfE9gNUhs48OPvMl4F-->计分：</b><!--pnid:X3c6rATc7D3h4XbFh8Yas4-->每回合按鸟巢条最右格得分；发生动乱会扣分。</p>
+      </div>
+
+      <!--pnid:jEeMazLkeZi7oNbtK8ga36--><!-- 联盟 -->
+      <div data-page-node-id="8s3ol0zLIxFWrhQZeTF4Tk" class="faction alliance">
+        <h3 data-page-node-id="LYr3DUNvOaBRUNnDuqOKC1"><!--pnid:m5E3ovsrSECaLMaVd68zEC-->森林联盟 <span data-page-node-id="dsIXN6tXccZGYTy77F8aAr" style="font-size:.8rem; color:var(--ink-soft)"><!--pnid:eqNCQLRx1CMOYWnY9ydJA0-->Woodland Alliance</span></h3>
+        <p data-page-node-id="vPigH6VyZoku11iRw9WfLM" class="role"><!--pnid:osp0ONtXul9JWudKtFfu8k-->游击反抗者，慢热但后期凶猛</p>
+        <div data-page-node-id="rPYRr5nY7aJ5uJ1mBXwCRZ" class="abilities">
+          <span data-page-node-id="5eZ3etUl2W2IA21eaGdxry"><!--pnid:0lHC0hOuF7Y2fbamzoGnAY-->游击战</span><span data-page-node-id="1Ycv5cuEJ16oHVG3JU4z0m"><!--pnid:5eDhId8A3Ibj0uMFJleQ0q-->支持者牌堆</span><span data-page-node-id="1zwKQgUkMqknCsSHRqV0q1"><!--pnid:OzbzcLUIGet52zEmYOtsGV-->民意/民愤</span><span data-page-node-id="XwjrSX8HodATZIsPiSNi0X"><!--pnid:La8dRmhU9cOQAaIIYM2lNZ-->基地</span>
+        </div>
+        <ul data-page-node-id="R08pwIcQwbMXSJdrIzdUxA" style="margin-top:12px">
+          <li data-page-node-id="QaQ0IclkmZfPPx7nMuLAMZ"><b data-page-node-id="unjIiPebJJwu7EMrkEeCiL"><!--pnid:c4n7WS42iNKshFtCvZFcUf-->游击战：</b><!--pnid:ZMLsykiRh4UBGm9qMzQzkQ-->战斗时永远取两枚骰子里<b data-page-node-id="YgseT1PFsL43YPpiVtBqiX"><!--pnid:XNb055meih7rGWixbnkINz-->较大的</b><!--pnid:dEsIXznSpGW1N2ZRZyCZVA-->那个。</li>
+          <li data-page-node-id="PwWzlPuQ6nUmkvhRYMY8fg"><b data-page-node-id="GatEcdIXcwasS7GLET0By3"><!--pnid:1rvxpel0SLMBvuRkBt3E97-->支持者牌堆：</b><!--pnid:323ZePv51USowb86d0hBpu-->盖在自己版图上但可随时查看，只能当动物牌使用。无基地时上限 5 张，超出必须弃掉。</li>
+          <li data-page-node-id="XC1iNuh2mumUFwfSqGAvLP"><b data-page-node-id="U9s0zEECABwG5DWFsSKsZF"><!--pnid:a9QKZiFLz84B0nkLmFT6Vp-->民意与民愤：</b><!--pnid:ta04qy3irWxmGoqgCJEh39-->每个领地只能有 1 个民意指示物。当对手<b data-page-node-id="N6pTbsEniobjgoxi8hIjuU"><!--pnid:BwQJ4cwD4MDU5pbc6NZTnw-->进入民意领地</b><!--pnid:zx02KOU9gf71Zf5Fhxaqi7-->或<b data-page-node-id="dgjytv5Fbk0p98Yybj2tfE"><!--pnid:1itFyf4HHiW7pvIHKifrxi-->移除你的指示物</b><!--pnid:cLGSIpUO6GNbe2gzwq3bAX-->时，触发民愤——对手必须支付 1 张与该领地类型相同的牌放进你的支持者牌堆；若付不出，则展示手牌并由你从他的牌堆抽 1 张。游侠不受民愤影响。</li>
+          <li data-page-node-id="NpXtw2CAh0SCf8EoqeGTJR"><b data-page-node-id="xJZbBGQKW1I07lgNQ4c0hS"><!--pnid:bWLeUStT80ljZ3NGt0LdVp-->清晨：</b><!--pnid:mozrwgLxlvcQotqVsVIiBM-->①起义（任意次数）：花支持者牌在民意领地建立基地并放士兵；②传播民意（任意次数）：花支持者牌放置民意指示物。相邻领地才能传播，一个民意都没有时可任选。若目标领地上任一对手有 ≥3 个士兵（戒严法），传播需额外多花 1 张。</li>
+          <li data-page-node-id="kFvTZolE7Hz63P5beiz5WT"><b data-page-node-id="dbGE3BDmloIp3NETJTmNhT"><!--pnid:vD5PX29GE2JiCoSUA18diW-->白天：</b><!--pnid:dKcdROD84OeZCNvi3bVmjz-->启动锻造 / 动员（1 张手牌入支持者堆）/ 训练（用基地类型对应的手牌换士兵）——均任意次数。</li>
+          <li data-page-node-id="HhhS3BU6rZmd3r7sxdLWTc"><b data-page-node-id="m1jE632LLogwa7m8TlPiha"><!--pnid:qe3Lu6PajSvXVyQ6Evr7uD-->黄昏：</b><!--pnid:cQx4UU2yocm87OQeYnoPz4-->执行移动 / 战斗 / 招募 / 组织，总次数不超过长官数量；然后抽牌补牌。</li>
+        </ul>
+        <p data-page-node-id="WWxwRcYS7Ui7zddpqR4tmG" style="font-size:.85rem; color:var(--ink-soft); margin:12px 0 0"><b data-page-node-id="ixP83V09TCE5yxh3x1IvWG"><!--pnid:3Jb01Fk9NS1jMESbmgvMCP-->计分：</b><!--pnid:041N6ewkJqhORaJSJ5XkYl-->每次传播民意立刻得分；指示物被移除后再传播可重复得分。</p>
+      </div>
+
+      <!--pnid:0dVNgRgnBvVpSgUdsmeE1I--><!-- 游侠 -->
+      <div data-page-node-id="79NcRdD7IpEIBqR8hUt6ms" class="faction vagabond">
+        <h3 data-page-node-id="SNpZ49404nhor0OJoS6EKG"><!--pnid:Ks5JFVX0xSt3lya7pMbZL4-->流浪游侠 <span data-page-node-id="NjTNWcjzeijMuvZJadhLya" style="font-size:.8rem; color:var(--ink-soft)"><!--pnid:lSWKClSVZLlCRL6kHOn34J-->Vagabond</span></h3>
+        <p data-page-node-id="iohtY49zuqX6wOvi21Pd46" class="role"><!--pnid:8pp5DNtfgDS5peDMqJKazw-->独行侠，靠道具、任务与关系行动</p>
+        <div data-page-node-id="zcBSiIEes8gP4NDxhFXYYA" class="abilities">
+          <span data-page-node-id="8bsZmKg0NluEMbzvODh54d"><!--pnid:SnsR5DosXgLkj07u6MfRKt-->孤独的流浪者</span><span data-page-node-id="l8tM3CRsNO52LibLOomFHc"><!--pnid:570mtbl1w4I5mPe8o1q20T-->机敏</span><span data-page-node-id="hEguBfnbpaTOulj3iJ5fww"><!--pnid:UGq0gLrd5mRdWvH9PVk6u7-->道具</span><span data-page-node-id="i2W3pTPbKE7ow1FDHJwm1C"><!--pnid:GtPUvnCx0B1vPgWh3pfOal-->任务</span><span data-page-node-id="L7EqqA8w2KCw2HlMjpCzDY"><!--pnid:UT9GECTisfuNHA6xlbayUQ-->关系</span>
+        </div>
+        <ul data-page-node-id="qrbN1OcXovcqLcVG4TrX16" style="margin-top:12px">
+          <li data-page-node-id="nAzujRPreXnNyaP3WNiqmG"><b data-page-node-id="SBUYjARav2WPA3p0znZTS2"><!--pnid:n9EuYfCN5JTEN85txxE4XY-->不是士兵：</b><!--pnid:DmW9uz13AMre5Caqa58eAD-->游侠只有 1 个棋子，<b data-page-node-id="JTDorT1SgMplkrFzfTOH2c"><!--pnid:wB2skN7czBONUrNiY3EWbD-->不能被移除</b><!--pnid:K3gQZY6jL0UMCQOAhYpFE7-->，也不能控制领地、不能阻止别人控制。</li>
+          <li data-page-node-id="paXM4wmzJ2qFwWG0D1dALc"><b data-page-node-id="x3qd7rpvMUZZMpok6MTGll"><!--pnid:LLG0gh2T5Cz62rGBu289xY-->机敏：</b><!--pnid:MrLB02PNWp1nk95suEU78t-->移动时无视领地控制权，可以进入树林。所有针对「士兵」的效果对游侠无效。</li>
+          <li data-page-node-id="ZtNJLq5NqDUCY2ntVypYQ2"><b data-page-node-id="T3sHDYKeCeOkq2BTwBdook"><!--pnid:HfJVPAizEdKPhw81ayrK66-->道具：</b><!--pnid:ftRzWc4yogej4H4LKkjD9T-->分被动（水壶/金/行囊，放道具条自动生效）与主动（鞋/火把/槌子/弩/长剑，放背包）。状态有「可用（面朝上）」「冷却（面朝下）」「损坏（放损坏栏）」。</li>
+          <li data-page-node-id="cgCh9JLU1n11P6KMc8AmCG"><b data-page-node-id="TVnPTFIb7cluHNaL1yOKyQ"><!--pnid:6KjvVtSSfoNHGrupW2vPoP-->任务：</b><!--pnid:drJHvzFdJ0AAHSComkPro0-->地图上公开 3 张任务牌，只有游侠能完成；奖励二选一：抽 2 张牌，或按已完成同类任务数得分。</li>
+          <li data-page-node-id="Ba9yEwmJEiZcRoxJz8vW3T"><b data-page-node-id="x5mzGkwEB9wdNrjeo1IaRu"><!--pnid:kjw8Ln2QaiQtAPfpLU2ZU0-->关系栏：</b><!--pnid:MYNI05a9lfcMKUAB1yoAM9-->记录与其他派系的关系。通过「协助行动」提升关系（消耗 1 个道具 + 与对方配件同处一地 + 赠出对应类型的手牌，三点都要满足）。</li>
+          <li data-page-node-id="7ksVRI9vCJ8skfJAzqOWcf"><b data-page-node-id="BoEpjmKNwP8HtST9rzq7Pm"><!--pnid:TABFRJFZpna5I1P2JuvRW6-->同盟：</b><!--pnid:FRdR2TUl6Cs4htQvqzcaCw-->4 人及以上游戏才可用。可强制与当前最低分玩家结盟，对方得分标记移除，对方获胜则共同获胜。</li>
+        </ul>
+        <p data-page-node-id="E7t0crstBo7kDIAJMG6OAH" style="font-size:.85rem; color:var(--ink-soft); margin:12px 0 0"><b data-page-node-id="w9anMkcQdoslfHeuo2uCdg"><!--pnid:0CmKXbtvsgOEfbZ8CXZbYn-->计分：</b><!--pnid:Z5RqIWfNEcM6lDbI2SHIfn-->完成任务、协助他人、移除敌对派系配件、探索废墟均可立刻得分。</p>
+      </div>
+
+    </div>
+
+    <div data-page-node-id="8vjPco3YpsuKC9SjhxeDUB" class="callout remind" style="margin-top:16px">
+      <span data-page-node-id="szhGEEDaVA92xos6Wc99r5" class="ttl"><!--pnid:waye887VTkV6FmWd16UXi3-->一句话记住四个派系的「规则质感」</span><!--pnid:M2MghZdfzL5ks3IwNwA8xP-->
+      猫是<b data-page-node-id="jZwdhxUvcdqf5t3bNaQG5j"><!--pnid:wKYtl7rAZCRdOoLGo8Boki-->建造流</b><!--pnid:UobbPgDaDJ8yVTg13o5Yho-->（花钱建建筑得分）· 飞鹰是<b data-page-node-id="Row7fgctSQpJCBaFhriOw3"><!--pnid:igOiwxoKOrOxbpkcTVVZbC-->法令流</b><!--pnid:p2OZZFtjXVNYqHgBH3Nfty-->（照令行事，出错就动乱）· 联盟是<b data-page-node-id="tsDpEuz9rkVRrTvFw3i56X"><!--pnid:yxFvycOh3IwvuqOiZynJr1-->民意流</b><!--pnid:5JulZWP90ngfzdIUy3ULGS-->（藏牌、放标记、起义反噬）· 游侠是<b data-page-node-id="cPdZxaqy4oNvywVcLSwNJ7"><!--pnid:aITHzbbgW8bbuffCpZbUMq-->道具/任务流</b><!--pnid:jQb3LEUcRsouKxl7dO9vVd-->（一人一格、不占地、靠关系与任务）。
+    </div>
+  </section>
+
+  <!--pnid:sQCNIvE4JuPnbwEju2EIvR--><!-- ⑨ 开局设置 -->
+  <section data-page-node-id="2tI8YfCEw5G7pEGFxpXbqA" id="setup">
+    <h2 data-page-node-id="5IF2QmA3LGNtmGeegNsEgH" class="sec"><span data-page-node-id="7twVmJuSrY8FWbssVay4jC" class="num"><!--pnid:tRzC44R7JCyBjNmyeFtLbB-->09</span><!--pnid:TNhds9PFUsn4EWVTFiGbLj-->开局设置：按顺序摆</h2>
+    <p data-page-node-id="cjnna9xxFVxWXvo5c7BvAk" class="sec-note"><!--pnid:RNpiDUNhbqI1bfDIfYxz6Z-->好久没开，最容易漏的就是设置顺序。</p>
+    <div data-page-node-id="Kfek4WmSFJlXpQvln7mAdI" class="card">
+      <ol data-page-node-id="7tk0SWMYy1E7FJU5fqqq3e" class="flow">
+        <li data-page-node-id="YVtp4K7GfK6L1YeZZuuwr6"><b data-page-node-id="uRnYftyCJ1bolmXUoabkt6"><!--pnid:VV1niZn2EcMbPOEsQTX6Lo-->铺版图</b><!--pnid:UZxnesAtO5xDnwOkEYJPln-->：选一面（秋地图 / 冬地图），放桌面中央。冬地图的领地类型是随机的，需用弧形标记随机标注。</li>
+        <li data-page-node-id="rlMSyMlfMWXPO89LZsNYCW"><b data-page-node-id="EnjbBQFRP9YvsxErTpHgV0"><!--pnid:3qbsURx1dk52nu2Qhlh3Wm-->选派系</b><!--pnid:M1uFccUVb5dhNjskr5xzxR-->：每人选 1 个派系，拿对应派系版图、米宝、建筑、标记与起始卡。人数配置由玩家约定（3 人局去掉游侠；2 人局再去掉联盟）。</li>
+        <li data-page-node-id="i7cRHca2lOceOKJ1u7bTXS"><b data-page-node-id="qdZpQIDpzglGlvM8Fxluc0"><!--pnid:yuQ9GXhOATZQ5WVQoPWwvF-->摆废墟</b><!--pnid:qSMFS2gA7tVMOjPFTY6QDp-->：把 4 个废墟标记放到地图上标「R」的 4 个槽位。</li>
+        <li data-page-node-id="ZdbBQhRBDbcgdp9sXkZkIz"><b data-page-node-id="cLdQS0LISAsEY06oFnMUA8"><!--pnid:kQ2TTvFOAeHFkChhwRi4OQ-->备道具</b><!--pnid:d27Vs4tFXZqJZr3xt5boK1-->：把道具放到地图上方的供应堆。</li>
+        <li data-page-node-id="ibQn3r9HieTP7wWfVCjfZA"><b data-page-node-id="pNRNhb7dwL8Yzwg01Mjtdx"><!--pnid:KTT5fifahfqxduO3LSm4cX-->摆骰子</b><!--pnid:tOsvpGH1foiDapl9ne6vS0-->：两枚战斗骰放在地图旁。</li>
+        <li data-page-node-id="bk4ib3QFUg9BIirLSEwwgn"><b data-page-node-id="sEkzF4ueY3dxtUrR1mtMdH"><!--pnid:RGqd3yHhSJI0VqwyqD4r0q-->派系设置</b><!--pnid:kUM66s47uoNfMMmHhqBFwN-->：按 <b data-page-node-id="WZROKnU6XBVNeFbr6lLqlb"><!--pnid:l5p6lNQwMUt9dsAJWsvGIL-->猫 → 飞鹰 → 联盟 → 游侠</b><!--pnid:ENf2tJG6w0R3l2mS6EIXTY--> 的顺序，各自照版图背面的 setup 步骤摆放（顺序会影响结果，别乱）。所有人可同时进行。</li>
+        <li data-page-node-id="N01G5JBJRvVW7xM5sjqGX0"><b data-page-node-id="6GuGYWuIdad0aT64t97hWA"><!--pnid:AaTd5vslXk6RbtxfMT3CkW-->计分标记</b><!--pnid:JUjsO96mAbJWLPkLtWt9IW-->：各派系得分标记放到计分轨 0 分处。</li>
+        <li data-page-node-id="HhaVWh1K9FDO9uVeKfhW7N"><b data-page-node-id="xStspkkfNjbfPv2uh2s7jh"><!--pnid:Xe7BVbcqtZDbIbNBg128cj-->发牌</b><!--pnid:seiQau3JtJeZrPU33a05gg-->：洗混公共牌堆（54 张），每人发 3 张作起始手牌，保密。</li>
+        <li data-page-node-id="2wIuqbBQzZJm5ZE5hCqxFJ"><b data-page-node-id="XGTBoELnxN2pj9g961n1tn"><!--pnid:L1zq4tYmNR0ngEojYWC6S5-->定先手</b><!--pnid:CoF1KnA7ld622cahBMthUy-->：随机决定起始玩家，顺时针进行。</li>
+      </ol>
+      <div data-page-node-id="JlSm73pgspAtY7RYAZjuL1" class="callout" style="margin-top:6px">
+        <span data-page-node-id="JoBIHB9NowEA9ptVK27b4U" class="ttl"><!--pnid:IVdweIsTq7WJ0WSmshe5wi-->新手友好配置</span><!--pnid:DPw9dhRGhlDLpXlN7YVE4G-->
+        2 人教学局推荐「猫侯爵 vs 飞鹰王朝」，这两个派系规则最直观，也最推荐作为第一次上手组合。
+      </div>
+    </div>
+  </section>
+
+  <!--pnid:LLS8gRuKlnMr8tWdWXa87o--><!-- ⑩ 速查卡 -->
+  <section data-page-node-id="MGLo8cNU88ljvLqLkJkBAF" id="cheat">
+    <h2 data-page-node-id="D1JUfW16EO6d00HEyzYTZk" class="sec"><span data-page-node-id="Zr88enVeC6U4fDcBd1QEMS" class="num"><!--pnid:aPILBvz1GLV4kPxHPjWX6Y-->10</span><!--pnid:GMeUzQuoJSNNVvHYyGeG79-->一页速查卡</h2>
+    <p data-page-node-id="ETZyQbglQGJDP0HT95CTnX" class="sec-note"><!--pnid:iSSAAF1CecdEwuVNQZ1mL8-->玩游戏时把这一屏单独开出来，随看随用。</p>
+
+    <div data-page-node-id="8GPEthpl29MEW9PS6Jbxa1" class="cheat">
+      <h3 data-page-node-id="5tuAvHHpLwhdDpIvNioaKt"><!--pnid:KXI0Nhb8ldSXo2Yj8Beb4M-->🌲 茂林源记 · 核心速查</h3>
+      <div data-page-node-id="RnZPDbmMo81RIH1M83a4ar" class="grid">
+        <div data-page-node-id="KpAdTRS72XF278FQT5FRGr" class="item"><b data-page-node-id="tZArf6ryON3xDm1qgcL1ZL"><!--pnid:0JnhVuAdkU05rM5ilwOQLi-->回合骨架</b><p data-page-node-id="WpKIS4VwisJDtkLiVKXlg1"><!--pnid:2SFkcHz0U2Uo065t67fSkh-->清晨（准备）→ 白天（行动）→ 黄昏（结算＋补牌）</p></div>
+        <div data-page-node-id="bGLn5eCjZRVCyNnrmWZXRv" class="item"><b data-page-node-id="jsGa9Lv5socf9peBwxyuXU"><!--pnid:D7SaGY2chdRuk7v9HK4rq4-->胜利</b><p data-page-node-id="6Nji0kF3PrclIROWwnLTW1"><!--pnid:rf0xIiTC1IMHwO42TyTFYK-->先到 30 分；或有 10 分后打统治牌，改完成占领条件获胜</p></div>
+        <div data-page-node-id="aFVfzitcmqjqMPlcMs4i33" class="item"><b data-page-node-id="FCqAHvGAfzgCDpgDRRqKou"><!--pnid:vzPswy9dNrXRtCZxJr215T-->控制领地</b><p data-page-node-id="RaJ5h8TGq6qnysCTDNekqb"><!--pnid:wUvnMBmsIdctAlBi1FHMW9-->你的「士兵＋建筑」数最多则控制；平手无人控制（飞鹰除外）；游侠永不控制</p></div>
+        <div data-page-node-id="OVwUKuSst6hL2tJ0J2Vw6f" class="item"><b data-page-node-id="JnIR3EA8jitjrKY9ExfXEY"><!--pnid:crgY2HzUL6uWlr8ZWAdRgZ-->移动</b><p data-page-node-id="PLw7Sa716e3wxYiSCcJo5S"><!--pnid:CAmkzdt9m1UO6Hnr1V2Pbi-->沿道路，起点或终点至少一个是自己控制的领地</p></div>
+        <div data-page-node-id="6LRQ3IU3VY1MidZ9nFuBhx" class="item"><b data-page-node-id="9sDcb2Aw6iQFVpHCbPeWEa"><!--pnid:PKjlxLslFrjkOLEopjYNu2-->战斗顺序</b><p data-page-node-id="VlB3VxFBv26EcAKTdUdDRD"><!--pnid:1Cf94O4M5PrXgysn4wxOTX-->①奇袭 → ②掷 2 骰 → ③看是否毫无防备 → ④移除配件</p></div>
+        <div data-page-node-id="M9zYeGVIuUOAN8eoVb3mlZ" class="item"><b data-page-node-id="HBqW5MhdWqJ1BeafJWQD32"><!--pnid:qPBiLUi3xn6Pu8fhPEzwjz-->骰子</b><p data-page-node-id="sFuSSoZkBbvvmO75kWEwFR"><!--pnid:tJ6IDpvtSaTotdKiwM2eWN-->2 枚骰：攻方取大值，守方取小值，同时结算</p></div>
+        <div data-page-node-id="UbdeYrxLjlLqqGWG1RwZLi" class="item"><b data-page-node-id="W8eZBCR5X17MPnP7jqaIK0"><!--pnid:wYlM5116fcHziwDlZ2xB98-->命中上限</b><p data-page-node-id="1IfVr549BqhLX4EAhHCRJs"><!--pnid:caZHAbKrP8cYOW8NZVLIDr-->≤ 你在该地的士兵数；目标无士兵则 +1 点</p></div>
+        <div data-page-node-id="3VgSNgFVPZAjZK9asmTK4i" class="item"><b data-page-node-id="RzId99m65Sd4Peo2rK1xAF"><!--pnid:YoLfcyi52O6kB4ZKAWEflX-->移除规则</b><p data-page-node-id="Wtrplu93CpJDQd9ttCCBn3"><!--pnid:fMNhNwMuARSAdSQNJVJcy1-->由被命中方自己选，但必须<b data-page-node-id="dOx0bgzT2co5Wcvxxvccy0"><!--pnid:pc6VlC6Ju2Mg19zSd4niwv-->先移士兵</b><!--pnid:LzEUbRfbtokQ6gVus4c2jk-->，再移建筑/指示物</p></div>
+        <div data-page-node-id="Lww3JSg9krjLvNEgcWskCY" class="item"><b data-page-node-id="XvSMgZkXD83Aee93VS1sMd"><!--pnid:ef0VcB7oSO5f2i1VkiHj3J-->奇袭</b><p data-page-node-id="1RllOyQ5nZowdNkaLi5EIm"><!--pnid:FokFW0IjYEI1G7DdL7NJHV-->掷骰前，守方先打同类型奇袭 → 攻方 2 点；攻方可同类型牌抵消</p></div>
+        <div data-page-node-id="O9z04p4z0V12EPlyPjd6yL" class="item"><b data-page-node-id="Y05Zff72GHDfuOPtZ0CuBW"><!--pnid:nMDEaDa1uc0FE28qB5Afd6-->得分补充</b><p data-page-node-id="MKd3B4SG7XO0xHzDyKfwjC"><!--pnid:X7bcFmVD7pOLitIUJCgKwQ-->移除对手建筑/指示物，每次 +1 分</p></div>
+        <div data-page-node-id="qSUGWpy2t8w19DEw32unGG" class="item"><b data-page-node-id="1ExAXyviOwE91VlbmYxUC7"><!--pnid:UNF3zYnEZ8EQ3Vn5r98OR2-->锻造</b><p data-page-node-id="VASaTvY55khQKvx832bBni"><!--pnid:36PevtDhheu9FJwuHGP2Iz-->打牌付左下角费用换效果；同一配件一回合只用一次；道具空了不能锻</p></div>
+        <div data-page-node-id="tbvGx1xEyscCYhBH0kUsir" class="item"><b data-page-node-id="xA05dBhSsGBa6kAXil106B"><!--pnid:9IJtuEigeBWDlOwfRoN1tZ-->飞鹰牌</b><p data-page-node-id="Pfo84O5JkK095ae2pNrH60"><!--pnid:fdLoFatfSPnRjRU0spgXO3-->百搭，可当狐/鼠/兔用；但要求飞鹰牌时不可替代</p></div>
+        <div data-page-node-id="1ZwsLzNcQQFx1E50eOEJYU" class="item"><b data-page-node-id="UuSV16dMADeNrgmHJgkA4d"><!--pnid:iseOrXd2131CMCnO52FDLI-->手牌上限</b><p data-page-node-id="yVnFsMCKfSftstghqlzXBA"><!--pnid:jQIqV33XJiO8BBN51pG9Q3-->通常 5 张，超出自行弃牌；弃牌堆随时可看</p></div>
+        <div data-page-node-id="kmcdpRt46mbKws0gGI37Y4" class="item"><b data-page-node-id="x8zF1T0eoT714ff4q29aMp"><!--pnid:wS1QfwzCxsQvOAQhdmnLIT-->树林</b><p data-page-node-id="yMnXvr1zoLWBFDlo1Re8pW"><!--pnid:iLPUS7x1Si1D1r6EGJPHho-->只有流浪游侠能进</p></div>
+        <div data-page-node-id="qsSrdbdVKwNPbgcc53wbhP" class="item"><b data-page-node-id="obR9fm1OVv1tSkq94TZBT1"><!--pnid:TLY0laa9QViXRie2ydavGD-->废墟</b><p data-page-node-id="WrN51umSugDW6ILfMbI7F3"><!--pnid:1ULasHqJOGGsv77dHtCtEl-->占着建筑槽；只有游侠探索才移除。无游侠则整局不可用</p></div>
+        <div data-page-node-id="cqHnGqxqHOdBxg9wC36LN2" class="item"><b data-page-node-id="nQ8hyengcN0fkhsYUryp9N"><!--pnid:2wgYk4R9Oarev1YUpil7aF-->联盟例外</b><p data-page-node-id="Io1yvrUseDUTEqaB718k3l"><!--pnid:8cx5n4KOy1NJFmbNij1naa-->游击战：战斗时永远取较大的骰子</p></div>
+        <div data-page-node-id="R4yXPtyT8XZto5kmqHV56m" class="item"><b data-page-node-id="leK8wWUJPQ7gBjAn4eMjVD"><!--pnid:Sfjdt8Cv8rHZA4VAygcvbM-->飞鹰平手</b><p data-page-node-id="HFaHWS2Eek7IgkykAS5TfD"><!--pnid:HEVzQtfFql8JEpitfB243K-->森林之主：平手时飞鹰控制该地</p></div>
+        <div data-page-node-id="ucID64QOE03JmbJymjdjct" class="item"><b data-page-node-id="5HhvqLUOm7eowGDKGgzJDn"><!--pnid:7q4apwgTwPvSciDU06Jzk6-->游侠</b><p data-page-node-id="lCYSpHu141u6RwBDvs2Skd"><!--pnid:iHBVuTDEMYiINnhZbzFPsG-->不是士兵、不可移除、不控制领地、能动树林</p></div>
+      </div>
+    </div>
+
+    <div data-page-node-id="BaQcX5RsQ57XMqPbUhu7zw" class="card" style="margin-top:16px">
+      <h3 data-page-node-id="Im1TsC1C6pzIAyAZFmmjvI"><span data-page-node-id="7oqqNgUKO91aINSUoXEQSa" class="dot" style="background:var(--gold)"></span><!--pnid:w9fnPu5rBOurYHtqjnYJyz-->计分来源一览（所有派系通用部分）</h3>
+      <div data-page-node-id="nCm1JeDujYroHCAz3m2LN7" class="tablewrap">
+        <table data-page-node-id="3dUC0AJyQDvSe4P2HQHQhL">
+          <thead data-page-node-id="4dSAFoMAWz676VpWhK5rjk"><tr data-page-node-id="VFoNzqDZkIA8aZ8rinE7JM"><th data-page-node-id="Jutrs61zfLc3NbSV46PQlm"><!--pnid:oQjiMAUHUyMZr2MKycnELi-->来源</th><th data-page-node-id="w7F4wjDE6vQgJXZNxvD76v"><!--pnid:HTjeFtj7R1S5TYl1PIsqrT-->得分</th></tr></thead>
+          <tbody data-page-node-id="PgmqJLENYxQeyV5Uu4ViTA">
+            <tr data-page-node-id="SABd22fm0XiOjlKIxBATh1"><td data-page-node-id="ZvAj1qxlBTzM9qh8swEK1Q"><!--pnid:6lcPIeuEWR5MSFVmJNnVx9-->移除对手的建筑或指示物</td><td data-page-node-id="DBFSZpdjPHA9mC2B3uK2XZ"><!--pnid:oOZLYhCYbxt5o4aLRGurKW-->每次 +1</td></tr>
+            <tr data-page-node-id="rHvtreDyENmtYFIuJjl06N"><td data-page-node-id="SkpPFQakdf0BNZJVMCoppI"><!--pnid:a8rSa6a53wxDbDUSi2pN85-->锻造出有库存的道具</td><td data-page-node-id="7v7zelgwbmluZTVxQ0tNQL"><!--pnid:4JtBD46m9JcojBaaeadNnG-->按卡牌所示分数</td></tr>
+            <tr data-page-node-id="bKxz7G5AUMl8BPmwZIPkox"><td data-page-node-id="HT2pakvNQvAv3u2XlPlyeC"><!--pnid:RbWUvpsD5QXHcZ0wgAvqxQ-->各派系专属行动</td><td data-page-node-id="KBggcHO2wPH8Y1kvaXfEbs"><!--pnid:vWUoEcbdNEOJ3KMDeDr7ry-->按自己版图上的计分条</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p data-page-node-id="wKhp15Ke0j2rM4sDwvhWMU" style="font-size:.85rem; color:var(--ink-soft); margin:10px 0 0"><!--pnid:2BEZe1N99F28Z5YfXjxvfN-->猫：建建筑 · 飞鹰：按鸟巢数每回合结算（动乱扣分）· 联盟：传播民意 · 游侠：任务/协助/探索/移除敌对配件</p>
+    </div>
+  </section>
+
+  <!--pnid:PGxJ7TpzrdzpPS4WQP2iuI--><!-- ⑪ 易错点 -->
+  <section data-page-node-id="Qyg01EZ6bL5jcFHWXPq3CS" id="trouble">
+    <h2 data-page-node-id="VKPkeHQulSHIQpoJctB1pN" class="sec"><span data-page-node-id="PwXvssTyqLjSZdPFIDVFt5" class="num"><!--pnid:79QLnLkvqDJt5m6AmnrTy8-->11</span><!--pnid:ubOkiRfWM8MKmyq65QyBmz-->易错点清单：开桌前扫一眼</h2>
+    <p data-page-node-id="AVf5Ahob5P7E4bJx5HQZ3X" class="sec-note"><!--pnid:AhekkCXfkYYV9cM0z4RxCG-->这些都是「很久没玩」时最容易记错或引发争议的地方。</p>
+    <div data-page-node-id="S0njo9DhwsDCNC9A05Ddch" class="card">
+      <ol data-page-node-id="7tbL5T0BjTuZiY3LMEHAm7" class="flow">
+        <li data-page-node-id="WzcEWKYXSp1Z0YABEpk3G6"><b data-page-node-id="muhX0z0KYuZhbxCIhTjjMo"><!--pnid:EZhOJm8YfmemyWGTkox56J-->移动要看「起点或终点」你控制，不要求两端都控制。</b></li>
+        <li data-page-node-id="DSEGYluASsfbniuW8M8kLM"><b data-page-node-id="dii5ydTMKKqHtTjwOLIM5k"><!--pnid:uLuON2C39XhjgHhHqGZgJA-->平手 = 无人控制</b><!--pnid:g7lx7C5H3FGt88TZ5ONRcn-->，但飞鹰是唯一例外（平手也算它控制）。</li>
+        <li data-page-node-id="JSMMiOP2oXEGQvLepWJB2H"><b data-page-node-id="O9mKS6SZaYInKX78cTXy06"><!--pnid:ohaaqER4Cf8Y4iM7R3FVJ4-->命中上限是「士兵数」</b><!--pnid:DPZkzRj4XiQZlqItqHePom-->，不是骰子点数；卡牌/效果造成的额外命中不受上限限制。</li>
+        <li data-page-node-id="ReVjrzlPWT7KBZ8VjePdch"><b data-page-node-id="UGqSdDvu8UWOYFQd8FmmZS"><!--pnid:NQxG2mwo4Gim903SU6Q6YW-->移除配件时，被命中方自己选</b><!--pnid:cNPvDexiEu1Hs3HgSFCcfe-->，但一定要先移士兵，再移建筑和指示物。</li>
+        <li data-page-node-id="1gKXLBbdapUQOZTVgxoqLp"><b data-page-node-id="ngpmnpIg8KAWWMhvFwDV0d"><!--pnid:tu4nFFAOryYvNRkc3KVoux-->「毫无防备」只发生在防御方该地没有士兵时</b><!--pnid:va5qit9Eif5RP5OMcahY0G-->，此时攻击方 +1 点（无视上限）。</li>
+        <li data-page-node-id="VfQpCp4mHHHF3hJfZLe90x"><b data-page-node-id="rDPLLp0CnaGubFUkOpbSDj"><!--pnid:wprZgI5JbzHyqqjm24gVWK-->奇袭只有守方能主动打</b><!--pnid:CueYnnL5dmu16hPzOgYW65-->，攻方只能用来抵消；守方没士兵也能打奇袭。</li>
+        <li data-page-node-id="8V1ZGUqrLrX2coPWbifJvl"><b data-page-node-id="H2gKgHPi6pBgDkJ80g3uE7"><!--pnid:8uPIJB2P0eF3xJKtN2EaEn-->奇袭牌必须与战斗领地类型相同</b><!--pnid:Gl4VcuqfNxLjNEOdUIlcPe-->才能打出，抵消也得同类型。</li>
+        <li data-page-node-id="7AFscxu6jkdTJImrjWbcUU"><b data-page-node-id="y3NLtBAl15trHVaL4koxtg"><!--pnid:5DceCOB4nax66BZNxI9GgH-->锻造用配件一回合只能用一次</b><!--pnid:3xJ51svWIZjNupHHaCPDHr-->，且道具库存为空时不能锻造该牌。</li>
+        <li data-page-node-id="1xI6oarDYdE3Tzz8bNDnnw"><b data-page-node-id="iGkTBfB1MtOraSnWJ8OwQL"><!--pnid:rjTHl82BUdQDxGnixwsHMA-->飞鹰牌是单方向的百搭</b><!--pnid:dM5b3QTyM4ymnm2BWyW2cj-->——能顶替别的类型，但需要飞鹰牌时不能被顶替。</li>
+        <li data-page-node-id="pyCRAnSIW9q5b0GZmhWmpT"><b data-page-node-id="73vkfQxBldR4h8MPBPMfG0"><!--pnid:TVrAFtLkJUuiRNI4lKruZh-->废墟的槽在没有游侠时整局都不可用</b><!--pnid:Z8L7JNOmvWUnfLRwyD36rT-->，别误以为能建。</li>
+        <li data-page-node-id="SWAJM8YYMgfKEJSehrnwjo"><b data-page-node-id="taXVaBGiz7KoK0JdFftexy"><!--pnid:ecy4HXFdmzf1B38CJGWE6T-->游戏在「达到 30 分的玩家回合结束后」才结束</b><!--pnid:IWNSOClPuAeZyQLUcc5w6P-->，不是立刻中断。</li>
+        <li data-page-node-id="LEQKQ02lv5EviaxIOhY4z3"><b data-page-node-id="YieKbiCAiANLQJNuQiCbMI"><!--pnid:Awu76kRQbWP6LcEHUBy494-->打出统治牌后就不能再靠 30 分获胜了</b><!--pnid:LNZSajqDTW0D1Da6CWfIJ4-->，这一步要慎重。</li>
+      </ol>
+    </div>
+  </section>
+
+  </main>
+</div>
+</div>
+
+<a data-page-node-id="jWqOjnRwYLQ71Qt46uu1WW" class="top-link" href="#" title="回到顶部"><!--pnid:VZvcKuPYmOZR1D5QZRjTw7-->↑</a>
+
+<footer data-page-node-id="rskpIzCkIKqYdHDPxow8NZ">
+  <p data-page-node-id="B6MSlGqo9GKiYm2rRq0O3m"><!--pnid:bTnhXC7RmPSbFelRQv06Z3-->本页仅整理《茂林源记 / Root》的<b data-page-node-id="G8Wa1TEeFckyDS41mEYF5p"><!--pnid:OWpvyMnQ73333gd8ETz2FU-->通用规则与派系机制速查</b><!--pnid:jJ2PvbFgF4KSJxkQmc0g7f-->，用于帮助久未上桌的玩家快速回忆玩法，<b data-page-node-id="Dqk8RcXv5jSv58jwOECuzy"><!--pnid:wJlgJ7VIOy1xAB3lT0rHBQ-->不含任何策略建议</b><!--pnid:lFzPi56Cp0S6Mnbel1H0DM-->，以免影响各位的判断与游戏乐趣。</p>
+  <p data-page-node-id="WdXabLBZYyYtOJFgKlvuow" style="margin-top:8px; color:#a09788"><!--pnid:vxN87kYSn4fNICCoGLvBdA-->规则以官方《Law of Root》规则书为准；不同版本或加入扩展后，以随附说明为准。· 设计：Cole Wehrle · 出版：Leder Games</p>
+</footer>
+
+<script data-page-node-id="birYIl1fXacuhlI9w21DCq" data-pnid-children="Znxwq1HWPvhnz4kTrEjSyh">
+(function(){
+  var nav = document.querySelector('.mobile-nav');
+  var scroller = document.getElementById('navScroller');
+  var mq = window.matchMedia('(max-width: 1099px)');
+
+  function navHeight(){
+    return nav ? nav.getBoundingClientRect().height : 0;
+  }
+
+  // 精确锚点跳转：手动计算滚动位置，让标题正好落在吸顶导航下方
+  function goTo(id){
+    var el = document.getElementById(id);
+    if(!el) return;
+    var gap = (mq.matches ? navHeight() : 0) + 14;
+    var top = el.getBoundingClientRect().top + window.pageYOffset - gap;
+    window.scrollTo({ top: Math.max(top, 0), behavior: 'smooth' });
+  }
+
+  // 拦截横向导航的点击
+  if(scroller){
+    scroller.addEventListener('click', function(e){
+      var a = e.target.closest('a[href^="#"]');
+      if(!a) return;
+      e.preventDefault();
+      var id = a.getAttribute('href').slice(1);
+      goTo(id);
+      // 让被点的标签滚动到可视区域中间（不影响页面滚动）
+      var left = a.offsetLeft - (scroller.clientWidth - a.offsetWidth) / 2;
+      scroller.scrollTo({ left: Math.max(left, 0), behavior: 'smooth' });
+      history.replaceState(null, '', '#' + id);
+    });
+  }
+
+  // 点击任意内部锚点链接（含页脚/侧边栏）也统一处理
+  document.addEventListener('click', function(e){
+    var a = e.target.closest('a[href^="#"]');
+    if(!a || (scroller && scroller.contains(a))) return;
+    var id = a.getAttribute('href').slice(1);
+    if(!id) return;
+    e.preventDefault();
+    goTo(id);
+    history.replaceState(null, '', '#' + id);
+  });
+
+  // 滚动时高亮当前章节对应的导航标签
+  var links = scroller ? Array.prototype.slice.call(scroller.querySelectorAll('a[href^="#"]')) : [];
+  if(links.length && 'IntersectionObserver' in window){
+    var map = {};
+    links.forEach(function(a){ map[a.getAttribute('href').slice(1)] = a; });
+    var io = new IntersectionObserver(function(entries){
+      entries.forEach(function(en){
+        if(!en.isIntersecting) return;
+        links.forEach(function(l){ l.style.background=''; l.style.color=''; l.style.borderColor=''; });
+        var cur = map[en.target.id];
+        if(cur){
+          cur.style.background = '#8c5a2b';
+          cur.style.color = '#fff';
+          cur.style.borderColor = '#8c5a2b';
+          var left = cur.offsetLeft - (scroller.clientWidth - cur.offsetWidth)/2;
+          scroller.scrollTo({ left: Math.max(left,0), behavior:'smooth' });
+        }
+      });
+    }, { rootMargin: '-72px 0px -70% 0px', threshold: 0 });
+    document.querySelectorAll('main section[id]').forEach(function(s){ io.observe(s); });
+  }
+})();
+</script>
+
+</body>
+</html>

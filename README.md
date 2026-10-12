@@ -9,7 +9,7 @@
 [![License](https://img.shields.io/badge/license-MIT-blue?style=flat-square)](LICENSE)
 [![PRs](https://img.shields.io/badge/PRs-welcome-ff69b4?style=flat-square)](#-反馈与建议)
 
-**14 个页面 · 6 个分类 · 单文件 · 零依赖**
+**15 个页面 · 6 个分类 · 单文件 · 零依赖**
 
 </div>
 
@@ -67,6 +67,7 @@ kins-vault/
 | :--- | :--- |
 | [**博德之门3 · 任务全流程图文攻略**](https://kinsluck.github.io/kins-vault/games/baldurs-gate-3-walkthrough/) | 逐幕推进的全任务流程，198 张实机截图对照，跟着走不迷路 |
 | [**宿命传说2攻略**](https://kinsluck.github.io/kins-vault/games/tales-of-destiny-2-guide.html) | 战斗系统与流程要点整理，传说系列的经典一作 |
+| [**茂林源记 · 规则速查**](https://kinsluck.github.io/kins-vault/games/root-board-game-quickref.html) | 桌游 Root 的快速回忆卡：先串一遍全局流程，再随时翻派系细节 |
 
 ### 🧑‍💻 开发与编程
 
