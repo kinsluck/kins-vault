@@ -1,0 +1,457 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>为什么一周跑四次五公里，还是会有脂肪肝？| 观点整理</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%20100%20100%22%3E%3Ctext%20y%3D%22.9em%22%20font-size%3D%2290%22%3E%F0%9F%8F%83%3C%2Ftext%3E%3C%2Fsvg%3E">
+<style>
+  :root {
+    --bg: #faf6f0;
+    --card: #ffffff;
+    --ink: #4a3220;
+    --ink-soft: #7a6250;
+    --brown: #8a5a2b;
+    --brown-deep: #6b4318;
+    --accent: #c05a4e;
+    --accent-soft: #fdf0ee;
+    --teal: #3d7a78;
+    --teal-soft: #eaf4f3;
+    --gold: #b98a2f;
+    --gold-soft: #fbf3e2;
+    --line: #eadfd2;
+    --shadow: 0 2px 10px rgba(90, 60, 30, 0.07);
+    --radius: 16px;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: "PingFang SC", "Microsoft YaHei", "Noto Sans SC", sans-serif;
+    background: var(--bg);
+    color: var(--ink);
+    line-height: 1.75;
+  }
+  .wrap { max-width: 860px; margin: 0 auto; padding: 0 20px 80px; }
+
+  /* Hero */
+  .hero {
+    background: linear-gradient(135deg, #f3e3cd 0%, #f7ede0 55%, #f9f1e6 100%);
+    border: 1px solid var(--line);
+    border-radius: 24px;
+    padding: 56px 44px 48px;
+    margin: 28px 0 36px;
+    position: relative;
+    overflow: hidden;
+  }
+  .hero::after {
+    content: "🫁";
+    position: absolute; right: 30px; bottom: 8px;
+    font-size: 110px; opacity: 0.12; transform: rotate(-8deg);
+  }
+  .hero .kicker {
+    display: inline-flex; align-items: center; gap: 8px;
+    background: rgba(255,255,255,0.75);
+    border: 1px solid var(--line);
+    border-radius: 999px;
+    padding: 6px 16px;
+    font-size: 13px; color: var(--brown);
+    margin-bottom: 22px;
+  }
+  .hero h1 {
+    font-size: 34px; line-height: 1.35; color: var(--brown-deep);
+    letter-spacing: 0.5px; margin-bottom: 18px;
+  }
+  .hero h1 em {
+    font-style: normal;
+    background: linear-gradient(transparent 62%, #eec98f 62%);
+  }
+  .hero p { color: var(--ink-soft); font-size: 15.5px; max-width: 620px; }
+  .hero .meta { margin-top: 20px; font-size: 13px; color: #a08a72; }
+
+  /* 章节标题 */
+  .sec-head { display: flex; align-items: baseline; gap: 12px; margin: 52px 0 20px; }
+  .sec-head .no {
+    font-size: 13px; font-weight: 700; color: #fff;
+    background: var(--brown); border-radius: 8px; padding: 3px 10px;
+    letter-spacing: 1px;
+  }
+  .sec-head h2 { font-size: 23px; color: var(--brown-deep); }
+  .sec-head .en { font-size: 12px; color: #b7a48d; letter-spacing: 2px; text-transform: uppercase; }
+
+  /* 卡片 */
+  .card {
+    background: var(--card); border: 1px solid var(--line);
+    border-radius: var(--radius); padding: 26px 28px;
+    box-shadow: var(--shadow); margin-bottom: 18px;
+  }
+  .card h3 { font-size: 17.5px; color: var(--brown-deep); margin-bottom: 10px; }
+  .card p { font-size: 15px; color: var(--ink); margin-bottom: 10px; }
+  .card p:last-child { margin-bottom: 0; }
+  .muted { color: var(--ink-soft); }
+
+  /* 核心结论 */
+  .conclusion {
+    background: linear-gradient(135deg, #6b4318, #8a5a2b);
+    color: #fdf6ec; border: none;
+    border-radius: var(--radius); padding: 30px 32px;
+    box-shadow: 0 8px 24px rgba(107, 67, 24, 0.25);
+    margin-bottom: 8px;
+  }
+  .conclusion .tag {
+    font-size: 12px; letter-spacing: 3px; opacity: 0.85; margin-bottom: 8px;
+  }
+  .conclusion p { font-size: 18px; line-height: 1.8; }
+  .conclusion strong { color: #ffd98a; }
+
+  /* 观点速览 */
+  .quick { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+  .quick .q {
+    background: var(--card); border: 1px solid var(--line);
+    border-radius: var(--radius); padding: 18px 20px; box-shadow: var(--shadow);
+    display: flex; gap: 14px; align-items: flex-start;
+  }
+  .quick .q .ico {
+    flex: none; width: 38px; height: 38px; border-radius: 11px;
+    display: flex; align-items: center; justify-content: center; font-size: 19px;
+  }
+  .quick .q b { display: block; font-size: 15px; color: var(--brown-deep); margin-bottom: 3px; }
+  .quick .q span { font-size: 13.5px; color: var(--ink-soft); line-height: 1.6; }
+  @media (max-width: 640px) { .quick { grid-template-columns: 1fr; } }
+
+  /* 饼图区 */
+  .chart-flex { display: flex; gap: 28px; align-items: center; flex-wrap: wrap; }
+  .chart-flex svg { flex: none; }
+  .legend { flex: 1; min-width: 240px; }
+  .legend .row {
+    display: flex; align-items: center; gap: 10px;
+    padding: 12px 14px; border-radius: 12px; margin-bottom: 8px;
+    background: #faf6f0; border: 1px solid var(--line);
+  }
+  .legend .dot { width: 12px; height: 12px; border-radius: 4px; flex: none; }
+  .legend b { font-size: 16px; margin-right: 2px; }
+  .legend small { color: var(--ink-soft); }
+  .legend .note { font-size: 12.5px; color: #a08a72; margin-top: 10px; }
+
+  /* 果糖机制 */
+  .duo { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin: 6px 0 4px; }
+  @media (max-width: 640px) { .duo { grid-template-columns: 1fr; } }
+  .duo .side { border-radius: 14px; padding: 20px 22px; border: 1.5px solid; }
+  .duo .good { background: var(--teal-soft); border-color: #bfe0de; }
+  .duo .bad  { background: var(--accent-soft); border-color: #f0ccc7; }
+  .duo h4 { font-size: 15.5px; margin-bottom: 10px; display: flex; align-items: center; gap: 8px; }
+  .duo .good h4 { color: var(--teal); }
+  .duo .bad h4 { color: var(--accent); }
+  .duo li { font-size: 13.8px; color: var(--ink); margin: 0 0 6px 18px; }
+  .vs-badge {
+    width: fit-content; margin: 14px auto; background: var(--brown); color: #fff;
+    border-radius: 999px; padding: 4px 18px; font-size: 13px; font-weight: 700; letter-spacing: 2px;
+  }
+
+  .fact-list { list-style: none; }
+  .fact-list li {
+    position: relative; padding: 10px 0 10px 26px;
+    font-size: 15px; border-bottom: 1px dashed var(--line);
+  }
+  .fact-list li:last-child { border-bottom: none; }
+  .fact-list li::before {
+    content: ""; position: absolute; left: 4px; top: 19px;
+    width: 8px; height: 8px; border-radius: 50%; background: var(--brown);
+  }
+  .fact-list b { color: var(--brown-deep); }
+
+  /* 数据卡 */
+  .stats { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; margin-bottom: 16px; }
+  @media (max-width: 640px) { .stats { grid-template-columns: 1fr; } }
+  .stat {
+    background: var(--card); border: 1px solid var(--line); border-radius: var(--radius);
+    padding: 20px; text-align: center; box-shadow: var(--shadow);
+  }
+  .stat .num { font-size: 30px; font-weight: 800; color: var(--accent); line-height: 1.2; }
+  .stat .num small { font-size: 14px; font-weight: 600; }
+  .stat .lbl { font-size: 13px; color: var(--ink-soft); margin-top: 6px; line-height: 1.5; }
+
+  /* 账户对比 */
+  .ledger { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+  @media (max-width: 640px) { .ledger { grid-template-columns: 1fr; } }
+  .ledger .acct { border-radius: 14px; padding: 22px 24px; border: 1.5px solid; }
+  .acct.body { background: #f0f6ef; border-color: #cfe3cd; }
+  .acct.liver { background: var(--accent-soft); border-color: #f0ccc7; }
+  .acct .name { font-size: 13px; letter-spacing: 2px; color: var(--ink-soft); margin-bottom: 6px; }
+  .acct .delta { font-size: 34px; font-weight: 800; }
+  .acct.body .delta { color: #3f7d3f; }
+  .acct.liver .delta { color: var(--accent); }
+  .acct p { font-size: 13.5px; color: var(--ink-soft); margin-top: 8px; }
+  .ledger-note {
+    margin-top: 14px; background: var(--gold-soft); border: 1px solid #eddfbc;
+    border-radius: 12px; padding: 14px 18px; font-size: 14px; color: var(--brown-deep);
+  }
+
+  /* 行动清单 */
+  .todo { counter-reset: act; }
+  .todo .item {
+    display: flex; gap: 16px; align-items: flex-start;
+    background: var(--card); border: 1px solid var(--line);
+    border-radius: var(--radius); padding: 20px 22px; margin-bottom: 12px;
+    box-shadow: var(--shadow);
+  }
+  .todo .item::before {
+    counter-increment: act; content: counter(act);
+    flex: none; width: 34px; height: 34px; border-radius: 50%;
+    background: var(--brown); color: #fff; font-weight: 700;
+    display: flex; align-items: center; justify-content: center; font-size: 15px;
+  }
+  .todo b { display: block; font-size: 15.5px; color: var(--brown-deep); margin-bottom: 3px; }
+  .todo span { font-size: 14px; color: var(--ink-soft); }
+
+  /* 折叠原文 */
+  details.ocr {
+    background: var(--card); border: 1px solid var(--line);
+    border-radius: 14px; margin-bottom: 10px; overflow: hidden;
+  }
+  details.ocr summary {
+    cursor: pointer; padding: 15px 20px; font-size: 14.5px; font-weight: 600;
+    color: var(--brown-deep); list-style: none; user-select: none;
+    background: #fbf7f1;
+  }
+  details.ocr summary::before { content: "▸ "; color: var(--brown); }
+  details.ocr[open] summary::before { content: "▾ "; }
+  details.ocr .body { padding: 6px 22px 18px; font-size: 14.2px; color: var(--ink); }
+  details.ocr .body p { margin: 10px 0; }
+  .ocr-img-label {
+    display: inline-block; font-size: 12px; color: #a08a72;
+    background: #f5ede2; border-radius: 6px; padding: 2px 10px; margin-bottom: 6px;
+  }
+
+  .disclaimer {
+    margin-top: 48px; font-size: 12.8px; color: #a8927c;
+    border-top: 1px solid var(--line); padding-top: 20px; line-height: 1.8;
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <!-- HERO -->
+  <header class="hero">
+    <span class="kicker">⏱ 全文 3624 字 · 阅读需 12 分钟 · 小红书 @吃点好的有劲儿</span>
+    <h1>为什么一周跑四次五公里，<br>还是会有<em>脂肪肝</em>？</h1>
+    <p>每周跑 20 公里，听起来很自律——但肝脏根本不看你的运动手表，它只看你往嘴里塞了什么。本文由笔记全部 11 张图片 OCR 识别整理而成。</p>
+    <div class="meta">整理自小红书笔记 · 2026-09-26 · 图片文字识别 + 观点结构化</div>
+  </header>
+
+  <!-- 核心结论 -->
+  <section class="conclusion">
+    <div class="tag">CORE MESSAGE · 一句话核心结论</div>
+    <p>脂肪肝不是<strong>运动量</strong>的问题，而是肝脏<strong>"进账"远大于"出账"</strong>的问题。跑步解决的是全身的能量平衡，却解决不了<strong>肝脏这个器官自身的进出平衡</strong>——运动做的是加法，饮食做错做的是乘法。</p>
+  </section>
+
+  <!-- 观点速览 -->
+  <div class="sec-head"><span class="no">01</span><h2>观点速览</h2><span class="en">Key Takeaways</span></div>
+  <div class="quick">
+    <div class="q"><div class="ico" style="background:#f0f6ef;">🏅</div><div><b>运动不是"免罪金牌"</b><span>跑步消耗是全身性的，肝脏只分到一小部分好处；错误饮食的伤害是"精准直达肝脏"的。</span></div></div>
+    <div class="q"><div class="ico" style="background:var(--accent-soft);">🧋</div><div><b>果糖是头号敌人</b><span>绕过全身分流、直奔肝脏、没有"刹车机制"、不产生饱腹感，比膳食脂肪对肝脏更狠。</span></div></div>
+    <div class="q"><div class="ico" style="background:var(--gold-soft);">🧍</div><div><b>瘦子也会中招</b><span>BMI 正常 ≠ 内脏不胖；亚洲人还有基因层面的先天劣势，瘦型脂肪肝更容易被漏诊延误。</span></div></div>
+    <div class="q"><div class="ico" style="background:var(--teal-soft);">🥤</div><div><b>补偿心理最危险</b><span>"跑了 5 公里喝瓶饮料怎么了"——这句话可能是脂肪肝的帮凶。</span></div></div>
+  </div>
+
+  <!-- 肝脏的账本 -->
+  <div class="sec-head"><span class="no">02</span><h2>肝脏的账本，跟你想的不一样</h2><span class="en">The Liver's Ledger</span></div>
+  <div class="card">
+    <h3>肝脏里堆积的脂肪，三大来源（Donnelly et al. 2005 示踪研究）</h3>
+    <div class="chart-flex">
+      <svg width="230" height="230" viewBox="0 0 230 230">
+        <!-- 59% 脂肪组织分解释放 -->
+        <path d="M115,115 L115.0,25.0 A90,90 0 1 1 66.8,191.0 Z" fill="#5b84ae"/>
+        <!-- 26% 肝内糖→脂肪转化 -->
+        <path d="M115,115 L66.8,191.0 A90,90 0 0 1 42.2,62.1 Z" fill="#cd6a60"/>
+        <!-- 15% 膳食脂肪直接摄入 -->
+        <path d="M115,115 L42.2,62.1 A90,90 0 0 1 115.0,25.0 Z" fill="#e39a93"/>
+        <circle cx="115" cy="115" r="52" fill="#ffffff"/>
+        <text x="115" y="108" text-anchor="middle" font-size="15" fill="#4a3220" font-weight="700">脂肪来源</text>
+        <text x="115" y="128" text-anchor="middle" font-size="10.5" fill="#7a6250">Donnelly 2005</text>
+      </svg>
+      <div class="legend">
+        <div class="row"><span class="dot" style="background:#5b84ae;"></span><b>≈60%</b><span>脂肪组织分解释放</span><small>经血液涌向肝脏</small></div>
+        <div class="row"><span class="dot" style="background:#cd6a60;"></span><b>≈26%</b><span>肝内糖→脂肪转化</span><small>学术上叫"从头脂肪生成"（DNL）</small></div>
+        <div class="row"><span class="dot" style="background:#e39a93;"></span><b>≈15%</b><span>膳食脂肪直接摄入</span><small>直接吃进去的脂肪</small></div>
+        <div class="note">数据来源：Donnelly KL et al., J Clin Invest, 2005（转述自原笔记）</div>
+      </div>
+    </div>
+  </div>
+  <div class="card">
+    <h3>三条关键推论</h3>
+    <ul class="fact-list">
+      <li><b>跑步关不掉肝脏的脂肪生产线。</b>跑步影响的是全身性能量平衡，能少长肥肉、改善胰岛素敏感性，但没办法直接关掉肝脏内部的脂肪生产线。</li>
+      <li><b>果糖+精制碳水会启动 DNL。</b>大量摄入时，肝脏把糖就地转化为脂肪存下来，和你跑了多少公里几乎没有直接对冲关系。</li>
+      <li><b>胰岛素抵抗是放大器。</b>细胞对胰岛素"不搭理"时，脂肪组织不受控地释放游离脂肪酸，源源不断涌向肝脏——跑步能改善敏感性，前提是饮食没有同时在另一头把胰岛素抵抗往上推。</li>
+    </ul>
+  </div>
+  <div class="card" style="background:linear-gradient(135deg,#fbf3e2,#fdf8ee); border-color:#eddfbc;">
+    <h3>🛁 经典比喻：浴缸漫水</h3>
+    <p class="muted">你家浴缸在漫水，跑步只是拿个小盆在旁边接，确实能接住一些。<b style="color:var(--brown-deep)">但水龙头（糟糕的饮食结构）一直开着的话，盆永远接不过来。</b></p>
+  </div>
+
+  <!-- 果糖 -->
+  <div class="sec-head"><span class="no">03</span><h2>果糖才是肝脏的头号敌人</h2><span class="en">Fructose: Public Enemy No.1</span></div>
+  <div class="card">
+    <p class="muted" style="margin-bottom:16px;">不是因为果糖热量特别高，而是它的<b style="color:var(--brown-deep)">代谢路径太特殊</b>——</p>
+    <div class="duo">
+      <div class="side good">
+        <h4>🍚 葡萄糖：分着用</h4>
+        <ul>
+          <li>全身细胞都能拿来用</li>
+          <li>肌肉用一些、大脑用一些，各组织分着消化</li>
+          <li>触发胰岛素和瘦素 → 食欲中枢踩刹车</li>
+        </ul>
+      </div>
+      <div class="side bad">
+        <h4>🧋 果糖：没有刹车！</h4>
+        <ul>
+          <li>小肠吸收后 ~100% 直达肝脏，中间不分流</li>
+          <li>缺少"限速酶"——没有"够了停下来"的反馈</li>
+          <li>不有效触发胰岛素和瘦素，大脑还在喊"我还饿"</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+  <div class="card">
+    <h3>果糖在肝脏里干的"好事"：两头堵</h3>
+    <ul class="fact-list">
+      <li><b>消耗能量 + 产尿酸</b>：果糖进入肝细胞后迅速消耗大量细胞能量，附带产生尿酸。</li>
+      <li><b>造脂肪</b>：激活肝脏的脂肪生产线，把自己就地转化成甘油三酯。</li>
+      <li><b>堵通道</b>：同时阻断脂肪酸的氧化分解——一边疯狂造脂肪，一边把烧脂肪的通道堵死。</li>
+      <li><b>骗大脑</b>：下丘脑食欲中枢收不到抑制信号 → 含果葡糖浆的饮料越喝越想喝，<b>不是自制力差，是大脑真没收到"够了"的通知。</b></li>
+    </ul>
+  </div>
+  <div class="card" style="border-left: 4px solid var(--accent);">
+    <h3>🥤 果汁 ≠ 健康</h3>
+    <p class="muted">对肝脏来说，果汁和可乐差别没那么大。一瓶奶茶/果汁里果葡糖浆进入肝脏的效率，比吃一块红烧肉高得多——红烧肉的脂肪还要经过消化吸收和全身分配，果糖是直奔肝脏去的。<b style="color:var(--accent)">过量摄入添加果糖（果葡糖浆和游离糖），被认为是非酒精性脂肪肝最主要的公共卫生风险因素之一。</b></p>
+  </div>
+
+  <!-- 瘦人脂肪肝 -->
+  <div class="sec-head"><span class="no">04</span><h2>瘦人也会得脂肪肝</h2><span class="en">Lean NAFLD</span></div>
+  <div class="stats">
+    <div class="stat"><div class="num">5.1<small>%</small></div><div class="lbl">BMI 正常但患有脂肪肝的人群占比</div></div>
+    <div class="stat"><div class="num">10.6–19.2<small>%</small></div><div class="lbl">脂肪肝患者中"瘦型患者"的占比</div></div>
+    <div class="stat"><div class="num">13–22<small>%</small></div><div class="lbl">亚洲人携带 PNPLA3 高危纯合突变的比例（白人约 4%、非裔约 2%）</div></div>
+  </div>
+  <div class="card">
+    <h3>瘦人为什么也中招？</h3>
+    <ul class="fact-list">
+      <li><b>原因一：脂肪的"藏法"不一样。</b>四肢细、体重达标 ≠ 内脏不胖。内脏脂肪通过<b>门静脉</b>与肝脏直接相连——一条"专用高速公路"，分解出的游离脂肪酸不用绕远路直接灌注肝脏，成为肝脏合成甘油三酯的主要原料。内脏脂肪比皮下脂肪、比体重数字更能准确预测肝脏脂肪堆积和纤维化的严重程度。</li>
+      <li><b>原因二：基因。</b>PNPLA3 基因 rs738409 变异会限制肝脏分解甘油三酯的酶活性，导致脂肪在肝脏"只进不出"。同样的饮食和运动量，亚洲人的肝脏天生更容易攒脂肪——先天吃亏。</li>
+      <li><b>更扎心：瘦型更容易被漏诊延误。</b>瘦型脂肪肝患者的全因死亡率和心血管致死率，并不低于甚至可能高于肥胖型。胖的人早被医生盯上（减重、控血脂、复查）；瘦的人体检看一眼 BMI 正常就被放过了——<b>被放过，意味着被延误。</b></li>
+    </ul>
+    <p class="muted" style="margin-top:8px;">💡 直系亲属中有脂肪肝病史的，哪怕自己体重正常，也建议多留个心眼。</p>
+  </div>
+
+  <!-- 跑完那顿饭 -->
+  <div class="sec-head"><span class="no">05</span><h2>跑完那顿饭，才是真正的问题</h2><span class="en">The Compensation Trap</span></div>
+  <div class="ledger">
+    <div class="acct body">
+      <div class="name">全身账户（跑步 5km）</div>
+      <div class="delta">−300 kcal</div>
+      <p>70 公斤成年人慢跑 5 公里约消耗 300 千卡，但这是全身性支出，<b>肝脏只分到一小部分好处</b>。</p>
+    </div>
+    <div class="acct liver">
+      <div class="name">肝脏专户（一瓶 500ml 含糖饮料）</div>
+      <div class="delta">+120~200 kcal</div>
+      <p>含糖 30~50 克，其中的果糖<b>精准直达肝脏</b>。两者根本不在同一个维度上抵消。</p>
+    </div>
+  </div>
+  <div class="ledger-note">
+    💔 <b>算笔扎心账：</b>跑步减 300、喝饮料加 200，看起来还赚 100。但跑步减掉的是"全身账户"的余额，果糖增加的是"肝脏专户"的负债——<b>全身账户还有点结余，肝脏专户早已经透支。</b>
+  </div>
+  <div class="card" style="margin-top:14px;">
+    <h3>🌀 能量补偿效应</h3>
+    <p class="muted">运动后身体会生理性地增加食欲，再加上"我运动了所以配得上多吃"的心理补偿，不少人运动后实际摄入的能量<b style="color:var(--brown-deep)">完全抵消甚至超出了运动消耗</b>。问题不在跑步，而在跑完之后觉得自己"有资格"放纵一下。</p>
+  </div>
+
+  <!-- 行动清单 -->
+  <div class="sec-head"><span class="no">06</span><h2>真正管用的减负日常</h2><span class="en">Action List</span></div>
+  <div class="todo">
+    <div class="item"><div><b>🧋 少喝甜的</b><span>奶茶、果汁和含果葡糖浆的饮料，能戒就戒，戒不了至少减频减量。翻配料表——前几位出现"果葡糖浆"或"白砂糖"的，肝脏都不会放过。</span></div></div>
+    <div class="item"><div><b>🍺 少喝酒</b><span>酒精代谢本身就会干扰肝脏的脂肪酸氧化。中度饮酒 + 高脂饮食，炎症反应被放大，两个因素叠加破坏力翻倍。"少喝点没事"这个安慰，肝脏不认。</span></div></div>
+    <div class="item"><div><b>🩺 查一次内脏脂肪</b><span>别只看体重秤。体检时可要求做腹部超声或内脏脂肪评估，成本不高但信息量大。BMI 正常 ≠ 内脏不胖；腰围偏大或有家族史的，建议主动排查。</span></div></div>
+    <div class="item"><div><b>🏃 跑步继续坚持，但别当免罪符</b><span>跑步对心肺、情绪和代谢都有好处，值得长期坚持。真要确诊了，找肝病科或消化内科看看。</span></div></div>
+  </div>
+
+  <!-- 原文OCR -->
+  <div class="sec-head"><span class="no">07</span><h2>原文逐图 OCR 全文</h2><span class="en">Full OCR Transcript</span></div>
+  <details class="ocr"><summary>第 1 页 · 封面</summary><div class="body">
+    <p>⏱ 全文 3624 字 | 阅读需 12 分钟</p>
+    <p><b>为什么一周跑四次五公里，还是会有脂肪肝？</b></p>
+    <p>脂肪肝不是运动量的问题，是你肝脏的"进账"远大于"出账"的问题。每周跑 20 公里，听起来很自律，但肝脏根本不看你的运动手表，它只看你往嘴里塞了……</p>
+  </div></details>
+  <details class="ocr"><summary>第 2 页 · 肝脏的账本（上）</summary><div class="body">
+    <p>……什么。很多人把跑步当成了肝脏的免罪金牌，结果体检单给了一记闷棍。</p>
+    <p>这类困惑在每年体检季特别集中。跑量不小，饮食自认为"也还行"，体重正常，结果 B 超一做，轻度脂肪肝。第一反应都是"不可能吧，我天天运动的"。</p>
+    <p>问题出在大多数人对脂肪肝的理解，还停留在"胖了才会得"这一层。脂肪肝的运转逻辑，和你想的不太一样。</p>
+    <p><b>肝脏的账本跟你想象的不一样</b>：当代谢出了问题的时候，肝脏里堆积的脂肪有三大来源。有一篇 2005 年的经典示踪研究（Donnelly 等人做的），大约 60% 来自身体脂肪组织的分解释放，26% 来自糖在肝脏内转化为脂肪的过程，学术上叫"从头脂肪生成"，剩下约 15% 来自你直接吃进去的膳食脂肪。</p>
+    <p>跑步消耗掉的热量，影响的是全身性的能量平衡。跑步能帮你少长点肥肉，能改善胰岛素敏感性，但它没办法直接关掉肝脏内部的脂肪生产线。</p>
+    <p>肝脏有自己一套独立的代谢逻辑。当你大量摄入果……</p>
+  </div></details>
+  <details class="ocr"><summary>第 3 页 · 肝脏的账本（下）</summary><div class="body">
+    <p>……糖和精制碳水的时候，肝脏会自行启动这条脂肪生产线，把糖就地转化为脂肪并存下来。这个过程和你今天跑了多少公里，几乎没有直接的对冲关系。</p>
+    <p>你家浴缸在漫水，你拿个小盆在旁边接。跑步就是那个小盆，确实能接住一些。但水龙头一直开着的话，盆是接不过来的。那个水龙头，就是你的饮食结构。</p>
+    <p>更棘手的地方在于，60% 来自脂肪组织脂解这个数据意味着，如果身体处于胰岛素抵抗状态，简单说就是你的细胞对胰岛素越来越不搭理，脂肪组织会不受控制地释放游离脂肪酸，通过血液循环源源不断地涌向肝脏。跑步确实能改善胰岛素敏感性，但前提是你的饮食没有同时在另一头把胰岛素抵抗往上推。</p>
+    <p>运动和饮食之间不是互相抵消的关系。运动做的是加法，帮你多烧一点多改善一点。但饮食做错了，做的是乘法，直接放大肝脏的代谢负担。</p>
+  </div></details>
+  <details class="ocr"><summary>第 4 页 · 饼图 + 果糖才是头号敌人</summary><div class="body">
+    <span class="ocr-img-label">📊 图表：肝脏脂肪的三大来源占比（Donnelly et al. 2005）— 脂肪组织分解释放 59.0% ｜ 肝内糖→脂肪转化 26.0% ｜ 膳食脂肪直接摄入 15.0%</span>
+    <p><b>果糖才是肝脏的头号敌人</b>：在所有对肝脏不友好的饮食成分里，果糖的杀伤力排在最前面。不是因为果糖热量特别高，而是因为它的代谢路径太特殊。</p>
+    <p>葡萄糖进入身体后，全身的细胞都能拿来用。肌肉用一些，大脑用一些，各个组织分着消化。果糖不一样，果糖被小肠吸收后，几乎全部直接送到肝脏……</p>
+  </div></details>
+  <details class="ocr"><summary>第 5 页 · 葡萄糖 vs 果糖对比图</summary><div class="body">
+    <span class="ocr-img-label">🖼 图：葡萄糖"分着用" VS 果糖"没有刹车！~100% 无限速酶，直达肝脏"——肝脏大喊"全都给我！"果糖不绕路，直奔肝脏去，中间不分流</span>
+    <p>我之前也觉得果汁总比可乐健康吧，后来看了代谢数据才发现，对肝脏来说两者差别没那么大。一瓶奶茶或果汁里的果葡糖浆进入肝脏的效率，比你吃一块红烧肉高得多。红烧肉里的脂肪还要经过消化吸收和全身分配。果糖是直奔肝脏去的，中间不经过任何分流。反正对肝脏来说，果糖比脂肪狠多了。</p>
+    <p>也正因如此，过量摄入添加果糖，特别是果葡糖浆和游离糖，被认为是非酒精性脂肪肝最主要的公共卫生风险因素之一。</p>
+  </div></details>
+  <details class="ocr"><summary>第 6 页 · 果糖代谢：两头堵 + 骗过大脑</summary><div class="body">
+    <p>……处理。肝脏是果糖代谢的唯一主力工厂。</p>
+    <p>果糖在肝脏里的代谢缺少"限速酶"。没有限速酶就没有刹车，不管你灌进来多少果糖，肝脏都会一股脑地接着处理，没有"够了停下来"的反馈机制。</p>
+    <p>果糖进入肝细胞后，会迅速消耗大量细胞能量，这个过程还会附带产生尿酸。同时它会激活肝脏里的脂肪生产线，把自己就地转化成甘油三酯，并且阻断脂肪酸的氧化分解。一边疯狂造脂肪，一边把烧脂肪的通道给堵死了。两头堵。真的服了。</p>
+    <p>果糖还有一个狠的地方，是它能骗过大脑。葡萄糖吃下去之后，身体会分泌胰岛素和瘦素（一种告诉大脑"饱了"的激素），食欲中枢收到信号就会踩刹车。但果糖的代谢不会有效触发胰岛素和瘦素的分泌，初步研究提示大脑下丘脑里的食欲中枢收不到抑制信号，还在持续发出"我还饿"的指令。</p>
+    <p>含果葡糖浆的饮料为什么越喝越想喝？不是你自制力差，是大脑真的没收到"够了"的通知。</p>
+  </div></details>
+  <details class="ocr"><summary>第 7 页 · 瘦人也会得脂肪肝</summary><div class="body">
+    <p><b>再说一个更反直觉的事：瘦人也会得脂肪肝</b></p>
+    <p>对脂肪肝的第二个常见误解是"我又不胖，怎么可能"。这种想法在亚洲人里尤其危险。</p>
+    <p>我身边就有这样的例子，一个跑全马的朋友，体脂率不高，但体检查出轻度脂肪肝，他自己都懵了。</p>
+    <p>全球范围看，BMI 正常但有脂肪肝的人大概占 5.1%。在所有脂肪肝患者中，瘦型患者的占比达到 10.6% 到 19.2%，这个数据我记得不一定精确，但量级差不多。差不多每五到十个脂肪肝患者里，就有一个 BMI 完全正常的。</p>
+    <p><b>瘦人为什么也中招？第一，脂肪的"藏法"不一样。</b>有些人四肢很细，体重达标，但内脏脂肪比例偏高。腰上可能只比别人多了两三厘米，穿衣服看不出来。但内脏脂肪在解剖上直接通过门静脉和肝脏相连。门静脉相当于内脏脂肪和肝脏之间的一条专用高速公路，内脏脂肪分解出来的游离脂肪酸不用绕远路，直接通过这条通道灌注到肝脏，成为肝脏合成甘油三酯的主要原料。内脏脂肪比皮下脂肪、比体重数字更能准确预测肝脏脂肪堆积和纤维化的严重程度。</p>
+  </div></details>
+  <details class="ocr"><summary>第 8 页 · 基因与漏诊</summary><div class="body">
+    <p><b>第二，基因。</b>这一层很多人完全不知道。</p>
+    <p>PNPLA3 基因有一个特定变异位点（rs738409），会限制肝脏分解甘油三酯的酶的活性，导致脂肪在肝脏里"只进不出"。亚洲人群携带这个高危纯合突变的比例在 13% 到 22% 之间，远高于白种人的大概 4% 和非裔的大概 2%。</p>
+    <p>同样的饮食、同样的运动量，亚洲人的肝脏天生就更容易攒脂肪。研究还发现，这个基因变异对瘦人肝脏脂肪堆积的影响程度，甚至超过了对超重人群的影响。这块展开说就太长了，反正结论就是亚洲人先天吃亏。</p>
+    <p>嗯，还有一点。瘦型脂肪肝患者的全因死亡率和心血管疾病致死率，并不低于甚至可能高于肥胖型脂肪肝患者。原因倒不复杂，胖的人早就被医生盯上了，会被要求减重和控血脂还有定期复查。瘦的人呢？体检看一眼 BMI 正常，往往就被放过了。被放过，意味着被延误。</p>
+    <p>当然基因这件事个体差异很大，没办法给一个适用于所有人的结论。但如果直系亲属中有脂肪肝病史，哪怕自己体重正常，也建议多留个心眼。</p>
+  </div></details>
+  <details class="ocr"><summary>第 9 页 · 跑完那顿饭</summary><div class="body">
+    <p><b>跑完那顿饭，才是真正的问题</b></p>
+    <p>还有一个很多跑步爱好者不太愿意面对的事。"我都跑了 5 公里了，喝瓶饮料怎么了？"这句话，可能是脂肪肝的帮凶。</p>
+    <p>一个 70 公斤的成年人慢跑 5 公里，大约消耗 300 千卡上下，具体因体重和配速有差异。一瓶 500ml 含糖运动饮料或果汁，含糖量大约在 30 到 50 克，光糖分就带来 120 到 200 千卡。如果跑完再来一顿犒劳自己的烧烤或者夜宵，总摄入轻松超过消耗。</p>
+    <p>关键问题在于，跑步消耗的 300 千卡是全身性的能量支出，肝脏只分到了其中一小部分好处。而你喝下去的果糖，是精准直达肝脏的。两者根本不在同一个维度上抵消。就这么直接。</p>
+    <p>我自己跑完步也经常想来瓶冰的，所以这话也是说给自己听。这笔账算完挺扎心的，看起来像加减法，跑步减 300，喝饮料加 200，还赚 100。但肝脏的账不是这么算的。跑步减掉的是全身账户里的余额，果糖增加的是肝脏专户里的负债。全身账户还有点结余，肝脏专户早已经透支了……</p>
+  </div></details>
+  <details class="ocr"><summary>第 10 页 · 能量补偿效应</summary><div class="body">
+    <span class="ocr-img-label">🖼 图：跑步 5km 消耗 ~300kcal vs 一瓶饮料糖分 120-200kcal；"全身账户"存折 +100 VS "肝脏专户"存折 −500——"算不过来！"跑步减的是全身余额，果糖透支的是肝脏专户</span>
+    <p>行为学和代谢领域的研究也描述了"能量补偿效应"这个现象，运动后身体会生理性地增加食欲，再加上"我运动了所以配得上多吃"的心理补偿，不少人运动后实际摄入的能量完全抵消甚至超出了运动消耗。</p>
+    <p>跑步是好事，这一点没有争议。问题在于跑完之后觉得自己有资格放纵一下。</p>
+    <p>跑步解决的是心肺功能和全身的能量平衡，值得长期坚持。但脂肪肝要解决的是肝脏这个器官自身的进出平衡，跑步够不着这个问题的核心。</p>
+  </div></details>
+  <details class="ocr"><summary>第 11 页 · 作者实操建议（结尾）</summary><div class="body">
+    <p>我自己的经验，几件事比多跑两圈管用。</p>
+    <p><b>少喝甜的。</b>奶茶和果汁还有含果葡糖浆的饮料，能戒就戒，戒不了至少减频减量。翻一下配料表，前几位出现果葡糖浆或白砂糖的，肝脏都不会放过。</p>
+    <p><b>少喝酒。</b>酒精代谢本身就会干扰肝脏的脂肪酸氧化。中度饮酒加上高脂饮食，肝脏的炎症反应会被放大，两个因素叠在一起破坏力翻倍。"少喝点没事"这个安慰，肝脏不认。</p>
+    <p><b>查一次内脏脂肪。</b>别只看体重秤上的数字。体检时可以要求做腹部超声或内脏脂肪评估，成本不高但信息量大。BMI 正常不等于内脏不胖，腰围偏大或有脂肪肝家族史的，更建议主动排查。</p>
+    <p><b>跑步的习惯继续保持</b>，它对心肺和情绪还有代谢都有好处。但别把跑步当成饮食上的免罪符。当然每个人情况不一样，真要确诊了还是找肝病科或者消化内科看看。</p>
+  </div></details>
+
+  <div class="disclaimer">
+    ⚠️ 本页面为小红书笔记图片 OCR 识别与观点整理，仅供健康科普参考，不构成医疗建议；具体问题请咨询肝病科或消化内科医生。文中数据（Donnelly 2005 研究、PNPLA3 rs738409 携带率等）转述自原笔记，作者已注明"记得不一定精确，但量级差不多"。
+  </div>
+
+</div>
+</body>
+</html>

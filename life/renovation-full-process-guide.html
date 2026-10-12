@@ -1,0 +1,1139 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>装修全流程总结：不误工期、不被忽悠、不踩坑</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%20100%20100%22%3E%3Ctext%20y%3D%22.9em%22%20font-size%3D%2290%22%3E%F0%9F%94%A8%3C%2Ftext%3E%3C%2Fsvg%3E">
+<style>
+  :root{
+    --ink:#1f2937; --ink-2:#4b5563; --ink-3:#6b7280; --line:#e5e7eb;
+    --bg:#f7f8fa; --card:#ffffff;
+    --brand:#c2410c; --brand-soft:#fff7ed; --brand-line:#fed7aa;
+    --blue:#1d4ed8; --blue-soft:#eff6ff;
+    --green:#15803d; --green-soft:#f0fdf4;
+    --amber:#b45309; --amber-soft:#fffbeb;
+    --violet:#7e22ce; --violet-soft:#faf5ff;
+    --red:#b91c1c; --red-soft:#fef2f2;
+  }
+  *{box-sizing:border-box;}
+  body{
+    margin:0; padding:0; background:var(--bg); color:var(--ink);
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Hiragino Sans GB","Microsoft YaHei",sans-serif;
+    font-size:15px; line-height:1.78; -webkit-font-smoothing:antialiased;
+  }
+  .page{max-width:980px; margin:0 auto; padding:0 0 60px;}
+
+  /* ---------- 头部 ---------- */
+  .hero{
+    background:linear-gradient(135deg,#fff7ed 0%,#fffbf5 45%,#f5faff 100%);
+    border-bottom:1px solid var(--brand-line);
+    padding:44px 44px 34px;
+  }
+  .hero .kicker{
+    display:inline-block; font-size:12px; letter-spacing:.14em; font-weight:700;
+    color:var(--brand); background:#fff; border:1px solid var(--brand-line);
+    padding:4px 12px; border-radius:999px; margin-bottom:16px;
+  }
+  .hero h1{
+    margin:0 0 8px; font-size:33px; line-height:1.3; letter-spacing:-.4px; color:#111827;
+  }
+  .hero h1 small{display:block; font-size:15px; font-weight:500; color:var(--ink-3); margin-top:10px; letter-spacing:0; line-height:1.6;}
+  .meta{display:flex; flex-wrap:wrap; gap:8px; margin-top:20px;}
+  .meta span{
+    font-size:13px; color:var(--ink-2); background:#fff; border:1px solid var(--line);
+    border-radius:8px; padding:5px 11px;
+  }
+  .meta b{color:var(--ink); font-weight:600;}
+
+  /* ---------- 通用块 ---------- */
+  section{padding:0 44px;}
+  h2{
+    font-size:22px; margin:44px 0 6px; padding-top:14px; letter-spacing:-.2px;
+    border-top:2px solid var(--ink); display:flex; align-items:baseline; gap:10px;
+  }
+  h2 .n{font-size:13px; font-weight:700; color:#fff; background:var(--ink);
+        border-radius:6px; padding:2px 8px; letter-spacing:.06em;}
+  h3{font-size:16.5px; margin:26px 0 8px; color:#111827;}
+  h3::before{content:""; display:inline-block; width:4px; height:15px; background:var(--brand);
+             border-radius:2px; margin-right:9px; vertical-align:-2px;}
+  p{margin:8px 0;}
+  .lead{color:var(--ink-2); font-size:14.5px; margin:4px 0 0;}
+
+  .card{
+    background:var(--card); border:1px solid var(--line); border-radius:14px;
+    padding:20px 22px; margin:16px 0; break-inside:avoid;
+  }
+  .card.tint{background:var(--brand-soft); border-color:var(--brand-line);}
+
+  .quote{
+    background:#fffdf8; border-left:4px solid var(--brand); border-radius:0 10px 10px 0;
+    padding:14px 18px; margin:14px 0; color:#78350f; font-size:14.5px; break-inside:avoid;
+  }
+  .quote .who{display:block; margin-top:6px; font-size:12.5px; color:#a16207;}
+
+  /* ---------- 图表 ---------- */
+  .fig{margin:20px 0 26px; break-inside:avoid;}
+  .fig svg{display:block; width:100%; height:auto;}
+  .fig figcaption{
+    font-size:12.5px; color:var(--ink-3); text-align:center; margin-top:10px;
+  }
+
+  /* ---------- 设计阶段三点 ---------- */
+  .tri{display:grid; grid-template-columns:repeat(3,1fr); gap:14px; margin:16px 0;}
+  .tri .t{
+    background:#fff; border:1px solid var(--line); border-top:3px solid var(--blue);
+    border-radius:12px; padding:16px 16px 14px; break-inside:avoid;
+  }
+  .tri .t .idx{font-size:12px; font-weight:700; color:var(--blue); letter-spacing:.08em;}
+  .tri .t h4{margin:6px 0 6px; font-size:15.5px; color:#111827;}
+  .tri .t p{margin:0; font-size:13.5px; color:var(--ink-2); line-height:1.7;}
+
+  /* ---------- 步骤卡 ---------- */
+  .steps{margin:16px 0;}
+  .step{
+    display:flex; gap:16px; background:#fff; border:1px solid var(--line);
+    border-radius:14px; padding:18px 20px; margin-bottom:12px; break-inside:avoid;
+  }
+  .step .num{
+    flex:0 0 46px; height:46px; border-radius:12px; display:flex; align-items:center;
+    justify-content:center; font-weight:700; font-size:17px; color:#fff; background:var(--ink);
+  }
+  .step.prepare .num{background:#4f46e5;}
+  .step.demolish .num{background:#c2740a;}
+  .step.mason .num{background:#15803d;}
+  .step.paint .num{background:#0369a1;}
+  .step.install .num{background:#a21caf;}
+  .step.finish .num{background:#0f766e;}
+  .step .body{flex:1; min-width:0;}
+  .step .body h4{margin:2px 0 8px; font-size:16px; color:#111827;}
+  .step .body h4 em{
+    font-style:normal; font-size:12px; font-weight:600; color:var(--ink-3);
+    background:#f3f4f6; border-radius:5px; padding:2px 7px; margin-left:8px; vertical-align:2px;
+  }
+  .step .row{display:flex; gap:8px; margin:6px 0; font-size:14px; align-items:flex-start;}
+  .step .tag{
+    flex:0 0 auto; font-size:11.5px; font-weight:700; border-radius:5px;
+    padding:3px 8px; margin-top:2px; letter-spacing:.02em;
+  }
+  .tag.do{background:#ecfdf5; color:#047857;}
+  .tag.warn{background:#fef2f2; color:#b91c1c;}
+  .tag.note{background:#f1f5f9; color:#475569;}
+  .step .row p{margin:0; color:var(--ink-2);}
+  .step .row p b{color:var(--ink); font-weight:600;}
+
+  /* ---------- 表格 ---------- */
+  table{width:100%; border-collapse:collapse; margin:16px 0; font-size:13.8px; break-inside:avoid;}
+  th,td{border:1px solid var(--line); padding:9px 12px; text-align:left; vertical-align:top;}
+  th{background:#f3f4f6; font-weight:700; color:#111827; font-size:13px; letter-spacing:.02em;}
+  tbody tr:nth-child(even) td{background:#fafafa;}
+  td.k{white-space:nowrap; font-weight:600; color:#111827;}
+
+  /* ---------- 清单 ---------- */
+  .check{background:#fff; border:1px solid var(--line); border-radius:14px; padding:6px 20px 16px; margin:14px 0; break-inside:avoid;}
+  .check h4{margin:16px 0 6px; font-size:14.5px; color:var(--brand);}
+  .check ul{list-style:none; margin:0; padding:0;}
+  .check li{
+    position:relative; padding:5px 0 5px 26px; font-size:14px; color:var(--ink-2);
+    border-bottom:1px dashed #f0f1f3;
+  }
+  .check li:last-child{border-bottom:none;}
+  .check li::before{
+    content:""; position:absolute; left:0; top:10px; width:14px; height:14px;
+    border:1.6px solid #cbd5e1; border-radius:4px; background:#fff;
+  }
+
+  /* ---------- 折叠 ---------- */
+  details{background:#fff; border:1px solid var(--line); border-radius:12px; padding:14px 18px; margin:14px 0; break-inside:avoid;}
+  summary{cursor:pointer; font-weight:600; font-size:14.5px; color:var(--brand); outline:none;}
+  details pre{
+    margin:14px 0 0; padding:14px; background:#fbfbfc; border:1px solid var(--line);
+    border-radius:10px; font-size:12.4px; line-height:1.85; overflow:auto; max-height:none;
+    font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,"Courier New",monospace;
+    white-space:pre-wrap; word-break:break-all; color:var(--ink-2);
+  }
+  footer{
+    margin:52px 44px 0; padding-top:18px; border-top:1px solid var(--line);
+    font-size:12.5px; color:var(--ink-3); line-height:1.9;
+  }
+  @media (max-width:720px){
+    .hero,section{padding-left:20px; padding-right:20px;}
+    .hero h1{font-size:25px;}
+    .tri{grid-template-columns:1fr;}
+    footer{margin-left:20px; margin-right:20px;}
+  }
+  /* ---------- 打印 / PDF ---------- */
+  @media print{
+    html,body{background:#fff;}
+    /* 逐段字幕可跨页，否则 354 行会被整体推到新页造成大片空白 */
+    details,details.ocr,details pre{break-inside:auto !important; page-break-inside:auto !important;}
+    details summary{break-after:avoid;}
+    .step,.card,.tri .t,.check,table,.fig,.quote{break-inside:avoid; page-break-inside:avoid;}
+    h2,h3,h4{break-after:avoid; page-break-after:avoid;}
+    section{padding:0 30px;}
+    .hero{padding:26px 30px 22px;}
+    footer{margin-left:30px; margin-right:30px;}
+  }
+</style>
+</head>
+<body>
+<div class="page">
+
+  <div class="hero">
+    <div class="kicker">装修流程 · 图文整理</div>
+    <h1>装修全流程总结
+      <small>不误工期 · 不被忽悠 · 不踩坑 —— 从设计到落地，13 道工序 + 3 段并行准备，全部按「什么时候必须做什么」排好</small>
+    </h1>
+    <div class="meta">
+      <span>来源：小红书《装修最全流程总结！不误工期不被忽悠不踩坑！》</span>
+      <span>作者：<b>林林总总会发光</b></span>
+      <span>形式：<b>口播视频 9 分 22 秒</b></span>
+      <span>发布：<b>2025-07-16</b></span>
+      <span>点赞 <b>2.9 万</b></span>
+      <span>收藏 <b>4.2 万</b></span>
+      <span>评论 <b>981</b></span>
+    </div>
+  </div>
+
+  <section>
+    <h2><span class="n">核心结论</span>最大的坑，是没提前了解工序</h2>
+    <div class="card tint">
+      <p style="margin-top:0"><b>第一次装修最大的坑，不是选错材料，而是没有提前了解工序。</b>水电都进场了，窗户还没封；全屋定制都要开始设计了，电器还没选；最后这里发现尺寸对不上，那里停工等材料 —— 一路连环崩。</p>
+      <p style="margin-bottom:0">作者的解法就三条：<b>① 设计阶段砸 80% 的精力；② 把「预定周期长」和「要预埋」的东西提前定死；③ 每道工序进场前做交底，每道工序结束前做验收。</b></p>
+    </div>
+    <div class="quote">
+      「你可别觉得，这不都是装修公司的活儿吗？放弃幻想好吗。你但凡想要你自己住得舒服，你就必须自己上心；要么你就降低自己的需求，也可以做到心平气和 —— 因为装修就是草台班子里面的草台班子，真能把你气死。」
+      <span class="who">—— 视频 01:15–01:29</span>
+    </div>
+  </section>
+
+  <section>
+    <h2><span class="n">全景图</span>装修 13 步 · 六个阶段</h2>
+    <p class="lead">左起分别为准备期 → 拆改期 → 泥木期 → 油工期 → 安装期 → 收尾期。每格是一道工序，格子的高低差就是这段工序的「长度」。</p>
+
+    <div class="fig">
+      <svg viewBox="0 0 1000 248" role="img" aria-label="装修 13 步六阶段全景流程图">
+        <rect x="0" y="0" width="1000" height="248" fill="#ffffff" rx="14"/>
+        <rect x="0.5" y="0.5" width="999" height="247" fill="none" stroke="#e5e7eb" rx="14"/>
+
+        <!-- 阶段表头 -->
+        <g font-size="13.5" font-weight="700" text-anchor="middle">
+          <rect x="20" y="16" width="150" height="42" rx="10" fill="#eef2ff" stroke="#c7d2fe"/>
+          <text x="95" y="43" fill="#4338ca">准备期</text>
+
+          <rect x="182" y="16" width="150" height="42" rx="10" fill="#fffbeb" stroke="#fde68a"/>
+          <text x="257" y="43" fill="#b45309">拆改期</text>
+
+          <rect x="344" y="16" width="150" height="42" rx="10" fill="#f0fdf4" stroke="#bbf7d0"/>
+          <text x="419" y="43" fill="#15803d">泥木期</text>
+
+          <rect x="506" y="16" width="150" height="42" rx="10" fill="#f0f9ff" stroke="#bae6fd"/>
+          <text x="581" y="43" fill="#0369a1">油工期</text>
+
+          <rect x="668" y="16" width="150" height="42" rx="10" fill="#faf5ff" stroke="#e9d5ff"/>
+          <text x="743" y="43" fill="#a21caf">安装期</text>
+
+          <rect x="830" y="16" width="150" height="42" rx="10" fill="#f0fdfa" stroke="#99f6e4"/>
+          <text x="905" y="43" fill="#0f766e">收尾期</text>
+        </g>
+
+        <!-- 准备期 -->
+        <g>
+          <rect x="30" y="72" width="130" height="66" rx="9" fill="#eef2ff" stroke="#c7d2fe"/>
+          <text x="95" y="94" font-size="12.5" fill="#4338ca" text-anchor="middle" font-weight="600">设计阶段</text>
+          <text x="95" y="112" font-size="11" fill="#6366f1" text-anchor="middle">电器清单 / 格局动线</text>
+          <text x="95" y="127" font-size="11" fill="#6366f1" text-anchor="middle">收纳布局</text>
+        </g>
+
+        <!-- 拆改期 4 项 -->
+        <g>
+          <rect x="192" y="72" width="130" height="30" rx="8" fill="#fffbeb" stroke="#fde68a"/>
+          <text x="203" y="92" font-size="12" fill="#92400e">1 拆旧和新建</text>
+
+          <rect x="192" y="110" width="130" height="30" rx="8" fill="#fffbeb" stroke="#fde68a"/>
+          <text x="203" y="130" font-size="12" fill="#92400e">2 封窗</text>
+
+          <rect x="192" y="148" width="130" height="30" rx="8" fill="#fffbeb" stroke="#fde68a"/>
+          <text x="203" y="168" font-size="12" fill="#92400e">3 水电改造</text>
+
+          <rect x="192" y="186" width="130" height="30" rx="8" fill="#fffbeb" stroke="#fde68a"/>
+          <text x="203" y="206" font-size="12" fill="#92400e">4 地暖 · 中央空调</text>
+        </g>
+
+        <!-- 泥木期 4 项 -->
+        <g>
+          <rect x="354" y="72" width="130" height="30" rx="8" fill="#f0fdf4" stroke="#bbf7d0"/>
+          <text x="365" y="92" font-size="12" fill="#166534">5 木工进场</text>
+
+          <rect x="354" y="110" width="130" height="30" rx="8" fill="#f0fdf4" stroke="#bbf7d0"/>
+          <text x="365" y="130" font-size="12" fill="#166534">6 防水</text>
+
+          <rect x="354" y="148" width="130" height="30" rx="8" fill="#f0fdf4" stroke="#bbf7d0"/>
+          <text x="365" y="168" font-size="12" fill="#166534">7 瓷砖铺贴</text>
+
+          <rect x="354" y="186" width="130" height="30" rx="8" fill="#f0fdf4" stroke="#bbf7d0"/>
+          <text x="365" y="206" font-size="12" fill="#166534">8 美缝</text>
+        </g>
+
+        <!-- 油工期 -->
+        <g>
+          <rect x="516" y="72" width="130" height="48" rx="9" fill="#f0f9ff" stroke="#bae6fd"/>
+          <text x="581" y="93" font-size="12.5" fill="#0369a1" text-anchor="middle" font-weight="600">9 油工</text>
+          <text x="581" y="110" font-size="11" fill="#0ea5e9" text-anchor="middle">刮腻子找平</text>
+        </g>
+
+        <!-- 安装期 4 项 -->
+        <g>
+          <rect x="678" y="72" width="130" height="30" rx="8" fill="#faf5ff" stroke="#e9d5ff"/>
+          <text x="689" y="92" font-size="12" fill="#86198f">10 全屋定制安装</text>
+
+          <rect x="678" y="110" width="130" height="30" rx="8" fill="#faf5ff" stroke="#e9d5ff"/>
+          <text x="689" y="130" font-size="12" fill="#86198f">11 台面 · 室内门</text>
+
+          <rect x="678" y="148" width="130" height="30" rx="8" fill="#faf5ff" stroke="#e9d5ff"/>
+          <text x="689" y="168" font-size="12" fill="#86198f">12 最后一遍油漆</text>
+
+          <rect x="678" y="186" width="130" height="30" rx="8" fill="#faf5ff" stroke="#e9d5ff"/>
+          <text x="689" y="206" font-size="12" fill="#86198f">13 电器安装调试</text>
+        </g>
+
+        <!-- 收尾期 3 项 -->
+        <g>
+          <rect x="840" y="72" width="130" height="30" rx="8" fill="#f0fdfa" stroke="#99f6e4"/>
+          <text x="851" y="92" font-size="12" fill="#115e59">开荒保洁</text>
+
+          <rect x="840" y="110" width="130" height="30" rx="8" fill="#f0fdfa" stroke="#99f6e4"/>
+          <text x="851" y="130" font-size="12" fill="#115e59">软装进场 · 补漆</text>
+
+          <rect x="840" y="148" width="130" height="30" rx="8" fill="#f0fdfa" stroke="#99f6e4"/>
+          <text x="851" y="168" font-size="12" fill="#115e59">调试验收 · 尾款</text>
+        </g>
+
+        <!-- 底部箭头 -->
+        <line x1="20" y1="228" x2="960" y2="228" stroke="#d1d5db" stroke-width="1.5"/>
+        <polygon points="960,228 950,223 950,233" fill="#d1d5db"/>
+        <text x="490" y="242" font-size="11" fill="#9ca3af" text-anchor="middle">工序顺序（同一阶段内可并行推进的准备工作不占工序位）</text>
+      </svg>
+      <figcaption>图 1　装修 13 步六阶段全景。第 6 步「防水」在视频口播中未念出编号，按工序顺序补位。</figcaption>
+    </div>
+  </section>
+
+  <section>
+    <h2><span class="n">阶段一</span>设计阶段：80% 的精力都该花在这里</h2>
+    <p class="lead">这是全片最重的一段。作者反复强调：设计没做好，后面的坑不是「踩」到的，是「看着它一个个发生」。</p>
+
+    <div class="fig">
+      <svg viewBox="0 0 1000 168" role="img" aria-label="设计阶段与其他环节的精力分配">
+        <rect x="0" y="0" width="1000" height="168" fill="#ffffff" rx="14"/>
+        <rect x="0.5" y="0.5" width="999" height="167" fill="none" stroke="#e5e7eb" rx="14"/>
+
+        <text x="40" y="42" font-size="15" font-weight="700" fill="#111827">精力该怎么分？</text>
+
+        <text x="180" y="82" font-size="13.5" fill="#374151" text-anchor="end" font-weight="600">设计阶段</text>
+        <rect x="196" y="64" width="760" height="34" rx="8" fill="#f3f4f6"/>
+        <rect x="196" y="64" width="608" height="34" rx="8" fill="#c2410c"/>
+        <text x="500" y="86" font-size="14" font-weight="700" fill="#ffffff" text-anchor="middle">80%</text>
+
+        <text x="180" y="134" font-size="13.5" fill="#374151" text-anchor="end" font-weight="600">其余全部</text>
+        <rect x="196" y="116" width="760" height="34" rx="8" fill="#f3f4f6"/>
+        <rect x="196" y="116" width="152" height="34" rx="8" fill="#94a3b8"/>
+        <text x="272" y="138" font-size="13.5" font-weight="700" fill="#ffffff" text-anchor="middle">20%</text>
+        <text x="972" y="138" font-size="12" fill="#6b7280" text-anchor="end">施工 / 采购 / 盯工</text>
+      </svg>
+      <figcaption>图 2　「我建议你们 80% 的精力，全部都花在你的设计上。」（视频 00:25–00:27）</figcaption>
+    </div>
+
+    <h3>设计阶段要定死的 3 件事</h3>
+    <div class="tri">
+      <div class="t">
+        <div class="idx">01 ／ 电器清单</div>
+        <h4>把型号、尺寸、链接做成表格</h4>
+        <p>确认好所有需要用到的电器，<b>提前看好型号</b>，做个表格，把它的<b>尺寸和购买链接</b>全都放在里面 —— 给设计师一目了然。</p>
+      </div>
+      <div class="t">
+        <div class="idx">02 ／ 格局与动线</div>
+        <h4>整个家的格局 + 动线规划</h4>
+        <p>你们整个家的格局、动线的规划，<b>如何才能让它做到最佳</b>。这是后面所有工种能不能接上的前提。</p>
+      </div>
+      <div class="t">
+        <div class="idx">03 ／ 收纳布局</div>
+        <h4>遵循「就近原则」</h4>
+        <p>确认好收纳布局，<b>遵循就近原则</b>。你自己对自己的需求越明确，你和设计师之后的沟通就越顺畅。</p>
+      </div>
+    </div>
+
+    <div class="card">
+      <p style="margin-top:0"><b>顺带要提前想清楚的取舍（越想早越省事）</b></p>
+      <p style="margin-bottom:0">要不要做<b>全屋智能</b>？要不要给<b>宠物</b>预留收纳空间（它的猫砂盆放哪里）？要不要给<b>小孩</b>以后长大了提前规划一点什么空间？——「你可别觉得，这不都是装修公司的活儿吗。」</p>
+    </div>
+
+    <div class="quote">
+      「不是让他去猜你是不是要这个，改了不满意你又回来再改，极限拉扯，非常浪费双方的时间。」
+      <span class="who">—— 视频 01:00–01:05</span>
+    </div>
+
+    <h3>设计阶段就可以并行推进的准备</h3>
+    <table>
+      <thead><tr><th style="width:32%">事项</th><th>要点</th></tr></thead>
+      <tbody>
+        <tr><td class="k">跟物业做好交接</td><td>设计一启动就可以办，别等开工才想起来。</td></tr>
+        <tr><td class="k">看暖通、中央空调</td><td>去市场开始看，这类隐蔽工程设备要早于水电进场。</td></tr>
+        <tr><td class="k">全屋净水</td><td>同上，属于需要在水电阶段做隐蔽工程的品类。</td></tr>
+        <tr><td class="k">定封窗找谁做</td><td><b>封窗有预定周期</b>，所以你可以先定下来，后面就不耽误你。</td></tr>
+        <tr><td class="k">定拆旧找谁</td><td>拆旧队伍要在设计末期就锁定。</td></tr>
+      </tbody>
+    </table>
+  </section>
+
+  <section>
+    <h2><span class="n">阶段二～六</span>13 道工序逐条详解</h2>
+    <p class="lead">每张卡片分三层：<b>做什么</b>（绿标）、<b>必须注意</b>（红标）、<b>顺带提醒</b>（灰标）。</p>
+
+    <div class="steps">
+
+      <div class="step demolish">
+        <div class="num">1</div>
+        <div class="body">
+          <h4>拆旧和新建</h4>
+          <div class="row"><span class="tag do">做什么</span><p>要拆除墙体，<b>先去住建部做备案，然后交给物业</b>。拆下来的建筑垃圾<b>走哪个门出去</b>、<b>有没有临时存放的地点</b>，这时候都要问清楚。拆旧的人 + 设计师 + 你自己<b>三个人一起在现场确定</b>：哪里拆、哪里不拆，<b>直接在墙上画好</b>。</p></div>
+          <div class="row"><span class="tag warn">必须注意</span><p>如果后面打到<b>承重墙</b>会非常麻烦，<b>这个一定要反复确认</b>。拆旧之前记住两件事：① 首先确认好你的<b>水电闸有没有关闭好</b>；② 确认好你所有的<b>下水管道有没有提前堵好</b>、给它们保护好 —— 不然后面如果都是建筑垃圾，你那个管子就废了。「我先替你楼下的邻居谢谢你。」</p></div>
+        </div>
+      </div>
+
+      <div class="step demolish">
+        <div class="num">2</div>
+        <div class="body">
+          <h4>封窗</h4>
+          <div class="row"><span class="tag do">做什么</span><p>现在不少小伙伴都会直接来个<b>全屋换窗</b>。<b>先封好窗之后，你的硬装开始就会更安全。</b>封窗之前，要跟物业确认<b>小区是不是有封窗样式的统一需求</b>。</p></div>
+          <div class="row"><span class="tag warn">必须注意</span><p>封窗完毕之后，<b>切记下雨天一定要去现场再重新 check 一下</b>：有没有哪里漏水？玻璃中间是不是有什么水汽？它的密闭性怎么样？如果你发现问题，<b>赶紧现在让他们来售后</b>。</p></div>
+        </div>
+      </div>
+
+      <div class="step demolish">
+        <div class="num">3</div>
+        <div class="body">
+          <h4>水电改造</h4>
+          <div class="row"><span class="tag do">做什么</span><p>中央空调、地暖、全屋净水这类<b>需要做隐蔽工程</b>的，要让他们在<b>水电交底的时候和你的设计师全部都到现场</b>，相互之间确认好，后面就免得扯皮。</p></div>
+          <div class="row"><span class="tag warn">必须注意</span><p>要做的<b>预埋件</b>（壁挂马桶、墙排的水龙头、花洒、暗装的毛巾架）<b>必须在水电开始之前买齐、放到现场</b>。壁挂马桶的<b>支架</b>可以让商家先过来安装，<b>马桶本体先不要发过来</b>，等你家最后全都装好了再装。</p></div>
+          <div class="row"><span class="tag note">顺带提醒</span><p>「你们都给我听劝：<b>所有你现在不需要装的东西，不要去放在现场</b>，后面不是脏了就是坏了、就是丢了。」</p></div>
+        </div>
+      </div>
+
+      <div class="step demolish">
+        <div class="num">4</div>
+        <div class="body">
+          <h4>地暖 / 中央空调</h4>
+          <div class="row"><span class="tag do">做什么</span><p>水电做完之后就进场。<b>地暖回填的时候注意一定要挂网</b>，它的<b>平整度非常关键</b>。</p></div>
+          <div class="row"><span class="tag warn">必须注意</span><p>尤其是你后面如果是<b>铺木地板</b>的，<b>要严格地找平</b>。中央空调装完之后，<b>我劝你把那个电给拔了</b> —— 防止工人在施工期间给你的中央空调打开，<b>尤其是木工阶段</b>，一旦打开了，你那里头全是灰，还得找人来清理。</p></div>
+        </div>
+      </div>
+
+      <div class="step mason">
+        <div class="num">5</div>
+        <div class="body">
+          <h4>木工进场<em>建议排在瓦工之前</em></h4>
+          <div class="row"><span class="tag do">做什么</span><p>你的<b>吊顶、各种造型以及门洞</b>，都是木工来完成。这段期间你可以准备接下来的大件采购：<b>瓷砖、木地板、全屋定制方案、室内要装的门</b>。</p></div>
+          <div class="row"><span class="tag warn">必须注意</span><p><b>在吊顶结束之前，你的止逆阀最好就安装上</b> —— 因为之后可能就不那么好装了。然后你要准备好<b>隔音棉</b>。像那种<b>需要嵌入吊顶里面</b>的东西（升降投影仪、定制的电视墙、升降的隐形晾衣架这种），<b>提前让他们装好</b>。</p></div>
+          <div class="row"><span class="tag note">为什么先木工</span><p>「因为这个过程它会产生大量的<b>碎屑</b>，而且还会在地上磨来磨去；你要是先铺了地砖，我觉得多少还是有一些影响的。」</p></div>
+        </div>
+      </div>
+
+      <div class="step mason">
+        <div class="num">6</div>
+        <div class="body">
+          <h4>防水<em>视频口播未念出编号</em></h4>
+          <div class="row"><span class="tag do">做什么</span><p>木工结束之后就开始做防水。防水做完之后，<b>先和楼下打好招呼，你要做闭水实验</b>。</p></div>
+          <div class="row"><span class="tag warn">必须注意</span><p>如果闭水没什么问题，这个时候你才可以<b>让瓷砖进场</b>。记得让你的商家<b>做好排版图</b>；还有就是<b>去采购门槛石</b>。</p></div>
+        </div>
+      </div>
+
+      <div class="step mason">
+        <div class="num">7</div>
+        <div class="body">
+          <h4>瓷砖铺贴（泥工）<em>「终于完工了朋友们」</em></h4>
+          <div class="row"><span class="tag do">做什么</span><p>瓷砖到场，跟你的泥工师傅确认<b>排版图的排向</b>，以及<b>你要不要做通铺</b>。等他铺完之后，你自己去确认一下<b>有没有空鼓</b>，有的话<b>及时返工</b>。</p></div>
+          <div class="row"><span class="tag warn">必须注意</span><p><b>自流平</b>做完之后，它是需要<b>封闭 48 小时</b>，然后<b>水泥砂浆养护 7 天</b>。而且要提醒你：自流平要完全下面干透，<b>大概要两个月的时间</b>，你如果马上去铺地板的话，你后面很可能<b>返潮发黑</b> —— <b>一定要在 1–2 个月之后，再去铺你的木地板。</b></p></div>
+          <div class="row"><span class="tag note">顺带提醒</span><p>瓦工结束之后，你就可以去确认<b>最后一次的全屋设计方案</b>了。这时要现场看一下：有没有那种<b>门打开会碰到旁边东西</b>、使用起来不方便的情况；还有就是<b>收纳是否合理</b>。</p></div>
+        </div>
+      </div>
+
+      <div class="step mason">
+        <div class="num">8</div>
+        <div class="body">
+          <h4>美缝</h4>
+          <div class="row"><span class="tag do">做什么</span><p>瓷砖铺完之后就是做美缝。做完美缝之后，<b>记得铺上保护膜</b>。</p></div>
+          <div class="row"><span class="tag warn">必须注意</span><p>美缝在做之前，<b>一定要确认下面的水泥砂浆是不是干透了</b>，而且要<b>清理得非常干净</b>。铺保护膜之前，你也要确认<b>这个地面是不是干净、有没有什么沙石</b>。</p></div>
+        </div>
+      </div>
+
+      <div class="step paint">
+        <div class="num">9</div>
+        <div class="body">
+          <h4>油工（刮腻子找平）</h4>
+          <div class="row"><span class="tag do">做什么</span><p>刮腻子给你的墙面找平。在油工阶段，你就可以<b>让窗台石的人过来安装</b>了 —— 因为但凡这里出现什么问题，<b>油工还能找补一下</b>。</p></div>
+          <div class="row"><span class="tag warn">必须注意</span><p>你之后<b>所有打算做柜子的地方</b>，我都建议你让他去做一下<b>冲筋找平（也就是垂平）</b>，这样的话你的柜子放进去可能才<b>严丝合缝</b>。</p></div>
+          <div class="row"><span class="tag note">顺带提醒</span><p>墙面腻子刮得差不多了、验收差不多了，你就可以让你的<b>全屋定制以及门来做最后的复尺</b>了。<b>复尺完、方案确定完之后你就不能改动了</b>，所以你要非常仔细。</p></div>
+        </div>
+      </div>
+
+      <div class="step install">
+        <div class="num">10</div>
+        <div class="body">
+          <h4>全屋定制安装</h4>
+          <div class="row"><span class="tag do">做什么</span><p>这个过程你需要提醒他们：比方说<b>洗碗机、蒸烤箱</b>不是要插电或接水吗？<b>这些洞口要提前开出来</b>，不然后面安装就有问题。你要<b>提前买好里面的拉篮、裤架</b>这些东西，全屋定制师傅就可以在这个过程直接帮你装了。最后再检查一下<b>有没有什么地方漏了灯带</b>。带<b>柜体选样时预留的小样</b>到现场，<b>验收一下它的材料</b>。</p></div>
+          <div class="row"><span class="tag warn">必须注意</span><p>这个过程所有出现的问题，<b>大概率都是设计问题</b> —— 你前面如果设计没做好的话，你现在只是<b>看它们问题发生</b>。</p></div>
+          <div class="row"><span class="tag note">验收姿势</span><p>所有柜子安装完之后，<b>你就当做你生活在里面了，开始用用看</b>：开关门有没有不合理、不顺手的？轨道是不是丝滑的？有些地方是不是需要加一下把手？</p></div>
+        </div>
+      </div>
+
+      <div class="step install">
+        <div class="num">11</div>
+        <div class="body">
+          <h4>装台面 · 室内门 · 踢脚线</h4>
+          <div class="row"><span class="tag do">做什么</span><p>你的室内门、你的踢脚线可以开始安排了。这个期间，你的<b>软装、电器、灯具、窗帘、卫生间的吊顶</b>也可以预定起来了。</p></div>
+          <div class="row"><span class="tag warn">必须注意</span><p>装门的时候，你要检查一下它的<b>五金 OK 不 OK</b>；还有就是<b>门套的拼接处</b>，那个<b>缝是不是很大</b>、有没有做到严丝合缝 —— 因为你这个后面可能<b>容易开胶</b>。</p></div>
+        </div>
+      </div>
+
+      <div class="step install">
+        <div class="num">12</div>
+        <div class="body">
+          <h4>最后一遍油漆（乳胶漆）</h4>
+          <div class="row"><span class="tag do">做什么</span><p>完成了以上这些，你的家基本上<b>初见雏形</b>了，就等着来最后一遍油漆。</p></div>
+          <div class="row"><span class="tag warn">必须注意</span><p>你的乳胶漆刷完之后，<b>切记要关窗封闭 7 天，让它阴干</b>。这个时间一定要够；<b>如果是冬天的话，这个时间甚至还要延长</b>。这个是<b>防止它后面开裂</b>的。</p></div>
+        </div>
+      </div>
+
+      <div class="step install">
+        <div class="num">13</div>
+        <div class="body">
+          <h4>电器安装与调试</h4>
+          <div class="row"><span class="tag do">做什么</span><p>这个时候你的<b>灯具、开关、洁具、电器、窗帘</b>的安装，<b>全屋智能的调试</b>，都可以一一进行了。</p></div>
+          <div class="row"><span class="tag note">提速技巧</span><p>如果你要效率快点呢，<b>你可以一天约个两三组人</b>，这样会很快。</p></div>
+          <div class="row"><span class="tag warn">必须注意</span><p>这个阶段你需要<b>提前准备一些像角阀、下水三通</b>这些小东西（作者说自己放在另一条视频里了）。</p></div>
+        </div>
+      </div>
+
+      <div class="step finish">
+        <div class="num">收</div>
+        <div class="body">
+          <h4>收尾四件事</h4>
+          <div class="row"><span class="tag do">开荒保洁</span><p>这些东西都做完、没什么问题，你就可以<b>叫开荒保洁</b>了。屋子清理干净之后，<b>软装就可以进场</b>。</p></div>
+          <div class="row"><span class="tag note">补漆与调试</span><p>这段时间你家的墙面可能会有<b>一点点磕碰或者脏</b>，所以后面可能还是需要<b>补一下油漆</b>，或者<b>电工还要再调试一下</b>。</p></div>
+          <div class="row"><span class="tag warn">别急着结尾款</span><p><b>「装修切记不要急着去结那个尾款 —— 你没有尾款，你很难叫得动人了。」</b> 像<b>空调和地暖，都是你调试之后才开始算质保</b>的；如果你不急着住，也可以先不去调试。</p></div>
+          <div class="row"><span class="tag warn">柜门开一天关一天</span><p>从现在开始<b>开窗通风</b>，但注意你的<b>柜子的门不要开得太久了，它会变形</b> —— <b>你可以开一天关一天这样子</b>。</p></div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <section>
+    <h2><span class="n">时间刻度</span>最容易记错的几个数字</h2>
+    <p class="lead">全片所有「天数 / 小时 / 月份」都在下面两张刻度图上。位置为示意，不按比例。</p>
+
+    <div class="fig">
+      <svg viewBox="0 0 1000 258" role="img" aria-label="自流平与乳胶漆养护时间刻度">
+        <rect x="0" y="0" width="1000" height="258" fill="#ffffff" rx="14"/>
+        <rect x="0.5" y="0.5" width="999" height="257" fill="none" stroke="#e5e7eb" rx="14"/>
+
+        <!-- 第一行：自流平 -->
+        <text x="30" y="46" font-size="14" font-weight="700" fill="#15803d">自流平 → 木地板</text>
+        <line x1="60" y1="104" x2="944" y2="104" stroke="#d1d5db" stroke-width="2"/>
+        <polygon points="944,104 933,99 933,109" fill="#d1d5db"/>
+
+        <!-- 刻度 -->
+        <circle cx="90" cy="104" r="7" fill="#15803d"/>
+        <text x="90" y="88" font-size="12.5" font-weight="700" fill="#15803d" text-anchor="middle">0</text>
+        <text x="90" y="136" font-size="12" fill="#166534" text-anchor="middle">自流平做完</text>
+
+        <circle cx="330" cy="104" r="6" fill="#94a3b8"/>
+        <text x="330" y="88" font-size="12.5" font-weight="700" fill="#475569" text-anchor="middle">48 小时</text>
+        <text x="330" y="136" font-size="12" fill="#6b7280" text-anchor="middle">需封闭</text>
+
+        <circle cx="560" cy="104" r="6" fill="#94a3b8"/>
+        <text x="560" y="88" font-size="12.5" font-weight="700" fill="#475569" text-anchor="middle">7 天</text>
+        <text x="560" y="136" font-size="12" fill="#6b7280" text-anchor="middle">水泥砂浆养护</text>
+
+        <circle cx="840" cy="104" r="7" fill="#15803d"/>
+        <text x="840" y="88" font-size="12.5" font-weight="700" fill="#15803d" text-anchor="middle">1–2 个月</text>
+        <text x="840" y="136" font-size="12" fill="#166534" text-anchor="middle">才能铺木地板</text>
+
+        <text x="840" y="152" font-size="11" fill="#9ca3af" text-anchor="middle">（完全干透约 2 个月）</text>
+
+        <!-- 分隔 -->
+        <line x1="30" y1="166" x2="970" y2="166" stroke="#f0f1f3"/>
+
+        <!-- 第二行：乳胶漆 -->
+        <text x="30" y="196" font-size="14" font-weight="700" fill="#0369a1">乳胶漆 → 阴干</text>
+        <line x1="60" y1="216" x2="944" y2="216" stroke="#d1d5db" stroke-width="2"/>
+        <polygon points="944,216 933,211 933,221" fill="#d1d5db"/>
+
+        <circle cx="300" cy="216" r="6" fill="#0369a1"/>
+        <text x="300" y="207" font-size="12.5" font-weight="700" fill="#0369a1" text-anchor="middle">7 天</text>
+        <text x="300" y="234" font-size="12" fill="#0c4a6e" text-anchor="middle">关窗封闭 · 阴干</text>
+
+        <circle cx="700" cy="216" r="6" fill="#94a3b8"/>
+        <text x="700" y="207" font-size="12.5" font-weight="700" fill="#475569" text-anchor="middle">冬天延长</text>
+        <text x="700" y="234" font-size="12" fill="#6b7280" text-anchor="middle">防止后面开裂</text>
+      </svg>
+      <figcaption>图 3　两处最容易记错的时间：自流平与乳胶漆。位置为示意，不按比例。</figcaption>
+    </div>
+  </section>
+
+  <section>
+    <h2><span class="n">附加条款</span>业主对工人的 7 条要求</h2>
+    <p class="lead">「最后我要从一个业主的角度，去补充几点对工人的要求。」（视频 08:23）</p>
+
+    <table>
+      <thead><tr><th style="width:64px">序号</th><th style="width:26%">主题</th><th>具体要求</th></tr></thead>
+      <tbody>
+        <tr><td class="k">第一</td><td class="k">不许住人</td><td><b>不要让任何工人在装修期间住在你家。</b>不要。</td></tr>
+        <tr><td class="k">第二</td><td class="k">收工交接</td><td>每道工序你都要<b>跟师傅叮嘱清楚</b>：走的时候要<b>关掉电闸和水闸</b>，甚至有些工序它是<b>需要关窗户</b>的；他们的<b>垃圾不要乱扔</b>。</td></tr>
+        <tr><td class="k">第三</td><td class="k">现场规矩</td><td><b>全程禁止吸烟</b>；<b>准备好一次性马桶</b>。</td></tr>
+        <tr><td class="k">第四</td><td class="k">运料工人</td><td>给你运输材料的工人，你也要叮嘱他：<b>不要在电梯里一次性满载</b> —— 那个非常危险，万一电梯坏了，到时候可能又是你的责任。</td></tr>
+        <tr><td class="k">第五</td><td class="k">成品与安全</td><td>所有你放在你家的<b>成品都要有所保护</b>；工人自己在作业的时候，尤其是像<b>封窗</b>，他<b>要有安全保护</b>。</td></tr>
+        <tr><td class="k">第六</td><td class="k">每日清扫</td><td>现场<b>每一天结束都要让他们打扫卫生</b>，尽量保持干净。</td></tr>
+        <tr><td class="k">第七</td><td class="k">两个自查时机</td><td>① <b>每到饭点</b>去你家现场闻闻看，有没有<b>烟道漏烟</b>的情况 —— 这个时候有还可以补救，之后你柜子一装就不好弄了；② <b>在下雨天</b>再去看看，家里是不是又有什么地方漏水，也可以去观察一下<b>楼上有没有什么地方漏水</b> —— 这个时候你补救都还来得及，都还比较方便。</td></tr>
+      </tbody>
+    </table>
+  </section>
+
+  <section>
+    <h2><span class="n">速查表</span>关键数字一览</h2>
+    <table>
+      <thead><tr><th style="width:24%">数字</th><th>含义</th><th style="width:16%">出处于</th></tr></thead>
+      <tbody>
+        <tr><td class="k">80%</td><td>设计阶段应该投入的精力占比</td><td>00:25</td></tr>
+        <tr><td class="k">48 小时</td><td>自流平做完后需要封闭的时间</td><td>04:54</td></tr>
+        <tr><td class="k">7 天</td><td>水泥砂浆养护时间</td><td>04:56</td></tr>
+        <tr><td class="k">约 2 个月</td><td>自流平完全干透所需的时间</td><td>05:02</td></tr>
+        <tr><td class="k">1–2 个月</td><td>自流平做完后到可以铺木地板之间的间隔</td><td>05:08</td></tr>
+        <tr><td class="k">7 天</td><td>乳胶漆刷完后关窗封闭阴干的时间（冬天还要延长）</td><td>07:21</td></tr>
+        <tr><td class="k">2–3 组</td><td>安装调试阶段一天可以约的施工组数</td><td>07:40</td></tr>
+        <tr><td class="k">3 个人</td><td>拆旧前必须同时到场的角色：拆旧的人 + 设计师 + 业主</td><td>01:56</td></tr>
+        <tr><td class="k">开一天关一天</td><td>通风期柜门的开关节奏（防变形）</td><td>08:19</td></tr>
+      </tbody>
+    </table>
+  </section>
+
+  <section>
+    <h2><span class="n">可打印</span>开工前 / 每步开工前检查清单</h2>
+    <p class="lead">按工序顺序排好，打印出来可以逐条打勾。</p>
+
+    <div class="check">
+      <h4>设计阶段（开工前）</h4>
+      <ul>
+        <li>电器清单表格完成（含型号、尺寸、购买链接）</li>
+        <li>格局与动线方案定稿</li>
+        <li>收纳布局定稿（遵循就近原则）</li>
+        <li>全屋智能 / 宠物空间 / 小孩空间的取舍已明确</li>
+        <li>跟物业完成交接</li>
+        <li>暖通、中央空调、全屋净水商家已看过现场</li>
+        <li>封窗商家已定（注意预定周期）</li>
+        <li>拆旧队伍已定</li>
+      </ul>
+
+      <h4>拆旧之前（第 1 步）</h4>
+      <ul>
+        <li>拆墙已在住建部备案，并交给物业</li>
+        <li>建筑垃圾出门路径 / 临时堆放点已确认</li>
+        <li>拆旧方 + 设计师 + 业主三人已现场划线确认</li>
+        <li>水电闸已关闭</li>
+        <li>所有下水管道已堵好并做好保护</li>
+      </ul>
+
+      <h4>封窗之后（第 2 步）</h4>
+      <ul>
+        <li>已跟物业确认封窗样式是否有统一要求</li>
+        <li>下雨天到场复查：漏水 / 玻璃水汽 / 密闭性</li>
+      </ul>
+
+      <h4>水电开工前（第 3 步）</h4>
+      <ul>
+        <li>中央空调、地暖、全屋净水商家与设计师同期到场交底</li>
+        <li>预埋件已买齐进场：壁挂马桶、墙排水龙头、花洒、暗装毛巾架</li>
+        <li>壁挂马桶支架已让商家安装，本体未发货</li>
+        <li>现场没有堆放「现在不需要装」的东西</li>
+      </ul>
+
+      <h4>木工吊顶封板前（第 5 步）</h4>
+      <ul>
+        <li>止逆阀已安装</li>
+        <li>隔音棉已备好</li>
+        <li>嵌入式设备（升降投影仪 / 定制电视墙 / 隐形晾衣架）已安装</li>
+      </ul>
+
+      <h4>贴砖前（第 6→7 步）</h4>
+      <ul>
+        <li>闭水实验通过，且已提前和楼下打招呼</li>
+        <li>商家排版图已出，排向与是否通铺已与泥工确认</li>
+        <li>门槛石已采购</li>
+      </ul>
+
+      <h4>铺木地板前（第 7 步）</h4>
+      <ul>
+        <li>自流平已干透 1–2 个月</li>
+        <li>地面平整度已严格找平</li>
+        <li>瓷砖空鼓已自查，问题已返工</li>
+      </ul>
+
+      <h4>做柜子的墙面（第 9 步）</h4>
+      <ul>
+        <li>已做冲筋找平（垂平）</li>
+      </ul>
+
+      <h4>全屋定制复尺前（第 9→10 步）</h4>
+      <ul>
+        <li>腻子验收通过</li>
+        <li>全屋定制 + 门已复尺</li>
+        <li>复尺后方案已最终确认（之后不能改动）</li>
+      </ul>
+
+      <h4>乳胶漆之后（第 12 步）</h4>
+      <ul>
+        <li>关窗封闭 7 天阴干（冬天延长）</li>
+      </ul>
+
+      <h4>入住前（收尾）</h4>
+      <ul>
+        <li>开荒保洁完成</li>
+        <li>空调、地暖已调试（质保从此起算）</li>
+        <li>尾款未结（留作约束）</li>
+        <li>柜门开一天关一天通风</li>
+        <li>已检查烟道漏烟、家中及楼上漏水</li>
+      </ul>
+    </div>
+  </section>
+
+  <section>
+    <h2><span class="n">附录 A</span>逐段字幕（合并稿 · 已校对）</h2>
+    <details class="ocr" open>
+      <summary>完整时间轴字幕　00:00 – 09:21，共 354 条</summary>
+      <pre id="subs">[00:00] 所有人第一次装修最大的坑
+[00:02] 其实是没有提前了解工序
+[00:04] 水电都进场了
+[00:05] 窗户还没有封
+[00:06] 全屋定制都要开始设计了
+[00:08] 电器还没选
+[00:10] 结果最后这里发现
+[00:11] 尺寸尺寸对不上
+[00:13] 那里停工等材料
+[00:14] 我踩过的坑你们就不要再踩了
+[00:15] 这是一期我反复确认
+[00:17] 细化的装修流程指南
+[00:19] 准备装修的宝子记得点赞和收藏
+[00:21] 首先在设计阶段
+[00:22] 你确定好你的设计师跟施工方之后
+[00:24] 先不要急着动工
+[00:25] 我建议你们 80% 的精力
+[00:27] 全部都花在你的设计上
+[00:29] 因为如果你的设计没做好
+[00:30] 你后面那个就不叫踩坑
+[00:32] 那叫看着本来理好的坑一个个发生
+[00:35] 那么怎么去做好设计
+[00:37] 你要确认好你所有需要用到的电器
+[00:39] 提前看好型号
+[00:41] 可以做个表格
+[00:42] 把它的尺寸、链接全都放在里面
+[00:44] 给设计师一目了然
+[00:45] 第二非常重要的就是
+[00:47] 你们整个家的格局
+[00:49] 动线的规划
+[00:50] 如何才能让它做到最佳
+[00:51] 第三个就是确认好你的收纳布局
+[00:54] 遵循就近原则
+[00:55] 你自己对自己的需求越明确
+[00:58] 你和设计师之后的沟通就越顺畅
+[01:00] 不是让他去猜你是不是要这个
+[01:02] 改了不满意你又回来再改
+[01:04] 极限拉扯
+[01:05] 非常浪费双方的时间
+[01:06] 我要不要做全屋智能啊
+[01:07] 我要不要给我的宠物
+[01:08] 预留点什么收纳的空间啊
+[01:10] 它的猫砂盆放哪里啊
+[01:11] 我要给我的小孩
+[01:12] 以后长大了是不是要提前规划一点什么空间啊
+[01:15] 之类的
+[01:15] 你可别觉得
+[01:16] 哎呀这不都是装修公司的活儿吗
+[01:18] 放弃幻想好吗
+[01:19] 你但凡想要你自己住得舒服
+[01:21] 你就必须自己上心
+[01:22] 要么你就降低自己的需求
+[01:24] 也可以做到心平气和
+[01:25] 因为装修就是
+[01:27] 草台班子里面的草台班子
+[01:29] 真能把你气死
+[01:30] 那在设计阶段
+[01:31] 你就可以开始做其他准备了
+[01:32] 比方说跟物业做好交接
+[01:33] 去市场开始看你的暖通、中央空调
+[01:36] 全屋净水
+[01:37] 你的封窗要找谁做呀
+[01:38] 拆旧找谁呀
+[01:39] 特别是封窗它是有预定周期的
+[01:42] 所以你可以先定下来
+[01:43] 后面就不耽误你
+[01:44] 第二个就是拆旧和新建
+[01:46] 如果你要拆除墙体
+[01:47] 你要去住建部去做备案
+[01:49] 然后交给物业
+[01:50] 这个时候你要问清楚
+[01:51] 拆下来的建筑垃圾走哪个门出去
+[01:54] 有没有临时存放的地点
+[01:55] 和拆旧的人
+[01:56] 要现场和设计师三个人一起确定
+[01:59] 哪里拆、哪里不拆
+[02:00] 在墙上直接画好
+[02:02] 那如果后面打到了承重墙会非常麻烦
+[02:04] 这个一定要反复确认
+[02:06] 在拆旧之前
+[02:07] 你一定要记住我这句话
+[02:08] 首先确认好你的水电闸有没有关闭好
+[02:10] 第二确认好你所有的下水管道
+[02:13] 有没有提前堵好
+[02:14] 给它们保护好
+[02:15] 不然后面如果都是建筑垃圾
+[02:16] 你那个管子就废了
+[02:17] 我先替你楼下的邻居谢谢你
+[02:19] 第三步 封窗
+[02:20] 现在不少小伙伴
+[02:21] 都会直接来个全屋换窗
+[02:23] 先封好窗之后
+[02:24] 你的硬装开始就会更安全
+[02:26] 那封窗之前
+[02:27] 你要跟物业确认
+[02:28] 小区是不是有封窗样式的统一需求
+[02:31] 封窗完毕之后
+[02:32] 切记下雨天一定要去现场
+[02:34] 再重新 check 一下
+[02:35] 有没有哪里漏水呀
+[02:36] 玻璃中间是不是有什么水汽呀
+[02:38] 它的密闭性怎么样啊
+[02:40] 如果你发现问题
+[02:41] 赶紧现在让他们来售后
+[02:42] 第四步 水电改造
+[02:44] 你知道中央空调、地暖
+[02:46] 你的全屋净水
+[02:46] 这种需要做一些隐蔽工程的
+[02:48] 让他们在水电交底的时候
+[02:50] 和你的设计师全部都到现场
+[02:52] 因为有一些活是水电师傅干
+[02:54] 让他们相互之间确认好
+[02:56] 后面就免得扯皮
+[02:57] 如果你有一些预埋件要做
+[02:59] 比方说壁挂马桶
+[03:00] 墙排的水龙头、花洒
+[03:02] 暗装的毛巾架
+[03:03] 这些都要在你水电开始之前
+[03:05] 你就要把它买齐了放在现场
+[03:07] 壁挂马桶的支架呢
+[03:08] 你可以让商家先过来安装
+[03:10] 马桶让他先不要发过来
+[03:12] 在你家最后全都装好了再装
+[03:14] 你们都给我听劝
+[03:15] 所有你现在不需要装的东西
+[03:17] 不要去放在现场
+[03:18] 后面不是脏了就是坏了
+[03:19] 就是丢了
+[03:20] 水电做完之后
+[03:21] 那就是地暖跟中央空调进场了
+[03:24] 地暖回填的时候注意一定要挂网
+[03:25] 它的平整度非常关键
+[03:27] 尤其是你后面如果是铺木地板的
+[03:29] 要严格地找平
+[03:30] 中央空调装完之后
+[03:31] 我劝你把那个电给拔了
+[03:33] 防止工人在施工期间
+[03:36] 给你的中央空调打开
+[03:37] 尤其是木工阶段
+[03:38] 如果你们打开了
+[03:40] 你那里头全是灰
+[03:41] 你还得找人来清理
+[03:42] 那在这个工序之后
+[03:43] 我发现有些地方是先木工
+[03:44] 有些地方是先瓦工
+[03:46] 我是建议先木工
+[03:48] 为什么呢
+[03:48] 因为这个过程它会产生大量的碎屑
+[03:51] 而且还会在地上磨来磨去
+[03:53] 你要是先铺了地砖
+[03:54] 我觉得多少还是有一些影响的
+[03:56] 所以我是建议木工先来
+[03:58] 那第五步 木工进场
+[04:00] 你的吊顶、各种造型以及门洞
+[04:00] 都是木工来完成
+[04:03] 在吊顶结束之前
+[04:05] 你的止逆阀最好就是安装上
+[04:07] 因为之后可能就不那么好装了
+[04:09] 然后你要准备好隔音棉
+[04:11] 像那种需要嵌入吊顶里面的东西
+[04:14] 比如是升降投影仪、定制的电视墙
+[04:15] 升降的隐形晾衣架这种
+[04:17] 你也提前让他们装好
+[04:18] 那这段期间
+[04:19] 你就可以准备接下来的大件的采购
+[04:22] 你的瓷砖呀
+[04:23] 或者你的木地板呀
+[04:24] 你全屋定制的方案可以开始走起来了
+[04:27] 室内你要装的一些门呀
+[04:28] 也可以开始看起来了
+[04:29] 那木工结束之后
+[04:30] 就开始做防水了
+[04:31] 你的防水做完之后
+[04:32] 先和楼下打好招呼
+[04:34] 你要做闭水实验
+[04:35] 如果没什么问题呢
+[04:36] 这个时候你就可以让瓷砖进场了
+[04:38] 记得让你的商家做好排版图
+[04:41] 还有就是去采购门槛石
+[04:42] 第七步 终于完工了朋友们
+[04:44] 瓷砖到场跟你的泥工师傅确认
+[04:46] 排版图的排向
+[04:47] 以及你要不要做通铺
+[04:48] 等他铺完之后呢
+[04:50] 你自己去确认一下有没有空鼓
+[04:52] 有的话及时返工
+[04:53] 自流平做完之后
+[04:54] 它是需要封闭 48 小时
+[04:56] 然后水泥砂浆养护 7 天
+[04:57] 我有一个事情必须提醒你们
+[04:59] 自流平它要完全下面干透
+[05:01] 它要花很长时间
+[05:02] 大概要两个月的时间
+[05:03] 你如果马上去铺地板的话
+[05:05] 你后面很可能会返潮发黑
+[05:08] 所以一定要在 1-2 个月之后
+[05:10] 再去铺你的木地板
+[05:11] 你的瓦工结束之后
+[05:12] 你就可以去确认
+[05:13] 最后一次的全屋设计方案了
+[05:14] 这个时候你要在现场看一下
+[05:17] 有没有那种这个门打开
+[05:18] 它是会碰到旁边的东西
+[05:20] 你使用起来它是不方便的这种情况
+[05:22] 还有就是收纳是否合理
+[05:23] 那第八步 瓷砖铺完之后
+[05:25] 就是做美缝了
+[05:26] 美缝在做之前一定要确认
+[05:28] 下面的水泥砂浆是不是干透了
+[05:30] 而且要清理得非常干净
+[05:31] 做完美缝之后
+[05:33] 记得铺上保护膜
+[05:35] 你也要确认这个地面是不是干净
+[05:36] 有没有什么沙石
+[05:38] 那第九步 油工
+[05:39] 刮腻子给你的墙面找平
+[05:40] 在油工阶段
+[05:41] 你就可以让窗台石的人过来安装了
+[05:44] 因为但凡这里出现什么问题
+[05:46] 油工还能找补一下
+[05:48] 在油工阶段
+[05:48] 我必须提醒你一下
+[05:49] 你之后所有打算做柜子的地方
+[05:52] 我都建议你让他去做一下冲筋找平
+[05:55] 也就是垂平
+[05:56] 这样的话你的柜子放进去可能才严丝合缝
+[05:59] 那你的墙面腻子刮得差不多了
+[06:01] 验收差不多了
+[06:02] 你就可以让你的全屋定制
+[06:04] 以及门来做最后的复尺了
+[06:06] 复尺完你的方案确定完之后
+[06:08] 你就不能改动了
+[06:08] 所以你要非常仔细
+[06:09] 那第十步 全屋定制安装
+[06:11] 这个过程所有出现的问题
+[06:14] 大概率都是设计问题
+[06:15] 你前面如果设计没做好的话
+[06:17] 你现在只是看它们问题发生
+[06:19] 那这个过程你需要提醒他们的就是
+[06:21] 比方说你洗碗机
+[06:22] 你蒸烤箱不是要插电或者是接水吗
+[06:25] 那这些洞口要提前开出来
+[06:27] 不然你后面安装的话就有问题
+[06:28] 你要提前买好里面的拉篮啊
+[06:31] 裤架呀这种东西
+[06:32] 那全屋定制师傅
+[06:33] 就可以在这个过程直接帮你装了
+[06:35] 最后你再检查一下
+[06:36] 有没有什么地方是漏了灯带
+[06:38] 你在柜体选样的时候
+[06:40] 一般会预留一个小样嘛
+[06:41] 你要带到现场去验收一下它的材料
+[06:44] 那所有柜子安装完之后
+[06:45] 你就当做你生活在里面了
+[06:47] 开始用用看
+[06:48] 开关门有没有不合理、不顺手的
+[06:50] 轨道是不是丝滑的
+[06:51] 有些地方是不是需要加一下把手的
+[06:54] 那这个期间你的软装、电器
+[06:56] 灯具、窗帘
+[06:57] 卫生间的吊顶也可以预定起来了
+[06:59] 第十一步 装台面
+[07:01] 你的室内门
+[07:02] 你的踢脚线可以开始安排了
+[07:03] 装门的时候
+[07:04] 你要检查一下它的五金 OK 不 OK
+[07:07] 还有就是门套的拼接处
+[07:08] 那个缝是不是很大
+[07:10] 有没有做到严丝合缝
+[07:11] 因为你这个后面可能容易开胶
+[07:13] 第十二步
+[07:14] 完成了以上这些
+[07:15] 你的家基本上初见雏形了
+[07:18] 就等着来最后一遍油漆了
+[07:19] 你的乳胶漆刷完之后
+[07:21] 切记要关窗封闭 7 天
+[07:23] 让它阴干
+[07:24] 这个时间一定要够
+[07:25] 如果是冬天的话
+[07:26] 这个时间甚至还要延长
+[07:28] 这个是防止它后面开裂的
+[07:29] 第十三步
+[07:30] 一些电器的安装跟调试
+[07:31] 这个时候你的灯具、开关
+[07:34] 你的洁具、电器、窗帘的安装
+[07:36] 全屋智能的调试都可以一一进行了
+[07:39] 如果你要效率快点呢
+[07:40] 你可以一天约个两三组人
+[07:42] 这样会很快
+[07:43] 这个阶段你需要提前准备一些
+[07:45] 像角阀呀
+[07:46] 下水三通这些小东西
+[07:48] 我放在这条视频了
+[07:49] 你可以回去看看
+[07:50] 那这些东西都做完之后
+[07:51] 没什么问题
+[07:52] 你就可以叫开荒保洁了
+[07:53] 屋子清理干净之后
+[07:54] 软装就可以进场
+[07:55] 那在这段时间
+[07:56] 你家的墙面可能会有一点点磕碰
+[07:58] 或者脏
+[07:59] 所以可能后面还是需要补一下油漆
+[08:01] 或者电工还要再调试一下的情况
+[08:03] 所以装修切记不要急着去结那个尾款
+[08:06] 你没有尾款你很难叫得动人了
+[08:08] 像空调和地暖
+[08:09] 都是你调试之后开始算质保的
+[08:11] 如果你不急着住
+[08:12] 你也可以先不去调试
+[08:13] 那从现在开窗通风
+[08:15] 注意你的柜子的门不要开得太久了
+[08:18] 它会变形
+[08:19] 你可以开一天关一天这样子
+[08:20] 那整个装修流程大概就是这样
+[08:23] 最后我要从一个业主的角度
+[08:24] 去补充几点对工人的要求
+[08:26] 第一 你不要让任何工人
+[08:28] 在装修期间住在你家，不要
+[08:30] 第二 每道工序你都要跟师傅叮嘱
+[08:33] 走的时候要关掉电闸和水闸
+[08:35] 甚至有些工序它是需要关窗户的
+[08:37] 他们的垃圾不要乱扔
+[08:38] 第三 全程禁止吸烟
+[08:40] 准备好一次性马桶
+[08:41] 第四 给你运输材料的工人
+[08:43] 你要叮嘱他
+[08:44] 不要在电梯里一次性满载
+[08:46] 那个非常危险
+[08:47] 万一电梯坏了
+[08:48] 到时候可能就是你的责任
+[08:50] 第五 所有你放在你家的成品都要有所保护
+[08:52] 工人自己在作业的时候
+[08:54] 尤其是像封窗呀
+[08:55] 他要有安全保护
+[08:56] 第六 现场每一天结束都要让他们打扫卫生
+[08:59] 尽量保持干净
+[09:00] 第七 每到饭点的时候
+[09:02] 你可以去你家现场闻闻看
+[09:04] 有没有烟道漏烟的情况
+[09:06] 这个时候有还可以补救
+[09:07] 之后你柜子一装
+[09:08] 你就不好弄了
+[09:09] 那在下雨天
+[09:10] 你要再去看看
+[09:11] 家里是不是又有什么地方漏水
+[09:12] 你可以去观察一下
+[09:13] 楼上有没有什么地方漏水
+[09:14] 这个时候你补救都还来得及
+[09:16] 都还比较方便
+[09:16] 那以上就是我
+[09:18] 很仔细回想总结的
+[09:19] 所有的装修的流程
+[09:21] 和一些提前准备的细节</pre>
+    </details>
+  </section>
+
+  <section>
+    <h2><span class="n">附录 B</span>整理方法与可信度说明</h2>
+
+    <h3>素材与处理链路</h3>
+    <table>
+      <thead><tr><th style="width:22%">环节</th><th>做法</th></tr></thead>
+      <tbody>
+        <tr><td class="k">视频</td><td>《装修最全流程总结！不误工期不被忽悠不踩坑！》，9 分 22 秒，1280×720，含烧录字幕（无水印字幕轨）</td></tr>
+        <tr><td class="k">字幕提取</td><td>4fps 抽帧（2249 帧）→ 裁画面底部 86%–100% 字幕带 → RapidOCR 逐帧识别 → 相邻句子聚类（375 组）→ <b>逐字符多数投票</b> → 354 条字幕卡</td></tr>
+        <tr><td class="k">结构校验</td><td>faster-whisper small（本地 CPU，int8）转写 428 段，验证段落结构 1:1 对应，并补全无字幕的口播句</td></tr>
+        <tr><td class="k">人工复核</td><td>对 4 处歧义位置逐帧放大确认原字幕（02:52 / 04:09 / 04:17 / 04:42）</td></tr>
+        <tr><td class="k">中文校验</td><td>jieba 33 万词表 + 网络新词表体检（词典法，非大模型），产出对照表后人工判定</td></tr>
+      </tbody>
+    </table>
+
+    <h3>为什么以字幕 OCR 为准，而不是直接用语音转写</h3>
+    <p>语音转写的同音字错误在装修语境下破坏性极大。实测 whisper-small 把「<b>封窗</b>」听成「分窗」、「<b>承重墙</b>」听成「沉重墙」、「<b>就近原则</b>」听成「究竟原则」、「<b>堵好</b>」听成「赌好」、「<b>全屋净水</b>」听成「全物进水」、「<b>严丝合缝</b>」听成「颜色和缝」。烧录字幕就是作者原文，因此<b>专有名词一律以字幕为准</b>，语音转写只用于补全与结构验证。</p>
+
+    <h3>已知的原始字幕问题（照录未改，已标注）</h3>
+    <ul style="color:#4b5563; font-size:14px;">
+      <li><b>04:42 原字幕为「第七步 终于完工了朋友们」</b>，语义上应为「第七步 泥工 / 瓷砖铺贴完工」，此处按原文照录，未擅改。</li>
+      <li>视频口播中<b>缺少「第六步」的编号</b>（第五步木工之后直接讲防水，随后跳到第七步瓷砖），本文按工序顺序将<b>防水补位为第六步</b>并已标注。</li>
+      <li>07:13 字幕写「第十三步」但按顺序应为<b>第十二步</b>（后文 07:29 才是第十三步），已按上下文修正。</li>
+    </ul>
+
+    <h3>术语纠错表（OCR 同音 / 形近误 → 正确）</h3>
+    <table>
+      <thead><tr><th>误</th><th>正</th><th>误</th><th>正</th><th>误</th><th>正</th></tr></thead>
+      <tbody>
+        <tr><td>型导</td><td class="k">型号</td><td>吊预</td><td class="k">吊顶</td><td>刮逆子</td><td class="k">刮腻子</td></tr>
+        <tr><td>备索</td><td class="k">备案</td><td>止逆阔</td><td class="k">止逆阀</td><td>窗台时</td><td class="k">窗台石</td></tr>
+        <tr><td>水电阐</td><td class="k">水电闸</td><td>排版圈</td><td class="k">排版图</td><td>着补</td><td class="k">找补</td></tr>
+        <tr><td>预理件</td><td class="k">预埋件</td><td>空骨</td><td class="k">空鼓</td><td>充金找平</td><td class="k">冲筋找平</td></tr>
+        <tr><td>花酒</td><td class="k">花洒</td><td>即使反攻</td><td class="k">及时返工</td><td>锤瓶</td><td class="k">垂平</td></tr>
+        <tr><td>碎局</td><td class="k">碎屑</td><td>自流瓶</td><td class="k">自流平</td><td>颜色和缝</td><td class="k">严丝合缝</td></tr>
+        <tr><td>朋应</td><td class="k">影响</td><td>水泥沙江养户</td><td class="k">水泥砂浆养护</td><td>复迟</td><td class="k">复尺</td></tr>
+        <tr><td>孩了</td><td class="k">拔了</td><td>反潮</td><td class="k">返潮</td><td>柜题</td><td class="k">柜体</td></tr>
+        <tr><td>隔音格</td><td class="k">隔音棉</td><td>拉签</td><td class="k">拉篮</td><td>出舰出行</td><td class="k">初见雏形</td></tr>
+        <tr><td>正烤箱</td><td class="k">蒸烤箱</td><td>调室</td><td class="k">调试</td><td>乳胶器</td><td class="k">乳胶漆</td></tr>
+        <tr><td>结具</td><td class="k">洁具</td><td>开荒宝结</td><td class="k">开荒保洁</td><td>围款</td><td class="k">尾款</td></tr>
+        <tr><td>脚伐</td><td class="k">角阀</td><td>烟到</td><td class="k">烟道</td><td>定转</td><td class="k">地暖</td></tr>
+        <tr><td>尼宫师傅</td><td class="k">泥工师傅</td><td>分闭</td><td class="k">封闭</td><td>垫杂和水杂</td><td class="k">电闸和水闸</td></tr>
+      </tbody>
+    </table>
+
+    <h3>中文校验结果：6 条建议全部判为误报，未采纳任何自动改写</h3>
+    <p>词典法体检给出 6 条建议修正、74 条存疑，<b>全部人工判定为误报</b>。例如：</p>
+    <table>
+      <thead><tr><th style="width:28%">脚本建议</th><th style="width:22%">判定</th><th>理由</th></tr></thead>
+      <tbody>
+        <tr><td class="k">宝子 → 豹子</td><td style="color:#b91c1c">拒绝</td><td>「宝子」是小红书常用称呼语，正确</td></tr>
+        <tr><td class="k">先封 → 先锋</td><td style="color:#b91c1c">拒绝</td><td>「先封好窗之后」，正确</td></tr>
+        <tr><td class="k">暗装 → 安装</td><td style="color:#b91c1c">拒绝</td><td>「暗装的毛巾架」是规范术语，正确</td></tr>
+        <tr><td class="k">电给 → 电机</td><td style="color:#b91c1c">拒绝</td><td>「把那个电给拔了」，正确</td></tr>
+        <tr><td class="k">饭点 → 饭店</td><td style="color:#b91c1c">拒绝</td><td>「每到饭点」，正确</td></tr>
+        <tr><td class="k">一装 → 一桩</td><td style="color:#b91c1c">拒绝</td><td>「柜子一装」，正确</td></tr>
+      </tbody>
+    </table>
+    <p>存疑清单里的「冲筋 / 垂平 / 复尺 / 止逆阀 / 空鼓 / 拉篮 / 裤架 / 角阀 / 排向 / 闭水 / 封窗 / 硬装 / 墙排」等，均为规范装修术语，一律保留原样。</p>
+  </section>
+
+  <footer>
+    本文由《装修最全流程总结！不误工期不被忽悠不踩坑！》视频内容整理重构，用于个人学习参考，<b>非作者本人授权发布</b>；全部观点、经验与判断均归属原作者「林林总总会发光」。<br>
+    排版与图表为整理时重绘，字幕文本经烧录字幕逐帧 OCR + 语音转写交叉校验，纠错记录见附录 B。<br>
+    整理时间：2026-10-07
+  </footer>
+
+</div>
+</body>
+</html>

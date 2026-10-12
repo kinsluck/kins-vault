@@ -1,0 +1,403 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>柳叶刀实锤：吃饭习惯，肠癌风险直降30% · 观点整理</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%20100%20100%22%3E%3Ctext%20y%3D%22.9em%22%20font-size%3D%2290%22%3E%F0%9F%A5%97%3C%2Ftext%3E%3C%2Fsvg%3E">
+<style>
+  :root{
+    --paper:#faf7f2; --card:#ffffff; --ink:#2b2620; --muted:#8a7f72;
+    --accent:#b3402a; --accent-soft:#fdeee8; --accent-2:#2e7d5b;
+    --line:#eadfd2; --gold:#c99a5b;
+  }
+  *{margin:0;padding:0;box-sizing:border-box;}
+  body{
+    background:var(--paper); color:var(--ink);
+    font-family:-apple-system,"Segoe UI","Microsoft YaHei","PingFang SC","Hiragino Sans GB",sans-serif;
+    line-height:1.75; font-size:15.5px;
+  }
+  .wrap{max-width:880px;margin:0 auto;padding:28px 22px 60px;}
+
+  /* ---------- hero ---------- */
+  .hero{
+    background:linear-gradient(135deg,#fdf3e7 0%,#f9e7dc 55%,#f5dcd0 100%);
+    border:1px solid #f0dccd; border-radius:18px;
+    padding:38px 36px 32px; margin-bottom:26px; position:relative; overflow:hidden;
+  }
+  .hero::before{
+    content:""; position:absolute; right:-46px; top:-46px; width:190px; height:190px;
+    border-radius:50%; background:rgba(179,64,42,.08);
+  }
+  .hero .kicker{
+    display:inline-block; font-size:12.5px; letter-spacing:2px; color:#a05540;
+    background:rgba(255,255,255,.72); border:1px solid #eed9c8;
+    padding:4px 12px; border-radius:999px; margin-bottom:16px; font-weight:600;
+  }
+  .hero h1{font-size:31px; line-height:1.35; color:#3a221a; letter-spacing:.5px; font-weight:800;}
+  .hero h1 .hl{color:var(--accent);}
+  .hero .sub{margin-top:12px; color:#7c6a5d; font-size:14px;}
+  .hero .tags{margin-top:14px; font-size:12.5px; color:#a08a76; line-height:1.9;}
+  .hero .tags b{color:#8f7460; font-weight:600;}
+
+  /* ---------- section head ---------- */
+  .sec-head{
+    display:flex; align-items:center; gap:12px; margin:34px 0 16px;
+  }
+  .sec-head .num{
+    width:40px; height:40px; flex:0 0 40px; border-radius:12px;
+    background:var(--accent); color:#fff; font-weight:800; font-size:17px;
+    display:flex; align-items:center; justify-content:center;
+    box-shadow:0 4px 10px rgba(179,64,42,.25);
+  }
+  .sec-head h2{font-size:21px; color:#3a2a22; font-weight:800; letter-spacing:.3px;}
+  .sec-head .en{font-size:12px; color:#b3a08e; margin-left:auto; letter-spacing:1px;}
+
+  /* ---------- cards ---------- */
+  .card{
+    background:var(--card); border:1px solid var(--line); border-radius:14px;
+    padding:22px 24px; margin-bottom:16px;
+    box-shadow:0 2px 8px rgba(90,60,40,.05);
+  }
+  .card h3{font-size:16.5px; color:#4a2f24; margin-bottom:10px; font-weight:750;}
+  .card p{color:#4d4238; margin-bottom:8px;}
+  .card p:last-child{margin-bottom:0;}
+  .lead{
+    background:linear-gradient(135deg,#fffdf9,#fdf4ec);
+    border:1px solid #f0decb; border-left:4px solid var(--accent);
+  }
+  .lead p{font-size:16px; color:#4a332a;}
+  .lead b{color:var(--accent);}
+
+  /* ---------- stats ---------- */
+  .stats{display:flex; gap:14px; margin:6px 0 16px; flex-wrap:wrap;}
+  .stat{
+    flex:1 1 180px; background:var(--card); border:1px solid var(--line);
+    border-radius:14px; padding:18px 20px; text-align:center;
+    box-shadow:0 2px 8px rgba(90,60,40,.05);
+  }
+  .stat .v{font-size:34px; font-weight:800; color:var(--accent); line-height:1.15;}
+  .stat .v small{font-size:17px; font-weight:700;}
+  .stat .k{font-size:13.5px; color:#7d6c5d; margin-top:4px;}
+  .stat.tone2 .v{color:#c05a37;}
+  .stat.tone3 .v{color:#d1794f;}
+
+  /* ---------- svg chart ---------- */
+  .chart{background:var(--card); border:1px solid var(--line); border-radius:14px;
+         padding:20px 18px 8px; margin-bottom:16px;}
+  .chart .cap{font-size:12.5px; color:#a08c78; text-align:right; padding:4px 6px 10px;}
+
+  /* ---------- mech grid ---------- */
+  .grid{display:grid; grid-template-columns:1fr 1fr; gap:14px; margin-bottom:16px;}
+  .item{
+    background:var(--card); border:1px solid var(--line); border-radius:13px;
+    padding:16px 18px; box-shadow:0 2px 6px rgba(90,60,40,.04);
+  }
+  .item .t{font-weight:750; color:#4a2f24; font-size:15px; margin-bottom:6px;
+           display:flex; align-items:center; gap:8px;}
+  .item .t .dot{width:9px; height:9px; border-radius:3px; background:var(--accent); flex:0 0 9px;}
+  .item p{font-size:14px; color:#5a4c40; margin:0;}
+
+  /* ---------- tables ---------- */
+  table{width:100%; border-collapse:collapse; background:var(--card);
+        border:1px solid var(--line); border-radius:12px; overflow:hidden; margin-bottom:16px;}
+  th{background:#f7ece1; color:#5a3a2c; font-size:14px; text-align:left;
+     padding:11px 14px; border-bottom:1px solid var(--line); font-weight:750;}
+  td{padding:10.5px 14px; border-bottom:1px solid #f3e9dd; font-size:14.5px; color:#4d4238; vertical-align:top;}
+  tr:last-child td{border-bottom:none;}
+  td b{color:var(--accent); font-weight:750;}
+  tr:nth-child(even) td{background:#fdfaf5;}
+
+  /* ---------- checklist ---------- */
+  .todo{list-style:none;}
+  .todo li{
+    background:var(--card); border:1px solid var(--line); border-radius:11px;
+    padding:11px 16px 11px 44px; margin-bottom:9px; position:relative;
+    font-size:14.5px; color:#4d4238; box-shadow:0 1px 4px rgba(90,60,40,.04);
+  }
+  .todo li::before{
+    content:""; position:absolute; left:15px; top:14px; width:16px; height:16px;
+    border:2px solid var(--gold); border-radius:5px; background:#fffdf8;
+  }
+
+  /* ---------- conclusion ---------- */
+  .conclusion{
+    background:linear-gradient(135deg,#fdf3e7,#f7e3d5);
+    border:1px solid #eed6c3; border-left:5px solid var(--accent);
+    border-radius:14px; padding:22px 26px; margin-top:22px;
+  }
+  .conclusion h3{color:#7c3a26; margin-bottom:8px; font-size:17px;}
+  .conclusion p{color:#54382c;}
+
+  /* ---------- source ---------- */
+  .src{background:#fbf6ee; border:1px dashed #dcc9b2; border-radius:12px;
+       padding:16px 20px; font-size:13.5px; color:#77665a;}
+  .src b{color:#5d4a3c;}
+  .src .en{font-style:italic;}
+
+  /* ---------- ocr details ---------- */
+  details.ocr{
+    background:var(--card); border:1px solid var(--line); border-radius:12px;
+    margin-bottom:10px; overflow:hidden;
+  }
+  details.ocr summary{
+    cursor:pointer; padding:12px 18px; font-size:14px; font-weight:650; color:#6b4a38;
+    background:#f8efe4; list-style:none; user-select:none;
+  }
+  details.ocr summary::before{content:"▸ "; color:var(--accent);}
+  details.ocr[open] summary::before{content:"▾ ";}
+  details.ocr .body{padding:14px 20px 18px;}
+  details.ocr .body p{font-size:13.5px; color:#5c5044; margin-bottom:7px; line-height:1.8;}
+
+  .disclaimer{
+    margin-top:26px; padding:14px 20px; border-radius:12px;
+    background:#f6f3ec; border:1px solid #e6dfd2; font-size:13px; color:#8a7a6a;
+  }
+  .order-note{
+    background:#f2f7f4; border:1px solid #d9e6de; border-radius:12px;
+    padding:14px 20px; font-size:13.5px; color:#4e6257; margin:14px 0 20px;
+  }
+  .order-note b{color:#2e7d5b;}
+
+  @media print{
+    body{background:#fff;}
+    .wrap{max-width:100%; padding:0;}
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <!-- ================= HERO ================= -->
+  <div class="hero">
+    <span class="kicker">小红书图文笔记 · 观点整理</span>
+    <h1>柳叶刀实锤：吃饭习惯，<span class="hl">肠癌风险直降 30%</span></h1>
+    <div class="sub">来源：小红书笔记（作者水印 <b>@Aria Wellness</b>）· 5 张图文 · 整理于 2026-09-26</div>
+    <div class="tags"><b>标签</b>　#健康的生活方式　#科学研究　#健康养生　#科普　#饮食与健康　#健康的饮食习惯　#生命科学　#吃饭</div>
+  </div>
+
+  <!-- ================= 核心结论 ================= -->
+  <div class="card lead">
+    <h3>🎯 一句话核心结论</h3>
+    <p>《柳叶刀》Discovery Science 子刊的 EPIC 研究（覆盖 <b>45 万</b>欧洲人群、随访近 <b>15 年</b>、记录 <b>6000+</b> 例结直肠癌）发现：长期坚持「一低两高」饮食——<b>低超加工食品、高植物性饮食、高食物多样性</b>——结直肠癌总体风险降低 <b>27%</b>，且三条原则的保护作用是<b>累加式</b>的，三条同时做到效果最显著。</p>
+  </div>
+
+  <!-- ================= 01 ================= -->
+  <div class="sec-head"><div class="num">01</div><h2>防癌最新研究：一低两高，风险降低近 30%</h2><span class="en">THE LANCET · EPIC</span></div>
+
+  <div class="card">
+    <p>研究来自<b style="color:#b3402a">欧洲癌症与营养前瞻调查（EPIC）队列</b>，研究人员追踪了 45 万名中老年人近 15 年，记录了超过 6000 例结直肠癌病例。他们发现，长期遵循「一低两高」的饮食模式与结直肠癌风险显著降低相关：</p>
+  </div>
+
+  <div class="stats">
+    <div class="stat"><div class="v">27<small>%</small></div><div class="k">结直肠癌（总体）↓</div></div>
+    <div class="stat tone2"><div class="v">28<small>%</small></div><div class="k">结肠癌 ↓</div></div>
+    <div class="stat tone3"><div class="v">35<small>%</small></div><div class="k">直肠癌 ↓</div></div>
+  </div>
+
+  <div class="chart">
+    <svg viewBox="0 0 680 178" width="100%" role="img" aria-label="不同类型结直肠癌风险降幅">
+      <g font-family="inherit">
+        <!-- gridlines: 0,10,20,30,40 -> x = 170 + pct/40*460 -->
+        <line x1="170" y1="12" x2="170" y2="150" stroke="#eadfd2" stroke-width="1"/>
+        <line x1="285" y1="12" x2="285" y2="150" stroke="#f3e9dd" stroke-width="1"/>
+        <line x1="400" y1="12" x2="400" y2="150" stroke="#f3e9dd" stroke-width="1"/>
+        <line x1="515" y1="12" x2="515" y2="150" stroke="#f3e9dd" stroke-width="1"/>
+        <line x1="630" y1="12" x2="630" y2="150" stroke="#f3e9dd" stroke-width="1"/>
+        <g fill="#b3a08e" font-size="11" text-anchor="middle">
+          <text x="170" y="168">0%</text><text x="285" y="168">10%</text>
+          <text x="400" y="168">20%</text><text x="515" y="168">30%</text><text x="630" y="168">40%</text>
+        </g>
+        <!-- bars: width = pct/40*460 -->
+        <text x="160" y="40" fill="#4a332a" font-size="14" text-anchor="end" font-weight="600">结直肠癌·总体</text>
+        <rect x="170" y="22" width="311" height="26" rx="7" fill="#b3402a"/>
+        <text x="489" y="40" fill="#b3402a" font-size="14" font-weight="800">27%</text>
+        <text x="160" y="86" fill="#4a332a" font-size="14" text-anchor="end" font-weight="600">结肠癌</text>
+        <rect x="170" y="68" width="322" height="26" rx="7" fill="#c95a38"/>
+        <text x="500" y="86" fill="#c95a38" font-size="14" font-weight="800">28%</text>
+        <text x="160" y="132" fill="#4a332a" font-size="14" text-anchor="end" font-weight="600">直肠癌</text>
+        <rect x="170" y="114" width="403" height="26" rx="7" fill="#d97e50"/>
+        <text x="581" y="132" fill="#d97e50" font-size="14" font-weight="800">35%</text>
+      </g>
+    </svg>
+    <div class="cap">「一低两高」饮食模式与各类肠癌风险降幅（数据来源：笔记引用的 EPIC 研究）</div>
+  </div>
+
+  <div class="card">
+    <h3>🛡️ 为什么这样吃能防癌？—— 4 个协同机制</h3>
+  </div>
+  <div class="grid">
+    <div class="item"><div class="t"><span class="dot"></span>优化肠道菌群构成</div><p>多样化的植物性食物为有益菌提供「养料」。</p></div>
+    <div class="item"><div class="t"><span class="dot"></span>缩短致癌物滞留时间</div><p>膳食纤维促进排便，减少有害物质接触肠壁。</p></div>
+    <div class="item"><div class="t"><span class="dot"></span>增强肠道黏膜屏障</div><p>天然食物中的活性成分有助于维持肠壁完整性。</p></div>
+    <div class="item"><div class="t"><span class="dot"></span>减轻全身性慢性炎症</div><p>减少促炎的超加工食品，降低炎症水平。</p></div>
+  </div>
+
+  <!-- ================= 02 ================= -->
+  <div class="sec-head"><div class="num">02</div><h2>如何实践「一低两高」？</h2><span class="en">HOW TO</span></div>
+
+  <div class="card">
+    <h3>✅ 一低：为餐桌做「减法」，减少超加工食品</h3>
+    <p><b style="color:#b3402a">超加工食品</b>＝经过复杂工业加工、含大量添加剂、糖、盐和不健康脂肪，且天然成分极少的食品，是<b style="color:#b3402a">促炎饮食</b>的代表。研究显示：这类食品摄入量越高，结直肠癌风险越大，尤其在结肠部位表现明显。</p>
+  </div>
+
+  <table>
+    <tr><th style="width:150px">需要警惕的「隐形负担」</th><th>常见例子</th></tr>
+    <tr><td><b>甜品饮料</b></td><td>含糖饮料、奶茶、预包装蛋糕、饼干、冰淇淋</td></tr>
+    <tr><td><b>休闲零食</b></td><td>膨化食品、糖果、辣条</td></tr>
+    <tr><td><b>便捷快餐</b></td><td>火腿肠、培根、速冻披萨、方便面、汉堡炸鸡</td></tr>
+  </table>
+
+  <div class="card">
+    <p>🛒 <b>行动建议</b>：购物时养成查看配料表的习惯。如果成分表冗长、充斥着你不认识的化学名词（如氢化植物油、果葡糖浆等），最好将其放回货架。</p>
+  </div>
+
+  <div class="card">
+    <h3>✅ 一高：增加高质量植物性食物比例</h3>
+    <p>并非要求完全素食，而是<b>有意识地提升天然、完整植物性食物在餐盘中的占比</b>。研究中高「健康植物性饮食指数」（hPDI）的人群结直肠癌风险显著更低——多吃全谷物、蔬菜、水果、坚果、豆类，同时减少动物性食物和「不健康」的植物性食物（如果汁、精制谷物）。</p>
+  </div>
+
+  <table>
+    <tr><th style="width:190px">日常可以这样安排</th><th>具体建议</th></tr>
+    <tr><td><b>豆制品</b>——优质蛋白源</td><td>豆腐、豆浆、豆干等是肉类的良好补充或替代。《中国居民膳食指南（2022）》建议每日摄入相当于 <b>15–25 克大豆</b>的豆制品。</td></tr>
+    <tr><td><b>坚果种子</b>——「聪明」的零食</td><td>富含健康脂肪、维生素 E 和矿物质。建议每日约 <b>10 克</b>（相当于一小把核桃仁或巴旦木）。</td></tr>
+    <tr><td><b>多彩蔬果</b>——营养与纤维宝库</td><td>每日 <b>300–500 克蔬菜</b>（尤其深色蔬菜）+ <b>200–350 克新鲜水果</b>。提供丰富的维生素、矿物质和抗癌的植物化学物。</td></tr>
+  </table>
+
+  <div class="card">
+    <h3>✅ 二高：追求食物多样性，吃得「杂」一些</h3>
+    <p>你可能没想到，<b>吃得「杂」本身就是一种保护</b>。这项研究<b style="color:#b3402a">首次将食物生物多样性纳入防癌饮食框架</b>：摄入的物种越多，结直肠癌风险越低。此前已有研究证实，食物多样性与更低的死亡风险密切相关。</p>
+  </div>
+
+  <table>
+    <tr><th style="width:150px">实践技巧</th><th>做法</th></tr>
+    <tr><td><b>色彩管理</b></td><td>每餐餐盘中至少 <b>3 种不同颜色</b>的天然食物（绿色的菠菜、红色的番茄、紫色的甘蓝…）</td></tr>
+    <tr><td><b>种类目标</b></td><td>每周摄入不少于 <b>25 种</b>不同的食物，特别是蔬菜、水果、全谷物和豆类</td></tr>
+    <tr><td><b>主食升级</b></td><td>用糙米、燕麦、藜麦、红薯等全谷物和杂粮薯类，替代部分精白米面</td></tr>
+  </table>
+
+  <!-- ================= 03 ================= -->
+  <div class="sec-head"><div class="num">03</div><h2>防肠癌的巩固防线</h2><span class="en">BEYOND DIET</span></div>
+
+  <div class="card">
+    <p>除了优化饮食，以下四点同样至关重要。它们与健康饮食<b>协同作用</b>，构成更全面的预防网络：</p>
+  </div>
+
+  <div class="grid">
+    <div class="item"><div class="t"><span class="dot"></span>1. 规律运动，打破静坐</div><p>久坐会延缓肠道蠕动。每周至少 <b>150 分钟</b>中等强度运动（快走、游泳），可显著降低癌前病变——肠道息肉的发生风险。</p></div>
+    <div class="item"><div class="t"><span class="dot"></span>2. 坚决戒烟，严格限酒</div><p>烟草烟雾含数十种明确致癌物；<b>日饮酒量每增加 10 克，肠癌风险约增加 7%</b>。</p></div>
+    <div class="item"><div class="t"><span class="dot"></span>3. 管理体重与腰围</div><p>腹型肥胖（男性腰围 <b>≥85cm</b>、女性 <b>≥80cm</b>）是肠癌的<b>独立危险因素</b>，控制体重能直接降低风险。</p></div>
+    <div class="item"><div class="t"><span class="dot"></span>4. 主动筛查，早期干预</div><p>息肉到癌变通常需 <b>5–10 年</b>（筛查黄金窗口）。一般人群建议 <b>50 岁</b>起定期结肠镜检查；高危人群（如有家族史）应更早开始。</p></div>
+  </div>
+
+  <!-- ================= 行动清单 ================= -->
+  <div class="sec-head"><div class="num">✓</div><h2>行动清单：从下一餐开始</h2><span class="en">CHECKLIST</span></div>
+
+  <ul class="todo">
+    <li>为餐盘增添一抹绿色——多彩蔬果，每餐 ≥3 种颜色</li>
+    <li>减少一份加工零食——甜品饮料 / 膨化食品 / 方便快餐</li>
+    <li>用杂粮饭替代白米饭——糙米、燕麦、藜麦、红薯</li>
+    <li>加一把坚果（约 10g）或一份豆制品（折合大豆 15–25g）</li>
+    <li>每周 ≥25 种食物 + ≥150 分钟中等强度运动</li>
+    <li>查配料表：成分表冗长且满是化学名词的，放回货架</li>
+    <li>年满 50 岁（或有家族史）安排结肠镜筛查</li>
+  </ul>
+
+  <!-- ================= 论文信息 ================= -->
+  <div class="sec-head"><div class="num">📄</div><h2>论文信息（笔记引用来源）</h2><span class="en">REFERENCE</span></div>
+
+  <div class="src">
+    <b>标题：</b><span class="en">The 3V score and joint associations of low ultra-processed food, biodiverse and plant-based diets on colorectal cancer risk: results from the European Prospective Investigation into Cancer and Nutrition (EPIC) study</span><br>
+    <b>作者：</b>Emine Koc Cakmak, Aline Al Nahas, Bernadette Chimera, Giles Hanley-Cook, Jeroen Berden, Anthony Fardet, et al.<br>
+    <b>出处：</b>Part of THE LANCET Discovery Science · ARTICLES · Volume 90, 103662, December 2025 · Open Access
+  </div>
+
+  <!-- ================= 附录 OCR ================= -->
+  <div class="sec-head"><div class="num">📎</div><h2>附录：逐图 OCR 全文</h2><span class="en">APPENDIX</span></div>
+
+  <div class="order-note">🔎 <b>页序说明</b>：图片 DOM 顺序 ≠ 阅读顺序。经「句子接龙」逐页校验，本笔记真实阅读顺序为 <b>page02（封面）→ page03（01 研究）→ page04（02 机制+一低）→ page05（一高+二高）→ page01（03 防线+写在最后）</b>。</div>
+
+  <details class="ocr">
+    <summary>page01.webp —— 03 防肠癌的巩固防线 + 写在最后</summary>
+    <div class="body">
+      <p>The Lancet Confirms: One Simple Dietary Habit Linked to a 30% Lower Risk of Colorectal Cancer</p>
+      <p><b>03 防肠癌的巩固防线</b></p>
+      <p>除了优化饮食，以下四点同样至关重要。它们与健康饮食协同作用，构成更全面的预防网络。</p>
+      <p><b>1. 规律运动，打破静坐</b>：久坐会延缓肠道蠕动。争取每周进行至少150分钟的中等强度运动（如快走、游泳），可使癌前病变——肠道息肉的发生风险显著降低。</p>
+      <p><b>2. 坚决戒烟，严格限酒</b>：烟草烟雾中含有数十种明确致癌物。酒精摄入则与肠癌风险直接相关，研究表明日饮酒量每增加10克，肠癌风险约增加7%。</p>
+      <p><b>3. 管理体重与腰围</b>：肥胖，特别是腹型肥胖（男性腰围≥85厘米，女性≥80厘米），是肠癌的独立危险因素。控制体重能直接降低风险。</p>
+      <p><b>4. 主动筛查，早期干预</b>：肠癌发展缓慢，从息肉到癌变通常需要5-10年，这为筛查提供了黄金窗口。建议一般人群从50岁开始定期进行结肠镜检查等筛查，高危人群（如有家族史）应更早开始。</p>
+      <p><b>写在最后</b>：预防肠癌，并不需要一场翻天覆地的饮食革命。从下一餐开始，有意识地为餐盘增添一抹绿色、减少一份加工零食、用杂粮饭替代白米饭、站起来活动几分钟……正是这些看似微小的、可持续的「一低两高」选择，日积月累，便能汇集成强大的健康护盾。</p>
+    </div>
+  </details>
+
+  <details class="ocr">
+    <summary>page02.webp —— 封面</summary>
+    <div class="body">
+      <p>Part of THE LANCET Discovery Science　|　This journal · Journals · Publish · Clinical · Global health · Multimedia · Events · About</p>
+      <p>ARTICLES · Volume 90, 103662, December 2025 · Open Access　⬇ Download Full Issue</p>
+      <p><span class="en">The 3V score and joint associations of low ultra-processed food, biodiverse and plant-based diets on colorectal cancer risk: results from the European Prospective Investigation into Cancer and Nutrition (EPIC) study</span></p>
+      <p>Emine Koc Cakmak · Aline Al Nahas · Bernadette Chimera · Giles Hanley-Cook · Jeroen Berden · Anthony Fardet · et al.　|　Affiliations &amp; Notes · Article Info　|　Download PDF · Cite · Share · Set Alert · Get Rights · Reprints</p>
+      <p><b>Summary → Background</b>：Diet may modify colorectal cancer risk. We investigated the associations of three dietary patterns, ultra-processed food (UPF) consumption, healthy plant-based food consumption, and food biodiversity, separately and combined into a "3V" score with risk of colorectal cancer.</p>
+      <p><b>@Aria Wellness</b></p>
+      <p>柳叶刀实锤：吃饭时多做 1 件事，肠癌风险直降近 30%<br>The Lancet Confirms: One Simple Dietary Habit Linked to a 30% Lower Risk of Colorectal Cancer</p>
+    </div>
+  </details>
+
+  <details class="ocr">
+    <summary>page03.webp —— 01 防癌最新研究</summary>
+    <div class="body">
+      <p>The Lancet Confirms: One Simple Dietary Habit Linked to a 30% Lower Risk of Colorectal Cancer</p>
+      <p>我们常说「病从口入」，但你可能不知道，吃对东西，也能为肠道筑起一道坚固的防线。</p>
+      <p>一项发表于《柳叶刀》子刊、覆盖45万欧洲人群的大型研究，首次将「低超加工食品、高植物性饮食、高食物多样性」这三条饮食原则联合起来，提出一个全新的「3V饮食」策略——结果令人振奋：坚持这一模式，结直肠癌风险可降低近30%。</p>
+      <p><b>01 防癌最新研究：一低两高，风险降低近30%</b></p>
+      <p>这项《柳叶刀》研究来自欧洲癌症与营养前瞻调查（EPIC）队列，研究人员追踪了45万名中老年人近15年，记录了超过6000例结直肠癌病例。</p>
+      <p>他们发现，长期遵循「一低两高」的饮食模式——即低超加工食品、高植物性饮食、高食物多样性——与结直肠癌风险显著降低相关：</p>
+      <p>· 结直肠癌总体风险降低 27%　· 结肠癌风险降低 28%　· 直肠癌风险降低 35%</p>
+      <p>（下方为论文页面截图：The 3V score and joint associations of low ultra-processed food, biodiverse and plant-based diets on colorectal cancer risk — EPIC study, Volume 90, 103662, December 2025, Open Access）</p>
+    </div>
+  </details>
+
+  <details class="ocr">
+    <summary>page04.webp —— 02 如何实践「一低两高」· 机制 + 一低</summary>
+    <div class="body">
+      <p>The Lancet Confirms: One Simple Dietary Habit Linked to a 30% Lower Risk of Colorectal Cancer</p>
+      <p><b style="color:#b3402a">更值得注意的是，这种保护作用是累加式的：每多坚持一条原则，风险就进一步降低。而当三条原则同时做到时，效果最为显著。</b></p>
+      <p>为什么这样吃能防癌？研究指出，这三种饮食方式协同作用，从多个层面保护肠道：</p>
+      <p>· 优化肠道菌群构成：多样化的植物性食物为有益菌提供「养料」<br>· 缩短致癌物滞留时间：膳食纤维促进排便，减少有害物质接触肠壁<br>· 增强肠道黏膜屏障：天然食物中的活性成分有助于维持肠壁完整性<br>· 减轻全身性慢性炎症：减少促炎的超加工食品，降低炎症水平</p>
+      <p>这些机制，正是从源头上预防肠癌的关键环节。</p>
+      <p><b>02 如何实践「一低两高」？</b></p>
+      <p><b>✅ 一低：为餐桌做「减法」，减少超加工食品</b></p>
+      <p>超加工食品指的是那些经过复杂工业加工、含有大量添加剂、糖、盐和不健康脂肪，且天然成分极少的食品。它们是促炎饮食的代表。</p>
+      <p>研究显示，这类食品摄入量越高，结直肠癌风险越大，尤其在结肠部位表现明显。</p>
+      <p>需要警惕的「隐形负担」：· 甜品饮料：含糖饮料、奶茶、预包装蛋糕、饼干、冰淇淋　· 休闲零食：膨化食品、糖果、辣条　· 便捷快餐：火腿肠、培根、速冻披萨、方便面、汉堡炸鸡</p>
+      <p><b>行动建议</b>：购物时养成查看配料表的习惯。如果成分表冗长，充斥着你不认识的化学名词（如氢化植物油、果葡糖浆等），最好将其放回货架。</p>
+    </div>
+  </details>
+
+  <details class="ocr">
+    <summary>page05.webp —— 一高 + 二高</summary>
+    <div class="body">
+      <p>The Lancet Confirms: One Simple Dietary Habit Linked to a 30% Lower Risk of Colorectal Cancer</p>
+      <p><b>✅ 一高：增加高质量植物性食物比例</b></p>
+      <p>这并非要求完全素食，而是有意识地提升天然、完整植物性食物在餐盘中的占比。</p>
+      <p>研究中，高「健康植物性饮食指数」（hPDI）的人群，结直肠癌风险显著更低。这类饮食强调多摄入全谷物、蔬菜、水果、坚果、豆类，同时减少动物性食物和「不健康」的植物性食物（如果汁、精制谷物）。</p>
+      <p>日常可以这样安排：</p>
+      <p>· 豆制品——优质蛋白源：豆腐、豆浆、豆干等是肉类的良好补充或替代。《中国居民膳食指南（2022）》建议每日摄入相当于15-25克大豆的豆制品。</p>
+      <p>· 坚果种子——「聪明」的零食：富含健康脂肪、维生素E和矿物质。建议每日摄入约10克（相当于一小把核桃仁或巴旦木）。</p>
+      <p>· 多彩蔬果——营养与纤维宝库：确保每日摄入300-500克蔬菜（尤其是深色蔬菜）和200-350克新鲜水果。它们提供丰富的维生素、矿物质和抗癌的植物化学物。</p>
+      <p><b>✅ 二高：追求食物多样性，吃得「杂」一些</b></p>
+      <p>你可能没想到，吃得「杂」本身就是一种保护。</p>
+      <p>这项研究首次将食物生物多样性纳入防癌饮食框架，发现摄入的物种越多，结直肠癌风险越低。此前已有研究证实，食物多样性与更低的死亡风险密切相关。</p>
+      <p>实践技巧：</p>
+      <p>· 色彩管理：确保每餐餐盘中有至少3种不同颜色的天然食物（如绿色的菠菜、红色的番茄、紫色的甘蓝）</p>
+      <p>· 种类目标：争取每周摄入不少于25种不同的食物，特别是蔬菜、水果、全谷物和豆类</p>
+      <p>· 主食升级：用糙米、燕麦、藜麦、红薯等全谷物和杂粮薯类，替代部分精白米面</p>
+    </div>
+  </details>
+
+  <div class="disclaimer">⚠️ 免责声明：本文为社交媒体笔记的内容整理，仅供健康知识参考，不构成医疗建议。具体筛查与饮食方案请咨询专业医生。</div>
+
+</div>
+</body>
+</html>

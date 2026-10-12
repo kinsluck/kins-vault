@@ -9,7 +9,7 @@
 [![License](https://img.shields.io/badge/license-MIT-blue?style=flat-square)](LICENSE)
 [![PRs](https://img.shields.io/badge/PRs-welcome-ff69b4?style=flat-square)](#-反馈与建议)
 
-**15 个页面 · 6 个分类 · 单文件 · 零依赖**
+**20 个页面 · 6 个分类 · 单文件 · 零依赖**
 
 </div>
 
@@ -74,6 +74,7 @@ kins-vault/
 | 页面 | 简介 |
 | :--- | :--- |
 | [**Godot 游戏开发学习路径**](https://kinsluck.github.io/kins-vault/dev/godot-learning-path.html) | 汇总顶级开发者建议的学习路线：从入门到能独立做出游戏的推荐顺序 |
+| [**图片压缩方案调研与实测**](https://kinsluck.github.io/kins-vault/dev/image-compression-research.html) | 各家压缩方案横向实测对比：体积、画质与实际使用取舍 |
 
 ### 📊 数据可视化
 
@@ -89,6 +90,7 @@ kins-vault/
 | :--- | :--- |
 | [**大理洱海边各区域租房调研**](https://kinsluck.github.io/kins-vault/life/dali-erhai-rental-research.html) | 洱海边各区域的租金、环境与生活便利度对比总结 |
 | [**原木风装修避坑指南**](https://kinsluck.github.io/kins-vault/life/wood-style-renovation-guide.html) | 「十几万的高级感，都是实木给的」—— 落地要点与避坑清单 |
+| [**装修全流程总结**](https://kinsluck.github.io/kins-vault/life/renovation-full-process-guide.html) | 不误工期、不被忽悠、不踩坑 —— 从开工到验收的完整流程梳理 |
 | [**啤酒探索清单**](https://kinsluck.github.io/kins-vault/life/beer-exploration-list.html) | 以施纳德 5 号 / 督威三花 / 金麦为基准的风味坐标 |
 | [**普通男生快速脱单法**](https://kinsluck.github.io/kins-vault/life/dating-guide.html) | 资源 · 筛选 · 搭讪，双视频整合后的方法梳理 |
 | [**0-3 岁婴幼儿养育照护手册**](https://kinsluck.github.io/kins-vault/life/baby-care-handbook.html) | 从出生开始的衣食住行速查：喂养、睡眠、穿盖、日常护理要点 |
@@ -99,12 +101,15 @@ kins-vault/
 | :--- | :--- |
 | [**小米 Redmi G27U 显示器评测笔记**](https://kinsluck.github.io/kins-vault/gear/redmi-g27u-monitor-review.html) | 4K 160Hz 双模 IPS 实测：色域、亮度、接口与调校取舍 |
 | [**主机模拟器开发现状报告 · 2026**](https://kinsluck.github.io/kins-vault/gear/emulator-report-2026.html) | 第七世代 → 第九世代，各家模拟器现状横向盘点 |
+| [**猛玛 LARK A1 无线麦克风 · 说明书**](https://kinsluck.github.io/kins-vault/gear/hollyland-lark-a1-manual.html) | 离线速查版说明书：配对、按键、指示灯与常见问题 |
 
 ### 📚 阅读笔记
 
 | 页面 | 简介 |
 | :--- | :--- |
 | [**Nature 重磅综述：2型糖尿病**](https://kinsluck.github.io/kins-vault/reading/nature-t2dm-review.html) | 「根本不是血糖高那么简单」—— 关于 2 型糖尿病的认知重塑 |
+| [**柳叶刀：吃饭习惯与肠癌风险**](https://kinsluck.github.io/kins-vault/reading/lancet-colorectal-cancer-notes.html) | 饮食结构与结直肠癌风险的关联研究，观点整理 |
+| [**为什么跑得再多还是脂肪肝？**](https://kinsluck.github.io/kins-vault/reading/fatty-liver-notes.html) | 「一周跑四次五公里依然中招」背后的机制，观点整理 |
 
 ## ✨ 收录原则
 
