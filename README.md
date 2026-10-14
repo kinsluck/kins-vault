@@ -9,7 +9,7 @@
 [![License](https://img.shields.io/badge/license-MIT-blue?style=flat-square)](LICENSE)
 [![PRs](https://img.shields.io/badge/PRs-welcome-ff69b4?style=flat-square)](#-反馈与建议)
 
-**21 个页面 · 6 个分类 · 单文件 · 零依赖**
+**22 个页面 · 6 个分类 · 单文件 · 零依赖**
 
 </div>
 
@@ -103,6 +103,7 @@ kins-vault/
 | [**小米 Redmi G27U 显示器评测笔记**](https://kinsluck.github.io/kins-vault/gear/redmi-g27u-monitor-review.html) | 4K 160Hz 双模 IPS 实测：色域、亮度、接口与调校取舍 |
 | [**主机模拟器开发现状报告 · 2026**](https://kinsluck.github.io/kins-vault/gear/emulator-report-2026.html) | 第七世代 → 第九世代，各家模拟器现状横向盘点 |
 | [**猛玛 LARK A1 无线麦克风 · 说明书**](https://kinsluck.github.io/kins-vault/gear/hollyland-lark-a1-manual.html) | 离线速查版说明书：配对、按键、指示灯与常见问题 |
+| [**家电甜点级选购体系**](https://kinsluck.github.io/kins-vault/gear/home-appliance-buying-framework.html) | 24 类家电的关键指标、达标线与甜点线 —— 不买参数最高的，只买核心技术已成熟、再加钱收益迅速下降的 |
 
 ### 📚 阅读笔记
 

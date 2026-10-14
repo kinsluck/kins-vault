@@ -1,0 +1,1320 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>家电甜点级选购体系 · 关键指标 + 甜点配置 + 社区共识型号</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%20100%20100%22%3E%3Ctext%20y%3D%22.9em%22%20font-size%3D%2290%22%3E%F0%9F%94%8C%3C%2Ftext%3E%3C%2Fsvg%3E">
+<style>
+:root{
+  --ink:#171a20;
+  --ink2:#3d4654;
+  --muted:#6b7686;
+  --faint:#98a2b3;
+  --line:#e4e8ef;
+  --line2:#eef1f6;
+  --bg:#f5f7fa;
+  --card:#ffffff;
+  --accent:#2563eb;
+  --accent-soft:#eef4ff;
+  --thermo:#e8590c;
+  --mech:#0b8a6b;
+  --display:#7048e8;
+  --filter:#1c7ed6;
+  --mature:#f08c00;
+  --ok:#0b8a6b;
+  --warn:#c2410c;
+  --r:14px;
+  --shadow:0 1px 2px rgba(16,24,40,.04),0 8px 24px -12px rgba(16,24,40,.12);
+}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{
+  margin:0;
+  background:var(--bg);
+  color:var(--ink);
+  font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Hiragino Sans GB","Microsoft YaHei","Source Han Sans SC","Noto Sans CJK SC",sans-serif;
+  font-size:15px;
+  line-height:1.72;
+  -webkit-font-smoothing:antialiased;
+}
+h1,h2,h3,h4{margin:0;font-weight:700;line-height:1.35;letter-spacing:-.01em}
+p{margin:0}
+a{color:var(--accent);text-decoration:none}
+.wrap{max-width:1120px;margin:0 auto;padding:0 20px}
+
+/* ============ hero ============ */
+.hero{
+  background:
+    radial-gradient(1100px 380px at 12% -30%, #e8f0ff 0%, rgba(232,240,255,0) 62%),
+    radial-gradient(760px 320px at 92% -20%, #fdeee6 0%, rgba(253,238,230,0) 60%),
+    #fff;
+  border-bottom:1px solid var(--line);
+  padding:52px 0 40px;
+}
+.hero .kicker{
+  display:inline-flex;align-items:center;gap:8px;
+  height:28px;padding:0 12px;border-radius:999px;
+  background:var(--accent-soft);color:var(--accent);
+  font-size:12.5px;font-weight:600;letter-spacing:.02em;
+  margin-bottom:20px;
+}
+.hero h1{font-size:clamp(26px,3.6vw,40px);letter-spacing:-.025em}
+.hero h1 em{font-style:normal;color:var(--accent)}
+.hero .sub{margin-top:16px;max-width:760px;color:var(--ink2);font-size:16.5px}
+.hero .sub b{color:var(--ink);font-weight:600}
+.hero .metaline{margin-top:22px;display:flex;flex-wrap:wrap;gap:8px 18px;color:var(--muted);font-size:13px}
+.hero .metaline span{display:inline-flex;align-items:center;gap:6px}
+
+/* ============ toolbar ============ */
+.toolbar{
+  position:sticky;top:0;z-index:50;
+  background:rgba(255,255,255,.92);
+  backdrop-filter:saturate(180%) blur(12px);
+  -webkit-backdrop-filter:saturate(180%) blur(12px);
+  border-bottom:1px solid var(--line);
+  padding:10px 0;
+}
+.tb-inner{display:flex;align-items:center;gap:12px;flex-wrap:wrap}
+.searchbox{position:relative;flex:1 1 260px;min-width:200px}
+.searchbox input{
+  width:100%;height:40px;border:1px solid var(--line);border-radius:11px;
+  background:#fff;padding:0 36px 0 38px;font-size:14.5px;color:var(--ink);
+  font-family:inherit;outline:none;transition:border-color .15s,box-shadow .15s;
+}
+.searchbox input:focus{border-color:#b9cdfb;box-shadow:0 0 0 3px rgba(37,99,235,.1)}
+.searchbox input::placeholder{color:var(--faint)}
+.searchbox .si{position:absolute;left:13px;top:50%;transform:translateY(-50%);color:var(--faint);font-size:15px;pointer-events:none}
+.searchbox .clr{
+  position:absolute;right:8px;top:50%;transform:translateY(-50%);
+  width:24px;height:24px;border:0;border-radius:8px;background:#eef1f6;color:var(--muted);
+  font-size:13px;line-height:1;cursor:pointer;display:none;
+}
+.searchbox.hasval .clr{display:block}
+.chips{display:flex;gap:7px;flex-wrap:wrap}
+.chip{
+  height:34px;padding:0 13px;border-radius:999px;border:1px solid var(--line);
+  background:#fff;color:var(--ink2);font-size:13px;font-weight:600;cursor:pointer;
+  font-family:inherit;display:inline-flex;align-items:center;gap:6px;
+  transition:all .14s;white-space:nowrap;
+}
+.chip .dot{width:8px;height:8px;border-radius:50%;background:currentColor;opacity:.85}
+.chip:hover{border-color:#c9d3e3;background:#fafbfd}
+.chip.on{background:var(--ink);border-color:var(--ink);color:#fff}
+.chip.on .dot{opacity:1}
+.tbtn{
+  height:34px;padding:0 13px;border-radius:999px;border:1px solid var(--line);background:#fff;
+  color:var(--ink2);font-size:13px;font-weight:600;cursor:pointer;font-family:inherit;
+  transition:all .14s;white-space:nowrap;
+}
+.tbtn:hover{border-color:#c9d3e3;background:#fafbfd}
+.count{font-size:13px;color:var(--muted);white-space:nowrap;font-variant-numeric:tabular-nums;margin-left:auto;padding-left:4px}
+.count b{color:var(--ink);font-weight:700}
+
+/* ============ sections ============ */
+section{padding:44px 0}
+.sec-head{margin-bottom:22px}
+.sec-head .eyebrow{
+  font-size:12.5px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;
+  color:var(--faint);margin-bottom:8px;
+}
+.sec-head h2{font-size:clamp(20px,2.4vw,26px)}
+.sec-head p{margin-top:10px;color:var(--ink2);max-width:820px}
+
+/* framework */
+.fw-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px;margin-top:6px}
+.fw-card{
+  background:var(--card);border:1px solid var(--line);border-radius:var(--r);
+  padding:20px;box-shadow:var(--shadow);
+}
+.fw-card .n{
+  display:inline-flex;align-items:center;justify-content:center;
+  width:26px;height:26px;border-radius:9px;background:var(--accent-soft);color:var(--accent);
+  font-size:13px;font-weight:700;margin-bottom:12px;
+}
+.fw-card h4{font-size:15.5px;margin-bottom:6px}
+.fw-card p{color:var(--muted);font-size:13.5px}
+.curve{margin-top:18px;background:var(--card);border:1px solid var(--line);border-radius:var(--r);padding:20px;box-shadow:var(--shadow)}
+.svgwrap{width:100%}
+.curve svg{display:block;width:100%;height:auto}
+
+.q6{margin-top:14px;background:#fff;border:1px solid var(--line);border-radius:var(--r);padding:22px;box-shadow:var(--shadow)}
+.q6 h3{font-size:16px;margin-bottom:14px}
+.q6 ol{margin:0;padding:0;list-style:none;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px 22px}
+.q6 li{display:flex;gap:10px;font-size:14px;color:var(--ink2)}
+.q6 li i{
+  font-style:normal;flex:none;width:22px;height:22px;border-radius:7px;background:#f1f4f9;color:var(--muted);
+  font-size:12px;font-weight:700;display:inline-flex;align-items:center;justify-content:center;margin-top:3px;
+}
+
+/* recap table */
+.tbl-wrap{overflow-x:auto;border:1px solid var(--line);border-radius:var(--r);background:#fff;box-shadow:var(--shadow)}
+table.recap{width:100%;border-collapse:collapse;font-size:13.5px;min-width:720px}
+table.recap th{
+  text-align:left;padding:12px 14px;background:#fafbfd;color:var(--muted);
+  font-weight:700;font-size:12.5px;letter-spacing:.03em;border-bottom:1px solid var(--line);white-space:nowrap;
+}
+table.recap td{padding:11px 14px;border-bottom:1px solid var(--line2);vertical-align:top;color:var(--ink2)}
+table.recap tr:last-child td{border-bottom:0}
+table.recap tr:hover td{background:#fafbfd}
+.c-no{width:44px;color:var(--faint);font-variant-numeric:tabular-nums}
+.c-name{width:150px;font-weight:700;color:var(--ink);white-space:nowrap}
+.c-pass{width:22%;color:var(--ink2)}
+.c-sweet{width:30%;color:var(--ok);font-weight:600}
+.c-tag{width:74px}
+.gtag{display:inline-flex;align-items:center;height:22px;padding:0 9px;border-radius:999px;font-size:11.5px;font-weight:700;color:#fff;white-space:nowrap}
+
+/* group header */
+.ghead{display:flex;align-items:center;gap:12px;margin:34px 0 16px}
+.ghead:first-child{margin-top:0}
+.gbar{width:4px;height:26px;border-radius:99px}
+.ghead h3{font-size:19px}
+.ghead .gsub{color:var(--muted);font-size:13.5px;margin-left:auto;text-align:right}
+
+/* appliance card */
+.card{
+  background:var(--card);border:1px solid var(--line);border-radius:var(--r);
+  box-shadow:var(--shadow);margin-bottom:16px;overflow:hidden;scroll-margin-top:70px;
+}
+.card-top{display:flex;align-items:flex-start;gap:14px;padding:20px 22px 0}
+.card-emoji{
+  flex:none;width:44px;height:44px;border-radius:12px;background:#f7f9fc;border:1px solid var(--line2);
+  display:flex;align-items:center;justify-content:center;font-size:22px;line-height:1;
+}
+.card-id{flex:1;min-width:0}
+.card-id .no{font-size:12px;font-weight:700;color:var(--faint);letter-spacing:.08em;font-variant-numeric:tabular-nums}
+.card-id h4{font-size:18.5px;margin-top:2px}
+.card-id .ess{margin-top:6px;color:var(--ink2);font-size:14px}
+.card-id .ess b{color:var(--ink)}
+.card-toggle{
+  flex:none;width:32px;height:32px;border-radius:9px;border:1px solid var(--line);background:#fff;
+  color:var(--muted);cursor:pointer;font-size:16px;line-height:1;font-family:inherit;transition:all .14s;
+}
+.card-toggle:hover{background:#f7f9fc;border-color:#c9d3e3}
+.card-body{padding:16px 22px 22px}
+
+.blk{margin-top:18px}
+.blk:first-child{margin-top:0}
+.blk-h{
+  display:flex;align-items:center;gap:7px;font-size:12.5px;font-weight:700;
+  color:var(--faint);letter-spacing:.06em;text-transform:uppercase;margin-bottom:9px;
+}
+
+/* spec table */
+.spec{border:1px solid var(--line);border-radius:11px;overflow:hidden}
+.sp-head{display:grid;grid-template-columns:126px minmax(0,1fr) 128px 138px;gap:0;background:#fafbfd;border-bottom:1px solid var(--line)}
+.sp-head div{padding:9px 12px;font-size:11.5px;font-weight:700;color:var(--muted);letter-spacing:.04em}
+.sp-row{display:grid;grid-template-columns:126px minmax(0,1fr) 128px 138px;gap:0;border-bottom:1px solid var(--line2)}
+.sp-row:last-child{border-bottom:0}
+.sp-row:hover{background:#fcfdff}
+.sp-k{padding:12px;font-weight:700;font-size:13.5px;color:var(--ink);border-right:1px solid var(--line2)}
+.sp-d{padding:12px;font-size:13.5px;color:var(--ink2);border-right:1px solid var(--line2)}
+.sp-p{padding:12px;font-size:13.5px;color:var(--ink2);border-right:1px solid var(--line2)}
+.sp-s{padding:12px;font-size:13.5px;font-weight:600;color:var(--ok)}
+.sp-s.mut{color:var(--muted);font-weight:500}
+
+/* chips row (config) */
+.cfgbox{background:#f7fbf9;border:1px solid #d8ece3;border-radius:11px;padding:13px 15px}
+.cfgbox .blk-h{color:#0b8a6b;margin-bottom:9px}
+.taglist{display:flex;flex-wrap:wrap;gap:7px}
+.tag{
+  display:inline-flex;align-items:center;height:26px;padding:0 11px;border-radius:8px;
+  font-size:12.5px;font-weight:600;line-height:1;background:#fff;border:1px solid #cfe6dc;color:#0a6d55;
+}
+.tag.neg{background:#fff8f5;border-color:#f6d9cb;color:var(--warn)}
+.tag.neu{background:#f5f7fa;border-color:var(--line);color:var(--ink2)}
+
+/* picks */
+.pick{
+  display:grid;grid-template-columns:minmax(0,1fr) auto;gap:4px 14px;
+  padding:13px 15px;border:1px solid var(--line);border-radius:11px;margin-bottom:9px;background:#fff;
+}
+.pick:last-child{margin-bottom:0}
+.pick .pm{font-weight:700;font-size:14px;color:var(--ink);display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+.pick .pp{font-size:14px;font-weight:700;color:var(--accent);white-space:nowrap;font-variant-numeric:tabular-nums}
+.pick .ps{grid-column:1/-1;color:var(--ink2);font-size:13px}
+.pick .pn{grid-column:1/-1;color:var(--muted);font-size:12.5px;margin-top:2px}
+.badge{
+  display:inline-flex;align-items:center;height:20px;padding:0 8px;border-radius:6px;
+  font-size:11px;font-weight:700;letter-spacing:.02em;line-height:1;
+}
+.badge.cons{background:#eaf7f2;color:#0a6d55}
+.badge.ref{background:#f1f4f9;color:var(--muted)}
+
+.notebar{
+  margin-top:16px;display:flex;gap:9px;padding:12px 14px;border-radius:11px;
+  background:#fffbf0;border:1px solid #f4e6c3;font-size:13px;color:#7a5b16;
+}
+.notebar .ico{flex:none;font-size:14px;line-height:1.5}
+
+/* tco */
+.tco{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px;margin-top:8px}
+.field{display:flex;flex-direction:column;gap:6px}
+.field label{font-size:12.5px;font-weight:700;color:var(--muted)}
+.field input{
+  height:40px;border:1px solid var(--line);border-radius:10px;padding:0 12px;font-size:14.5px;
+  font-family:inherit;color:var(--ink);background:#fff;outline:none;width:100%;
+  font-variant-numeric:tabular-nums;transition:border-color .15s,box-shadow .15s;
+}
+.field input:focus{border-color:#b9cdfb;box-shadow:0 0 0 3px rgba(37,99,235,.1)}
+.tco-out{
+  margin-top:18px;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;
+}
+.stat{background:#fafbfd;border:1px solid var(--line);border-radius:11px;padding:14px 16px}
+.stat .sl{font-size:12.5px;color:var(--muted);font-weight:600}
+.stat .sv{font-size:24px;font-weight:700;margin-top:4px;font-variant-numeric:tabular-nums;letter-spacing:-.02em}
+.stat .sv small{font-size:13px;color:var(--muted);font-weight:600;margin-left:3px}
+.stat.hi{background:var(--accent-soft);border-color:#d3e0ff}
+.stat.hi .sv{color:var(--accent)}
+.bar{height:9px;border-radius:99px;background:#eef1f6;overflow:hidden;display:flex;margin-top:16px}
+.bar i{display:block;height:100%}
+.legend{display:flex;gap:16px;flex-wrap:wrap;margin-top:10px;font-size:12.5px;color:var(--muted)}
+.legend span{display:inline-flex;align-items:center;gap:6px}
+.legend b{display:inline-block;width:10px;height:10px;border-radius:3px}
+.presets{display:flex;gap:7px;flex-wrap:wrap;margin-bottom:16px}
+
+/* footer */
+footer{background:#fff;border-top:1px solid var(--line);padding:34px 0 46px;margin-top:34px}
+footer .ft{color:var(--muted);font-size:13px;max-width:900px}
+footer .ft b{color:var(--ink2)}
+footer .ft p+p{margin-top:9px}
+.disclaim{
+  margin-top:16px;border-left:3px solid #f0c674;background:#fffdf6;padding:13px 16px;border-radius:0 10px 10px 0;
+  font-size:13px;color:#6b5a2a;
+}
+.empty{
+  text-align:center;padding:56px 20px;color:var(--muted);
+}
+.empty .big{font-size:34px;margin-bottom:10px}
+.card.hidden,.gblock.hidden{display:none}
+
+@media screen and (max-width:980px){
+  .fw-grid{grid-template-columns:1fr}
+  .q6 ol{grid-template-columns:1fr}
+  .tco{grid-template-columns:repeat(2,minmax(0,1fr))}
+}
+@media screen and (max-width:720px){
+  body{font-size:14.5px}
+  .hero{padding:36px 0 30px}
+  section{padding:32px 0}
+  .wrap{padding:0 14px}
+  .svgwrap{overflow-x:auto;-webkit-overflow-scrolling:touch}
+  .curve svg{min-width:640px}
+  .card-top{padding:16px 16px 0}
+  .card-body{padding:14px 16px 18px}
+  .sp-head{display:none}
+  .sp-row{grid-template-columns:1fr;border-bottom:1px solid var(--line);padding:4px 0 8px}
+  .sp-row:last-child{border-bottom:0}
+  .sp-k{border-right:0;padding:8px 12px 4px;font-size:14px}
+  .sp-d,.sp-p,.sp-s{border-right:0;padding:2px 12px}
+  .sp-d::before,.sp-p::before,.sp-s::before{
+    content:attr(data-l);display:inline-block;min-width:52px;color:var(--faint);
+    font-weight:700;font-size:11.5px;margin-right:6px;letter-spacing:.02em;
+  }
+  .sp-s{font-weight:600}
+  .pick{grid-template-columns:1fr}
+  .pick .pp{grid-column:1/-1}
+  .tco{grid-template-columns:1fr}
+  .tco-out{grid-template-columns:1fr}
+  .ghead{flex-wrap:wrap}
+  .ghead .gsub{margin-left:0;text-align:left;width:100%}
+  .hero .metaline{font-size:12.5px}
+  .card-toggle{width:30px;height:30px}
+}
+@media screen and (max-width:480px){
+  .card-emoji{width:38px;height:38px;font-size:19px}
+  .card-id h4{font-size:17px}
+  table.recap{font-size:13px}
+  table.recap th,table.recap td{padding:9px 10px}
+}
+</style>
+</head>
+<body>
+
+<header class="hero">
+  <div class="wrap">
+    <div class="kicker">家电选购底层逻辑 · 深化版</div>
+    <h1>家电甜点级选购体系：<em>指标 → 甜点配置 → 共识型号</em></h1>
+    <p class="sub">
+      不买参数最高的家电，而是买<b>核心技术已经成熟、核心体验已经很好、再往上加钱收益迅速下降</b>的产品。
+      本页把 24 类家电拆成三层：<b>第一层是它真正解决的物理问题</b>，<b>第二层是决定体验的 3～5 个指标与达标线／甜点线</b>，
+      <b>第三层才是社区共识的甜点型号与价位带</b>。品牌永远在第二层。
+    </p>
+    <div class="metaline">
+      <span>🔎 支持搜索与分类筛选</span>
+      <span>📐 指标含「达标线」与「甜点线」两档</span>
+      <span>🛒 型号为 2026 年社区共识口径，含复核提醒</span>
+      <span>🧮 内置 5 年 TCO 计算器</span>
+    </div>
+  </div>
+</header>
+
+<div class="toolbar">
+  <div class="wrap tb-inner">
+    <div class="searchbox" id="sbox">
+      <span class="si">🔍</span>
+      <input id="q" type="search" placeholder="搜索家电、指标或型号，例如「双蒸发器」「静压」「RX600」…" autocomplete="off">
+      <button class="clr" id="clr" type="button" aria-label="清空">✕</button>
+    </div>
+    <div class="chips" id="chips"></div>
+    <button class="tbtn" id="toggleAll" type="button">收起全部</button>
+    <div class="count" id="count"></div>
+  </div>
+</div>
+
+<section>
+  <div class="wrap">
+    <div class="sec-head">
+      <div class="eyebrow">Framework</div>
+      <h2>先建立判断顺序，再去看型号</h2>
+      <p>同一件事在三层上有着完全不同的确定性：物理层永远不变，指标层十年一变，型号层半年就变。所以判断必须自上而下，否则你只是在追参数。</p>
+    </div>
+
+    <div class="fw-grid">
+      <div class="fw-card">
+        <div class="n">1</div>
+        <h4>这台家电真正解决的物理问题是什么？</h4>
+        <p>冰箱是「把热量搬出去」，热水器是「在给定时间内把水加热」，吸尘器是「用气流把颗粒带走」。答不上来这一句，后面所有参数都是盲选。</p>
+      </div>
+      <div class="fw-card">
+        <div class="n">2</div>
+        <h4>哪 3 个指标真正决定体验？</h4>
+        <p>每个品类里，真正决定日常体验的指标通常不超过 5 个，而且它们几乎都不是广告主推的那几个。本页每台家电的指标表，就是按「影响力」而不是「宣传量」排序的。</p>
+      </div>
+      <div class="fw-card">
+        <div class="n">3</div>
+        <h4>从哪个价格开始，边际收益明显下降？</h4>
+        <p>绝大多数家电在越过甜点线之后，多出来的钱买的是品牌、设计、材质和智能功能，而不是核心体验。甜点线以上的每一档，都要问「我到底买到了什么」。</p>
+      </div>
+    </div>
+
+    <div class="curve">
+      <div class="blk-h">边际收益递减与「甜点区」</div>
+      <div class="svgwrap">
+      <svg viewBox="0 0 900 300" role="img" aria-label="家电价格与体验的边际收益递减曲线">
+        <defs>
+          <linearGradient id="gfill" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0%" stop-color="#2563eb" stop-opacity="0.16"/>
+            <stop offset="100%" stop-color="#2563eb" stop-opacity="0.01"/>
+          </linearGradient>
+        </defs>
+        <!-- grid -->
+        <g stroke="#eef1f6" stroke-width="1">
+          <line x1="70" y1="40" x2="860" y2="40"/>
+          <line x1="70" y1="95" x2="860" y2="95"/>
+          <line x1="70" y1="150" x2="860" y2="150"/>
+          <line x1="70" y1="205" x2="860" y2="205"/>
+        </g>
+        <!-- axes -->
+        <line x1="70" y1="20" x2="70" y2="240" stroke="#d7dde7" stroke-width="1.5"/>
+        <line x1="70" y1="240" x2="870" y2="240" stroke="#d7dde7" stroke-width="1.5"/>
+        <!-- sweet zone -->
+        <rect x="230" y="20" width="200" height="220" fill="#0b8a6b" opacity="0.06"/>
+        <line x1="230" y1="20" x2="230" y2="240" stroke="#0b8a6b" stroke-width="1.2" stroke-dasharray="4 4" opacity="0.6"/>
+        <line x1="430" y1="20" x2="430" y2="240" stroke="#0b8a6b" stroke-width="1.2" stroke-dasharray="4 4" opacity="0.6"/>
+        <text x="330" y="38" text-anchor="middle" font-size="13" font-weight="700" fill="#0a6d55">甜点区</text>
+        <!-- area -->
+        <path d="M70,232 C150,150 190,96 250,72 C330,44 450,36 570,32 C690,29 790,27 860,26 L860,240 L70,240 Z" fill="url(#gfill)"/>
+        <!-- curve -->
+        <path d="M70,232 C150,150 190,96 250,72 C330,44 450,36 570,32 C690,29 790,27 860,26"
+              fill="none" stroke="#2563eb" stroke-width="3" stroke-linecap="round"/>
+        <!-- markers -->
+        <circle cx="150" cy="150" r="5" fill="#fff" stroke="#94a3b8" stroke-width="2.5"/>
+        <circle cx="330" cy="50" r="5.5" fill="#fff" stroke="#0b8a6b" stroke-width="3"/>
+        <circle cx="750" cy="29" r="5" fill="#fff" stroke="#e8590c" stroke-width="2.5"/>
+        <text x="150" y="272" text-anchor="middle" font-size="12.5" font-weight="600" fill="#6b7686">低配：核心体验缺失</text>
+        <text x="330" y="272" text-anchor="middle" font-size="12.5" font-weight="700" fill="#0a6d55">甜点：核心技术都成熟了</text>
+        <text x="750" y="272" text-anchor="middle" font-size="12.5" font-weight="600" fill="#c2410c">溢价：买品牌 / 设计 / 智能</text>
+        <text x="60" y="24" text-anchor="end" font-size="12" fill="#98a2b3">体验</text>
+        <text x="868" y="262" text-anchor="end" font-size="12" fill="#98a2b3">价格 →</text>
+      </svg>
+      </div>
+    </div>
+
+    <div class="q6">
+      <h3>买任何家电，先自问这 6 个问题</h3>
+      <ol>
+        <li><i>1</i><span>这个家电真正解决的物理问题是什么？</span></li>
+        <li><i>2</i><span>哪 3 个参数真正决定使用体验？</span></li>
+        <li><i>3</i><span>哪些是真技术进步，哪些只是营销词？</span></li>
+        <li><i>4</i><span>哪些功能已经成熟，不需要追最新？</span></li>
+        <li><i>5</i><span>从哪个价格开始，边际收益明显下降？</span></li>
+        <li><i>6</i><span>算上电费、耗材、维修，5～10 年总成本是多少？</span></li>
+      </ol>
+    </div>
+  </div>
+</section>
+
+<section style="padding-top:0">
+  <div class="wrap">
+    <div class="sec-head">
+      <div class="eyebrow">TL;DR</div>
+      <h2>速查表：24 类家电的达标线、甜点线与甜点价位带</h2>
+      <p>「达标线」= 低于这条线会明显影响核心体验，别买；「甜点线」= 到这条线，核心体验已经到位，再加钱收益迅速下降。</p>
+    </div>
+    <div class="tbl-wrap">
+      <table class="recap">
+        <thead>
+          <tr><th class="c-no">#</th><th class="c-name">品类</th><th class="c-pass">达标线（低于别买）</th><th class="c-sweet">甜点线（到这就够）</th><th class="c-tag">归类</th></tr>
+        </thead>
+        <tbody id="recapBody"></tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<section style="padding-top:0">
+  <div class="wrap">
+    <div class="sec-head">
+      <div class="eyebrow">Deep dive</div>
+      <h2>逐台拆解：指标、甜点配置与社区共识型号</h2>
+      <p>每张卡片包含：物理本质 → 关键指标（含达标线与甜点线）→ 甜点配置组合 → 社区共识型号与价位带 → 不值得花钱的营销项 → 长期成本提醒。</p>
+    </div>
+    <div id="cards"></div>
+    <div class="empty hidden" id="empty">
+      <div class="big">🔍</div>
+      <div>没有匹配的家电或型号，换个关键词试试。</div>
+    </div>
+  </div>
+</section>
+
+<section style="padding-top:0">
+  <div class="wrap">
+    <div class="sec-head">
+      <div class="eyebrow">Total cost</div>
+      <h2>5 年 TCO 计算器：机器便宜 ≠ 划算</h2>
+      <p>净水器、空气净化器、烘干机、扫地机器人这类产品的真实成本，一半在耗材和电费里。填四个数字就知道谁更划算。</p>
+    </div>
+    <div class="fw-card">
+      <div class="presets" id="presets"></div>
+      <div class="tco">
+        <div class="field"><label for="p0">购机价（元）</label><input id="p0" type="number" inputmode="numeric" value="1600"></div>
+        <div class="field"><label for="p1">年耗材（元）</label><input id="p1" type="number" inputmode="numeric" value="200"></div>
+        <div class="field"><label for="p2">年电费（元）</label><input id="p2" type="number" inputmode="numeric" value="60"></div>
+        <div class="field"><label for="p3">使用年限（年）</label><input id="p3" type="number" inputmode="numeric" value="5"></div>
+      </div>
+      <div class="tco-out">
+        <div class="stat hi"><div class="sl">总持有成本</div><div class="sv" id="oTotal">—<small>元</small></div></div>
+        <div class="stat"><div class="sl">年均成本</div><div class="sv" id="oYear">—<small>元/年</small></div></div>
+        <div class="stat"><div class="sl">耗材+电费占比</div><div class="sv" id="oRatio">—<small>%</small></div></div>
+      </div>
+      <div class="bar">
+        <i id="bBuy" style="background:#2563eb"></i>
+        <i id="bCon" style="background:#f08c00"></i>
+        <i id="bEle" style="background:#0b8a6b"></i>
+      </div>
+      <div class="legend">
+        <span><b style="background:#2563eb"></b>购机是一次性支出</span>
+        <span><b style="background:#f08c00"></b>耗材按年重复支付</span>
+        <span><b style="background:#0b8a6b"></b>电费按年重复支付</span>
+      </div>
+      <div class="notebar" style="margin-top:16px">
+        <span class="ico">💡</span>
+        <span>经验值：<b>年耗材超过购机价的 1/5</b>，说明你被绑在一个持续付费的耗材体系里；两条产品线做对比时，比「总持有成本」而不是比「到手价」。一般家电的判废年限在 8 年左右（燃气灶、燃气热水器明确为 8 年）。</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap ft">
+    <p><b>怎么用这份东西：</b>先看速查表锁定达标线，再进卡片核对指标，最后才看型号。型号是用来「验证你的指标判断」的，不是用来「替你判断」的。如果你的需求和共识场景不同（比如出租房、极简装修、极端高湿地区），指标优先级要自己重排。</p>
+    <p><b>关于价格的换算：</b>「甜点价位带」是 2026 年国内电商到手价的量级参考，促销期、国补、以旧换新会让它上下浮动 15%～25%。同一型号不同批次可能存在减配，下单前把关键硬件（蒸发器数量、铜管排数、RO 膜品牌、滚刷结构）用聊天记录确认一遍。</p>
+    <div class="disclaim">
+      <b>数据时效与口径说明：</b>本页指标中的国标数值以现行强制执行版本为准（冰箱 GB 12021.2—2025 自 2026-06-01 起实施；燃气灶 GB 30720—2025 自 2026-03-01 起实施；除湿机 GB/T 19411—2024 自 2025-05-01 起实施；洗衣机 GB 12021.4—2026 将于 2027-04-01 起强制实施，当前仍执行 2013 版）。型号与价格来自 2026 年电商页面与社区实测口径，属于<b>参考量级而非报价</b>；部分宣传口径（例如个别空调标注 APF 6.0 以上、个别洗衣机标注洗净比 1.3 以上）存在单源或软文风险，请以能效标识贴纸与官方参数页为准，不要以推文数字为准。
+    </div>
+  </div>
+</footer>
+
+<script>
+/* ================= 数据 ================= */
+var GROUPS = [
+  {id:'thermo', name:'热力学设备', color:'#e8590c', sub:'花钱买压缩 / 换热 / 风道 / 温控'},
+  {id:'mech',   name:'机械设备',   color:'#0b8a6b', sub:'花钱买电机 / 结构 / 水流气流 / 算法'},
+  {id:'display',name:'电子显示设备',color:'#7048e8', sub:'花钱买面板 / 光源 / 画质处理'},
+  {id:'filter', name:'过滤设备',   color:'#1c7ed6', sub:'花钱买处理能力 / 滤材寿命 / 长期成本'},
+  {id:'mature', name:'高度成熟家电',color:'#f08c00', sub:'最容易找到甜点：边际收益递减最明显'}
+];
+
+var ITEMS = [
+/* ---------- 热力学 ---------- */
+{
+  no:'01', emoji:'🧊', name:'冰箱', group:'thermo',
+  essence:'稳定、均匀、低能耗地把不同温区维持在合适温度——<b>买的是制冷系统，不是屏幕</b>。',
+  line:{pass:'风冷无霜 + 双风道 + 一级能效', sweet:'双蒸发器独立循环 + 一级能效 + ≤36dB', price:'2500～4500 元'},
+  metrics:[
+    {k:'制冷系统', d:'独立循环／双蒸发器 ＞ 双风道 ＞ 单循环。冷藏冷冻各自控温，才谈得上不串味。', pass:'双风道', sweet:'双蒸发器 + 独立风道'},
+    {k:'容积利用率', d:'新国标新增容积利用率（VUR）要求，就是治「大外壳小内胆」。同等外形尺寸下可用空间可差 50～100L。', pass:'看铭牌 VUR', sweet:'同尺寸内胆更大、抽屉更规整'},
+    {k:'湿度控制', d:'对果蔬的实际意义远大于「纳米」「细胞级」这类词。看果蔬抽屉是否有独立控湿、冷藏区是否分区。', pass:'独立果蔬保湿区', sweet:'干湿分储 + 宽幅变温抽屉'},
+    {k:'日均耗电', d:'直接比 kWh/24h，别只看「一级能效」四个字。新国标下 500L 对开门一级要求从 0.92 度/天降到 0.55 度/天。', pass:'一级能效', sweet:'≤0.7 度/天（500L 级）'},
+    {k:'噪音', d:'全天候运行设备，开放式厨房尤其重要。主流 2026 年机型已在 34～38dB。', pass:'≤40dB', sweet:'≤35dB'}
+  ],
+  config:['400～550L','风冷无霜','双蒸发器／独立循环','成熟变频','优秀果蔬区','低噪音','新一级能效'],
+  picks:[
+    {m:'容声 BCD-526WD1MPA（526L）', p:'约 3700 元', s:'真双蒸发器双循环 · IDP 离子净味 · 一级变频 · 三档变温', n:'这个价位段少见的「真双系统」，性价比优先选它', tag:'共识款'},
+    {m:'米家 508L 双系统', p:'约 3000 元', s:'双蒸发器 · 60cm 超薄平嵌 · -30℃ 深冷', n:'3000 元档唯一标配双蒸发器的选择，适合零嵌需求', tag:'共识款'},
+    {m:'海尔 BCD-555WKH9DP9（555L）', p:'约 4600 元', s:'双蒸发器 · 全空间保鲜 · 阻氧干湿分储', n:'保鲜优先、偏好一线品牌售后网络时选它', tag:'参考款'},
+    {m:'美的 508 Pro（503L）', p:'约 4900～5300 元', s:'双系统 2.0 · 冷冻室恒温 · 日均 0.95 度 · 34dB', n:'母婴／高价值食材存储，溢价买的是冷冻恒温与净化', tag:'参考款'}
+  ],
+  avoid:['冰箱大屏','摄像头','AI 识别','语音','联网','花哨除菌','过度复杂的制冰系统'],
+  note:'日均耗电每差 0.2 度，10 年约差 730 度电。冰箱的长期成本几乎全在电费上，所以能效和压缩机品质的权重高于任何附加功能。'
+},
+{
+  no:'02', emoji:'❄️', name:'空调', group:'thermo',
+  essence:'把室内热量搬到室外。使用时间极长、功率极大，所以<b>买的是每小时运行成本</b>。',
+  line:{pass:'1.5 匹 + 新一级 APF≥5.0 + 双排铜管', sweet:'APF≥5.3 + 电子膨胀阀 + 外机≥28kg', price:'1900～3000 元'},
+  metrics:[
+    {k:'APF（全年能效）', d:'新国标 GB 21455-2019，1.5 匹（≤4500W）1 级门槛 APF≥5.00，2 级 4.50，3 级 4.00。数值越高越省电。', pass:'≥5.0（新一级）', sweet:'≥5.3'},
+    {k:'节流装置', d:'电子膨胀阀 vs 毛细管。变频空调真正的价值在于「达到温度后低功率稳定运行」，这依赖电子膨胀阀的精细调节。', pass:'电子膨胀阀', sweet:'电子膨胀阀 + 低频下限低'},
+    {k:'换热器 / 外机重量', d:'拆机最直观的用料标尺：1.5 匹双排铜管外机通常 27kg 以上，单排只有 22～24kg。', pass:'1.6 排以上', sweet:'完整双排 7mm 铜管 + ≥28kg'},
+    {k:'低温制热', d:'冬天也用空调的话必须看。关注低温工况下的制热量衰减与是否依赖电辅热。', pass:'-15℃ 可运行', sweet:'-25～-35℃ 可启动制热'},
+    {k:'噪音 / 风感', d:'卧室看「最低档噪音」而不是最大档。18～25dB 是当前一线水平；防直吹结构比风量大更重要。', pass:'≤25dB（最低档）', sweet:'≤20dB + 无风感导风'}
+  ],
+  config:['匹数匹配面积（10～15㎡ 直接用 1.5 匹）','新一级能效','电子膨胀阀 + 双排铜管','宽低频变频','低噪音 / 防直吹','冷媒环（南方高温室外机位）'],
+  picks:[
+    {m:'华凌 神机二代 Pro / KFR-35GW/N8HE1（1.5 匹）', p:'约 1900～2100 元', s:'APF 5.27 · 外机约 30kg · 双排 7mm 铜管 · 电子膨胀阀 · 冷媒环', n:'2000 元档硬件满配的代表，短板是内机静音中等', tag:'共识款'},
+    {m:'小米 巨省电 Pro 2026 款（1.5 匹）', p:'约 1750～1999 元', s:'双排全铜管 · 电子膨胀阀 · 整机 10 年质保', n:'米家生态用户的首选，顶楼西晒位需谨慎（无冷媒环）', tag:'共识款'},
+    {m:'格力 云锦三代（1.5 匹）', p:'约 2500～2999 元', s:'外机约 29kg · 10 年保修 · 用料扎实', n:'品牌信仰 + 长期自住，愿意为品控与售后付溢价', tag:'参考款'},
+    {m:'海尔 净省电 Plus（1.5 匹）', p:'约 2500 元', s:'APF 5.32 · 怠速噪音约 17dB', n:'浅睡眠人群优先，省电与静音调校均衡', tag:'参考款'}
+  ],
+  avoid:['大屏','AI','摄像头','语音','花哨外观','非刚需的新风功能（同规格普遍溢价严重）'],
+  note:'安装辅材（铜管加长、打孔、支架、高空费）常能多花几百到上千元，下单前先向客服要一张辅材价目表，这是空调最容易被忽略的一笔钱。此外，同一型号不同批次存在「双排变单排」的减配风险。'
+},
+{
+  no:'03', emoji:'🔥', name:'燃气热水器', group:'thermo',
+  essence:'在水量、气压、进水温度都不断变化的情况下，<b>把出水温度稳住</b>——参数很多，真正重要的很少。',
+  line:{pass:'16L + 水量伺服 + 强排', sweet:'水量伺服 + 下置风机 + 一级能效', price:'1700～3000 元'},
+  metrics:[
+    {k:'升数', d:'指「每分钟能把多少升水升温 25℃」，不是储水量。一厨一卫 13L，一厨两卫务必 16L；北方冬季进水温度低，要再放大 2～3L。', pass:'一厨两卫 16L', sweet:'16L 且低温工况不缩水'},
+    {k:'恒温系统', d:'水气双调 ＜ 水量伺服器。水量伺服能独立精确控水，是多点用水、高层水压波动时水温不飘的关键。', pass:'水量伺服', sweet:'水量伺服 + 停水温升 ≤3℃'},
+    {k:'风机位置', d:'下置风机位于燃烧室下方，散热更好、寿命更长、抗风压更强，满负荷噪音比上置低 10～15dB。', pass:'强排 + 抗风压', sweet:'下置风机 + 一级静音'},
+    {k:'能效', d:'现行 GB 20665-2015 用双值判定：1 级需 η1≥98% 且 η2≥94%，2 级 η1≥89% 且 η2≥85%。1 级基本都是冷凝机，必须处理冷凝水排水。', pass:'2 级即可', sweet:'1 级（确认能接冷凝水）'},
+    {k:'安全', d:'3C 认证 + 熄火保护 + CO 浓度报警 + 防干烧。强排式严禁装浴室，必须装浴室只能选平衡式。', pass:'3C + 熄火保护', sweet:'平衡式 / CO 报警 + 烟道规范'}
+  ],
+  config:['16L（一厨两卫）','水量伺服器','下置风机 + 强排','无氧铜 / 磷脱氧铜水箱','抗风压 + 静音','零冷水按管路长度决定是否需要'],
+  picks:[
+    {m:'美的 安睡 M9max（16L）', p:'约 1700 元', s:'水伺服 + 下置风机 · 零循环 · 静音调校', n:'2000 元以内把「水伺服 + 下置风机」给齐的样本机型', tag:'共识款'},
+    {m:'林内 小蛮腰 GD31 / RUS-16GD31（16L）', p:'约 2450～4500 元', s:'纳米芯恒温 · 温差可做到 ±0.3～0.5℃ · 静音约 42dB', n:'对恒温要求到极致、且厨房机位窄（机身约 13.5cm 厚）时选它', tag:'共识款'},
+    {m:'海尔 LB5PRO（16L）', p:'约 2600 元', s:'无极变频水伺服 + 下置风机 · 7 秒速热', n:'静音与售后覆盖的均衡解，用户评价中「噪音小」是高频词', tag:'参考款'},
+    {m:'万和 16L 水量伺服款', p:'约 1800 元', s:'增压变频水伺服 · 下置风机', n:'预算优先的务实选择，停车再开时温升略高于日系', tag:'参考款'}
+  ],
+  avoid:['零冷水（热水器就在卫生间旁时价值很低）','大屏','语音','过多养护概念'],
+  note:'零冷水的判断标准只有三条：管路长、卫生间距离远、每天使用次数多。三条都不满足，省下的钱比省下的等待更实在。另外燃气热水器判废年限 8 年。'
+},
+{
+  no:'04', emoji:'⚡', name:'即热式电热水器', group:'thermo',
+  essence:'在极短时间内把大量水加热。<b>电路条件比机器参数更重要</b>，这是它和燃气热水器最大的差别。',
+  line:{pass:'防电墙 + 水电分离 + 电路达标', sweet:'电路达标 + 恒温 ±1℃ + 完善安全冗余', price:'800～2500 元'},
+  metrics:[
+    {k:'电路条件', d:'这是前置门槛，不是可选项。8500W 需要 4mm² 以上铜芯线 + 40A 空开；7000W 需 2.5mm² + 32A；老房建议单独拉 6mm² 专线。', pass:'8.5kW 配 4mm² + 40A', sweet:'6mm² 专线 + 40A 以上'},
+    {k:'安全防护', d:'四项缺一不可：漏电保护插头（0.1s 断电）、防电墙技术（漏电时把水中电压降到 12V 以下）、水电分离加热体、超温／防干烧。', pass:'防电墙 + 超温保护', sweet:'防电墙 + 水电分离 + 双温控探头'},
+    {k:'恒温精度', d:'水流突变（厨房开水龙头）时能否迅速补偿功率，决定洗澡的稳定性。', pass:'±1℃', sweet:'±0.5℃ + 3 秒内补偿'},
+    {k:'加热体', d:'铸铝加热体的一致性更好、寿命更长；不锈钢加热管成本低但结垢后衰减快。', pass:'铸铝加热体', sweet:'铸铝 + 可自清洁除垢'},
+    {k:'防水等级', d:'浴室湿区使用的最低门槛。', pass:'IPX4', sweet:'IPX5'}
+  ],
+  config:['功率匹配电路（宁小勿超）','防电墙 + 水电分离','漏电保护插头','超温 / 防干烧双保护','铸铝加热体','恒温芯片 ±1℃ 以内'],
+  picks:[
+    {m:'万和 6000W 基础款', p:'约 550 元', s:'防电墙 + 超温保护', n:'电路条件一般、小户型或出租房，先保安全再谈体验', tag:'参考款'},
+    {m:'艾美特 7500W 智能款', p:'约 800～1500 元', s:'水电分离 + 变频恒温', n:'两口之家的均衡解，电路达标再考虑', tag:'共识款'},
+    {m:'四季沐歌 DSK-H70-MS01（7kW）', p:'约 1000～1500 元', s:'铸铝加热体 · AI 双擎变频 · 0.1～0.6MPa 下 3 秒补偿', n:'恒温与耐用性优先，实测低温工况波动较小', tag:'参考款'},
+    {m:'飞利浦 AWH1028/93（8.5kW）', p:'约 1500～2000 元', s:'双防电墙 · NTC 实时探头 · 干烧双冗余断电', n:'安全冗余最厚，前提是电路真的达标', tag:'参考款'}
+  ],
+  avoid:['大屏','Wi-Fi','花哨模式','过多温度预设'],
+  note:'即热式不是智商税，但它是有条件的好产品：电路达标 + 安全配置到位才成立。硬装在 2.5mm² 老线路上，轻则跳闸，重则线路过热。买之前先做电路体检，这是唯一且最重要的前提。'
+},
+{
+  no:'05', emoji:'🌬️', name:'热泵烘干机', group:'thermo',
+  essence:'用热泵把水从衣物里搬运出去。热泵直接改变了<b>能耗、温度和衣物损伤</b>三件事，是非常值得付费的技术。',
+  line:{pass:'热泵 + 烘干容量≥洗衣容量', sweet:'双变频热泵 + 多层绒毛过滤 + 蒸发器自清洁', price:'2800～4700 元'},
+  metrics:[
+    {k:'机型形态', d:'独立热泵烘干机 ＞ 洗烘一体。一体机普遍冷凝器和绒毛过滤弱，长期烘干能力衰减明显。', pass:'独立热泵烘干机', sweet:'热泵 + 正反转（1:1 全时）'},
+    {k:'容量对等', d:'「洗 10 烘 8」是缩水配置，大件（四件套、羽绒被）根本烘不透。', pass:'烘≥洗', sweet:'10kg 烘 + 10kg 洗'},
+    {k:'绒毛处理', d:'长期使用最重要、最容易被忽略的一项。多层过滤 ＞ 双层；有蒸发器自清洁可显著减少手动维护。', pass:'双层过滤', sweet:'四重以上 + 蒸发器自清洁'},
+    {k:'温控', d:'温度过高会伤衣。热泵天然低温，但要看是否有湿度／温度双传感的判干系统，避免「外干内湿」。', pass:'≤65℃', sweet:'40～60℃ + 双传感判干'},
+    {k:'能耗', d:'热泵比冷凝式省电一半以上，这是它值钱的根本原因。', pass:'热泵式', sweet:'变频热泵 + 低温柔烘档'}
+  ],
+  config:['独立热泵（不买洗烘一体）','烘干容量 ≥ 洗衣容量','四重以上绒毛过滤','蒸发器自清洁','1:1 全时正反转','低温 40～60℃'],
+  picks:[
+    {m:'小天鹅 TH100-HL02T（10kg）', p:'约 2800 元', s:'热泵低温 · AI 智能正反转', n:'预算有限但坚持要热泵时的稳妥入门', tag:'共识款'},
+    {m:'海尔 初色 GA100-519W（10kg）', p:'约 4400 元', s:'600mm 纤薄机身 · 四层过滤 · 56℃ 除菌螨', n:'小户型嵌入 + 四层过滤，综合性价比靠前', tag:'共识款'},
+    {m:'海尔 云溪 HGY100-F386WU1（10kg）', p:'约 4700 元', s:'双擎热泵 · 1:1 全时正反转 · 3D 透视烘干 · 56℃', n:'大件不抱团、除毛烘更好，养宠家庭优先', tag:'共识款'},
+    {m:'东芝 玉兔 2.0 DH-10T181BW（10kg）', p:'约 7000 元', s:'全变频热泵 · 五重毛屑过滤 · 仿生荷叶滤网 · 蒸发器自清洁', n:'纯平全嵌 + 免维护设计，愿为细节付溢价时选它', tag:'参考款'},
+    {m:'LG RC90U2AV2W / 小旋风（10kg）', p:'约 4600～6700 元', s:'双转子变频压缩机 · 冷凝器自清洁 · 双向门板', n:'电机与压缩机技术突出，价格也相应更高', tag:'参考款'}
+  ],
+  avoid:['洗烘一体（仅空间只够一台时才考虑）','蒸汽除味的过度宣传','华而不实的面板'],
+  note:'只有「高频使用」才值得买。南方回南天、养宠、有宝宝、阳台极小——满足其一就值；一年只用十几次，热泵的溢价收不回来。'
+},
+{
+  no:'06', emoji:'💧', name:'除湿机', group:'thermo',
+  essence:'把空气中的水搬到水箱里。核心是<b>在真实温湿度下每小时能抽多少水</b>，而不是实验室里那个漂亮数字。',
+  line:{pass:'看名义除湿量 + 支持连续排水', sweet:'名义除湿量大 + 低温除湿好 + ≤40dB + 连排', price:'1000～2200 元'},
+  metrics:[
+    {k:'除湿量口径', d:'GB/T 19411-2024 明确定义两个值：日除湿量在 30℃/80%RH 下测得；名义除湿量在 27℃/60%RH 下测得，更接近真实居家环境。横向对比只看名义除湿量。', pass:'铭牌必须同时标两个', sweet:'名义除湿量在同规格中更高'},
+    {k:'单位输入功率除湿量', d:'即能效，数值越高越省电。新国标把这一限值最高提到 2.6 kg/(kW·h)。', pass:'看铭牌能效比', sweet:'≥2.5 kg/(kW·h)'},
+    {k:'低温除湿能力', d:'温度下降后压缩机式除湿能力会明显衰减（18℃ 以下易结霜），必须看是否带自动除霜。', pass:'带低温除霜', sweet:'低温下衰减小（或选转轮式）'},
+    {k:'噪音', d:'新国标对除湿量 ≤2.5kg/h 的机型给的是 40～58dB 分级；卧室使用建议实测 ≤40dB。', pass:'≤45dB', sweet:'≤38dB'},
+    {k:'排水方式', d:'水箱满了自动停机，机器就失去实际价值。有地漏的场合务必用连续排水。', pass:'支持连续排水', sweet:'重力连排或泵压上排水'}
+  ],
+  config:['以名义除湿量选型','双转子压缩机','带低温除霜','≤40dB 静音','连续排水接口','万向轮 + 干衣模式'],
+  picks:[
+    {m:'德业 W20 / DYD-T22A3（约 25L/日）', p:'约 1300～1700 元', s:'名义除湿量约 0.63kg/h · 38dB · 双转子松下压缩机 · 支持连排', n:'中大户型性价比最优解，广东这类高湿地区的主力选择', tag:'共识款'},
+    {m:'美的 CF40BD/N7-DP40（约 40L/日）', p:'约 1500 元', s:'智能恒湿 · 干衣模式 · 低温自动除霜 · 可视化水箱', n:'80㎡ 以内或普通地下室，国民款、故障率低', tag:'共识款'},
+    {m:'德业 D50A3（约 50L/日）', p:'约 2200 元', s:'8L 水箱 · 支持连续排水 · 低温除霜', n:'地下室、复式、别墅级空间，务必规划连续排水', tag:'参考款'},
+    {m:'米家 DM-CS50CFA1A（约 50L/日）', p:'约 2000～2600 元', s:'实测能效比约 2.85 L/kWh · 干衣 + 静音双模式 · 米家联动', n:'米家生态用户，能效与智能联动领先', tag:'参考款'}
+  ],
+  avoid:['只看日除湿量','不标测试工况的「最大除湿量」','用 35℃/90%RH 这类非标工况做卖点的机型','智能互联作为主要溢价理由'],
+  note:'同一标称 12L/日 的产品，实测除湿量最大可差 41.7%（上海消保委 2025 年 20 款测试）。判断一台机器是否合规，最直接的办法是翻铭牌——只标一个除湿总量、不写测试环境的，直接排除。'
+},
+{
+  no:'07', emoji:'🍟', name:'空气炸锅', group:'thermo',
+  essence:'用高速热风循环把食物表面脱水变脆。<b>买的是热风循环和温控，不是那 20 种菜单。</b>',
+  line:{pass:'上下双加热 + 5L 以上', sweet:'热风循环均匀 + 温控准 + 内腔好洗', price:'300～700 元'},
+  metrics:[
+    {k:'加热结构', d:'单顶部加热易上焦下生；上下双加热管或 360° 热风循环才能真正免翻面。注意避开「伪双热风」（单风机 + 单烤管）。', pass:'上下双加热或热风循环', sweet:'360° 热风 + 上下独立'},
+    {k:'温控精度', d:'决定成品能否复现。温度不准会导致同一食谱两次结果完全不同。', pass:'±10℃', sweet:'±5℃ + NTC 感温'},
+    {k:'容量与可视', d:'3～4 口之家 5～6L 最合适，太小容易堆叠受热不均。可视窗口能避免频繁抽拉导致热量流失。', pass:'4～5L', sweet:'5～6L + 可视窗'},
+    {k:'内腔材质', d:'金属内腔耐高温、无异味、寿命长；塑料内腔长期高温易老化并产生气味。', pass:'食品级不粘涂层', sweet:'金属内腔或 0 涂层'}
+  ],
+  config:['5L 左右','上下双加热 / 热风循环','温控 ±5℃','可视窗口','金属内腔','免翻面结构'],
+  picks:[
+    {m:'九阳 KL50-V515（5L）', p:'约 160 元', s:'360° 热风循环 · 双旋钮 · 抽篮断电', n:'入门尝鲜的最低门槛，老牌品控', tag:'参考款'},
+    {m:'米家 空气炸锅 N1（5L）', p:'约 130～175 元', s:'6.2 寸可视窗 · 金属内腔 · 微蒸汽嫩烤', n:'百元档里少见金属内腔 + 可视窗，颜值与实用兼顾', tag:'共识款'},
+    {m:'苏泊尔 KD50DQ852 / KD60Y883', p:'约 300～600 元', s:'上下加热 + 蒸汽嫩烤 / 远红外穿透', n:'想要「外酥里嫩」而不是干柴，蒸汽嫩烤是值得加的一档', tag:'共识款'},
+    {m:'飞利浦 HD9860（7.3L）', p:'约 1300 元', s:'Rapid Air 360° 热风 · TurboStar', n:'温场均匀度领先，但溢价明显，属甜点线以上', tag:'参考款'}
+  ],
+  avoid:['20 种以上预设菜单','App 联动作为溢价','「不用油就能炸」的夸张宣传','过小的容量'],
+  note:'空气炸锅是高度成熟品类，300～500 元是甜点区。真正的差异只有三个：热风循环是否均匀、温控是否准、内腔是否好洗。'
+},
+{
+  no:'08', emoji:'🍞', name:'蒸烤箱 / 微蒸烤一体', group:'thermo',
+  essence:'同时控制<b>温度、均匀度和湿度</b>。参数看着都漂亮，实际差距全在「温度准不准、蒸汽稳不稳、腔体难不难洗」。',
+  line:{pass:'上下独立控温 + 双直喷蒸汽', sweet:'温控 ±3℃ + 蒸汽稳定 + 陶瓷内胆自清洁', price:'2500～3500 元'},
+  metrics:[
+    {k:'温度准确性', d:'标称 100℃ 就有没有 100℃。这是蒸烤品类最大的分水岭，用 PID 算法的机型温差可控制在 ±3℃ 内。', pass:'±5℃', sweet:'±3℃（PID）'},
+    {k:'温度均匀性', d:'同一层不同位置的温差。真正双热风（双风机 + 多烤管）才能把同层温差压到 6℃ 以内。', pass:'同层温差 ≤10℃', sweet:'≤6℃'},
+    {k:'蒸汽系统', d:'双直喷 ＞ 单直喷 ＞ 蒸发盘。出蒸汽速度影响蒸的效果，外置水箱容量决定连续蒸制时长。', pass:'双直喷 + 20 秒出汽', sweet:'大功率直喷 + ≥1.3L 外置水箱'},
+    {k:'腔体清洁', d:'搪瓷在 500℃ 长期使用有崩瓷风险（行业实测约 8%），陶瓷或纳米陶瓷内腔在 800℃ 仍稳定。', pass:'304 不锈钢', sweet:'一体陶瓷 / 纳米陶瓷'},
+    {k:'容量', d:'20～30L 适合 1～2 人；30～50L 是 3～4 口之家的黄金段。', pass:'按人口选', sweet:'30L 以上 + 台嵌两用'}
+  ],
+  config:['30L 左右（3～4 人）','上下独立控温','双直喷蒸汽 + 热风循环','陶瓷 / 纳米陶瓷内胆','外置水箱','蒸汽自清洁'],
+  picks:[
+    {m:'凯度 B8（28L）', p:'约 2800 元', s:'一体陶瓷内胆 · 双直喷大蒸汽 · 上下独立控温 + 背部热风', n:'多项测试里被评性价比首选，短板是智能菜谱偏少', tag:'共识款'},
+    {m:'美的 G3Epro（25L）', p:'约 3500 元', s:'一体陶瓷 · 30 秒速出蒸汽 · 上 M + 下 U + 石墨烯免预热', n:'五合一全能，唯一短板是 25L 烤整鸡需处理', tag:'参考款'},
+    {m:'德普 V5（30L）', p:'约 3200 元', s:'进口磁控管 1000W · 2800W 多孔直喷 · 纳米陶瓷内胆 · 5 年质保', n:'对温控要求高的烘焙场景，售后网点相对少', tag:'参考款'},
+    {m:'凯度 TD Pro 三代（60L）', p:'约 4000＋元', s:'双热风 · 同层温差 ≤6℃ · 陶瓷内胆', n:'专业烘焙与多人聚餐，甜点线以上但确实换来了温场', tag:'参考款'}
+  ],
+  avoid:['200+ 智能菜单（常用不到 20 道）','「伪双热风」','过度堆功能的旗舰','把微波炉 + 蒸烤 + 空炸分开买（一体机通常更省台面与总价）'],
+  note:'一体机 ≈ 微波炉 + 蒸烤箱 + 空气炸锅，总价通常省 30%～40% 并省下半米台面。但若烘焙频次极高、对温控要求苛刻，独立蒸烤箱的温控精度和容量仍有优势。'
+},
+{
+  no:'09', emoji:'🧦', name:'吸湿 / 烘干类小家电', group:'thermo',
+  essence:'烘鞋机、衣物烘干、浴室暖风机本质是同一件事：<b>空气循环 + 加热/制冷 + 湿度迁移</b>。',
+  line:{pass:'有真实风道与温控', sweet:'单位电量搬运的水/热量高', price:'150～600 元'},
+  metrics:[
+    {k:'单位能耗效率', d:'唯一真正的底层参数：每度电搬运了多少水或多少热量。没有风机只靠电热丝的「烘干」，效率都极低。', pass:'有强制风道', sweet:'风量 × 温升 ÷ 功率 高'},
+    {k:'风道设计', d:'有出风、有回风才算循环。单向吹热风的烘鞋机，鞋内水汽排不出去，只是把外面烘干了。', pass:'双向/环流风道', sweet:'进风 + 回风 + 温控'},
+    {k:'温控上限', d:'过高温度会伤鞋材与衣物纤维，60℃ 以上对多数鞋材都不友好。', pass:'≤60℃', sweet:'40～55℃ 可调'}
+  ],
+  config:['强制风道（不是纯电热丝）','温度可调且 ≤55℃','定时与自动断电','可拆洗滤网'],
+  picks:[
+    {m:'（按指标选，不依赖具体型号）', p:'150～400 元', s:'优先「环流风道 + 温控可调 + 定时」三项齐全的机型', n:'这个品类型号更替快、营销词多，用「风道 + 温控 + 单位能耗」三条筛即可', tag:'参考款'}
+  ],
+  avoid:['紫外线 / 臭氧除菌作为核心卖点','无风道的纯电热丝「烘干」','超大功率但无温控的机型'],
+  note:'这类产品非常适合用「热力学效率」一刀切：问它每度电能搬多少水，答不上来的就是电热丝加壳。'
+},
+
+/* ---------- 机械 ---------- */
+{
+  no:'10', emoji:'🌀', name:'洗衣机', group:'mech',
+  essence:'用机械力、水流和温度把污渍带走，同时尽量不伤衣服。<b>买的是洗净、护衣和长期可靠性。</b>',
+  line:{pass:'滚筒 + 洗净比 ≥1.03 + BLDC/直驱', sweet:'洗净比 ≥1.08 + 1400 转 + 直驱', price:'1300～2600 元'},
+  metrics:[
+    {k:'洗净比', d:'国标硬指标。滚筒 1 级门槛是 ≥1.03（能效等级须同时满足耗电与用水限值），波轮 1 级 ≥0.90。家用建议 1.08 以上。', pass:'≥1.03（国标 1 级）', sweet:'1.08～1.15'},
+    {k:'电机', d:'BLDC 变频与 DD 直驱都不是万能指标。真正要看的是电机控制、脱水稳定性、噪音与长期可靠性。直驱省掉皮带，震动与噪音更低。', pass:'BLDC 变频及以上', sweet:'直驱 + 10 年电机质保'},
+    {k:'脱水转速', d:'直接决定甩干程度与后续晾晒／烘干时间。', pass:'≥1200 转', sweet:'1400 转'},
+    {k:'用水与用电', d:'滚筒水效 1 级要求单位功效用水量 ≤6 L/(cycle·kg)、洗净比 ≥1.03。水温控制能力（能否 60℃ 以上煮洗）决定除菌与油污表现。', pass:'一级能效', sweet:'一级能效 + 6L/kg 以内'},
+    {k:'机身厚度', d:'要嵌入 60cm 标准橱柜，机身需 ≤55cm。', pass:'按橱柜定制', sweet:'≤55cm 超薄全嵌'}
+  ],
+  config:['10kg 滚筒','洗净比 1.08 以上','BLDC 变频或 DD 直驱','1400 转脱水','60℃ 以上煮洗','超薄可嵌入'],
+  picks:[
+    {m:'海尔 EG100MATE29S（10kg）', p:'约 1300～1400 元', s:'洗净比 1.1 · 双喷淋 · 60℃ 巴氏除菌 · 570mm 超薄', n:'入门档最稳的选择，短板是脱水 1200 转', tag:'共识款'},
+    {m:'小天鹅 TG100APUREPRO（10kg）', p:'约 1500 元', s:'洗净比 ≥1.1 · 95℃ 高温煮洗 · 超薄嵌入', n:'千元档「封神」款，基础功能齐、无花活', tag:'共识款'},
+    {m:'小米 滚筒单洗（10kg）', p:'约 999 元', s:'洗净比标称 1.25 · DD 直驱 · 电机 10 年质保', n:'米家生态用户，价格门槛最低', tag:'参考款'},
+    {m:'小天鹅 小乌梅 3.0 / 海尔 云溪 4.0（10kg）', p:'约 2300～2500 元', s:'洗净比 1.21～1.28 · 智能投放 · 超薄嵌入', n:'2000 元档配置最均衡的家庭主力机', tag:'共识款'}
+  ],
+  avoid:['AI 洗衣','Wi-Fi','100 种洗涤模式','把「DD 直驱」四个字当成唯一选购依据','为「除菌方式」付大价钱（除菌不直接影响洗净比）'],
+  note:'自动投放值得加几百元，但不值得为它跨一个价格档。另外提醒：现行 GB 12021.4-2013 将于 2027-04-01 被 GB 12021.4-2026 取代，新标准把现行 1 级相当于新标准的 3 级，并首次规定洗涤时长限值（滚筒 ≤192 分钟、波轮 ≤96 分钟）。现在买不必等新标，但要知道三年后能效标签会整体「降级」。'
+},
+{
+  no:'11', emoji:'🍽️', name:'洗碗机', group:'mech',
+  essence:'用高温高压水流冲刷，并把餐具真正弄干。<b>「洗得干净 + 真的干」才是核心。</b>',
+  line:{pass:'喷淋成熟 + 热风烘干 + 一级水效', sweet:'热风／自动开门烘干 + 三层喷淋 + 长抑菌存储', price:'2500～4000 元'},
+  metrics:[
+    {k:'喷淋系统', d:'GB 38383-2019 用「清洁指数」量化，1 级要求清洁指数 ≥1.12。喷淋臂层数、布局与水压决定洗净上限。', pass:'双层以上喷淋臂', sweet:'三层喷淋 + 上下分区 / 万能喷淋'},
+    {k:'烘干方式', d:'这是南方用户最该看的一项。余热冷凝烘干洗完会有水珠、需要开门散潮；热风烘干／自动开门烘干才真正解决问题。', pass:'无残留水珠', sweet:'热风循环 + 自动开门'},
+    {k:'干燥指数', d:'GB 38383-2019 干燥指数 1 级要求 ≥1.08。这是区分「洗完湿漉漉」和「洗完能直接收」的量化指标。', pass:'≥0.97（3 级）', sweet:'≥1.08（1 级）'},
+    {k:'能效水效', d:'1 级要求能效指数 EEI ≤50、水效指数 WEI ≤45。装了软水器的机型在硬水地区更耐用。', pass:'一级水效', sweet:'EEI≤50 且 WEI≤45'},
+    {k:'容量与安装', d:'13 套是当前主流；洗碗机安装条件本身就是产品性能的一部分——橱柜净尺寸、进水排水、插座位置、开门方向一个都不商量。', pass:'13 套嵌入式', sweet:'13～16 套 + 安装条件宽松'}
+  ],
+  config:['13 套以上','三层喷淋系统','热风 / 自动开门烘干','一级水效','软水系统','72 小时抑菌存储'],
+  picks:[
+    {m:'美的 RX600（13 套）', p:'约 2500 元', s:'双驱变频 · 105℃ 热风烘干 · 银离子 · 独嵌两用 · 约 42dB', n:'3000 元以内几乎无对手，唯一短板是缺分层洗', tag:'共识款'},
+    {m:'美的 X6P Ultra（13 套）', p:'约 4800～5400 元', s:'全域万向喷淋 · 72℃ 高温煮洗 + 热风循环 · 72 小时抑菌 · 6 年质保', n:'无明显短板的高端款，烘干与抑菌都到位', tag:'参考款'},
+    {m:'老板 WB753X（13 套）', p:'约 4300～4900 元', s:'热风 + 自动开门 · UV 抑菌 · 三层喷淋 · 中式碗篮', n:'炒锅深碗多的中式厨房优先，机身偏大要预留尺寸', tag:'参考款'},
+    {m:'西门子 SJ636 系列（13 套）', p:'约 4200～6200 元', s:'5D 喷淋 · 欧洲调校 · 重油污能力强', n:'注意：基础款为冷凝烘干、需开门散潮，且常需另配门板', tag:'参考款'}
+  ],
+  avoid:['Wi-Fi','大屏','AI 菜单','100 种程序','把「消毒」当独立溢价理由（洗碗机本身的 70℃ 以上高温已具备基础消毒能力）'],
+  note:'标准提醒：现行 GB 38383-2019 的一级水效指数限值是 ≤45，而正在修订的新版把 1 级定为 WEI ≤65、并新增噪声限值——这是测试方法口径变化，不是放宽，两者不可直接比较。购买时以能效水效标识贴纸上的等级为准。'
+},
+{
+  no:'12', emoji:'🤖', name:'扫地机器人', group:'mech',
+  essence:'把「导航 → 避障 → 清扫 → 拖地 → 自清洁」串成一个<b>完整的清洁闭环</b>，你才真的不用管它。',
+  line:{pass:'导航稳定 + 基站自清洁 + 覆盖率 ≥81%', sweet:'自清洁率 >95% + 热水洗布 + 自动上下水', price:'2000～3800 元'},
+  metrics:[
+    {k:'导航与覆盖率', d:'QB/T 4833-2023 要求单房间覆盖率不低于 60%、多房间不低于 66%。实测主流好机型单房间覆盖率可到 81% 以上。', pass:'覆盖率 ≥66%', sweet:'≥81%'},
+    {k:'避障', d:'比「AI」两个字重要得多。双目视觉／3D 结构光能识别拖鞋、电线、宠物粪便；2cm 以下障碍物识别率可到 98%。', pass:'AI 视觉避障', sweet:'双目 + 3D 结构光 + 暗光可用'},
+    {k:'边角与防缠绕', d:'中间扫得干净，墙边扫不到是这个品类最普遍的短板。机械臂外扩贴边与否，实测差距悬殊。滚刷结构决定毛发是否缠轴。', pass:'贴边 <5cm', sweet:'机械臂贴边 + 全胶滚刷 0 缠绕'},
+    {k:'拖地系统', d:'旋转拖布／震动拖布／滚筒活水的实际差异远大于所谓「AI 识别」。热水洗拖布能融油杀菌、避免拖布发臭。', pass:'电控水箱', sweet:'恒压活水 + ≥75℃ 热水洗布'},
+    {k:'基站闭环', d:'高端机型体验提升的一大部分来自基站：自动洗拖布 + 烘干 + 集尘 + 补水。自清洁率 >95% 才算真正省心。', pass:'自动洗 + 烘干 + 集尘', sweet:'全链路自清洁 + 自动上下水'},
+    {k:'机身与越障', d:'机身高度决定能否进沙发底、床底；越障能力决定能否跨门槛石。', pass:'≤9.5cm 机身 / 2cm 越障', sweet:'≤8cm + 4cm 以上越障'}
+  ],
+  config:['LDS 激光或双目视觉导航','机械臂贴边','全胶／防缠绕滚刷','热水洗拖布 + 热风烘干','自动集尘 + 自动上下水','机身 ≤9cm'],
+  picks:[
+    {m:'米家 5C / 米家 6 Max', p:'约 1200～2000 元', s:'机械臂外扩 · 边角覆盖率约 95% · 自动集尘 · 三重机械臂', n:'价格屠夫，短板多为常温洗布（无热水）', tag:'共识款'},
+    {m:'科沃斯 T80S PLUS', p:'约 2900 元', s:'灵缠防缠绕 · 恒压活水洗地 · 热水洗拖布', n:'长发家庭优先，边角与滚刷表现均衡', tag:'共识款'},
+    {m:'石头 P20 Pro / P20 Max', p:'约 3600～4300 元', s:'热水洗布（最高 100℃）· 自动上下水 · 超薄机身 · 零缠系统', n:'大户型、地面环境复杂、有老人的家庭一步到位', tag:'共识款'},
+    {m:'追觅 X60 Pro / X50 Ultra', p:'约 3800～4300 元', s:'高吸力 + 胶刷防缠绕 · 自清洁率 >95% · 强边角', n:'养宠与过敏原要求高的家庭，防缠绕与边角双优', tag:'参考款'}
+  ],
+  avoid:['只比吸力（消协测试显示吸力已非决定性因素）','「AI」作为主要卖点','超大吸力参数（18500Pa 以上对地面清洁的边际价值很小）'],
+  note:'挑选顺序建议：先看有没有预留上下水条件（加价约 500 元，值得），再看基站自清洁率，最后才看吸力和避障。没有自清洁的机型，一周内就会闲置。'
+},
+{
+  no:'13', emoji:'🧹', name:'吸尘器', group:'mech',
+  essence:'用气流把颗粒带走。吸力不是看一个 Pa 或 AW 数字，而是<b>电机 + 风道 + 吸头 + 密封 + 滤网</b>的整机表现。',
+  line:{pass:'整机密封 + H12 以上 HEPA + 40 分钟真实续航', sweet:'实测 100～180AW + H13 + 气旋分离 + 可换电池', price:'1000～2500 元'},
+  metrics:[
+    {k:'整机吸力', d:'重点看「整机吸力」而不是电机空载值，以及持续工作 10 分钟以上是否还能维持 90% 吸力。气旋分离设计决定吸力是否随尘杯变满而衰减。', pass:'≥100AW', sweet:'实测 120～180AW 且衰减 <10%'},
+    {k:'过滤与密封', d:'H12 对 0.3 微米颗粒过滤 ≥99.5%，H13 达 99.95%。但风道有缝、尘杯密封不严，再高等级也白搭——整机密封才是关键。', pass:'H12 + 整机密封', sweet:'H13/H14 + 泄漏率 <0.5%'},
+    {k:'续航与电池', d:'「最大档 5 分钟」这类参数意义不大。要看中档真实续航，以及电池是否可拆卸更换。', pass:'中档 ≥40 分钟', sweet:'中档 ≥60 分钟 + 可换电池'},
+    {k:'滚刷与配件', d:'软绒地刷、电动除螨刷、缝隙吸头、延长杆是真正影响清洁覆盖面的东西。防缠绕结构对长发与宠物家庭是刚需。', pass:'四件基础配件齐', sweet:'防缠绕滚刷 + 显尘灯 + 挂墙收纳'},
+    {k:'尘杯与维护', d:'尘杯容量决定倾倒频率，可水洗滤网与滤芯价格决定长期成本。', pass:'1.2L 以上 / 可水洗', sweet:'1.5L + 可水洗 HEPA'}
+  ],
+  config:['气旋分离（吸力不衰减）','整机密封 + H13 级过滤','中档 60 分钟以上续航','防缠绕滚刷','可水洗滤网','全套配件'],
+  picks:[
+    {m:'米家 手持吸尘器（2 显尘版等）', p:'约 600～1200 元', s:'无刷马达 · 实测约 120AW 可维持至续航中段 · 低噪 A 级', n:'小户型／租房的高性价比选择，机身轻', tag:'共识款'},
+    {m:'小狗 T11 Pro', p:'约 1000～1500 元', s:'五重过滤 · 五级风道优化 · 地毯模式宠物毛发单次吸入率约 99.3%', n:'过滤与风道做得扎实，养宠家庭性价比高', tag:'共识款'},
+    {m:'追觅 V15 / Z20 增强款', p:'约 1500～2500 元', s:'高速马达 + 双锥气旋 · 浮毛吸附率高 · 附宠物毛发清理刷', n:'养宠家庭优先，配件更贴合除毛场景', tag:'参考款'},
+    {m:'戴森 V12 / V8', p:'约 2500～4300 元', s:'全机密封过滤 · 绿光探测头 · 150AW 级', n:'甜点线以上的品牌溢价，买的是做工与配件生态', tag:'参考款'}
+  ],
+  avoid:['峰值 Pa 数字（30000Pa、100000Pa 这类）','最大档续航宣传','过度堆叠花式吸头','把「除螨」当作核心卖点'],
+  note:'判断吸力是否虚标有个简单方法：看厂家敢不敢标「整机吸力」并提供第三方检测报告，以及尘杯半满状态下吸力衰减率。'
+},
+
+/* ---------- 显示 ---------- */
+{
+  no:'14', emoji:'📺', name:'电视', group:'display',
+  essence:'把电信号还原成光。<b>优先级永远是：面板 ＞ 背光/控光 ＞ 峰值亮度 ＞ HDR ＞ 画质处理 ＞ 音响 ＞ 智能系统。</b>',
+  line:{pass:'分区背光 + ≥800nit + 原生 120Hz', sweet:'MiniLED ≥240 分区 + ≥1000nit + HDMI 2.1', price:'2800～5000 元（65 寸）'},
+  metrics:[
+    {k:'面板与背光', d:'同一块面板，背光和控光做得不一样，画质可以是两个产品。分区数决定暗场细节，光晕是否可见全看这里。', pass:'百级分区', sweet:'≥240 分区（65 寸）；中高端 1000＋'},
+    {k:'峰值亮度', d:'真正 HDR 的前提。低于 600nit 基本只能算「支持 HDR 格式」。', pass:'≥800nit', sweet:'≥1000nit（高端 3000～4000nit）'},
+    {k:'HDR 与色彩', d:'HDR 不是标签，是「亮度 + 对比度 + 控光能力」的组合。看是否支持杜比视界 / HDR10+，以及广色域覆盖。', pass:'HDR10 + 广色域', sweet:'杜比视界 + HDR10+ + 量子点广色域'},
+    {k:'刷新与响应', d:'游戏玩家尤其重要。原生高刷 + VRR + ALLM 才能消除撕裂和延迟。', pass:'原生 120Hz', sweet:'原生 144Hz + HDMI 2.1 ×2'},
+    {k:'系统与广告', d:'开机广告和推荐流不属于性能，但每天影响体验。', pass:'可跳过广告', sweet:'无开机广告 + 4GB+64GB 存储'}
+  ],
+  config:['65 寸（2～2.5m 观看距离）','MiniLED 分区背光','峰值亮度 ≥1000nit','原生 120～144Hz + HDMI 2.1','4GB+64GB','无开机广告'],
+  picks:[
+    {m:'雷鸟 鹤 6 2026 款（65 寸）', p:'约 2899 元', s:'MiniLED · 242 分区 · 约 1100nit · 原生 144Hz · 无开机广告', n:'3000 元档画质与游戏体验的首选，VA 软屏原生对比度高', tag:'共识款'},
+    {m:'小米 S65 Mini LED（65 寸）', p:'约 2799～2999 元', s:'MiniLED · 峰值亮度约 800nit 级 · 智能生态完善', n:'极致性价比 + 米家生态，分区数与亮度略低于鹤 6', tag:'共识款'},
+    {m:'TCL 65T7L（65 寸）', p:'约 4000＋元', s:'QD-MiniLED · 1008 分区 · 约 3000nit · 140Hz', n:'预算上探到 4000 档时画质提升明显，无短板水桶机', tag:'参考款'},
+    {m:'海信 65E5S Pro（65 寸）', p:'约 5000＋元', s:'RGB-MiniLED · 墨晶抗光屏 2.0 · 330Hz', n:'强光客厅（落地窗、不拉窗帘）的抗光优势明显', tag:'参考款'}
+  ],
+  avoid:['超薄机身','大屏 UI','摄像头','AI 语音','花哨桌面','把「智能屏」当卖点'],
+  note:'预算有限的正确做法是把钱集中在面板和背光上，而不是智能功能。另外 65 寸是目前技术下放最充分、性价比最高的尺寸段。'
+},
+{
+  no:'15', emoji:'🎬', name:'电视盒子 / 家庭影音', group:'display',
+  essence:'如果你的片源在本地（4K Remux + Jellyfin），真正需要的不是换电视，而是<b>一个解码和透传都够用的播放端</b>。',
+  line:{pass:'4K HDR + 硬解 + 稳定千兆/USB3.0', sweet:'杜比视界全 profile + AV1 硬解 + TrueHD/DTS-HD MA 透传', price:'400～1500 元'},
+  metrics:[
+    {k:'视频解码', d:'H.265/HEVC 4K60 是基础；AV1 硬解决定能不能撑过未来几年的片源。', pass:'H.265 4K60 硬解', sweet:'H.265 + VP9 + AV1 全硬解'},
+    {k:'HDR 支持', d:'注意区分「支持杜比视界」和「在第三方播放器里能输出杜比视界」——很多设备在流媒体 App 里可以，在 Jellyfin 这类客户端里会退回 HDR10。', pass:'HDR10 / HDR10+', sweet:'杜比视界 + HDR10+（且第三方 App 可用）'},
+    {k:'音频透传', d:'这是家庭影院的分水岭。Apple TV、Roku、Fire TV、Onn 都不支持 TrueHD / DTS-HD MA 位流透传，一律重编码为有损 DD+。', pass:'Dolby Digital Plus', sweet:'TrueHD / DTS-HD MA / DTS:X 位流透传'},
+    {k:'网络与接口', d:'高码率 Remux 对网络极其敏感。千兆网口 + USB 3.0 外接硬盘是最省心的组合。', pass:'Wi-Fi 6 / 百兆以上', sweet:'千兆有线 + 2× USB 3.0'},
+    {k:'软件生态', d:'能否直接播放高码率、字幕与音轨切换是否好用，比「AI 画质增强」重要得多。', pass:'主流客户端可用', sweet:'Jellyfin / Kodi 直连 Direct Play'}
+  ],
+  config:['H.265 + AV1 硬解','杜比视界（确认第三方 App 可用）','音频位流透传','千兆网口 / USB 3.0','支持外接存储','无广告系统'],
+  picks:[
+    {m:'NVIDIA Shield TV Pro', p:'约 1400～1500 元（约 $200）', s:'Tegra X1+ · TrueHD / DTS-HD MA / DTS:X 位流透传 · 2× USB 3.0', n:'主流设备里唯一能透传无损音频的，Jellyfin / Plex 的参考客户端；短板是不支持 HDR10+', tag:'共识款'},
+    {m:'Ugoos AM6B+（Amlogic S922X-J + CoreELEC）', p:'约 1500 元（约 $208）', s:'支持杜比视界 FEL 硬件全层 · 同时位流输出 TrueHD', n:'消费市场里少见的组合，本地 Remux 画质与音质天花板', tag:'共识款'},
+    {m:'Apple TV 4K（第三代）', p:'约 900～1100 元（约 $129）', s:'杜比视界全 profile · HDR10+ · A15 · 界面最干净无广告', n:'流媒体体验最佳；但不透传无损音频，会重编码为有损 DD+', tag:'参考款'},
+    {m:'Vero V（OSMC）', p:'约 1300～1400 元（约 $185）', s:'HDMI 2.1 · TrueHD + DTS:X 位流 · AV1 硬解 · Kodi 原生', n:'本地播放专用，静音低功耗；杜比视界仅支持 TV-LED profile', tag:'参考款'}
+  ],
+  avoid:['「AI 画质增强」','8K 宣传','只比 CPU 型号','内置影视会员作为核心卖点'],
+  note:'选择逻辑很简单：片源在流媒体 → Apple TV 或 Onn 4K Pro；片源在本地 Remux 且你有功放 → Shield Pro 或 Ugoos；两者都想要，接受音频有损 → Apple TV。'
+},
+
+/* ---------- 过滤 ---------- */
+{
+  no:'16', emoji:'🚰', name:'净水器', group:'filter',
+  essence:'把水里的溶解物截留住。最大的陷阱是只看机器价格——<b>真正要比的是 5 年总成本。</b>',
+  line:{pass:'一级水效 + 1000G 通量 + 3 年以上 RO 膜', sweet:'净水产水率 ≥65% + 总净水量 ≥4000L + 年换芯 ≤300 元', price:'1500～2500 元'},
+  metrics:[
+    {k:'净水产水率', d:'GB 34914-2021 一级要求 ≥65%，二级 ≥55%，三级 ≥45%。这直接决定你交的水费里有多少是废水。', pass:'≥45%（3 级门槛）', sweet:'≥65%（1 级）'},
+    {k:'额定总净水量', d:'新国标新增的第二个判定条件，直接关系滤芯寿命与长期成本。1 级要求 ≥4000L。', pass:'≥2000L', sweet:'≥4000L（部分机型 5000～6500L）'},
+    {k:'通量', d:'决定出水速度。1000G 接满一杯水约 15 秒，3～5 口之家建议 1000G 起。', pass:'800G', sweet:'1000～1200G'},
+    {k:'RO 膜与脱盐率', d:'RO 膜优先选 3～6 年长效的（杜邦、陶氏、海德能、汇通等大厂膜片），脱盐率：对总硬度 ≥90%、对电导率 ≥85%。', pass:'RO 膜寿命 ≥3 年', sweet:'5～6 年长效膜 + 大厂膜片'},
+    {k:'零陈水与噪声', d:'解决隔夜首杯 TDS 偏高的问题；泵的噪音影响夜间接水的体感。', pass:'首杯 TDS ≤50ppm', sweet:'首杯 TDS ≤20ppm + 制水 <45dB'}
+  ],
+  config:['RO 反渗透','1000G 以上通量','一级水效（≥65%，≥4000L）','3～6 年长效 RO 膜','零陈水','年均换芯 ≤300 元'],
+  picks:[
+    {m:'美的 白泽 1000G', p:'约 1600 元', s:'1000G · 3:1 废水比一级水效 · 5 年长效 RO 膜 · 年均换芯约 200 元', n:'这个价位段的标杆：零陈水稳定、售后网点密、故障率低', tag:'共识款'},
+    {m:'小米 1000G Pro', p:'约 1200～1600 元', s:'标称净水量 6500L · 年均换芯约 270 元 · 米家联动', n:'换芯成本与流速表现好，适合米家生态用户', tag:'共识款'},
+    {m:'美的 白泽 Max 1200G', p:'约 2000 元', s:'1200G（约 3.24L/min）· 6 年长效 RO 膜 · 零陈水 3.0 · 双出水', n:'四口以上或早高峰用水并发频繁，直接上 1200G', tag:'参考款'},
+    {m:'海尔 鲜活水 Pro', p:'约 2000～2500 元', s:'锌离子抑菌率 99.9% · 双出水 · 抗高硬度水质', n:'北方硬水区或有婴幼儿，抗堵与抑菌更可靠', tag:'参考款'}
+  ],
+  avoid:['只看机器价格','八级、十级「矿化」概念堆叠','把 TDS 笔当成水质检测的全部','过高通量的溢价（1200G 以上对普通家庭边际很小）'],
+  note:'算账方式：机器便宜 500 元但每年滤芯 800 元，另一台机器 1500 元每年滤芯 300 元——五年后后者省下约 2000 元。日均滤芯成本超过 1 元（年 >365 元）就属于「滤芯刺客」。'
+},
+{
+  no:'17', emoji:'🌿', name:'空气净化器', group:'filter',
+  essence:'单位时间能处理多少空气，以及这个能力能维持多久。<b>这是一台持续消费的机器，不是一次性购买。</b>',
+  line:{pass:'CADR 匹配面积 + CCM 达 P4/F4', sweet:'CADR 冗余 30%+ + 一级能效 + 睡眠 ≤35dB + 滤芯便宜', price:'1500～3500 元'},
+  metrics:[
+    {k:'CADR', d:'国标推荐换算：适用面积 ≈（0.07～0.12）× CADR。粗暴口诀是「每 10㎡ 至少 70m³/h」，30㎡ 客厅基础门槛 300m³/h，稳妥选 400m³/h 以上并留 30% 冗余。', pass:'每 10㎡ ≥70m³/h', sweet:'按面积 8～10 倍配置'},
+    {k:'CCM', d:'GB/T 18801-2022 把颗粒物 CCM 分 P1～P4（P4 ≥12000mg），甲醛 CCM 分 F1～F4（F4 ≥1500mg）。这是滤芯寿命，也是长期成本。', pass:'P4 + F4', sweet:'远超门槛值（具体数值公开的机型更可信）'},
+    {k:'能效', d:'1 级要求 ≥5.0 m³/(h·W)。这不是省电问题，而是风机与滤网阻力的匹配水平。', pass:'2 级', sweet:'1 级（≥5.0）'},
+    {k:'噪音', d:'晚上可能整夜开机，看「声功率级」而不是「声压级」。', pass:'≤40dB', sweet:'睡眠档 ≤35dB（优秀 ≤30dB）'},
+    {k:'除醛路线', d:'活性炭吸附会饱和并可能二次释放；催化分解把甲醛分解为水和 CO₂，持续有效。新房装修优先看路线而不是等级。', pass:'活性炭 + 高 CCM', sweet:'催化分解 + 甲醛 CADR ≥400'}
+  ],
+  config:['CADR ≥ 面积×8','颗粒物 P4 + 甲醛 F4','1 级能效','睡眠 ≤35dB','塔式结构（效率更高）','滤芯年成本 ≤300 元'],
+  picks:[
+    {m:'米家 空气净化器 4 Lite / 5S', p:'约 600～1800 元', s:'颗粒物 CADR 约 400m³/h · 睡眠约 30～32dB · 滤芯约 99～199 元/年', n:'20～40㎡ 卧室／租房的首选，耗材成本最低', tag:'共识款'},
+    {m:'米家 全效空气净化器 Ultra', p:'约 3499 元', s:'颗粒物 CADR 600 · 甲醛 CADR 480 · 年滤芯约 300 元', n:'两年总成本约 4100 元，性价比在 3000 元档突出', tag:'共识款'},
+    {m:'352 X83C Plus / Z90', p:'约 3000～6400 元', s:'颗粒物 CADR 650～937 · 塔式堆料 · 滤芯约 299 元/年 · H13', n:'客厅吸烟、宠物皮屑场景，滤芯耐用性是最大优势', tag:'共识款'},
+    {m:'352 X86C', p:'约 2500～4400 元', s:'甲醛 CADR 450～580 · 双风道 · 氨基酸除醛不产臭氧 · 睡眠 32dB', n:'新房除醛刚需，五年总成本仅比主流级多约 1000 元', tag:'参考款'}
+  ],
+  avoid:['负离子','香氛','Wi-Fi','屏幕','花哨空气质量动画','除菌率 99.9% 这类无检测报告的模糊表述'],
+  note:'把「两年总成本」算出来再比价：机器 + 滤芯 × 年数。同一价位里滤芯寿命差一倍，长期差距可能超过机器差价本身。'
+},
+{
+  no:'18', emoji:'🍳', name:'油烟机', group:'filter',
+  essence:'在烟扩散之前把它拢住并排走。<b>拢烟能力甚至比风量本身更重要</b>——烟已经扩散到厨房了，再大的风量也没用。',
+  line:{pass:'工作风量 ≥7m³/min + 最大静压 ≥450Pa + 油脂分离度 ≥85%', sweet:'最大静压 1000Pa+ + 油脂分离 ≥90% + 直流变频', price:'2000～3000 元'},
+  metrics:[
+    {k:'风量与风压口径', d:'2024 年新国标要用「工作风量」（≥7m³/min，贴近实际排烟阻力）；旧口径的「最大风量」≥10m³/min 参考意义有限。风压只看最大静压。', pass:'工作风量 ≥7m³/min', sweet:'标称风量 23m³/min 以上 + 变频巡航增压'},
+    {k:'最大静压', d:'决定抗公共烟道阻力的能力。经验公式：总楼层 − 所在楼层越小越需要高静压。', pass:'≤10 层差：450Pa', sweet:'层差 11～20：650Pa；21～30：800Pa；31＋：1000Pa'},
+    {k:'油脂分离度', d:'新国标从 80% 提到 85%。越高，机器内部积油越少、寿命越长、清洁越省力。', pass:'≥85%', sweet:'≥90%（高端可达 92%）'},
+    {k:'拢烟结构', d:'侧吸离灶台近、拢烟效果好；顶侧双吸兼顾拢烟与空间。导烟板 / 负压区设计比单纯堆风量有效。', pass:'三面拢烟 / 双腔', sweet:'顶侧双吸 + 广域负压'},
+    {k:'噪音与自清洁', d:'新国标用半消声室口径，实测厨房里会更高。自清洁（蒸汽 / 热熔）能显著延缓叶轮积油导致的吸力衰减。', pass:'≤73dB（半消声室）', sweet:'50～60dB + 蒸汽 / 热熔自清洁'}
+  ],
+  config:['直流变频电机','最大静压按楼层选（高层低楼层 1000Pa+）','油脂分离度 ≥90%','拢烟结构好','蒸汽或热熔自清洁','挥手智控'],
+  picks:[
+    {m:'方太 JCD16T（侧吸）', p:'约 2588 元', s:'24m³/min · 最大静压 1000Pa · 直流变频 · 油脂分离 92% · 机身约 35cm', n:'2000～3000 元档的均衡首选，隔烟屏宽、售后网点密', tag:'共识款'},
+    {m:'老板 28D3S / 61N0S', p:'约 2200～3000 元', s:'23～25m³/min · 最大静压 1000～1050Pa · 三面拢烟 / 数字变频', n:'爆炒多、公共烟道压力大的高层住户优先', tag:'共识款'},
+    {m:'美的 AK7 Pro', p:'约 1900～2400 元', s:'28m³/min · 最大静压 1100Pa · 110℃ 蒸汽自清洁 · 超薄平嵌', n:'同价位稀缺自带蒸汽自清洁，缺点是高档噪音偏大', tag:'共识款'},
+    {m:'老板 E2P（顶侧双吸）', p:'约 2300～2600 元', s:'26～28m³/min · 最大静压 1300～1380Pa · 纳米疏油内腔', n:'抗拥堵能力最强的一档，代价是机身略厚', tag:'参考款'}
+  ],
+  avoid:['只比最大风量','智能联网','屏幕','AI 炒菜联动','只看参数不看拢烟结构'],
+  note:'装机前问清楚：止逆阀、加长管、开孔是否单独收费——官方免费安装不等于配件免费，这笔钱常有几百元。'
+},
+
+/* ---------- 成熟 ---------- */
+{
+  no:'19', emoji:'🍚', name:'电饭煲', group:'mature',
+  essence:'把米加热到刚好熟透并保温。<b>功能已高度成熟，最容易出现「1000 元比 300 元多 50 个功能，但米饭没有好吃 50 倍」。</b>',
+  line:{pass:'IH 加热 + 0 涂层或厚内胆', sweet:'IH（含压力 IH）+ 温控 ±3℃ + 纯钛/316L 内胆', price:'400～800 元'},
+  metrics:[
+    {k:'加热方式', d:'IH 电磁加热比底盘加热均匀，通常是值得付费的一档；压力 IH 再进一步（提高沸点、粒粒分明），但溢价也更明显。', pass:'IH 电磁加热', sweet:'IH 或双驱 IH + 顶部远红外'},
+    {k:'温控精度', d:'决定米饭的成熟度与一致性。整锅温差越小越稳定。', pass:'±5℃', sweet:'±2～3℃'},
+    {k:'内胆', d:'影响受热、耐久与清洁。0 涂层路线（316L 不锈钢、纯钛、钛复合）解决了涂层脱落的焦虑，但需要结构设计来防粘。', pass:'厚 1.5mm 以上 316L 或涂层胆', sweet:'纯钛 / 0 涂层 + 物理防粘（点阵微坑）'},
+    {k:'密封与快煮', d:'密封影响烹饪过程与保温表现；快煮时长决定下班后的可用性。', pass:'密封圈可拆洗', sweet:'30 分钟内快煮 + 6 小时保温不返生'}
+  ],
+  config:['IH 加热','纯钛或 0 涂层 316L 内胆','温控 ±3℃','4L（3～4 人）','可拆洗密封圈','24 小时预约'],
+  picks:[
+    {m:'美的 MB-HC459S（4L）', p:'约 380 元', s:'316L 不锈钢蜂窝内胆 · IH 加热 · 销量 40 万+', n:'300～400 元档实打实的口碑款，预算紧就选它', tag:'共识款'},
+    {m:'苏泊尔 热风纯钛 0 涂层 F40H8093S（4L）', p:'约 700 元', s:'纯钛 0 涂层 · 点阵微坑防粘 · 有实验室不粘报告', n:'「买完就不用再研究」的选项，长期不粘与健康安全都有据', tag:'共识款'},
+    {m:'九阳 炫饭煲 40N1U（4L）', p:'约 700～730 元', s:'双驱 IH（整锅温差 ≤2℃）+ 顶部远红外 · 钛 + 316L 复合 0 涂层', n:'综合最均衡，另有低糖模式（有实测数据）', tag:'共识款'},
+    {m:'米家 IH 电饭煲 P1（3L）', p:'约 540 元', s:'0 氟涂层钛胆 · IH + 3D 压力 · App 远程', n:'1～2 人小家庭，智能化体验最好', tag:'参考款'}
+  ],
+  avoid:['Wi-Fi 作为主要卖点','手机控制','100 种菜单','AI 煮饭','超过 1000 元的中端机型（追的是内胆厚度与品牌）'],
+  note:'这个品类的甜点线非常明确：400～800 元。越过这条线，你买到的是内胆材质厚度、压力技术与外观，而不是「更好吃」的线性提升。'
+},
+{
+  no:'20', emoji:'⏱️', name:'微波炉', group:'mature',
+  essence:'让微波在腔内尽可能均匀地分布并加热食物。核心只有一件事：<b>加热均匀性。</b>',
+  line:{pass:'变频 + 平板内腔 + ≥700W', sweet:'变频平板 + 双发射口/搅拌片 + 温差 ≤3℃', price:'500～1300 元'},
+  metrics:[
+    {k:'变频 vs 定频', d:'定频只能间歇通断，解冻夹生、热饭不匀。变频可连续调节功率，实测节电 20%～30%，解冻与热牛奶的差异肉眼可见。', pass:'变频', sweet:'变频 + 多段火力'},
+    {k:'加热均匀性', d:'平板式早期均匀性弱于转盘式，现在靠多点发射与搅拌片已基本追平，500 元以上的变频平板实测温差可控制在 ±3℃ 内。', pass:'温差 ±5℃', sweet:'±3℃ 以内'},
+    {k:'内腔形式', d:'平板式清洁省心、空间利用率高（20L 平板 ≈ 23L 转盘）；转盘式对同时加热多个碗盘稍有优势，但难清洁。', pass:'按使用习惯选', sweet:'平板 + 双发射口'},
+    {k:'功率与容量', d:'单身 20L 以下，2～4 人 23～28L。功率 700～900W 是主流。', pass:'700W / 20L 以上', sweet:'900W / 23～28L'}
+  ],
+  config:['变频','平板内腔','20～25L','700～900W','可拆洗内腔','够用的机械或触控面板'],
+  picks:[
+    {m:'美的 M1-L201B（20L）', p:'约 500～700 元', s:'变频平板 · 底部分布搅拌片 · 实测温差约 ±2.5℃', n:'500～700 元档的综合性价比之王', tag:'共识款'},
+    {m:'格兰仕 G90F25CN3L-C2（25L）', p:'约 700～900 元', s:'变频 + 光波烧烤 · 25L 大容量', n:'需要大容量与简易烧烤功能时选它', tag:'共识款'},
+    {m:'松下 NN-DS2200 / SM30', p:'约 900～1500 元', s:'双发射口 · 加热均匀性接近转盘式 95% · 磁控管耐用', n:'甜点线以上，买的是加工一致性与长期可靠性', tag:'参考款'}
+  ],
+  avoid:['Wi-Fi 与 App 联动','「20 种智能菜单」','为联网多花上千元','300 元以下的非变频平板（均匀性明显差）'],
+  note:'判断很简单：预算内优先保「变频 + 平板」，烧烤和智能菜单都可以降级。一年用不到 20 次的话，定频也能用。'
+},
+{
+  no:'21', emoji:'🍲', name:'燃气灶', group:'mature',
+  essence:'把燃气稳定地烧在锅底，并保证不烧到别的东西上。<b>技术已非常成熟，买的是火力控制和安全冗余。</b>',
+  line:{pass:'一级能效（≥70%）+ 熄火保护 + 4.5kW 以上', sweet:'70% 热效率 + 5.2kW + 小火稳 + 防干烧', price:'800～2500 元'},
+  metrics:[
+    {k:'热效率', d:'新国标 GB 30720-2025（2026-03-01 实施）把家用一级能效门槛从 63% 提到 70%，二级为 64%。这是能效硬门槛，不再是可选项。', pass:'≥64%（2 级）', sweet:'≥70%（1 级）'},
+    {k:'火力调节', d:'不是越大越好。要看「大火够不够猛，小火能不能稳」。热负荷上限 5.2kW；小火不稳会在煲汤时反复熄火。', pass:'4.5～5.2kW', sweet:'5.2kW + 内环稳焰（小火不灭）'},
+    {k:'熄火保护', d:'强制配置。离子感应式或热电偶式，闭阀时间须 ≤60 秒。选购时确认炉头下方有真实感应针并连接电磁阀。', pass:'熄火保护 ≤60s', sweet:'离子感应 + 防干烧联动'},
+    {k:'炉头与面板', d:'铜火盖／铜炉头耐用性优于铸铁；钢化玻璃面板厚度建议 ≥4mm，不锈钢面板应一体冲压无焊点。', pass:'铜火盖', sweet:'全铜炉头 + 加宽聚能盘'},
+    {k:'安装适配', d:'旧厨改造重点看底盘是否可调节，避免重新切割台面。', pass:'标准开孔 650×350', sweet:'可调底盘适配旧灶位'}
+  ],
+  config:['一级能效（70%）','5.2kW 大火 + 稳焰小火','熄火保护 + 童锁','可调底盘','加宽聚能盘','铜火盖'],
+  picks:[
+    {m:'华帝 i10308F', p:'约 2230 元', s:'70% 热效率 · 5.2kW · 智能防干烧 4.0 · 双边定时', n:'能效 + 安全 + 定时三项齐全，中式爆炒友好', tag:'共识款'},
+    {m:'方太 02-TE30', p:'约 2340 元', s:'5.2kW · 热效率 66% · 定时 / 语音播报 / 熄火保护', n:'适老场景（语音提示）与品牌售后优先', tag:'参考款'},
+    {m:'老板 JZT-55B7A / 米家 智能燃气灶 S2', p:'约 900～2000 元', s:'5.2kW · 70% 热效率 · 230° 无级调火（米家款）', n:'预算敏感优先，米家款支持烟灶联动', tag:'共识款'},
+    {m:'万和 B9S / 荣事达 JZT-S51B', p:'约 400～600 元', s:'5.0kW 级 · 一级能效 · 熄火保护', n:'极致性价比路线，注意确认是否为 70% 热效率的新国标机型', tag:'参考款'}
+  ],
+  avoid:['智能联网','屏幕','AI 炒菜','超出需求的大火力（5.2kW 已是上限）'],
+  note:'燃气灶判废年限 8 年（GB 17905），超期使用易出现燃烧不充分、漏气、熄保失效。另外必须使用金属波纹软管，禁止橡胶软管。'
+},
+{
+  no:'22', emoji:'🍃', name:'电风扇', group:'mature',
+  essence:'推动空气。电机、风道与噪音几乎决定了全部体验——<b>1000 元的智能风扇未必比 300 元的优秀很多。</b>',
+  line:{pass:'直流无刷电机 + 低档 ≤35dB', sweet:'直流变频 + 低档 ≤30dB + 风感舒适 + 易清洁', price:'150～500 元'},
+  metrics:[
+    {k:'电机类型', d:'直流无刷/直流变频才能做到低档几乎无声且功耗 1W 级。百元级若用交流电机，物理上做不到 35dB。', pass:'直流无刷', sweet:'直流变频 + 功率 1～5W 低档'},
+    {k:'噪音', d:'看最低档而不是最高档。实测优秀机型低档约 32～36dB。', pass:'≤40dB（低档）', sweet:'≤32dB'},
+    {k:'风量与风感', d:'风量大不等于舒服。「柔风」「循环扇」的差别在于风道聚风与打散方式，而不是档位数字。', pass:'风距 ≥5m', sweet:'风距 8m+ + 可聚风 / 可柔风'},
+    {k:'结构', d:'摆头机构故障率较高；清洁便利性（网罩可拆）决定长期使用意愿。', pass:'网罩可拆', sweet:'可拆洗网罩 + 上下左右分开摇头'}
+  ],
+  config:['直流无刷电机','低档 ≤35dB','可拆洗网罩','合理的摇头结构','按空间选风距'],
+  picks:[
+    {m:'艾美特 FA18-SR183（直流款）', p:'约 129～159 元', s:'1W 低功耗 · 36dB · 8 档风速 · 直流无刷', n:'静音与功耗的代表，短板是风力偏小，不适合大空间', tag:'共识款'},
+    {m:'米家 循环扇 / 落地扇系列', p:'约 200～500 元', s:'直流电机 · 智能联动 · 低档静音', n:'米家生态用户，做工与风感均衡', tag:'参考款'},
+    {m:'（百元以下机型）', p:'低于 100 元', s:'多为交流电机，标称静音基本做不到', n:'建议避开：这是这个品类最常见的虚标区', tag:'参考款'}
+  ],
+  avoid:['「AI 制冷」「冰瓷制冷」这类伪概念（风扇不制冷）','宣称最高档 35dB 的百元机型','9.9 元包邮的「循环扇」','盲目追求 360° 摇头'],
+  note:'这个品类最容易被营销带偏：风扇没有任何制冷能力，所谓「降温 5℃」都是话术。判断标准只有风量、风感、电机、噪音四条。'
+},
+{
+  no:'23', emoji:'☕', name:'咖啡机', group:'mature',
+  essence:'用稳定的压力、温度和研磨，把咖啡粉里的可溶物萃取出来。<b>真正值得升级的是研磨和温控，不是屏幕。</b>',
+  line:{pass:'58mm 冲煮头 + PID + 独立磨豆机', sweet:'58mm + PID + OPV 稳压 + 平刀磨豆机', price:'1500～3000 元（含磨豆机）'},
+  metrics:[
+    {k:'磨豆机', d:'这是整个系统里最重要的部件，也是被忽略最多的。机器三千配五百的磨豆机，出品可能不如一体机。好一点的平刀或锥刀磨豆机至少 1000 元起，这笔钱必须算进预算。', pass:'锥刀 / 平刀磨豆机', sweet:'意式专用平刀 ≥1000 元级'},
+    {k:'冲煮头规格', d:'58mm 是商用标准，粉碗、压粉器、配件生态最完整，萃取均匀性优于 51mm。', pass:'51～54mm', sweet:'58mm 商用冲煮头'},
+    {k:'温控', d:'PID 控温决定萃取温度的稳定性。旋转泵比振动泵压力更稳、更安静。', pass:'PID 温控', sweet:'PID + OPV 稳压阀 + 预浸泡'},
+    {k:'锅炉结构', d:'单锅炉需要萃取与打奶之间等待；双加热／双锅炉可以同时进行。', pass:'单锅炉（接受等待）', sweet:'双加热或热交换'},
+    {k:'蒸汽与清洁', d:'蒸汽孔数影响打奶效率；有无自动清洗决定日常省心程度。', pass:'单孔蒸汽可接受', sweet:'三孔蒸汽 + 半自动清洗'}
+  ],
+  config:['58mm 商用冲煮头','PID 温控 + OPV','研磨一体或独立意式磨豆机','双加热 / 热交换','压力表 + 计时','可接受的清洁方案'],
+  picks:[
+    {m:'格米莱 G3005L / G3006', p:'约 1000～1700 元', s:'58mm 冲煮头 · 电子读秒屏 + 萃取压力表 · 预浸泡 · ULKA 泵', n:'千元档可玩性最高，需要自己配磨豆机，无自动清洗', tag:'共识款'},
+    {m:'百胜图 M3V', p:'约 2000 元', s:'58mm · PID + 旋转泵 · 预热更快', n:'想要咖啡馆级操控体验又不想上高阶机型', tag:'参考款'},
+    {m:'德龙 ECP35.31 / EC9155W', p:'约 800～2000 元', s:'15bar 泵压 · 品牌品控稳定 · 机身小巧（宽约 28.5cm）', n:'看重国际品牌与台面空间，接受配置偏弱（无 OPV）', tag:'参考款'},
+    {m:'海氏 C5（研磨一体）', p:'约 3000 元', s:'研磨一体 · OPV 稳压 · 58mm · 三孔蒸汽 · 双加热 · 3 秒速热', n:'一步到位不折腾，适合不想单独配磨豆机的人', tag:'参考款'}
+  ],
+  avoid:['屏幕','App 联动','20 种「风味模式」','为外观溢价买单（复古机型常缺 OPV 和蒸汽孔）','忽视磨豆机预算'],
+  note:'预算分配建议：如果总预算 3000 元，机器 1800 + 磨豆机 1200 的出品，通常好过机器 3000 + 磨豆机 500。胶囊机的核心是压力稳定 + 温度 + 胶囊生态；全自动的核心是磨豆 + 温控 + 萃取 + 清洁。'
+},
+{
+  no:'24', emoji:'🧼', name:'消毒柜', group:'mature',
+  essence:'这件事的真实问题是：<b>它能不能替你减少一件家务？</b>如果洗碗机已经带烘干和 72 小时存储，消毒柜的边际价值就很小了。',
+  line:{pass:'如无洗碗机，选二星级 + 中温烘干', sweet:'有洗碗机时：优先把预算给洗碗机而不是消毒柜', price:'0～2000 元'},
+  metrics:[
+    {k:'功能重叠度', d:'洗碗机的高温洗涤（70℃ 以上）本身已具备基础消毒能力，加上热风烘干与长效抑菌存储，功能上覆盖了消毒柜的绝大部分场景。', pass:'明确是否与洗碗机重叠', sweet:'厨房空间有限时二选一，选洗碗机'},
+    {k:'消毒星级', d:'消毒柜分一星级与二星级，二星级可覆盖更多种类病菌。若确有需要（母婴、南方潮湿），优先二星级。', pass:'二星级', sweet:'二星级 + 中温烘干（不烫伤餐具）'},
+    {k:'烘干能力', d:'这是消毒柜真正的短板之一。无烘干或仅靠余热的机型，内部潮湿反而容易滋生细菌。', pass:'带烘干', sweet:'中温烘干 + 前置排气（防橱柜受潮）'},
+    {k:'安装条件', d:'嵌入式需提前规划橱柜开孔、散热与电源，旧房改造难度大。消毒柜原位改洗碗机，最大的坑在柜体：背后可能有管路。', pass:'安装条件确认', sweet:'与洗碗机同区规划、共用水槽下水'}
+  ],
+  config:['若保留：二星级 + 烘干 + 前置排气','若升级：直接换洗碗机（洗 + 消 + 烘 + 存）','嵌入式需提前量净尺寸与背后管路'],
+  picks:[
+    {m:'（社区主流答案）直接把位置留给洗碗机', p:'——', s:'一台 13 套洗碗机 ≈ 洗碗 + 消毒 + 烘干 + 存储，省下一个电器位', n:'装修阶段最划算；当年「三件套」里的消毒柜使用率普遍很低', tag:'共识款'},
+    {m:'方太 J75 / 老板 小太阳 V20 等（若确需保留）', p:'约 2000～5000 元', s:'二星级 · 组合消毒（上层护木筷、下层强杀）· 密封可存餐具', n:'南方潮湿地区、母婴或老人家庭，认可度较高', tag:'参考款'}
+  ],
+  avoid:['把「消毒」当独立溢价理由的洗消一体机（先查两个证）','无烘干能力的低价机型','为了省台面硬把消毒柜原位塞洗碗机却不量柜体'],
+  note:'社区观点并非一边倒：支持「刚需」的一方占多数，主要来自南方潮湿地区、有婴幼儿或老人的家庭，以及新国标强制杀灭幽门螺杆菌带来的认可度；反对方集中在功能重叠、安装门槛高、日常并不需要过度消毒（彻底清洗 + 自然沥干已满足日常卫生）。判断标准就一句：<b>它替你减少了一件家务吗？</b>'
+}
+];
+
+/* ================= 渲染 ================= */
+var state = {q:'', group:'all', collapsed:false};
+
+function el(tag, cls, html){
+  var d = document.createElement(tag);
+  if(cls) d.className = cls;
+  if(html != null) d.innerHTML = html;
+  return d;
+}
+function esc(s){
+  return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+}
+
+/* 速查表 */
+(function renderRecap(){
+  var tb = document.getElementById('recapBody');
+  var fr = document.createDocumentFragment();
+  ITEMS.forEach(function(it){
+    var g = GROUPS.filter(function(x){return x.id===it.group;})[0];
+    var tr = document.createElement('tr');
+    tr.setAttribute('data-group', it.group);
+    tr.innerHTML =
+      '<td class="c-no">' + it.no + '</td>' +
+      '<td class="c-name">' + esc(it.emoji) + ' ' + esc(it.name) + '</td>' +
+      '<td class="c-pass">' + it.line.pass + '</td>' +
+      '<td class="c-sweet">' + it.line.sweet + '</td>' +
+      '<td class="c-tag"><span class="gtag" style="background:' + g.color + '">' + g.name.replace(/设备|家电/g,'') + '</span></td>';
+    fr.appendChild(tr);
+  });
+  tb.appendChild(fr);
+})();
+
+/* 卡片 */
+(function renderCards(){
+  var host = document.getElementById('cards');
+  GROUPS.forEach(function(g){
+    var items = ITEMS.filter(function(it){ return it.group === g.id; });
+    if(!items.length) return;
+
+    var block = el('div','gblock');
+    block.setAttribute('data-group', g.id);
+
+    var head = el('div','ghead');
+    head.innerHTML =
+      '<span class="gbar" style="background:' + g.color + '"></span>' +
+      '<h3>' + esc(g.name) + '</h3>' +
+      '<span class="gsub">' + esc(g.sub) + ' · ' + items.length + ' 个品类</span>';
+    block.appendChild(head);
+
+    items.forEach(function(it){
+      var card = el('article','card');
+      card.id = 'a-' + it.no;
+      card.setAttribute('data-group', it.group);
+
+      var pickHtml = it.picks.map(function(p){
+        var bt = p.tag === '共识款' ? 'cons' : 'ref';
+        return '<div class="pick">' +
+          '<div class="pm">' + esc(p.m) + '<span class="badge ' + bt + '">' + esc(p.tag) + '</span></div>' +
+          '<div class="pp">' + esc(p.p) + '</div>' +
+          '<div class="ps">' + p.s + '</div>' +
+          (p.n ? '<div class="pn">' + p.n + '</div>' : '') +
+        '</div>';
+      }).join('');
+
+      var specHtml = it.metrics.map(function(m){
+        var sweetCls = /^(无需|不适用|—)/.test(m.sweet) ? ' mut' : '';
+        return '<div class="sp-row">' +
+          '<div class="sp-k">' + esc(m.k) + '</div>' +
+          '<div class="sp-d" data-l="说明">' + m.d + '</div>' +
+          '<div class="sp-p" data-l="达标线">' + esc(m.pass) + '</div>' +
+          '<div class="sp-s' + sweetCls + '" data-l="甜点线">' + esc(m.sweet) + '</div>' +
+        '</div>';
+      }).join('');
+
+      card.innerHTML =
+        '<div class="card-top">' +
+          '<div class="card-emoji">' + it.emoji + '</div>' +
+          '<div class="card-id">' +
+            '<div class="no">' + it.no + ' / ' + esc(g.name) + '</div>' +
+            '<h4>' + esc(it.name) + '</h4>' +
+            '<p class="ess">' + it.essence + '</p>' +
+          '</div>' +
+          '<button class="card-toggle" type="button" aria-label="展开或收起">−</button>' +
+        '</div>' +
+        '<div class="card-body">' +
+          '<div class="blk">' +
+            '<div class="blk-h">关键指标 · 达标线 · 甜点线</div>' +
+            '<div class="spec">' +
+              '<div class="sp-head"><div>指标</div><div>它到底在说什么</div><div>达标线</div><div>甜点线</div></div>' +
+              specHtml +
+            '</div>' +
+          '</div>' +
+          '<div class="blk cfgbox">' +
+            '<div class="blk-h">甜点配置（组合答案）</div>' +
+            '<div class="taglist">' + it.config.map(function(c){ return '<span class="tag">' + esc(c) + '</span>'; }).join('') + '</div>' +
+          '</div>' +
+          '<div class="blk">' +
+            '<div class="blk-h">社区共识型号与价位带</div>' +
+            pickHtml +
+          '</div>' +
+          '<div class="blk">' +
+            '<div class="blk-h">不值得花太多钱</div>' +
+            '<div class="taglist">' + it.avoid.map(function(a){ return '<span class="tag neg">' + esc(a) + '</span>'; }).join('') + '</div>' +
+          '</div>' +
+          (it.note ? '<div class="notebar"><span class="ico">📌</span><span>' + it.note + '</span></div>' : '') +
+        '</div>';
+
+      block.appendChild(card);
+    });
+
+    host.appendChild(block);
+  });
+})();
+
+/* 搜索索引 */
+var INDEX = ITEMS.map(function(it, i){
+  var g = GROUPS.filter(function(x){return x.id===it.group;})[0];
+  var s = [it.no, it.name, it.essence, it.line.pass, it.line.sweet, it.line.price, g.name,
+           it.metrics.map(function(m){return m.k + ' ' + m.d + ' ' + m.pass + ' ' + m.sweet;}).join(' '),
+           it.config.join(' '), it.avoid.join(' '),
+           it.picks.map(function(p){return p.m + ' ' + p.s + ' ' + p.n + ' ' + p.p;}).join(' '),
+           it.note].join(' ').toLowerCase();
+  return {i:i, group:it.group, s:s};
+});
+
+/* 分类筛选 chips */
+(function renderChips(){
+  var box = document.getElementById('chips');
+  var all = [{id:'all', name:'全部', color:'#171a20'}].concat(GROUPS);
+  all.forEach(function(g){
+    var b = document.createElement('button');
+    b.type = 'button';
+    b.className = 'chip' + (g.id === 'all' ? ' on' : '');
+    b.setAttribute('data-g', g.id);
+    b.innerHTML = g.id === 'all'
+      ? '全部 ' + ITEMS.length
+      : '<span class="dot" style="color:' + g.color + '"></span>' + esc(g.name);
+    box.appendChild(b);
+  });
+})();
+
+/* 应用筛选 */
+function apply(){
+  var q = state.q.trim().toLowerCase();
+  var hits = {};
+  var visible = 0;
+
+  INDEX.forEach(function(row){
+    var okG = state.group === 'all' || row.group === state.group;
+    var okQ = !q || row.s.indexOf(q) >= 0;
+    var ok = okG && okQ;
+    hits[row.i] = ok;
+    if(ok) visible++;
+  });
+
+  Array.prototype.forEach.call(document.querySelectorAll('#cards .card'), function(card){
+    var idx = -1;
+    for(var i=0;i<ITEMS.length;i++){
+      if('a-' + ITEMS[i].no === card.id){ idx = i; break; }
+    }
+    if(idx < 0) return;
+    card.classList.toggle('hidden', !hits[idx]);
+  });
+
+  Array.prototype.forEach.call(document.querySelectorAll('#cards .gblock'), function(b){
+    var any = b.querySelectorAll('.card:not(.hidden)').length > 0;
+    b.classList.toggle('hidden', !any);
+  });
+
+  Array.prototype.forEach.call(document.querySelectorAll('#recapBody tr'), function(tr){
+    var g = tr.getAttribute('data-group');
+    tr.style.display = (state.group === 'all' || g === state.group) ? '' : 'none';
+  });
+
+  document.getElementById('empty').classList.toggle('hidden', visible > 0);
+  document.getElementById('count').innerHTML = '显示 <b>' + visible + '</b> / ' + ITEMS.length + ' 个品类';
+}
+
+/* 事件绑定 */
+(function bind(){
+  var q = document.getElementById('q');
+  var sbox = document.getElementById('sbox');
+  var clr = document.getElementById('clr');
+
+  q.addEventListener('input', function(){
+    state.q = q.value;
+    sbox.classList.toggle('hasval', q.value.length > 0);
+    apply();
+  });
+  clr.addEventListener('click', function(){
+    q.value = ''; state.q = '';
+    sbox.classList.remove('hasval');
+    apply(); q.focus();
+  });
+
+  document.getElementById('chips').addEventListener('click', function(e){
+    var b = e.target.closest ? e.target.closest('.chip') : null;
+    if(!b) return;
+    state.group = b.getAttribute('data-g');
+    Array.prototype.forEach.call(this.querySelectorAll('.chip'), function(c){
+      c.classList.toggle('on', c === b);
+    });
+    apply();
+  });
+
+  var ta = document.getElementById('toggleAll');
+  ta.addEventListener('click', function(){
+    state.collapsed = !state.collapsed;
+    Array.prototype.forEach.call(document.querySelectorAll('#cards .card-body'), function(bd){
+      bd.style.display = state.collapsed ? 'none' : '';
+    });
+    Array.prototype.forEach.call(document.querySelectorAll('#cards .card-toggle'), function(tg){
+      tg.textContent = state.collapsed ? '+' : '−';
+    });
+    ta.textContent = state.collapsed ? '展开全部' : '收起全部';
+  });
+
+  document.getElementById('cards').addEventListener('click', function(e){
+    var b = e.target.closest ? e.target.closest('.card-toggle') : null;
+    if(!b) return;
+    var card = b.closest('.card');
+    var body = card.querySelector('.card-body');
+    var open = body.style.display === 'none';
+    body.style.display = open ? '' : 'none';
+    b.textContent = open ? '−' : '+';
+  });
+})();
+
+/* ================= TCO ================= */
+(function tco(){
+  var ids = ['p0','p1','p2','p3'];
+  var inputs = ids.map(function(id){ return document.getElementById(id); });
+  var PRESETS = [
+    {n:'净水器（白泽 1000G）', v:[1600, 200, 60, 5]},
+    {n:'空气净化器（米家 Ultra）', v:[3499, 300, 110, 5]},
+    {n:'热泵烘干机（云溪）', v:[4700, 0, 260, 10]},
+    {n:'除湿机（德业 W20）', v:[1400, 0, 180, 8]},
+    {n:'扫地机器人（P20 Pro＋上下水）', v:[4100, 260, 90, 6]}
+  ];
+  var host = document.getElementById('presets');
+  PRESETS.forEach(function(p){
+    var b = document.createElement('button');
+    b.type = 'button';
+    b.className = 'chip';
+    b.textContent = p.n;
+    b.addEventListener('click', function(){
+      inputs.forEach(function(inp, i){ inp.value = p.v[i]; });
+      calc();
+    });
+    host.appendChild(b);
+  });
+
+  function num(v){ var n = parseFloat(v); return isFinite(n) && n >= 0 ? n : 0; }
+
+  function calc(){
+    var buy = num(inputs[0].value);
+    var con = num(inputs[1].value);
+    var ele = num(inputs[2].value);
+    var yr  = Math.max(1, Math.min(30, num(inputs[3].value) || 1));
+    var total = buy + (con + ele) * yr;
+    document.getElementById('oTotal').innerHTML = Math.round(total).toLocaleString('zh-CN') + '<small>元</small>';
+    document.getElementById('oYear').innerHTML = Math.round(total / yr).toLocaleString('zh-CN') + '<small>元/年</small>';
+    var running = con * yr + ele * yr;
+    var ratio = total > 0 ? (running / total * 100) : 0;
+    document.getElementById('oRatio').innerHTML = ratio.toFixed(0) + '<small>%</small>';
+    var base = total > 0 ? total : 1;
+    document.getElementById('bBuy').style.width = (buy / base * 100) + '%';
+    document.getElementById('bCon').style.width = ((con * yr) / base * 100) + '%';
+    document.getElementById('bEle').style.width = ((ele * yr) / base * 100) + '%';
+  }
+  inputs.forEach(function(inp){ inp.addEventListener('input', calc); });
+  calc();
+})();
+
+apply();
+</script>
+</body>
+</html>
