@@ -1,0 +1,540 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="icon" href="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%20100%20100%22%3E%3Ctext%20y%3D%22.9em%22%20font-size%3D%2290%22%3E%F0%9F%90%BA%3C%2Ftext%3E%3C%2Fsvg%3E">
+<title>只狼 · 影逝二度 — 一周目升级路线完全指南</title>
+<style>
+  :root{
+    --bg:#0e0c0b;
+    --bg2:#161210;
+    --panel:#1c1714;
+    --panel2:#221b17;
+    --line:rgba(201,162,39,0.18);
+    --ink:#ece4d8;
+    --ink-dim:#a99f92;
+    --red:#c0392b;
+    --red-b:#e05343;
+    --gold:#c9a227;
+    --gold-l:#e6c65a;
+    --green:#3f9b5c;
+    --blue:#4b7bab;
+  }
+  *{box-sizing:border-box;margin:0;padding:0;}
+  html{scroll-behavior:smooth;}
+  body{
+    background:var(--bg);
+    color:var(--ink);
+    font-family:"Songti SC","STSong","Noto Serif SC",Georgia,"PingFang SC","Microsoft YaHei",serif;
+    line-height:1.75;
+    -webkit-font-smoothing:antialiased;
+  }
+  body::before{
+    content:"";position:fixed;inset:0;pointer-events:none;z-index:0;
+    background:
+      radial-gradient(900px 500px at 82% -8%, rgba(192,57,43,0.16), transparent 62%),
+      radial-gradient(760px 460px at 4% 4%, rgba(201,162,39,0.10), transparent 60%),
+      radial-gradient(1000px 700px at 50% 118%, rgba(192,57,43,0.08), transparent 65%);
+  }
+  .wrap{position:relative;z-index:1;max-width:1000px;margin:0 auto;padding:0 22px 90px;}
+
+  /* ---------- HERO ---------- */
+  header.hero{
+    position:relative;text-align:center;
+    padding:78px 18px 54px;
+    border-bottom:1px solid var(--line);
+    margin-bottom:52px;
+  }
+  .kanji-bg{
+    position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);
+    font-size:230px;font-weight:900;color:rgba(192,57,43,0.045);
+    letter-spacing:.1em;white-space:nowrap;pointer-events:none;user-select:none;
+    font-family:"Songti SC","STSong",serif;
+  }
+  .kicker{
+    display:inline-block;font-size:12.5px;letter-spacing:.42em;color:var(--gold);
+    border:1px solid var(--line);border-radius:999px;padding:5px 20px 5px 24px;margin-bottom:26px;
+    background:rgba(201,162,39,0.05);
+  }
+  h1{
+    font-size:44px;font-weight:900;letter-spacing:.06em;line-height:1.25;
+    background:linear-gradient(178deg,#fff5e6 8%,var(--gold-l) 52%,#8a6d18 100%);
+    -webkit-background-clip:text;background-clip:text;color:transparent;
+    text-shadow:0 0 46px rgba(201,162,39,0.14);
+  }
+  .hero .sub{color:var(--ink-dim);font-size:15px;margin-top:16px;letter-spacing:.14em;}
+  .hero .seal{
+    display:inline-block;margin-top:26px;padding:7px 16px;font-size:13px;color:#f2d9cf;
+    background:rgba(192,57,43,0.16);border:1px solid rgba(192,57,43,0.5);border-radius:4px;
+    letter-spacing:.16em;
+  }
+
+  /* ---------- SECTION ---------- */
+  section{margin-bottom:56px;}
+  .sec-head{display:flex;align-items:center;gap:14px;margin-bottom:26px;}
+  .sec-no{
+    flex:0 0 auto;width:40px;height:40px;border-radius:50%;
+    display:flex;align-items:center;justify-content:center;
+    font-size:15px;font-weight:800;color:#fff;font-family:system-ui,sans-serif;
+    background:linear-gradient(140deg,var(--red-b),#7d2019);
+    box-shadow:0 0 0 1px rgba(192,57,43,.4),0 6px 20px rgba(192,57,43,.28);
+  }
+  .sec-head h2{font-size:25px;font-weight:800;letter-spacing:.05em;color:#f6ecdd;}
+  .sec-head .en{
+    font-family:system-ui,sans-serif;font-size:11.5px;letter-spacing:.24em;
+    color:var(--ink-dim);text-transform:uppercase;margin-left:4px;
+  }
+  .sec-head .rule{flex:1;height:1px;background:linear-gradient(90deg,var(--line),transparent);}
+
+  p.lead{color:var(--ink-dim);font-size:14.5px;margin-bottom:20px;}
+
+  /* ---------- BANNER ---------- */
+  .banner{
+    border:1px solid rgba(192,57,43,.45);
+    background:linear-gradient(120deg,rgba(192,57,43,.16),rgba(192,57,43,.04) 62%);
+    border-radius:12px;padding:22px 26px;margin-bottom:44px;
+    display:flex;gap:18px;align-items:flex-start;
+  }
+  .banner .mark{font-size:30px;line-height:1;color:var(--red-b);flex:0 0 auto;}
+  .banner b{color:var(--gold-l);}
+
+  /* ---------- CARD GRID (4 lines) ---------- */
+  .grid4{display:grid;grid-template-columns:repeat(auto-fit,minmax(215px,1fr));gap:15px;}
+  .mini{
+    background:linear-gradient(160deg,var(--panel),var(--bg2));
+    border:1px solid var(--line);border-radius:12px;padding:20px 18px;
+    transition:transform .22s ease,border-color .22s ease,box-shadow .22s ease;
+  }
+  .mini:hover{transform:translateY(-3px);border-color:rgba(201,162,39,.42);box-shadow:0 14px 32px rgba(0,0,0,.45);}
+  .mini .ico{font-size:22px;margin-bottom:10px;}
+  .mini h3{font-size:16.5px;color:var(--gold-l);margin-bottom:7px;letter-spacing:.04em;}
+  .mini p{font-size:13.5px;color:var(--ink-dim);line-height:1.68;}
+  .mini .tag{
+    display:inline-block;margin-top:11px;font-size:11.5px;font-family:system-ui,sans-serif;
+    color:#f0c9c0;background:rgba(192,57,43,.18);border-radius:4px;padding:2px 8px;letter-spacing:.1em;
+  }
+
+  /* ---------- TIER LIST ---------- */
+  .tier{
+    background:var(--panel);border:1px solid var(--line);border-radius:13px;
+    overflow:hidden;margin-bottom:15px;
+  }
+  .tier-head{
+    display:flex;align-items:center;gap:14px;padding:14px 20px;
+    background:linear-gradient(90deg,rgba(255,255,255,.045),transparent);
+    border-bottom:1px solid var(--line);
+  }
+  .badge{
+    font-family:system-ui,sans-serif;font-weight:800;font-size:13px;color:#fff;
+    width:36px;height:36px;border-radius:9px;display:flex;align-items:center;justify-content:center;
+    flex:0 0 auto;letter-spacing:.02em;
+  }
+  .b-s{background:linear-gradient(140deg,#e05343,#8e2118);box-shadow:0 0 0 1px rgba(224,83,67,.45);}
+  .b-a{background:linear-gradient(140deg,#d98324,#8a4d0e);}
+  .b-b{background:linear-gradient(140deg,#4b7bab,#2c4d70);}
+  .b-x{background:linear-gradient(140deg,#5a5550,#332f2b);}
+  .tier-head h3{font-size:16.5px;letter-spacing:.05em;color:#f4ebdd;}
+  .tier-head span.note{margin-left:auto;font-size:12.5px;color:var(--ink-dim);font-family:system-ui,sans-serif;}
+  .skill{
+    display:flex;gap:14px;align-items:baseline;padding:12px 20px;
+    border-bottom:1px dashed rgba(255,255,255,.06);font-size:14.5px;
+  }
+  .skill:last-child{border-bottom:none;}
+  .skill .nm{flex:0 0 195px;font-weight:700;color:#f0e6d6;}
+  .skill .nm em{display:block;font-style:normal;font-family:system-ui,sans-serif;font-size:11px;color:var(--ink-dim);letter-spacing:.05em;font-weight:400;margin-top:2px;}
+  .skill .ds{flex:1;color:var(--ink-dim);font-size:13.6px;}
+  .skill .pt{
+    flex:0 0 auto;font-family:system-ui,sans-serif;font-size:12px;color:var(--gold);
+    border:1px solid var(--line);border-radius:999px;padding:1px 10px;white-space:nowrap;
+  }
+  @media(max-width:640px){
+    .skill{flex-wrap:wrap;gap:6px;}
+    .skill .nm{flex:1 1 100%;}
+    .skill .ds{flex:1 1 100%;}
+  }
+
+  /* ---------- TIMELINE ---------- */
+  .tl{position:relative;padding-left:34px;}
+  .tl::before{content:"";position:absolute;left:11px;top:8px;bottom:8px;width:2px;
+    background:linear-gradient(180deg,var(--red),var(--gold),transparent);}
+  .tl-item{position:relative;margin-bottom:16px;}
+  .tl-item::before{
+    content:"";position:absolute;left:-29px;top:20px;width:12px;height:12px;border-radius:50%;
+    background:var(--bg);border:2.5px solid var(--red-b);box-shadow:0 0 12px rgba(192,57,43,.6);
+  }
+  .tl-card{
+    background:linear-gradient(150deg,var(--panel),var(--bg2));
+    border:1px solid var(--line);border-radius:11px;padding:16px 20px;
+    transition:border-color .22s ease;
+  }
+  .tl-card:hover{border-color:rgba(201,162,39,.4);}
+  .tl-card h4{font-size:15.5px;color:var(--gold-l);margin-bottom:6px;letter-spacing:.04em;}
+  .tl-card h4 small{font-family:system-ui,sans-serif;font-size:11.5px;color:var(--ink-dim);font-weight:400;margin-left:8px;letter-spacing:.08em;}
+  .tl-card p{font-size:13.8px;color:var(--ink-dim);}
+  .tl-card p b{color:#e8ddc9;font-weight:700;}
+
+  /* ---------- TABS ---------- */
+  .tabs{display:flex;gap:9px;flex-wrap:wrap;margin-bottom:18px;}
+  .tab{
+    cursor:pointer;font-family:inherit;font-size:13.8px;letter-spacing:.05em;
+    padding:9px 20px;border-radius:9px;border:1px solid var(--line);
+    background:var(--panel);color:var(--ink-dim);transition:all .2s ease;
+  }
+  .tab:hover{color:var(--ink);border-color:rgba(201,162,39,.4);}
+  .tab.on{
+    background:linear-gradient(140deg,rgba(192,57,43,.85),rgba(140,35,26,.85));
+    color:#fff;border-color:rgba(224,83,67,.7);box-shadow:0 8px 22px rgba(192,57,43,.3);
+  }
+  .pane{display:none;animation:fade .32s ease;}
+  .pane.on{display:block;}
+  @keyframes fade{from{opacity:0;transform:translateY(7px);}to{opacity:1;transform:none;}}
+  .pane-box{
+    background:linear-gradient(150deg,var(--panel),var(--bg2));
+    border:1px solid var(--line);border-radius:12px;padding:22px 24px;
+  }
+  .pane-box .row{display:flex;gap:12px;padding:9px 0;border-bottom:1px dashed rgba(255,255,255,.06);font-size:14px;}
+  .pane-box .row:last-child{border-bottom:none;}
+  .pane-box .k{flex:0 0 150px;color:var(--gold);font-weight:700;}
+  .pane-box .v{flex:1;color:var(--ink-dim);font-size:13.6px;}
+  .pane-box .foot{
+    margin-top:16px;padding:12px 15px;border-radius:9px;font-size:13.2px;
+    background:rgba(201,162,39,.07);border-left:3px solid var(--gold);color:#dcd0b8;
+  }
+
+  /* ---------- ORDERED STEPS ---------- */
+  .steps{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:13px;}
+  .step{
+    display:flex;gap:14px;align-items:flex-start;
+    background:var(--panel);border:1px solid var(--line);border-radius:11px;padding:15px 17px;
+    transition:border-color .2s ease,transform .2s ease;
+  }
+  .step:hover{border-color:rgba(192,57,43,.45);transform:translateX(3px);}
+  .step .num{
+    flex:0 0 30px;height:30px;border-radius:8px;display:flex;align-items:center;justify-content:center;
+    font-family:system-ui,sans-serif;font-weight:800;font-size:13.5px;color:#fff;
+    background:linear-gradient(140deg,var(--red-b),#7d2019);
+  }
+  .step .txt h4{font-size:14.8px;color:#f1e7d7;margin-bottom:3px;}
+  .step .txt p{font-size:13.2px;color:var(--ink-dim);}
+
+  /* ---------- WARN LIST ---------- */
+  .warn{
+    background:linear-gradient(150deg,rgba(192,57,43,.09),rgba(20,16,14,.6));
+    border:1px solid rgba(192,57,43,.35);border-radius:12px;padding:6px 24px 14px;
+  }
+  .warn li{
+    list-style:none;display:flex;gap:12px;padding:11px 0;font-size:14px;color:#ddd2c3;
+    border-bottom:1px dashed rgba(255,255,255,.07);
+  }
+  .warn li:last-child{border-bottom:none;}
+  .warn li::before{content:"✕";color:var(--red-b);font-weight:800;flex:0 0 auto;font-family:system-ui,sans-serif;}
+
+  /* ---------- SOURCES ---------- */
+  .src{
+    margin-top:60px;padding-top:24px;border-top:1px solid var(--line);
+    font-size:12.8px;color:#7d756b;line-height:1.9;
+  }
+  .src b{color:var(--ink-dim);letter-spacing:.1em;font-size:12px;}
+  footer.foot{text-align:center;color:#5f5850;font-size:12px;margin-top:26px;letter-spacing:.2em;}
+
+  @media(max-width:600px){
+    h1{font-size:31px;}
+    .kanji-bg{font-size:130px;}
+    header.hero{padding:52px 10px 38px;}
+    .sec-head h2{font-size:20px;}
+  }
+</style>
+<style data-emotion="css" data-s=""></style><style>
+html.iv-worker-checking img {
+  pointer-events: auto !important;
+}
+.disable-hover {
+  pointer-events: none !important;
+}
+</style></head>
+<body class="">
+<div class="wrap">
+
+  <header class="hero">
+    <div class="kanji-bg" ultimate-bold-correct="">隻狼</div>
+    <div class="kicker">S E K I R O &nbsp;·&nbsp; 御 加 强 指 南</div>
+    <h1 ultimate-bold-correct="">只狼 · 影逝二度<br>一周目升级路线完全指南</h1>
+    <p class="sub">社区顶级玩家（含 No-Hit / 速通圈）的加点共识整理</p>
+    <div class="seal">识破起手 → 攒点给苇名流 → 补续航 → 后期爆发</div>
+  </header>
+
+  <div class="banner">
+    <div class="mark">一</div>
+    <div>
+      <b ultimate-bold-correct="">核心结论：</b>《只狼》没有传统"等级"。角色变强靠四条独立的线，而 <b ultimate-bold-correct="">技能点是唯一"点错就后悔"的稀缺资源</b>。一周目大约 <b ultimate-bold-correct="">25 个技能点</b>就能毕业，前 25 点决定你的走向——所以千万别把点撒胡椒面，认准一条流派加满。
+    </div>
+  </div>
+
+  <!-- 1 -->
+  <section>
+    <div class="sec-head"><div class="sec-no" ultimate-bold-correct="">壹</div><h2 ultimate-bold-correct="">先搞清楚：升级分四条线</h2><div class="rule"></div></div>
+    <div class="grid4">
+      <div class="mini">
+        <div class="ico">✦</div>
+        <h3 ultimate-bold-correct="">技能点</h3>
+        <p>经验值换取，最稀缺、最需要规划。加点路线就是本指南的重点。</p>
+        <span class="tag">规划优先</span>
+      </div>
+      <div class="mini">
+        <div class="ico">◎</div>
+        <h3 ultimate-bold-correct="">佛珠（念珠）</h3>
+        <p>4 颗串一串，永久提升血量 + 架势上限。只从小 Boss 与隐藏点掉落，无法刷杂兵。</p>
+        <span class="tag">前期收益最大</span>
+      </div>
+      <div class="mini">
+        <div class="ico">◍</div>
+        <h3 ultimate-bold-correct="">葫芦种子</h3>
+        <p>交给破庙的 Emma 提升药量。见到就捡，是最无脑的强度提升。</p>
+        <span class="tag">见到就拿</span>
+      </div>
+      <div class="mini">
+        <div class="ico">◈</div>
+        <h3 ultimate-bold-correct="">忍具 / 琉璃</h3>
+        <p>破庙的佛师用素材升级忍义手；通关前源之宫附近的琉璃则是后期终极强化。</p>
+        <span class="tag">后期发力</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- 2 -->
+  <section>
+    <div class="sec-head"><div class="sec-no" ultimate-bold-correct="">贰</div><h2 ultimate-bold-correct="">技能点优先级分级</h2><div class="rule"></div></div>
+    <p class="lead">社区（游民星空、NGA、Samurai Gamers、Reddit 速通圈）对哪些技能"必点"、哪些"白给"的判断高度一致，可直接照此排序。</p>
+
+    <div class="tier">
+      <div class="tier-head"><div class="badge b-s" ultimate-bold-correct="">S</div><h3 ultimate-bold-correct="">必点 · 改变游戏机制</h3><span class="note">优先度最高</span></div>
+      <div class="skill">
+        <span class="nm" ultimate-bold-correct="">识破<em>Mikiri Counter</em></span>
+        <span class="ds">全游戏性价比最高。把敌人的「危 · 突刺」从灭顶之灾变成白给的架势伤害。弦一郎、义父、剑圣全靠它——这是游戏真正的"隐藏教学模式"。</span>
+        <span class="pt">2 点</span>
+      </div>
+      <div class="skill">
+        <span class="nm" ultimate-bold-correct="">仙峰脚<em>High Monk</em></span>
+        <span class="ds">专治「危 · 下段横扫」。跳跃踩头的高伤版本，破架势利器，需先拿到仙峰寺拳法秘籍。</span>
+        <span class="pt">3 点 · 前置 5</span>
+      </div>
+    </div>
+
+    <div class="tier">
+      <div class="tier-head"><div class="badge b-a" ultimate-bold-correct="">A</div><h3 ultimate-bold-correct="">强推 · 续航与拼刀</h3><span class="note">容错率与伤害的隐形杠杆</span></div>
+      <div class="skill">
+        <span class="nm" ultimate-bold-correct="">护命呼吸 · 阳<em>Breath of Life: Light</em></span>
+        <span class="ds">忍杀敌人后回血。开荒期跑图零消耗续航，大幅降低葫芦消耗，是被低估的救命技能。</span>
+        <span class="pt">5 点 · 前置 3</span>
+      </div>
+      <div class="skill">
+        <span class="nm" ultimate-bold-correct="">登鲤 / 下鲤<em>Ascending / Descending Carp</em></span>
+        <span class="ds">格挡成功、以及格挡后反击时，提高对敌人的架势伤害。拼刀节奏的胜负手。</span>
+        <span class="pt">各 2 点</span>
+      </div>
+      <div class="skill">
+        <span class="nm" ultimate-bold-correct="">流水<em>Flowing Water</em></span>
+        <span class="ds">减少自身被攻击/格挡时受到的架势损伤，长时间对拼更不容易被破防。</span>
+        <span class="pt">3 点 · 前置 3</span>
+      </div>
+      <div class="skill">
+        <span class="nm" ultimate-bold-correct="">派生攻击 · 追斩 / 连斩 / 释放斩<em>Chasing Slice / Fang and Blade / Projected Force</em></span>
+        <span class="ds">忍具出手后立刻衔接居合刀，形成流畅连招，对特定 Boss 与精英怪效果拔群。</span>
+        <span class="pt">1 / 2 / 1 点</span>
+      </div>
+      <div class="skill">
+        <span class="nm" ultimate-bold-correct="">忍者之眼<em>Shinobi Eyes</em></span>
+        <span class="ds">直接提升「识破」造成的架势伤害，让识破收益翻倍，缩短战斗时长。</span>
+        <span class="pt">3 点</span>
+      </div>
+    </div>
+
+    <div class="tier">
+      <div class="tier-head"><div class="badge b-b" ultimate-bold-correct="">B</div><h3 ultimate-bold-correct="">可选 · 锦上添花</h3><span class="note">作为前置点一下即可</span></div>
+      <div class="skill">
+        <span class="nm" ultimate-bold-correct="">旋风斩<em>Whirlwind Slash</em></span>
+        <span class="ds">初期唯一可靠的"破防起手"，被包围时解围用。但纯拼刀强度一般。</span>
+        <span class="pt">1 点</span>
+      </div>
+      <div class="skill">
+        <span class="nm" ultimate-bold-correct="">钩绳攻击 / 寄鹰斩<em>Grappling Hook Attack / Nightjar Slash</em></span>
+        <span class="ds">提供突进与立体机动，对付爱拉开距离的敌人（如蝴蝶夫人）不错。</span>
+        <span class="pt">1 / 2 点</span>
+      </div>
+      <div class="skill">
+        <span class="nm" ultimate-bold-correct="">屏息 / 消音<em>Suppress Presence / Sound</em></span>
+        <span class="ds">潜行清图神技，配合月隐糖可稳定绕背暗杀精英怪。正面对 Boss 无效。</span>
+        <span class="pt">2 / 3 点</span>
+      </div>
+      <div class="skill">
+        <span class="nm" ultimate-bold-correct="">持效药味 / 特效药音<em>Emma's Medicine</em></span>
+        <span class="ds">提升药品恢复量，提高容错。但前置投入过大，不如多找葫芦种子。</span>
+        <span class="pt">4 / 5 点</span>
+      </div>
+    </div>
+
+    <div class="tier">
+      <div class="tier-head"><div class="badge b-x" ultimate-bold-correct="">C/D</div><h3 ultimate-bold-correct="">慎点 · 通关前基本可以无视</h3><span class="note">性价比低 / 前摇长</span></div>
+      <div class="skill">
+        <span class="nm" ultimate-bold-correct="">失衡绕袭<em>Vault Over</em></span>
+        <span class="ds">看似能绕背，但实战收益远低于直接拼刀削架势。</span>
+        <span class="pt">2 点 · 前置 4</span>
+      </div>
+      <div class="skill">
+        <span class="nm" ultimate-bold-correct="">空中流派招式<em>Mid-air Combat Arts</em></span>
+        <span class="ds">某些连招很帅，但实用度不如平地拼刀，且前置消耗大。</span>
+        <span class="pt">3 点 · 前置 4</span>
+      </div>
+      <div class="skill">
+        <span class="nm" ultimate-bold-correct="">信仰<em>Devotion</em></span>
+        <span class="ds">延长 Buff 持续时间，除非极度依赖糖果，否则不必早期投入。</span>
+        <span class="pt">3 点 · 前置 5</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- 3 -->
+  <section>
+    <div class="sec-head"><div class="sec-no" ultimate-bold-correct="">叁</div><h2 ultimate-bold-correct="">分阶段加点节奏</h2><div class="rule"></div></div>
+    <p class="lead">按流程推进，每个阶段该点什么都写清楚了。核心原则：<b ultimate-bold-correct="">拿到苇名流之前，只点"识破"</b>，其余点全攒着。</p>
+    <div class="tl">
+      <div class="tl-item"><div class="tl-card">
+        <h4 ultimate-bold-correct="">P1 新手期 <small>初出茅庐 · 至鬼刑部</small></h4>
+        <p>只点 <b ultimate-bold-correct="">识破</b>。护命呼吸在血量极少时回血太微薄、旋风斩没用、寄鹰斩是坑点。把节省下来的点全留给<a>苇名流</a>，前期去三年前抓鱼拿轻舟渡过渡。</p>
+      </div></div>
+      <div class="tl-item"><div class="tl-card">
+        <h4 ultimate-bold-correct="">P2 渐入佳境 <small>主城 / 仙峰寺 / 坠落之谷</small></h4>
+        <p>补 <b ultimate-bold-correct="">空中弹开</b>、<b ultimate-bold-correct="">忍者之眼</b>（强化识破）、苇名流的 <b ultimate-bold-correct="">一字斩二连</b>。义手方面点追斩、勾绳攻击、连斩即可。</p>
+      </div></div>
+      <div class="tl-item"><div class="tl-card">
+        <h4 ultimate-bold-correct="">P3 取花刀石期 <small>皇子的任务</small></h4>
+        <p>点出 <b ultimate-bold-correct="">护命呼吸 · 阳</b> 优化续航，补仙峰流的 <b ultimate-bold-correct="">信仰</b>，并点满苇名流被动。</p>
+      </div></div>
+      <div class="tl-item"><div class="tl-card">
+        <h4 ultimate-bold-correct="">P4 龙之忍者 <small>断绝不死篇</small></h4>
+        <p>义手神技 <b ultimate-bold-correct="">附牙斩</b>（附魔爆发）+ 无心流的 <b ultimate-bold-correct="">秘传 · 不死斩</b>（后期版本之子）。这是伤害质变的阶段。</p>
+      </div></div>
+      <div class="tl-item"><div class="tl-card">
+        <h4 ultimate-bold-correct="">P5 一人之下 <small>多周目</small></h4>
+        <p>继续补被动与无心流秘传，追求极致就一路点满吧。</p>
+      </div></div>
+    </div>
+  </section>
+
+  <!-- 4 -->
+  <section>
+    <div class="sec-head"><div class="sec-no" ultimate-bold-correct="">肆</div><h2 ultimate-bold-correct="">三大主流流派方案</h2><div class="rule"></div></div>
+    <p class="lead">一周目约 21 点即可成型。点击查看各流派思路与加点构成。</p>
+    <div class="tabs">
+      <button class="tab on" data-p="p1">苇名流 + 仙峰拳（最推荐）</button>
+      <button class="tab" data-p="p2">忍者流</button>
+      <button class="tab" data-p="p3">义手流</button>
+      <button class="tab" data-p="p4">混搭 · 拆下段弹反流</button>
+    </div>
+
+    <div class="pane on" id="p1">
+      <div class="pane-box">
+        <div class="row"><span class="k" ultimate-bold-correct="">一句话</span><span class="v">当前最主流。看破与下段拆危双特化，靠拼刀与被动打崩架势。</span></div>
+        <div class="row"><span class="k" ultimate-bold-correct="">核心构成</span><span class="v">苇名流（一字斩 / 登鲤 / 下鲤 / 流水）+ 仙峰体术（叩拜连拳 / 功德 / 仙峰腿）</span></div>
+        <div class="row"><span class="k" ultimate-bold-correct="">成型点数</span><span class="v">约 21 点（不含看破另加 2 点）</span></div>
+        <div class="row"><span class="k" ultimate-bold-correct="">优点</span><span class="v">容错高、节奏稳，纯拼刀即可应对绝大多数 Boss</span></div>
+        <div class="foot">适合大多数玩家开荒。若只学一本苇名流出十字斩需 18 点，学通仙峰体术需 22 点。</div>
+      </div>
+    </div>
+
+    <div class="pane" id="p2">
+      <div class="pane-box">
+        <div class="row"><span class="k" ultimate-bold-correct="">一句话</span><span class="v">一对多更稳，忍杀续航最强，靠护命呼吸 + 失衡绕袭。</span></div>
+        <div class="row"><span class="k" ultimate-bold-correct="">核心构成</span><span class="v">识破 → 忍者之眼 → 护命呼吸 · 阳 → 失衡绕袭 / 消音 等</span></div>
+        <div class="row"><span class="k" ultimate-bold-correct="">成型点数</span><span class="v">精简版约 21 点（1.4 万经验）；若学满整本秘籍需 34 点（4.1 万经验）</span></div>
+        <div class="row"><span class="k" ultimate-bold-correct="">优点</span><span class="v">续航和清图体验最好，适合喜欢暗杀与多敌环境</span></div>
+        <div class="foot">若不学护命、恶业3、失衡、消音，改用绝技"影灭突刺"，同样是 21 点精简路线。</div>
+      </div>
+    </div>
+
+    <div class="pane" id="p3">
+      <div class="pane-box">
+        <div class="row"><span class="k" ultimate-bold-correct="">一句话</span><span class="v">伤害来自伞派生、喷火附牙斩与破架势的斧头，爆发极强。</span></div>
+        <div class="row"><span class="k" ultimate-bold-correct="">核心构成</span><span class="v">义手招式线 + 附牙斩 + 派生攻击 · 释放斩 / 连斩</span></div>
+        <div class="row"><span class="k" ultimate-bold-correct="">成型点数</span><span class="v">整本秘籍 31 点（3 万经验）；去掉两个恶业与第二特效药，精简为 21 点（1.4 万经验）</span></div>
+        <div class="row"><span class="k" ultimate-bold-correct="">缺点</span><span class="v">依赖纸人与物资，成长较慢，属后期发力型</span></div>
+        <div class="foot">忍具强化到位后还会自带"神雪附魔"，爆发力很优秀，但需要足够的资源支撑。</div>
+      </div>
+    </div>
+
+    <div class="pane" id="p4">
+      <div class="pane-box">
+        <div class="row"><span class="k" ultimate-bold-correct="">加点构成</span><span class="v">苇名流：一字 → 登鲤 → 流水（7 点）</span></div>
+        <div class="row"><span class="k">&nbsp;</span><span class="v">忍者流：看破 → 冲刺隐蔽 → 忍者之眼（6 点）</span></div>
+        <div class="row"><span class="k">&nbsp;</span><span class="v">仙峰流：叩拜 → 功德 → 仙峰腿（8 点）</span></div>
+        <div class="row"><span class="k" ultimate-bold-correct="">合计</span><span class="v">21 点</span></div>
+        <div class="foot">特点是把"看破"和"下段拆危"都特化到极致，代价是少了下鲤与忍杀回架势。想补回来可换成护躯，或再加义手追斩凑 21 点。</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 5 -->
+  <section>
+    <div class="sec-head"><div class="sec-no" ultimate-bold-correct="">伍</div><h2 ultimate-bold-correct="">忍具升级路线</h2><div class="rule"></div></div>
+    <p class="lead">忍具强化素材有限，社区思路一致：<b ultimate-bold-correct="">先升能"制造硬直 / 破防"的，再升纯输出类。</b></p>
+    <div class="steps">
+      <div class="step"><div class="num" ultimate-bold-correct="">1</div><div class="txt"><h4 ultimate-bold-correct="">手里剑（陀螺手里剑）</h4><p>远程压制、打断施法、打空中敌人，全程万金油，第一个必升。</p></div></div>
+      <div class="step"><div class="num" ultimate-bold-correct="">2</div><div class="txt"><h4 ultimate-bold-correct="">爆竹（填充式爆竹）</h4><p>让几乎所有敌人硬直，控场之王。打人形 Boss 与精英怪极稳。</p></div></div>
+      <div class="step"><div class="num" ultimate-bold-correct="">3</div><div class="txt"><h4 ultimate-bold-correct="">机关长枪（突刺式）</h4><p>拉近敌人、破坏突刺架势，对骑马与重甲单位有效。</p></div></div>
+      <div class="step"><div class="num" ultimate-bold-correct="">4</div><div class="txt"><h4 ultimate-bold-correct="">机关斧（弹簧式）</h4><p>破盾、破架势、高削韧，是莽夫的可靠伙伴。</p></div></div>
+      <div class="step"><div class="num" ultimate-bold-correct="">5</div><div class="txt"><h4 ultimate-bold-correct="">吹火筒（爆破式）</h4><p>对红眼 / 恐惧类敌人特攻，配合附牙斩可附魔到刀上。</p></div></div>
+      <div class="step"><div class="num" ultimate-bold-correct="">6</div><div class="txt"><h4 ultimate-bold-correct="">机关伞</h4><p>防御无法格挡的攻击并反伤（释放斩），关键时刻救命。</p></div></div>
+    </div>
+    <p class="lead" style="margin-top:16px;">贴吧玩家「音缘 life」的个人习惯顺序：<b ultimate-bold-correct="">斧子 → 伞 → 鞭炮 → 喷火器 → 飞镖</b>。排序不同，但核心逻辑一致——先要"硬直与破防"，再谈输出。</p>
+  </section>
+
+  <!-- 6 -->
+  <section>
+    <div class="sec-head"><div class="sec-no" ultimate-bold-correct="">陆</div><h2 ultimate-bold-correct="">后期：琉璃武器升级优先级</h2><div class="rule"></div></div>
+    <p class="lead">通关前会拿到稀有的 <b ultimate-bold-correct="">琉璃（Lapis Lazuli）</b>，一周目数量有限，只够升级少数几个，社区建议只投给最常用的忍具。</p>
+    <div class="steps">
+      <div class="step"><div class="num" ultimate-bold-correct="">◆</div><div class="txt"><h4 ultimate-bold-correct="">琉璃手里剑</h4><p>远程压制 + 追击效果增强，泛用性最高，优先度第一。</p></div></div>
+      <div class="step"><div class="num" ultimate-bold-correct="">◆</div><div class="txt"><h4 ultimate-bold-correct="">琉璃斧</h4><p>附带破除幻影效果，对幻影破戒僧等幻影系敌人有奇效。</p></div></div>
+      <div class="step"><div class="num" ultimate-bold-correct="">◆</div><div class="txt"><h4 ultimate-bold-correct="">琉璃锈丸</h4><p>提升中毒积累速度，主打持续伤害，但受敌人抗性影响。</p></div></div>
+      <div class="step"><div class="num" ultimate-bold-correct="">◆</div><div class="txt"><h4 ultimate-bold-correct="">琉璃火伞</h4><p>强化防御与火焰反击，针对火属性攻击的场合。</p></div></div>
+    </div>
+  </section>
+
+  <!-- 7 -->
+  <section>
+    <div class="sec-head"><div class="sec-no" ultimate-bold-correct="">柒</div><h2 ultimate-bold-correct="">避坑清单</h2><div class="rule"></div></div>
+    <ul class="warn">
+      <li>别在拿到苇名流之前乱花技能点——前期唯一值得点的是「识破」。</li>
+      <li>不要把点撒在多个流派上，一周目点数不足以"全都要"，认准一条加满。</li>
+      <li>绝技/流派大招前摇普遍很长，高强度拼刀时用一次就可能被处决，别轻易当主输出。</li>
+      <li>义手类被动（加义手伤害）一周目不是优先级，前期点数应先投拼刀容错。</li>
+      <li>佛珠前期收益大、后期边际递减，别指望靠堆血量过关，关键是格挡技术。</li>
+    </ul>
+  </section>
+
+  <div class="src">
+    <b ultimate-bold-correct="">资料整理自：</b>游民星空（「香菜辣味雪糕」技能分级 / 「一念黄泉一念生」一周目加点 / 「零悠悠」流派分配）、17173、百度贴吧玩家分享、Samurai Gamers 推荐技能顺序、Reddit 与 No-Hit / 速通圈共识。<br>
+    <b ultimate-bold-correct="">说明：</b>本页为社区经验汇总，非官方攻略。技能译名以官方中文版为准，英文名为便于对照标注。
+  </div>
+
+  <footer class="foot">— 有死之荣，无生之辱 —</footer>
+</div>
+
+<script>
+  (function(){
+    var tabs = document.querySelectorAll('.tab');
+    for (var i=0;i<tabs.length;i++){
+      tabs[i].addEventListener('click', function(){
+        var id = this.getAttribute('data-p');
+        for (var j=0;j<tabs.length;j++){ tabs[j].classList.remove('on'); }
+        this.classList.add('on');
+        var panes = document.querySelectorAll('.pane');
+        for (var k=0;k<panes.length;k++){ panes[k].classList.remove('on'); }
+        var target = document.getElementById(id);
+        if (target){ target.classList.add('on'); }
+      });
+    }
+  })();
+</script>
+</body>
+</html>

@@ -9,7 +9,7 @@
 [![License](https://img.shields.io/badge/license-MIT-blue?style=flat-square)](LICENSE)
 [![PRs](https://img.shields.io/badge/PRs-welcome-ff69b4?style=flat-square)](#-反馈与建议)
 
-**22 个页面 · 6 个分类 · 单文件 · 零依赖**
+**23 个页面 · 6 个分类 · 单文件 · 零依赖**
 
 </div>
 
@@ -51,7 +51,9 @@ kins-vault/
 │
 ├── games/                              # 🎮 游戏攻略
 │   ├── baldurs-gate-3-walkthrough/     #   含 198 张实机截图
-│   └── tales-of-destiny-2-guide.html   #   宿命传说2攻略
+│   ├── tales-of-destiny-2-guide.html   #   宿命传说2攻略
+│   ├── sekiro-upgrade-guide.html       #   只狼 · 一周目升级路线
+│   └── root-board-game-quickref.html   #   茂林源记规则速查
 ├── dev/                                # 🧑‍💻 开发与编程
 ├── visual/                             # 📊 数据可视化
 ├── life/                               # 🏠 生活指南
@@ -68,6 +70,7 @@ kins-vault/
 | [**博德之门3 · 任务全流程图文攻略**](https://kinsluck.github.io/kins-vault/games/baldurs-gate-3-walkthrough/) | 逐幕推进的全任务流程，198 张实机截图对照，跟着走不迷路 |
 | [**宿命传说2攻略**](https://kinsluck.github.io/kins-vault/games/tales-of-destiny-2-guide.html) | 战斗系统与流程要点整理，传说系列的经典一作 |
 | [**茂林源记 · 规则速查**](https://kinsluck.github.io/kins-vault/games/root-board-game-quickref.html) | 桌游 Root 的快速回忆卡：先串一遍全局流程，再随时翻派系细节 |
+| [**只狼 · 影逝二度 — 一周目升级路线完全指南**](https://kinsluck.github.io/kins-vault/games/sekiro-upgrade-guide.html) | 四条升级线怎么分配：技能点分级、P1–P5 加点节奏、三大流派与忍具、琉璃升级优先级 |
 
 ### 🧑‍💻 开发与编程
 
