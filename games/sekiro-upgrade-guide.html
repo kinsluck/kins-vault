@@ -44,6 +44,7 @@
     padding:78px 18px 54px;
     border-bottom:1px solid var(--line);
     margin-bottom:52px;
+    overflow:hidden;
   }
   .kanji-bg{
     position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);
@@ -99,7 +100,7 @@
   .banner b{color:var(--gold-l);}
 
   /* ---------- CARD GRID (4 lines) ---------- */
-  .grid4{display:grid;grid-template-columns:repeat(auto-fit,minmax(215px,1fr));gap:15px;}
+  .grid4{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(215px,100%),1fr));gap:15px;}
   .mini{
     background:linear-gradient(160deg,var(--panel),var(--bg2));
     border:1px solid var(--line);border-radius:12px;padding:20px 18px;
@@ -202,7 +203,7 @@
   }
 
   /* ---------- ORDERED STEPS ---------- */
-  .steps{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:13px;}
+  .steps{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(280px,100%),1fr));gap:13px;}
   .step{
     display:flex;gap:14px;align-items:flex-start;
     background:var(--panel);border:1px solid var(--line);border-radius:11px;padding:15px 17px;

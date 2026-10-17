@@ -61,8 +61,8 @@ ul,ol{margin:10px 0 10px 23px}li{margin:5px 0}
 .card{background:var(--card);border:1px solid var(--line);border-radius:6px;padding:19px 23px;margin:16px 0;box-shadow:var(--sh)}
 .card>h4:first-child{margin-top:0}
 .grid{display:grid;gap:15px}
-.g2{grid-template-columns:repeat(auto-fit,minmax(300px,1fr))}
-.g3{grid-template-columns:repeat(auto-fit,minmax(232px,1fr))}
+.g2{grid-template-columns:repeat(auto-fit,minmax(min(300px,100%),1fr))}
+.g3{grid-template-columns:repeat(auto-fit,minmax(min(232px,100%),1fr))}
 .box{border-radius:6px;padding:16px 19px;margin:14px 0;border:1px solid}
 .box .bt{font-weight:700;font-size:14.5px;margin-bottom:7px}
 .b-key{background:#eaf1f8;border-color:#b6cbe0;color:#1e3f5f}.b-key .bt{color:var(--accent)}
@@ -6298,7 +6298,7 @@ NEW_SECTIONS_1 = r'''
 
     <p style="margin:10px 0 4px"><b>校验结果：</b>本文档的日文专有名词按「去重后的独立来源数」分为四级，
       实测统计如下（<b>数字与本文档当前内容实时对应</b>，非估计值）：</p>
-    <table>
+    <div class="tw"><table>
       <thead><tr><th>等级</th><th>判定标准</th><th>项数</th><th>可信度</th></tr></thead>
       <tbody>
         <tr class="hi"><td><b>A 双来源确认</b></td>
@@ -6310,7 +6310,7 @@ NEW_SECTIONS_1 = r'''
         <tr><td><b>D 零来源</b></td>
           <td>全语料零命中</td><td><b>16 项</b></td><td>见下方逐项说明</td></tr>
       </tbody>
-    </table>
+    </table></div>
     <p style="margin:8px 0 4px">A 级 3 项具体为：
       <span class="jp">リニアモーションバトルシステム</span>（线性动作战斗系统）、
       <span class="jp">空破絶風撃</span>、

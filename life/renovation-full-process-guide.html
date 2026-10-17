@@ -126,6 +126,9 @@
   table{width:100%; border-collapse:collapse; margin:16px 0; font-size:13.8px; break-inside:avoid;}
   th,td{border:1px solid var(--line); padding:9px 12px; text-align:left; vertical-align:top;}
   th{background:#f3f4f6; font-weight:700; color:#111827; font-size:13px; letter-spacing:.02em;}
+  .tblwrap{overflow-x:auto; -webkit-overflow-scrolling:touch; margin:16px 0;}
+  .tblwrap table{margin:0; min-width:100%;}
+
   tbody tr:nth-child(even) td{background:#fafafa;}
   td.k{white-space:nowrap; font-weight:600; color:#111827;}
 
@@ -158,6 +161,8 @@
   }
   @media (max-width:720px){
     .hero,section{padding-left:20px; padding-right:20px;}
+    th,td{padding:7px 8px; font-size:13px;}
+    td.k{white-space:normal;}
     .hero h1{font-size:25px;}
     .tri{grid-template-columns:1fr;}
     footer{margin-left:20px; margin-right:20px;}
@@ -373,7 +378,7 @@
     </div>
 
     <h3>设计阶段就可以并行推进的准备</h3>
-    <table>
+    <div class="tblwrap"><table>
       <thead><tr><th style="width:32%">事项</th><th>要点</th></tr></thead>
       <tbody>
         <tr><td class="k">跟物业做好交接</td><td>设计一启动就可以办，别等开工才想起来。</td></tr>
@@ -382,7 +387,7 @@
         <tr><td class="k">定封窗找谁做</td><td><b>封窗有预定周期</b>，所以你可以先定下来，后面就不耽误你。</td></tr>
         <tr><td class="k">定拆旧找谁</td><td>拆旧队伍要在设计末期就锁定。</td></tr>
       </tbody>
-    </table>
+    </table></div>
   </section>
 
   <section>
@@ -585,7 +590,7 @@
     <h2><span class="n">附加条款</span>业主对工人的 7 条要求</h2>
     <p class="lead">「最后我要从一个业主的角度，去补充几点对工人的要求。」（视频 08:23）</p>
 
-    <table>
+    <div class="tblwrap"><table>
       <thead><tr><th style="width:64px">序号</th><th style="width:26%">主题</th><th>具体要求</th></tr></thead>
       <tbody>
         <tr><td class="k">第一</td><td class="k">不许住人</td><td><b>不要让任何工人在装修期间住在你家。</b>不要。</td></tr>
@@ -596,12 +601,12 @@
         <tr><td class="k">第六</td><td class="k">每日清扫</td><td>现场<b>每一天结束都要让他们打扫卫生</b>，尽量保持干净。</td></tr>
         <tr><td class="k">第七</td><td class="k">两个自查时机</td><td>① <b>每到饭点</b>去你家现场闻闻看，有没有<b>烟道漏烟</b>的情况 —— 这个时候有还可以补救，之后你柜子一装就不好弄了；② <b>在下雨天</b>再去看看，家里是不是又有什么地方漏水，也可以去观察一下<b>楼上有没有什么地方漏水</b> —— 这个时候你补救都还来得及，都还比较方便。</td></tr>
       </tbody>
-    </table>
+    </table></div>
   </section>
 
   <section>
     <h2><span class="n">速查表</span>关键数字一览</h2>
-    <table>
+    <div class="tblwrap"><table>
       <thead><tr><th style="width:24%">数字</th><th>含义</th><th style="width:16%">出处于</th></tr></thead>
       <tbody>
         <tr><td class="k">80%</td><td>设计阶段应该投入的精力占比</td><td>00:25</td></tr>
@@ -614,7 +619,7 @@
         <tr><td class="k">3 个人</td><td>拆旧前必须同时到场的角色：拆旧的人 + 设计师 + 业主</td><td>01:56</td></tr>
         <tr><td class="k">开一天关一天</td><td>通风期柜门的开关节奏（防变形）</td><td>08:19</td></tr>
       </tbody>
-    </table>
+    </table></div>
   </section>
 
   <section>
@@ -1071,7 +1076,7 @@
     <h2><span class="n">附录 B</span>整理方法与可信度说明</h2>
 
     <h3>素材与处理链路</h3>
-    <table>
+    <div class="tblwrap"><table>
       <thead><tr><th style="width:22%">环节</th><th>做法</th></tr></thead>
       <tbody>
         <tr><td class="k">视频</td><td>《装修最全流程总结！不误工期不被忽悠不踩坑！》，9 分 22 秒，1280×720，含烧录字幕（无水印字幕轨）</td></tr>
@@ -1080,7 +1085,7 @@
         <tr><td class="k">人工复核</td><td>对 4 处歧义位置逐帧放大确认原字幕（02:52 / 04:09 / 04:17 / 04:42）</td></tr>
         <tr><td class="k">中文校验</td><td>jieba 33 万词表 + 网络新词表体检（词典法，非大模型），产出对照表后人工判定</td></tr>
       </tbody>
-    </table>
+    </table></div>
 
     <h3>为什么以字幕 OCR 为准，而不是直接用语音转写</h3>
     <p>语音转写的同音字错误在装修语境下破坏性极大。实测 whisper-small 把「<b>封窗</b>」听成「分窗」、「<b>承重墙</b>」听成「沉重墙」、「<b>就近原则</b>」听成「究竟原则」、「<b>堵好</b>」听成「赌好」、「<b>全屋净水</b>」听成「全物进水」、「<b>严丝合缝</b>」听成「颜色和缝」。烧录字幕就是作者原文，因此<b>专有名词一律以字幕为准</b>，语音转写只用于补全与结构验证。</p>
@@ -1093,7 +1098,7 @@
     </ul>
 
     <h3>术语纠错表（OCR 同音 / 形近误 → 正确）</h3>
-    <table>
+    <div class="tblwrap"><table>
       <thead><tr><th>误</th><th>正</th><th>误</th><th>正</th><th>误</th><th>正</th></tr></thead>
       <tbody>
         <tr><td>型导</td><td class="k">型号</td><td>吊预</td><td class="k">吊顶</td><td>刮逆子</td><td class="k">刮腻子</td></tr>
@@ -1110,11 +1115,11 @@
         <tr><td>脚伐</td><td class="k">角阀</td><td>烟到</td><td class="k">烟道</td><td>定转</td><td class="k">地暖</td></tr>
         <tr><td>尼宫师傅</td><td class="k">泥工师傅</td><td>分闭</td><td class="k">封闭</td><td>垫杂和水杂</td><td class="k">电闸和水闸</td></tr>
       </tbody>
-    </table>
+    </table></div>
 
     <h3>中文校验结果：6 条建议全部判为误报，未采纳任何自动改写</h3>
     <p>词典法体检给出 6 条建议修正、74 条存疑，<b>全部人工判定为误报</b>。例如：</p>
-    <table>
+    <div class="tblwrap"><table>
       <thead><tr><th style="width:28%">脚本建议</th><th style="width:22%">判定</th><th>理由</th></tr></thead>
       <tbody>
         <tr><td class="k">宝子 → 豹子</td><td style="color:#b91c1c">拒绝</td><td>「宝子」是小红书常用称呼语，正确</td></tr>
@@ -1124,7 +1129,7 @@
         <tr><td class="k">饭点 → 饭店</td><td style="color:#b91c1c">拒绝</td><td>「每到饭点」，正确</td></tr>
         <tr><td class="k">一装 → 一桩</td><td style="color:#b91c1c">拒绝</td><td>「柜子一装」，正确</td></tr>
       </tbody>
-    </table>
+    </table></div>
     <p>存疑清单里的「冲筋 / 垂平 / 复尺 / 止逆阀 / 空鼓 / 拉篮 / 裤架 / 角阀 / 排向 / 闭水 / 封窗 / 硬装 / 墙排」等，均为规范装修术语，一律保留原样。</p>
   </section>
 

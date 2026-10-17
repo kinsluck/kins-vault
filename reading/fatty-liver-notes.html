@@ -119,8 +119,8 @@
 
   /* 饼图区 */
   .chart-flex { display: flex; gap: 28px; align-items: center; flex-wrap: wrap; }
-  .chart-flex svg { flex: none; }
-  .legend { flex: 1; min-width: 240px; }
+  .chart-flex svg { flex: none; max-width: 100%; height: auto; }
+  .legend { flex: 1; min-width: min(240px, 100%); }
   .legend .row {
     display: flex; align-items: center; gap: 10px;
     padding: 12px 14px; border-radius: 12px; margin-bottom: 8px;

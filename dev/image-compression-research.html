@@ -18,6 +18,10 @@ th{text-align:left;padding:9px 10px;border-bottom:2px solid var(--bd);color:var(
  font-weight:600;font-size:12.5px;white-space:nowrap}
 td{padding:9px 10px;border-bottom:1px solid #f0f1f4;vertical-align:top}
 tr:last-child td{border-bottom:none}
+.tbl-scroll{overflow-x:auto;-webkit-overflow-scrolling:touch;overscroll-behavior-x:contain}
+.tbl-scroll table{min-width:100%}
+.tbl-scroll::-webkit-scrollbar{height:6px}
+.tbl-scroll::-webkit-scrollbar-thumb{background:#cbd2dc;border-radius:3px}
 .mono{font-family:ui-monospace,Consolas,monospace;font-size:12.5px}
 .num{text-align:right;white-space:nowrap;font-variant-numeric:tabular-nums}
 .dim{color:var(--dim)}
@@ -35,7 +39,7 @@ figcaption{color:var(--dim);font-size:13px;margin-top:8px;text-align:center}
 .hero{background:linear-gradient(135deg,#fff7ed,#fff);border:1px solid #fed7aa;
  border-radius:12px;padding:22px 24px}
 .hero b{color:#9a3412}
-.kv{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:14px;margin:18px 0 0}
+.kv{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(150px,100%),1fr));gap:14px;margin:18px 0 0}
 .kv div{background:#fff;border:1px solid var(--bd);border-radius:10px;padding:12px 14px}
 .kv .k{color:var(--dim);font-size:12px}
 .kv .v{font-size:20px;font-weight:700;color:#c2410c;letter-spacing:-.3px}
@@ -44,6 +48,41 @@ pre{background:#1e2430;color:#e6edf3;padding:15px 17px;border-radius:10px;overfl
 pre .c{color:#7d8590}
 .warn{background:#fef2f2;border:1px solid #fecaca;border-radius:10px;padding:14px 17px;
  color:#991b1b;font-size:13.5px}
+
+@media(max-width:640px){
+ body{padding:22px 14px 56px}
+ h1{font-size:23px}
+ .sub{font-size:13px;margin-bottom:22px}
+ h2{font-size:17px;margin:30px 0 12px;padding-left:9px}
+ .card{padding:16px 14px;border-radius:10px}
+ .hero{padding:18px 16px;border-radius:10px}
+ table{font-size:13px}
+ th{padding:8px 9px;font-size:12px}
+ td{padding:9px 9px}
+ .kv{grid-template-columns:repeat(2,1fr);gap:10px}
+ .kv div{padding:10px 12px}
+ .kv .v{font-size:17px}
+ pre{padding:13px 14px;font-size:11.8px}
+ .tbl-wide table{min-width:660px}
+ .pit-b{font-size:13px}
+ /* 8 列实测表：手机上竖排成卡片，避免横滚找列 */
+ .rt thead{display:none}
+ .rt tr.hd{display:none}
+ .rt,.rt tbody,.rt tr,.rt td{display:block;width:auto}
+ .rt tr{border:1px solid var(--bd);border-radius:10px;padding:10px 12px;margin-bottom:10px}
+ .rt tr:last-child{margin-bottom:0}
+ .rt td{border-bottom:none;padding:3px 0;text-align:left!important;white-space:normal;
+  display:flex;justify-content:space-between;gap:14px}
+ .rt td::before{content:attr(data-th);color:var(--dim);font-size:12px;flex:0 0 auto;margin-right:auto}
+ .rt td>*{margin-left:auto;text-align:right}
+ .rt td:first-child{font-weight:700;font-size:14px;border-bottom:1px solid #f0f1f4;
+  padding-bottom:6px;margin-bottom:4px}
+ .rt td:first-child::before{display:none}
+}
+@media(max-width:380px){
+ .kv{grid-template-columns:1fr}
+ .tbl-wide table{min-width:600px}
+}
 </style></head><body><div class="wrap">
 
 <h1>图片压缩方案调研与实测</h1>
@@ -73,26 +112,26 @@ pre .c{color:#7d8590}
 </div>
 
 <h2>二、同类方案盘点（本机实测可用性）</h2>
-<div class="card"><table>
+<div class="card"><div class="tbl-scroll tbl-wide"><table>
 <tr><th>库 / 工具</th><th>用途</th><th>实测结论</th><th>采用</th></tr>
 <tr><td><b>Pillow 12.3.0</b></td><td>基础编解码 + JPEG/PNG/WebP/AVIF 编码</td><td class=dim>本机已内置 <b>libavif 1.4.2</b> 与 <b>libwebp 1.6.0</b>，AVIF/WebP 开箱即用，<b>不需要</b>再装 pillow-avif-plugin</td><td><span class='badge' style='background:#15803d'>核心</span></td></tr>
 <tr><td><b>pillow-heif 1.8.0</b></td><td>HEIC / HEIF 读写（iPhone 默认格式）</td><td class=dim>Pillow 本身不支持 HEIC，装它并 register_heif_opener() 即可补齐解码</td><td><span class='badge' style='background:#0891b2'>补充</span></td></tr>
 <tr><td><b>oxipng-py 0.1.0</b></td><td>PNG 真无损优化（Rust 实现）</td><td class=dim>实测省 2~6%，真无损、像素级一致；纯 Python 内存内调用，无需外挂 exe</td><td><span class='badge' style='background:#0891b2'>无损首选</span></td></tr>
 <tr><td><b>tinify (官方API)</b></td><td>TinyPNG 官方云服务</td><td class=dim>压缩率最高但需联网 + 每月 500 张免费限额，不适合批量与隐私场景</td><td><span class='badge' style='background:#94a3b8'>不采用</span></td></tr>
 <tr><td><b>pngquant / cwebp / mozjpeg</b></td><td>外部 CLI 有损压缩</td><td class=dim>效果优秀但需额外安装二进制；本方案用 Pillow 内置能力覆盖同等效果</td><td><span class='badge' style='background:#94a3b8'>可选</span></td></tr>
-</table></div>
+</table></div></div>
 
 <h2>三、实测结果（target = SSIM 0.98）</h2>
-<div class="card"><table>
-<tr><th>样本</th><th>尺寸</th><th>原图</th><th>压缩后</th><th>节省</th><th>格式/质量</th><th>SSIM</th><th>类型</th></tr>
-<tr><td class=mono>px_1166209.jpg</td><td class=dim>3840×2510</td><td class=num>1578.9 KB</td><td class=num style='color:#c2410c;font-weight:600'>496.0 KB</td><td class=num style='color:#15803d;font-weight:600'>68.6%</td><td><code>AVIF q45</code></td><td class=num>0.9809</td><td class=dim>照片·天空云层</td></tr>
-<tr><td class=mono>px_325185.jpg</td><td class=dim>3840×2560</td><td class=num>493.1 KB</td><td class=num style='color:#c2410c;font-weight:600'>42.8 KB</td><td class=num style='color:#15803d;font-weight:600'>91.3%</td><td><code>AVIF q30</code></td><td class=num>0.9837</td><td class=dim>照片·雾景平滑渐变</td></tr>
-<tr><td class=mono>px_269948.jpg</td><td class=dim>2201×1467</td><td class=num>315.1 KB</td><td class=num style='color:#c2410c;font-weight:600'>123.3 KB</td><td class=num style='color:#15803d;font-weight:600'>60.9%</td><td><code>AVIF q52</code></td><td class=num>0.9806</td><td class=dim>照片·海景</td></tr>
-<tr><td class=mono>baboon.jpg</td><td class=dim>512×512</td><td class=num>175.7 KB</td><td class=num style='color:#c2410c;font-weight:600'>160.6 KB</td><td class=num style='color:#15803d;font-weight:600'>8.6%</td><td><code>JPEG q89</code></td><td class=num>0.9819</td><td class=dim>高噪声测试图（最难压）</td></tr>
-<tr><td class=mono>lena.jpg</td><td class=dim>512×512</td><td class=num>89.7 KB</td><td class=num style='color:#c2410c;font-weight:600'>56.7 KB</td><td class=num style='color:#15803d;font-weight:600'>36.7%</td><td><code>AVIF q83</code></td><td class=num>0.9809</td><td class=dim>经典测试图</td></tr>
-<tr><td class=mono>lena.png</td><td class=dim>512×512</td><td class=num>420.7 KB</td><td class=num style='color:#c2410c;font-weight:600'>56.7 KB</td><td class=num style='color:#15803d;font-weight:600'>86.5%</td><td><code>AVIF q83</code></td><td class=num>0.9809</td><td class=dim>无损PNG转有损</td></tr>
-<tr><td class=mono>logo_rgba.png</td><td class=dim>512×512</td><td class=num>477.2 KB</td><td class=num style='color:#c2410c;font-weight:600'>30.3 KB</td><td class=num style='color:#15803d;font-weight:600'>93.6%</td><td><code>WebP q88</code></td><td class=num>0.9849</td><td class=dim>带透明通道</td></tr>
-</table>
+<div class="card"><div class="tbl-scroll"><table class="rt">
+<tr class="hd"><th>样本</th><th>尺寸</th><th>原图</th><th>压缩后</th><th>节省</th><th>格式/质量</th><th>SSIM</th><th>类型</th></tr>
+<tr><td class=mono data-th="样本">px_1166209.jpg</td><td class=dim data-th="尺寸">3840×2510</td><td class=num data-th="原图">1578.9 KB</td><td class=num data-th="压缩后" style='color:#c2410c;font-weight:600'>496.0 KB</td><td class=num data-th="节省" style='color:#15803d;font-weight:600'>68.6%</td><td data-th="格式/质量"><code>AVIF q45</code></td><td class=num data-th="SSIM">0.9809</td><td class=dim data-th="类型">照片·天空云层</td></tr>
+<tr><td class=mono data-th="样本">px_325185.jpg</td><td class=dim data-th="尺寸">3840×2560</td><td class=num data-th="原图">493.1 KB</td><td class=num data-th="压缩后" style='color:#c2410c;font-weight:600'>42.8 KB</td><td class=num data-th="节省" style='color:#15803d;font-weight:600'>91.3%</td><td data-th="格式/质量"><code>AVIF q30</code></td><td class=num data-th="SSIM">0.9837</td><td class=dim data-th="类型">照片·雾景平滑渐变</td></tr>
+<tr><td class=mono data-th="样本">px_269948.jpg</td><td class=dim data-th="尺寸">2201×1467</td><td class=num data-th="原图">315.1 KB</td><td class=num data-th="压缩后" style='color:#c2410c;font-weight:600'>123.3 KB</td><td class=num data-th="节省" style='color:#15803d;font-weight:600'>60.9%</td><td data-th="格式/质量"><code>AVIF q52</code></td><td class=num data-th="SSIM">0.9806</td><td class=dim data-th="类型">照片·海景</td></tr>
+<tr><td class=mono data-th="样本">baboon.jpg</td><td class=dim data-th="尺寸">512×512</td><td class=num data-th="原图">175.7 KB</td><td class=num data-th="压缩后" style='color:#c2410c;font-weight:600'>160.6 KB</td><td class=num data-th="节省" style='color:#15803d;font-weight:600'>8.6%</td><td data-th="格式/质量"><code>JPEG q89</code></td><td class=num data-th="SSIM">0.9819</td><td class=dim data-th="类型">高噪声测试图（最难压）</td></tr>
+<tr><td class=mono data-th="样本">lena.jpg</td><td class=dim data-th="尺寸">512×512</td><td class=num data-th="原图">89.7 KB</td><td class=num data-th="压缩后" style='color:#c2410c;font-weight:600'>56.7 KB</td><td class=num data-th="节省" style='color:#15803d;font-weight:600'>36.7%</td><td data-th="格式/质量"><code>AVIF q83</code></td><td class=num data-th="SSIM">0.9809</td><td class=dim data-th="类型">经典测试图</td></tr>
+<tr><td class=mono data-th="样本">lena.png</td><td class=dim data-th="尺寸">512×512</td><td class=num data-th="原图">420.7 KB</td><td class=num data-th="压缩后" style='color:#c2410c;font-weight:600'>56.7 KB</td><td class=num data-th="节省" style='color:#15803d;font-weight:600'>86.5%</td><td data-th="格式/质量"><code>AVIF q83</code></td><td class=num data-th="SSIM">0.9809</td><td class=dim data-th="类型">无损PNG转有损</td></tr>
+<tr><td class=mono data-th="样本">logo_rgba.png</td><td class=dim data-th="尺寸">512×512</td><td class=num data-th="原图">477.2 KB</td><td class=num data-th="压缩后" style='color:#c2410c;font-weight:600'>30.3 KB</td><td class=num data-th="节省" style='color:#15803d;font-weight:600'>93.6%</td><td data-th="格式/质量"><code>WebP q88</code></td><td class=num data-th="SSIM">0.9849</td><td class=dim data-th="类型">带透明通道</td></tr>
+</table></div>
 <div style="margin-top:14px" class="warn">
 <b>注意 baboon 只省 8.6%、且最终选了 JPEG</b> —— 这是正确行为，不是失败。它是人工合成的高频噪声图，几乎不可压缩；
 WebP/AVIF 在 SSIM 0.98 约束下都压不到原图体积以下，算法便如实回退。真实照片（前 3 行）才是典型场景。
@@ -100,7 +139,7 @@ WebP/AVIF 在 SSIM 0.98 约束下都压不到原图体积以下，算法便如�
 </div>
 
 <h2>四、朴素做法为什么不行</h2>
-<div class="card"><table>
+<div class="card"><div class="tbl-scroll tbl-wide"><table>
 <tr><th>做法</th><th>4K 图表现</th><th>问题</th></tr>
 <tr><td><code>JPEG quality=85</code></td><td class=num>省 <span style="color:#dc2626">−6.3%</span> / <span style="color:#dc2626">−7.8%</span></td>
 <td class=dim>体积<b>反而变大</b>。重编码已压缩过的 JPEG 时，固定质量会重新引入冗余。</td></tr>
@@ -108,7 +147,7 @@ WebP/AVIF 在 SSIM 0.98 约束下都压不到原图体积以下，算法便如�
 <td class=dim>体积是小了，但<b>低于 0.98 画质线</b>，属「有损可辨」，不满足「尽可能保证清晰度」。</td></tr>
 <tr><td>固定 quality 一刀切</td><td class=num>—</td>
 <td class=dim>baboon 在 SSIM 0.98 能省 49%，lena 同样 0.98 只省 28%。<b>同一参数在不同图上质量差距巨大</b>。</td></tr>
-</table></div>
+</table></div></div>
 
 <h2>五、开发中踩到的坑（全部实测复现）</h2>
 <div class="card"><div class=pit><div class=pit-h><span class="badge" style="background:#dc2626">严重</span><b>Pillow 的 WebP 不支持 near_lossless 参数</b></div><div class=pit-b>传 <code>near_lossless=90</code> 会被<b>静默忽略</b>，q=90 与 q=70 输出字节完全相同（实测 28416 B）。只能靠「有损 + 低 quality」逼近，别指望这个参数。</div></div>

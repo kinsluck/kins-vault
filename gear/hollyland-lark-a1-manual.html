@@ -70,13 +70,15 @@ h3:first-of-type{margin-top:6px}
 p{margin:9px 0}
 
 /* ---------- steps ---------- */
-.steps{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:12px;margin-top:6px}
+.steps{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(200px,100%),1fr));gap:12px;margin-top:6px}
 .step{background:var(--surface2);border:1px solid var(--line);border-radius:11px;padding:15px 16px}
 .step .sn{font-size:11px;font-weight:700;color:var(--accent);letter-spacing:.07em}
 .step .st{font-weight:650;font-size:14.5px;margin:5px 0 5px}
 .step .sd{font-size:13px;color:var(--muted);line-height:1.6}
 
 /* ---------- tables ---------- */
+.tblwrap{overflow-x:auto;-webkit-overflow-scrolling:touch;margin:10px 0 4px}
+.tblwrap table{margin:0;min-width:100%}
 .tbl{width:100%;border-collapse:collapse;font-size:13.7px;margin:10px 0 4px}
 .tbl th,.tbl td{padding:9px 12px;text-align:left;border-bottom:1px solid var(--line2);vertical-align:top}
 .tbl th{
@@ -102,7 +104,7 @@ p{margin:9px 0}
 .tabpane.show{display:block}
 
 /* ---------- LED ---------- */
-.leds{display:grid;grid-template-columns:repeat(auto-fill,minmax(158px,1fr));gap:9px;margin:12px 0}
+.leds{display:grid;grid-template-columns:repeat(auto-fill,minmax(min(158px,100%),1fr));gap:9px;margin:12px 0}
 .leditem{
   display:flex;align-items:center;gap:10px;background:var(--surface2);
   border:1px solid var(--line);border-radius:10px;padding:9px 12px;
@@ -156,7 +158,7 @@ input[type=range]{width:100%;accent-color:var(--accent);height:20px}
 .bstate{font-size:12.4px;color:var(--muted);margin-top:2px}
 
 /* ---------- misc ---------- */
-.kv{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:10px;margin:12px 0}
+.kv{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(210px,100%),1fr));gap:10px;margin:12px 0}
 .kvbox{background:var(--surface2);border:1px solid var(--line);border-radius:10px;padding:13px 15px}
 .kvbox .kt{font-size:12.2px;color:var(--muted);margin-bottom:3px}
 .kvbox .kd{font-weight:650;font-size:15px;font-variant-numeric:tabular-nums}
@@ -199,8 +201,8 @@ footer{border-top:1px solid var(--line);background:var(--surface);padding:24px 3
 .toTop.show{display:flex}
 
 @media(max-width:1000px){
-  .layout{grid-template-columns:1fr;padding:18px 16px 70px;gap:0}
-  nav{position:sticky;top:0;z-index:20;background:var(--bg);padding:10px 0;margin:0 -16px 14px;
+  .layout{grid-template-columns:minmax(0,1fr);padding:18px 16px 70px;gap:0}
+  nav{position:sticky;top:0;z-index:20;background:var(--bg);padding:10px 0;margin:0 0 14px;
     border-bottom:1px solid var(--line);display:flex;gap:6px;overflow-x:auto;scrollbar-width:none}
   nav::-webkit-scrollbar{display:none}
   nav .navtitle{display:none}
@@ -297,7 +299,7 @@ footer{border-top:1px solid var(--line);background:var(--surface);padding:24px 3
       </div>
 
       <div class="tabpane show" id="p1">
-        <table class="tbl">
+        <div class="tblwrap"><table class="tbl">
           <tr><th style="width:38%">项目</th><th>参数</th></tr>
           <tr><td>MIC 灵敏度</td><td class="v">-37dBV±2dBV@1KHz, 94dBSPL</td></tr>
           <tr><td>麦克风指向性</td><td class="v">全指向</td></tr>
@@ -317,11 +319,11 @@ footer{border-top:1px solid var(--line);background:var(--surface);padding:24px 3
           <tr><td>工作环境温度</td><td class="v">-10 ~ 60℃</td></tr>
           <tr><td>尺寸</td><td class="v">30 × 16.3 × 8.8mm</td></tr>
           <tr><td>重量</td><td class="v">约 8g <span class="unit">（厚度约 0.9cm）</span></td></tr>
-        </table>
+        </table></div>
       </div>
 
       <div class="tabpane" id="p2">
-        <table class="tbl">
+        <div class="tblwrap"><table class="tbl">
           <tr><th style="width:38%">项目</th><th>参数</th></tr>
           <tr><td>接口类型</td><td class="v">USB-C / Lightning <span class="unit">（按版本随机附赠，需按手机接口选配）</span></td></tr>
           <tr><td>无线调制模式</td><td class="v">GFSK 2Mbps</td></tr>
@@ -334,14 +336,14 @@ footer{border-top:1px solid var(--line);background:var(--surface);padding:24px 3
           <tr><td>尺寸</td><td class="v">34 × 16.3 × 9mm</td></tr>
           <tr><td>重量</td><td class="v">约 5.9g</td></tr>
           <tr><td>认证</td><td class="v">通过 Apple 官方 MFi 认证</td></tr>
-        </table>
+        </table></div>
         <div class="info">
           <b>兼容说明：</b>App 要求 iOS 12.0 或更高版本、Android 8.0 或更高版本。官方文档提示 Lightning 版 RX 兼容带 Lightning 接口的 iPhone / iPad，具体机型请以官方「兼容性清单」为准；相机不支持使用该接收器。
         </div>
       </div>
 
       <div class="tabpane" id="p3">
-        <table class="tbl">
+        <div class="tblwrap"><table class="tbl">
           <tr><th style="width:38%">项目</th><th>参数</th></tr>
           <tr><td>电池电压</td><td class="v">3.7V</td></tr>
           <tr><td>电池容量</td><td class="v">460mAh</td></tr>
@@ -351,7 +353,7 @@ footer{border-top:1px solid var(--line);background:var(--surface);padding:24px 3
           <tr><td>工作环境温度</td><td class="v">-10 ~ 60℃</td></tr>
           <tr><td>充电口</td><td class="v">USB-C <span class="unit">（可同时为充电盒与盒内设备供电）</span></td></tr>
           <tr><td>自动开关机</td><td class="v">取出自动开机，放回自动关机</td></tr>
-        </table>
+        </table></div>
         <h3>组合续航</h3>
         <div class="kv">
           <div class="kvbox"><div class="kt">单发射器（不开降噪）</div><div class="kd">约 9 小时</div></div>
@@ -363,7 +365,7 @@ footer{border-top:1px solid var(--line);background:var(--surface);padding:24px 3
       </div>
 
       <div class="tabpane" id="p4">
-        <table class="tbl">
+        <div class="tblwrap"><table class="tbl">
           <tr><th style="width:38%">项目</th><th>参数</th></tr>
           <tr><td>载波频率</td><td class="v">2400MHz ~ 2483.5MHz</td></tr>
           <tr><td>调制方式</td><td class="v">GFSK 2Mbps</td></tr>
@@ -372,7 +374,7 @@ footer{border-top:1px solid var(--line);background:var(--surface);padding:24px 3
           <tr><td>输出采样</td><td class="v">48kHz / 24bit</td></tr>
           <tr><td>拾音方式</td><td class="v">全指向</td></tr>
           <tr><td>工作温度</td><td class="v">-10 ~ 60℃</td></tr>
-        </table>
+        </table></div>
         <p style="color:var(--muted);font-size:13px">200 米为官方标注的空旷场地可视距离；实际可用距离受人体遮挡、墙体、2.4GHz 干扰源（路由器 / 无绳电话等）影响，建议按需缩短距离。</p>
       </div>
     </section>
@@ -423,7 +425,7 @@ footer{border-top:1px solid var(--line);background:var(--surface);padding:24px 3
       </div>
 
       <h3>按键功能对照表</h3>
-      <table class="tbl">
+      <div class="tblwrap"><table class="tbl">
         <tr><th>设备</th><th>操作</th><th>功能</th></tr>
         <tr><td class="v">TX</td><td>长按 3 秒</td><td>开机 / 关机<span class="unit">（关机状态下放入充电盒会自动开机并充电）</span></td></tr>
         <tr><td class="v">TX</td><td>长按 6 秒</td><td>进入配对模式<span class="unit">（需在关机状态下进行）</span></td></tr>
@@ -435,7 +437,7 @@ footer{border-top:1px solid var(--line);background:var(--surface);padding:24px 3
         <tr><td class="v">RX</td><td>双击</td><td>静音 / 取消静音 TX1</td></tr>
         <tr><td class="v">RX</td><td>三击</td><td>静音 / 取消静音 TX2</td></tr>
         <tr><td class="v">充电盒</td><td>取出 / 放回 TX</td><td>自动开机 / 自动关机</td></tr>
-      </table>
+      </table></div>
       <div class="note">
         <b>易混点：</b>TX 与 RX 的「单击」都是降噪开关，但 RX 的双击 / 三击只控制<b>指定</b>的那一支（TX1 / TX2），因此双人同时收音时，可以在 RX 上单独关掉某一路而不影响另一路。
       </div>
@@ -522,22 +524,22 @@ footer{border-top:1px solid var(--line);background:var(--surface);padding:24px 3
       </div>
 
       <h3>降噪档位</h3>
-      <table class="tbl">
+      <div class="tblwrap"><table class="tbl">
         <tr><th>档位</th><th>降噪量</th><th>官方建议场景</th></tr>
         <tr><td class="v">弱（Weak）</td><td class="v">10dB</td><td class="n">以低频噪声为主的环境（空调、电流声、轻微车流）</td></tr>
         <tr><td class="v">中（Medium）</td><td class="v">15dB</td><td class="n">中等噪声环境（家庭办公、轻微环境杂音）</td></tr>
         <tr><td class="v">强（Strong）</td><td class="v">20dB</td><td class="n">多数室外环境 <span class="tag g">默认值</span></td></tr>
-      </table>
+      </table></div>
       <p style="color:var(--muted);font-size:13px">开启降噪会缩短 TX 单次续航（开启约 6.5 小时，关闭约 9 小时），并可通过 TX / RX 单击快速开关。</p>
 
       <h3>增益、声道、EQ、混响</h3>
-      <table class="tbl">
+      <div class="tblwrap"><table class="tbl">
         <tr><th>功能</th><th>选项</th><th>默认值</th></tr>
         <tr><td class="v">RX 输出电平 / 增益</td><td class="n">6 档可调，档位 6 为最大音量</td><td class="v">第 5 档 <span class="tag o">默认</span></td></tr>
         <tr><td class="v">音频轨道模式</td><td class="n">单声道（Mono） / 立体声（Stereo）</td><td class="v">单声道 <span class="tag o">默认</span></td></tr>
         <tr><td class="v">EQ 预设</td><td class="n">均衡（Balance） / 低沉（Low） / 明亮（Bright）</td><td class="v">均衡 <span class="tag o">默认</span></td></tr>
         <tr><td class="v">混响</td><td class="n">小（Small） / 中（Medium） / 大（Large）</td><td class="v">关闭 <span class="tag o">需手动开启</span></td></tr>
-      </table>
+      </table></div>
       <ul>
         <li><b>EQ 预设</b>让录音更清晰自然；<b>混响</b>让声音更饱满悦耳。</li>
         <li><b>混响适用场景</b>（官方说明）：小 = 语音聊天、录音、短视频；中 = 视频录制、播客；大 = 直播唱歌。</li>
@@ -545,7 +547,7 @@ footer{border-top:1px solid var(--line);background:var(--surface);padding:24px 3
       </ul>
 
       <h3>其他设置</h3>
-      <table class="tbl">
+      <div class="tblwrap"><table class="tbl">
         <tr><th style="width:30%">功能</th><th>说明</th></tr>
         <tr><td class="v">TX1 / TX2 电量</td><td class="n">实时显示已连接 TX 的电量；未连接的 TX 显示为 0%。</td></tr>
         <tr><td class="v">MIC1 / MIC2 电平表</td><td class="n">实时电平反馈，通过信号条颜色判断：进入<span class="tag g">黄色区</span>仍在正常范围，进入<span class="tag b">红色区</span>可能出现爆音（popping / crackling）。</td></tr>
@@ -554,7 +556,7 @@ footer{border-top:1px solid var(--line);background:var(--surface);padding:24px 3
         <tr><td class="v">指示灯开关</td><td class="n">一键开关 TX 指示灯，关闭后 TX 不亮灯（适合低调拍摄）。</td></tr>
         <tr><td class="v">版本信息与升级</td><td class="n">点击设置图标查看固件版本信息与升级选项。</td></tr>
         <tr><td class="v">自动限幅</td><td class="n">ALC 自动电平，抑制突发爆音；一键开启后音量过高时会自动压低，提升收音成功率。</td></tr>
-      </table>
+      </table></div>
     </section>
 
     <section id="pair">
@@ -586,11 +588,11 @@ footer{border-top:1px solid var(--line);background:var(--surface);padding:24px 3
     <section id="charge">
       <h2><span class="n">7</span>充电与续航</h2>
       <p class="lead">两种充电方式：充电盒（随盒附带）与一拖二充电座（部分版本附带），均使用 USB-C 线供电。</p>
-      <table class="tbl">
+      <div class="tblwrap"><table class="tbl">
         <tr><th>方式</th><th>连接</th><th>作用范围</th></tr>
         <tr><td class="v">充电盒</td><td class="n">USB-C 线连接充电盒与电源</td><td class="n">为充电盒与盒内设备整体供电</td></tr>
         <tr><td class="v">一拖二充电座</td><td class="n">USB-C 线连接充电座与电源</td><td class="n">为充电座上的 TX 充电</td></tr>
-      </table>
+      </table></div>
       <ul>
         <li>TX 充电时长 <b>&lt; 1.5 小时</b>，充电盒充电时长 <b>&lt; 1.5 小时</b>。</li>
         <li>充电盒满电可同时给两支 TX 充电 <b>&gt; 2 次</b>。</li>
@@ -764,7 +766,7 @@ footer{border-top:1px solid var(--line);background:var(--surface);padding:24px 3
     <section id="box">
       <h2><span class="n">10</span>包装清单</h2>
       <p class="lead">官方按「一拖一 / 一拖二 / 双接收版」区分配置，购买前请按手机接口与收音人数选择。</p>
-      <table class="tbl">
+      <div class="tblwrap"><table class="tbl">
         <tr><th>配件</th><th>一拖一（Mini）</th><th>一拖二</th><th>双接收版</th></tr>
         <tr><td class="v">发射器 TX</td><td class="n">1 支</td><td class="n">2 支</td><td class="n">2 支</td></tr>
         <tr><td class="v">接收器 RX</td><td class="n">Type-C × 1</td><td class="n">Type-C × 1</td><td class="n">Type-C × 1<br>Lightning × 1</td></tr>
@@ -775,7 +777,7 @@ footer{border-top:1px solid var(--line);background:var(--surface);padding:24px 3
         <tr><td class="v">USB-A 转 C 充电线</td><td class="v">✓</td><td class="v">✓</td><td class="v">✓</td></tr>
         <tr><td class="v">快速操作手册</td><td class="v">✓</td><td class="v">✓</td><td class="v">✓</td></tr>
         <tr><td class="v">包装清单卡</td><td class="v">✓</td><td class="v">✓</td><td class="v">✓</td></tr>
-      </table>
+      </table></div>
       <p style="color:var(--muted);font-size:13px">不同销售渠道版本的包装清单可能略有差异，以实际到货为准。另有配色：冰川蓝、柔草绿、薄雾粉、皎月白、星曜黑共 5 款。</p>
     </section>
 
@@ -794,7 +796,7 @@ footer{border-top:1px solid var(--line);background:var(--surface);padding:24px 3
       </ul>
 
       <h3>勘误与差异说明</h3>
-      <table class="tbl">
+      <div class="tblwrap"><table class="tbl">
         <tr><th style="width:20%">项目</th><th style="width:30%">口径差异</th><th>本页处理</th></tr>
         <tr>
           <td class="v">最大输入声压级</td>
@@ -836,7 +838,7 @@ footer{border-top:1px solid var(--line);background:var(--surface);padding:24px 3
           <td class="n">海外为 <b>LarkSound</b>，国行渠道文档中为 <b>MOMA SOUND</b>。</td>
           <td class="n">两者并列标注，提示按购买渠道选择对应 App。</td>
         </tr>
-      </table>
+      </table></div>
 
       <div class="note">
         <b>未收录内容说明：</b>本页仅收录能在上述来源中<b>逐字核对到</b>的内容。凡官方未公布或来源之间无法互证的细节（如各版本 App 功能的完整界面截图、具体降噪算法、麦克风指向性图、官方配件型号编码等），一律未作推测性补写。规格数值以官方实验室测试为准，量产产品可能存在差异。
