@@ -1,0 +1,1943 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>LDL-C 为什么会升高？| 2026 循证病因地图</title>
+<meta name="description" content="汇总 2023–2026 年国内外指南、共识与高质量研究，系统拆解低密度脂蛋白胆固醇（LDL-C）升高的遗传、代谢、继发疾病与药物原因，并提供临床排查路径。">
+<meta name="theme-color" content="#0c2428">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%230c2428'/%3E%3Cpath d='M16 6c4 5.5 7 9.1 7 13a7 7 0 0 1-14 0c0-3.9 3-7.5 7-13Z' fill='%23d97757'/%3E%3C/svg%3E">
+<style>
+/* ============ 基础 ============ */
+:root{
+  --ink:#122a2f;
+  --ink-2:#355055;
+  --muted:#6b7f80;
+  --paper:#f6f2e9;
+  --paper-2:#eee7d9;
+  --white:#fffdf8;
+  --teal:#0f6b62;
+  --teal-2:#178b7e;
+  --coral:#c95f45;
+  --coral-2:#e07a5f;
+  --gold:#b5862d;
+  --purple:#6d5b95;
+  --line:rgba(18,42,47,.14);
+  --line-strong:rgba(18,42,47,.25);
+  --shadow:0 24px 70px rgba(18,42,47,.11);
+  --shadow-sm:0 10px 28px rgba(18,42,47,.08);
+  --radius:22px;
+  --max:1180px;
+  --sans:"Noto Sans SC","Source Han Sans SC","Microsoft YaHei",system-ui,-apple-system,"Segoe UI",sans-serif;
+  --serif:"Noto Serif SC","Source Han Serif SC","Songti SC","STSong",Georgia,"Times New Roman",serif;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth;scroll-padding-top:86px}
+body{
+  margin:0;
+  color:var(--ink);
+  background:
+    radial-gradient(1200px 600px at 85% 8%, rgba(15,107,98,.08), transparent 60%),
+    radial-gradient(900px 500px at 8% 35%, rgba(201,95,69,.06), transparent 60%),
+    var(--paper);
+  font-family:var(--sans);
+  font-size:17px;
+  line-height:1.75;
+  -webkit-font-smoothing:antialiased;
+  text-rendering:optimizeLegibility;
+}
+body::before{
+  content:"";
+  position:fixed;
+  inset:0;
+  pointer-events:none;
+  z-index:-1;
+  opacity:.35;
+  background-image:linear-gradient(rgba(18,42,47,.035) 1px,transparent 1px),linear-gradient(90deg,rgba(18,42,47,.035) 1px,transparent 1px);
+  background-size:44px 44px;
+  mask-image:linear-gradient(to bottom,#000 0%,transparent 75%);
+}
+::selection{background:rgba(201,95,69,.22)}
+a{color:var(--teal);text-decoration-thickness:.08em;text-underline-offset:.18em}
+a:hover{color:var(--coral)}
+img,svg{max-width:100%}
+p{margin:0 0 1em}
+h1,h2,h3,h4{font-family:var(--serif);font-weight:700;line-height:1.18;letter-spacing:-.015em;margin:0}
+button{font:inherit}
+:focus-visible{outline:3px solid rgba(201,95,69,.55);outline-offset:3px;border-radius:6px}
+.skip-link{position:absolute;left:-9999px;top:0;z-index:999;background:var(--ink);color:var(--paper);padding:12px 18px;border-radius:0 0 10px 0}
+.skip-link:focus{left:0}
+.wrap{width:100%;max-width:var(--max);margin:0 auto;padding:0 30px}
+
+/* ============ 阅读进度 & 导航 ============ */
+#progress{
+  position:fixed;left:0;top:0;height:3px;width:0%;
+  background:linear-gradient(90deg,var(--coral),#e6b35b);
+  z-index:200;transition:width .1s linear;
+}
+.topnav{
+  position:absolute;left:0;right:0;top:0;z-index:10;
+  padding:26px 0;
+}
+.topnav .wrap{display:flex;align-items:center;justify-content:space-between;gap:24px}
+.brand{display:inline-flex;align-items:center;gap:12px;color:#f7f1e5;text-decoration:none;font-weight:700;letter-spacing:.02em}
+.brand-mark{
+  display:grid;place-items:center;width:42px;height:42px;border-radius:12px;
+  border:1px solid rgba(247,241,229,.28);
+  background:rgba(247,241,229,.07);
+  font-family:var(--serif);font-size:.82rem;letter-spacing:.02em;
+}
+.brand small{display:block;font-family:var(--sans);font-weight:400;font-size:.66rem;letter-spacing:.18em;color:rgba(247,241,229,.62);text-transform:uppercase}
+.nav-links{display:flex;align-items:center;gap:22px;font-size:.86rem}
+.nav-links a{color:rgba(247,241,229,.78);text-decoration:none;border-bottom:1px solid transparent;padding-bottom:3px;transition:.2s}
+.nav-links a:hover{color:#fff;border-color:var(--coral-2)}
+.nav-cta{
+  border:1px solid rgba(247,241,229,.3)!important;border-radius:999px;padding:8px 16px!important;
+  color:#fff!important;background:rgba(247,241,229,.08)
+}
+.nav-cta:hover{background:var(--coral);border-color:var(--coral)!important}
+
+.section-nav{
+  position:sticky;top:0;z-index:90;
+  background:rgba(246,242,233,.86);
+  backdrop-filter:blur(16px);
+  -webkit-backdrop-filter:blur(16px);
+  border-bottom:1px solid var(--line);
+}
+.section-nav-inner{
+  display:flex;gap:6px;align-items:center;
+  overflow-x:auto;scrollbar-width:none;
+  padding:10px 30px;
+}
+.section-nav-inner::-webkit-scrollbar{display:none}
+.section-nav a{
+  flex:0 0 auto;padding:7px 13px;border-radius:999px;
+  color:var(--ink-2);text-decoration:none;font-size:.82rem;
+  border:1px solid transparent;transition:.2s;white-space:nowrap;
+}
+.section-nav a:hover{background:var(--white);border-color:var(--line)}
+.section-nav a.active{background:var(--ink);color:var(--paper);border-color:var(--ink)}
+
+/* ============ Hero ============ */
+.hero{
+  position:relative;overflow:hidden;color:#f7f1e5;
+  min-height:92vh;display:flex;align-items:flex-end;
+  padding:140px 0 64px;
+  background:
+    radial-gradient(900px 520px at 82% 22%, rgba(23,139,126,.35), transparent 62%),
+    radial-gradient(700px 400px at 16% 82%, rgba(201,95,69,.18), transparent 65%),
+    linear-gradient(135deg,#081b1f 0%,#0d2d30 48%,#123f3b 100%);
+}
+.hero::before{
+  content:"";position:absolute;inset:0;pointer-events:none;
+  background-image:linear-gradient(rgba(247,241,229,.055) 1px,transparent 1px),linear-gradient(90deg,rgba(247,241,229,.055) 1px,transparent 1px);
+  background-size:64px 64px;
+  mask-image:radial-gradient(ellipse at 50% 40%,#000 0%,transparent 78%);
+}
+.hero::after{
+  content:"LDL";position:absolute;right:-2vw;bottom:-9vw;
+  font-family:var(--serif);font-size:clamp(18rem,42vw,42rem);line-height:.75;
+  color:rgba(247,241,229,.045);letter-spacing:-.09em;pointer-events:none;
+}
+.hero .wrap{position:relative;z-index:2;width:100%}
+.hero-grid{display:grid;grid-template-columns:minmax(0,1.35fr) minmax(260px,.65fr);gap:48px;align-items:end}
+.kicker{
+  display:inline-flex;align-items:center;gap:10px;
+  font-size:.73rem;letter-spacing:.2em;text-transform:uppercase;
+  color:rgba(247,241,229,.66);margin:0 0 24px;
+}
+.kicker::before{content:"";width:34px;height:1px;background:var(--coral-2)}
+.hero h1{
+  font-size:clamp(3.4rem,7.6vw,6.6rem);
+  line-height:.94;letter-spacing:-.045em;margin:0 0 26px;
+  text-wrap:balance;
+}
+.hero h1 em{
+  font-style:normal;color:#f0b08d;
+  display:inline-block;position:relative;
+}
+.hero h1 em::after{
+  content:"";position:absolute;left:0;right:0;bottom:-.08em;height:.07em;
+  background:linear-gradient(90deg,var(--coral),transparent 85%);
+  border-radius:999px;opacity:.8;
+}
+.lede{
+  max-width:760px;font-size:clamp(1.02rem,1.5vw,1.18rem);
+  color:rgba(247,241,229,.78);line-height:1.85;margin:0 0 28px;
+}
+.hero-meta{display:flex;flex-wrap:wrap;gap:10px 18px;align-items:center;font-size:.78rem;color:rgba(247,241,229,.56);letter-spacing:.03em}
+.hero-meta span{display:inline-flex;align-items:center;gap:7px}
+.hero-meta i{display:inline-block;width:5px;height:5px;border-radius:50%;background:var(--coral-2)}
+.hero-aside{
+  border-left:1px solid rgba(247,241,229,.18);
+  padding-left:26px;margin-bottom:6px;
+}
+.hero-aside p{font-size:.86rem;line-height:1.8;color:rgba(247,241,229,.62);margin:0 0 14px}
+.hero-aside strong{display:block;font-family:var(--serif);font-size:1.5rem;color:#f7f1e5;line-height:1.35;margin-bottom:10px;font-weight:700}
+.hero-aside .tiny{font-size:.72rem;color:rgba(247,241,229,.4);margin:0}
+.hero-stats{
+  display:grid;grid-template-columns:repeat(4,1fr);gap:0;
+  margin-top:48px;border-top:1px solid rgba(247,241,229,.18);
+}
+.stat{padding:22px 20px 0 0;border-right:1px solid rgba(247,241,229,.12)}
+.stat:last-child{border-right:0;padding-right:0}
+.stat b{display:block;font-family:var(--serif);font-size:clamp(1.55rem,2.6vw,2.2rem);line-height:1.1;color:#f7f1e5;letter-spacing:-.03em;margin-bottom:8px}
+.stat span{display:block;font-size:.72rem;line-height:1.55;color:rgba(247,241,229,.52);max-width:160px}
+
+/* ============ 通用 section ============ */
+.section{padding:96px 0;border-bottom:1px solid var(--line);position:relative}
+.section:last-of-type{border-bottom:0}
+.section-head{display:grid;grid-template-columns:160px minmax(0,1fr);gap:28px;align-items:start;margin-bottom:36px}
+.section-num{
+  font-family:var(--serif);font-size:1.05rem;color:var(--coral);
+  letter-spacing:.08em;padding-top:14px;border-top:1px solid var(--coral);
+  white-space:nowrap;
+}
+.section-head h2{font-size:clamp(2rem,4.2vw,3.35rem);letter-spacing:-.035em;margin:0 0 16px;text-wrap:balance}
+.section-intro{max-width:820px;color:var(--ink-2);font-size:1.02rem;line-height:1.9;margin:0}
+.section-intro strong{color:var(--ink)}
+.eyebrow{font-size:.72rem;letter-spacing:.16em;text-transform:uppercase;color:var(--muted);margin:0 0 12px}
+.small{font-size:.8rem;color:var(--muted)}
+.small a{color:var(--muted)}
+.nowrap{white-space:nowrap}
+.cite{
+  display:inline-block;font-family:var(--sans);font-size:.7em;font-weight:700;
+  color:var(--coral);text-decoration:none;vertical-align:super;line-height:1;
+  margin-left:2px;letter-spacing:0;
+}
+.cite:hover{color:var(--teal);text-decoration:underline}
+
+/* ============ 结论 ============ */
+.verdict{
+  position:relative;overflow:hidden;
+  background:linear-gradient(135deg,#0e2c2e,#123d39);
+  color:#f7f1e5;border-radius:30px;padding:44px 46px;
+  margin-bottom:26px;box-shadow:var(--shadow);
+}
+.verdict::before{
+  content:"“";position:absolute;right:26px;top:-40px;
+  font-family:var(--serif);font-size:16rem;line-height:1;color:rgba(247,241,229,.07);
+}
+.verdict p{position:relative;z-index:1;font-family:var(--serif);font-size:clamp(1.25rem,2.3vw,1.7rem);line-height:1.65;margin:0;max-width:980px}
+.verdict footer{position:relative;z-index:1;margin-top:18px;font-size:.76rem;letter-spacing:.08em;color:rgba(247,241,229,.55);text-transform:uppercase}
+.verdict .cite{color:#f0b08d;text-transform:none}
+.conclusion-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px}
+.conclusion{
+  background:var(--white);border:1px solid var(--line);border-radius:18px;
+  padding:24px 24px 22px;display:grid;grid-template-columns:42px 1fr;gap:16px;
+  box-shadow:0 4px 0 rgba(18,42,47,.02);
+}
+.conclusion .num{
+  font-family:var(--serif);font-size:1.35rem;color:var(--coral);
+  border-right:1px solid var(--line);padding-right:12px;line-height:1.1;padding-top:2px;
+}
+.conclusion h3{font-size:1.05rem;margin:0 0 6px;letter-spacing:-.01em}
+.conclusion p{font-size:.9rem;line-height:1.75;color:var(--ink-2);margin:0}
+
+/* ============ 证据更新条 ============ */
+.update-strip{
+  margin-top:34px;display:grid;grid-template-columns:repeat(4,1fr);
+  border:1px solid var(--line);border-radius:18px;overflow:hidden;background:rgba(255,253,248,.62);
+}
+.update-item{padding:20px 20px 18px;border-right:1px solid var(--line)}
+.update-item:last-child{border-right:0}
+.update-item .date{display:block;font-size:.68rem;letter-spacing:.14em;color:var(--coral);margin-bottom:8px;text-transform:uppercase}
+.update-item strong{display:block;font-family:var(--serif);font-size:.98rem;line-height:1.45;margin-bottom:6px}
+.update-item p{font-size:.78rem;line-height:1.6;color:var(--muted);margin:0}
+
+/* ============ 机制 ============ */
+.mech-lead{
+  display:grid;grid-template-columns:1.1fr .9fr;gap:28px;align-items:center;
+  background:var(--white);border:1px solid var(--line);border-radius:26px;
+  padding:32px;margin-bottom:28px;
+}
+.mech-lead h3{font-size:1.35rem;margin:0 0 10px}
+.mech-lead p{font-size:.94rem;line-height:1.8;color:var(--ink-2);margin:0}
+.mech-badge{
+  justify-self:center;width:190px;height:190px;border-radius:50%;
+  display:grid;place-items:center;text-align:center;
+  background:
+    radial-gradient(circle at 32% 28%,rgba(255,255,255,.9),transparent 34%),
+    linear-gradient(145deg,#f1b18f,#d36a4d 58%,#a84430);
+  color:#fff;box-shadow:0 20px 46px rgba(201,95,69,.28);
+  position:relative;
+}
+.mech-badge::before,.mech-badge::after{
+  content:"";position:absolute;border-radius:50%;border:1px solid rgba(201,95,69,.25);
+}
+.mech-badge::before{inset:-14px}
+.mech-badge::after{inset:-28px;border-color:rgba(201,95,69,.12)}
+.mech-badge span{display:block;font-size:.72rem;letter-spacing:.16em;text-transform:uppercase;opacity:.8}
+.mech-badge b{display:block;font-family:var(--serif);font-size:2.2rem;line-height:1.1;margin:4px 0}
+.mech-badge small{display:block;font-size:.72rem;opacity:.85}
+.mech-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+.mech-card{
+  background:var(--white);border:1px solid var(--line);border-radius:20px;
+  padding:24px;position:relative;overflow:hidden;
+}
+.mech-card::after{
+  content:"";position:absolute;right:-28px;top:-28px;width:110px;height:110px;border-radius:50%;
+  background:var(--accent-soft,rgba(15,107,98,.08));
+}
+.mech-card .icon{width:30px;height:30px;color:var(--accent,var(--teal));position:relative;z-index:1;margin-bottom:14px}
+.mech-card h3{font-size:1.12rem;margin:0 0 8px;position:relative;z-index:1}
+.mech-card p{font-size:.86rem;line-height:1.75;color:var(--ink-2);margin:0 0 12px;position:relative;z-index:1}
+.mech-card ul{margin:0;padding:0;list-style:none;font-size:.8rem;color:var(--muted);display:grid;gap:5px;position:relative;z-index:1}
+.mech-card li::before{content:"·";color:var(--accent,var(--teal));font-weight:900;margin-right:7px}
+.mech-note{
+  margin-top:18px;border-left:3px solid var(--gold);background:rgba(181,134,45,.07);
+  padding:16px 20px;border-radius:0 12px 12px 0;font-size:.88rem;color:var(--ink-2);
+}
+.mech-note strong{color:var(--ink)}
+
+/* ============ 病因地图 ============ */
+.filter-bar{display:flex;flex-wrap:wrap;gap:8px;margin:6px 0 26px;align-items:center}
+.filter-label{font-size:.72rem;letter-spacing:.14em;color:var(--muted);text-transform:uppercase;margin-right:6px}
+.filter-btn{
+  appearance:none;border:1px solid var(--line);background:rgba(255,253,248,.7);
+  color:var(--ink-2);border-radius:999px;padding:8px 15px;font-size:.8rem;
+  cursor:pointer;transition:.2s;white-space:nowrap;
+}
+.filter-btn:hover{border-color:var(--line-strong);background:var(--white)}
+.filter-btn.active{background:var(--ink);color:var(--paper);border-color:var(--ink)}
+.cause-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px}
+.cause-card{
+  --accent:var(--teal);--accent-soft:rgba(15,107,98,.09);
+  position:relative;overflow:hidden;
+  background:var(--white);border:1px solid var(--line);border-radius:20px;
+  padding:26px 26px 22px;
+  transition:transform .25s ease,box-shadow .25s ease,border-color .25s ease;
+}
+.cause-card::before{
+  content:"";position:absolute;left:0;top:0;bottom:0;width:4px;background:var(--accent);
+}
+.cause-card:hover{transform:translateY(-3px);box-shadow:var(--shadow-sm);border-color:rgba(18,42,47,.22)}
+.cause-card.is-hidden{display:none}
+.cause-card[data-cat="genetic"]{--accent:var(--coral);--accent-soft:rgba(201,95,69,.1)}
+.cause-card[data-cat="metabolic"]{--accent:var(--teal);--accent-soft:rgba(15,107,98,.1)}
+.cause-card[data-cat="secondary"]{--accent:var(--gold);--accent-soft:rgba(181,134,45,.12)}
+.cause-card[data-cat="drug"]{--accent:var(--purple);--accent-soft:rgba(109,91,149,.1)}
+.cause-top{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:12px}
+.cause-index{font-family:var(--serif);font-size:.84rem;color:var(--muted);letter-spacing:.06em}
+.badge{
+  display:inline-flex;align-items:center;gap:5px;border-radius:999px;
+  font-size:.68rem;font-weight:700;letter-spacing:.04em;padding:3px 9px;
+  border:1px solid transparent;
+}
+.badge-a{background:#e4f1ec;color:#0c6157;border-color:rgba(12,97,87,.12)}
+.badge-b{background:#f7efd9;color:#7c5a18;border-color:rgba(124,90,24,.12)}
+.badge-c{background:#f6e7e2;color:#9b4230;border-color:rgba(155,66,48,.12)}
+.cause-card h3{font-family:var(--serif);font-size:1.16rem;line-height:1.35;margin:0 0 9px;letter-spacing:-.01em}
+.cause-mech{font-size:.87rem;line-height:1.75;color:var(--ink-2);margin:0 0 14px}
+.clues{list-style:none;margin:0;padding:0;display:grid;gap:5px}
+.clues li{position:relative;padding-left:15px;font-size:.8rem;line-height:1.65;color:var(--muted)}
+.clues li::before{content:"";position:absolute;left:0;top:.62em;width:5px;height:5px;border-radius:50%;background:var(--accent);opacity:.7}
+.cause-foot{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-top:16px;padding-top:12px;border-top:1px dashed var(--line)}
+.cause-tag{font-size:.68rem;letter-spacing:.1em;text-transform:uppercase;color:var(--accent);font-weight:700}
+.cause-refs{font-size:.7rem;color:var(--muted)}
+.cause-refs a{color:var(--muted);text-decoration:none;margin-left:3px}
+.cause-refs a:hover{color:var(--coral);text-decoration:underline}
+.map-note{display:flex;gap:14px;align-items:flex-start;margin-top:22px;padding:18px 20px;border-radius:14px;background:rgba(15,107,98,.06);border:1px solid rgba(15,107,98,.12);font-size:.84rem;color:var(--ink-2)}
+.map-note b{color:var(--teal);white-space:nowrap}
+
+/* ============ 证据表 ============ */
+.evidence-legend{display:flex;flex-wrap:wrap;gap:16px;margin:0 0 18px;font-size:.76rem;color:var(--muted)}
+.evidence-legend span{display:inline-flex;align-items:center;gap:6px}
+.ev{display:inline-grid;place-items:center;min-width:24px;height:24px;border-radius:7px;font-size:.68rem;font-weight:800;letter-spacing:.02em}
+.ev-a{background:#e4f1ec;color:#0c6157}
+.ev-b{background:#f7efd9;color:#7c5a18}
+.ev-c{background:#f6e7e2;color:#9b4230}
+.table-wrap{
+  background:var(--white);border:1px solid var(--line);border-radius:22px;
+  overflow:auto;box-shadow:var(--shadow-sm);
+}
+table{border-collapse:collapse;width:100%;min-width:880px;font-size:.84rem}
+thead th{
+  position:sticky;top:0;z-index:1;
+  background:#103336;color:#f7f1e5;text-align:left;
+  font-family:var(--sans);font-size:.7rem;letter-spacing:.1em;text-transform:uppercase;
+  padding:15px 18px;font-weight:600;white-space:nowrap;
+}
+tbody td{padding:15px 18px;border-bottom:1px solid var(--line);vertical-align:top;line-height:1.65;color:var(--ink-2)}
+tbody tr:last-child td{border-bottom:0}
+tbody tr:hover td{background:#fbf7ed}
+tbody td:first-child{font-weight:700;color:var(--ink);font-family:var(--serif);font-size:.92rem;width:19%}
+tbody td:nth-child(2){width:35%}
+tbody td:nth-child(3){width:33%}
+tbody td:last-child{width:13%;white-space:nowrap}
+.table-foot{margin:14px 0 0;font-size:.76rem;color:var(--muted)}
+
+/* ============ 诊断路径 ============ */
+.steps{position:relative;margin-top:8px}
+.step{
+  display:grid;grid-template-columns:76px minmax(0,1fr);gap:24px;
+  padding:30px 0;border-bottom:1px dashed var(--line-strong);
+}
+.step:last-child{border-bottom:0}
+.step-num{
+  width:56px;height:56px;border-radius:50%;display:grid;place-items:center;
+  background:var(--ink);color:var(--paper);font-family:var(--serif);font-size:1.2rem;
+  box-shadow:0 8px 22px rgba(18,42,47,.16);
+}
+.step h3{font-size:1.22rem;margin:2px 0 8px}
+.step p{font-size:.9rem;line-height:1.8;color:var(--ink-2);margin:0 0 12px}
+.chips{display:flex;flex-wrap:wrap;gap:7px}
+.chip{
+  font-size:.72rem;padding:4px 10px;border-radius:999px;
+  background:rgba(15,107,98,.07);border:1px solid rgba(15,107,98,.12);color:var(--teal);
+}
+.red-flag{
+  margin-top:28px;display:grid;grid-template-columns:44px 1fr;gap:16px;
+  background:linear-gradient(135deg,rgba(201,95,69,.1),rgba(201,95,69,.04));
+  border:1px solid rgba(201,95,69,.22);border-radius:16px;padding:20px 22px;
+}
+.red-flag .icon{width:26px;height:26px;color:var(--coral);margin-top:2px}
+.red-flag h3{font-family:var(--sans);font-size:.95rem;margin:0 0 4px;color:#8d3e2c}
+.red-flag p{font-size:.84rem;line-height:1.75;color:var(--ink-2);margin:0}
+
+/* ============ 场景 ============ */
+.scene-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px}
+.scene{
+  position:relative;overflow:hidden;
+  background:var(--white);border:1px solid var(--line);border-radius:20px;
+  padding:26px;display:flex;flex-direction:column;
+}
+.scene::before{content:"";position:absolute;left:0;right:0;top:0;height:3px;background:var(--scene-accent,var(--teal))}
+.scene[data-tone="coral"]{--scene-accent:var(--coral)}
+.scene[data-tone="gold"]{--scene-accent:var(--gold)}
+.scene[data-tone="purple"]{--scene-accent:var(--purple)}
+.scene-tag{font-size:.68rem;letter-spacing:.12em;text-transform:uppercase;color:var(--scene-accent,var(--teal));font-weight:700;margin-bottom:10px}
+.scene h3{font-size:1.12rem;line-height:1.4;margin:0 0 10px}
+.scene p{font-size:.86rem;line-height:1.75;color:var(--ink-2);margin:0 0 14px}
+.scene-next{margin-top:auto;padding-top:12px;border-top:1px dashed var(--line);font-size:.8rem;color:var(--muted);display:flex;gap:8px;align-items:flex-start}
+.scene-next b{color:var(--ink);white-space:nowrap}
+.scene-note{margin-top:16px;font-size:.76rem;color:var(--muted)}
+
+/* ============ 误区 ============ */
+.myth-list{display:grid;gap:10px}
+details{
+  background:var(--white);border:1px solid var(--line);border-radius:16px;
+  padding:0 22px;transition:border-color .2s ease,box-shadow .2s ease;
+}
+details:hover{border-color:rgba(18,42,47,.22)}
+details[open]{box-shadow:var(--shadow-sm);border-color:rgba(18,42,47,.22)}
+summary{
+  cursor:pointer;list-style:none;padding:19px 0;
+  display:flex;align-items:flex-start;justify-content:space-between;gap:18px;
+  font-weight:700;font-size:.98rem;line-height:1.55;
+}
+summary::-webkit-details-marker{display:none}
+summary::after{
+  content:"+";flex:0 0 auto;font-family:var(--serif);font-size:1.5rem;line-height:1;
+  color:var(--coral);font-weight:400;margin-top:-2px;transition:transform .2s ease;
+}
+details[open] summary::after{content:"−";transform:rotate(180deg)}
+.myth-label{font-size:.66rem;letter-spacing:.12em;color:var(--muted);font-weight:500;display:block;margin-bottom:3px;text-transform:uppercase}
+.myth-answer{padding:0 0 20px;font-size:.88rem;line-height:1.8;color:var(--ink-2)}
+.myth-answer strong{color:var(--ink)}
+
+/* ============ 管理 ============ */
+.mgmt-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px;margin-bottom:24px}
+.mgmt-card{
+  background:var(--white);border:1px solid var(--line);border-radius:20px;
+  padding:24px;display:flex;flex-direction:column;
+}
+.mgmt-card .icon{width:28px;height:28px;color:var(--teal);margin-bottom:14px}
+.mgmt-card h3{font-size:1.08rem;margin:0 0 8px}
+.mgmt-card p{font-size:.84rem;line-height:1.75;color:var(--ink-2);margin:0 0 10px}
+.mgmt-card ul{margin:0;padding:0;list-style:none;display:grid;gap:7px;font-size:.8rem;color:var(--ink-2)}
+.mgmt-card li{position:relative;padding-left:15px;line-height:1.65}
+.mgmt-card li::before{content:"→";position:absolute;left:0;color:var(--coral);font-size:.78rem}
+.goal-card{
+  background:linear-gradient(135deg,#0f2c2e,#143f3b);color:#f7f1e5;
+  border-radius:24px;padding:32px;box-shadow:var(--shadow);
+}
+.goal-card h3{font-size:1.3rem;margin:0 0 6px;color:#fff}
+.goal-card .goal-sub{font-size:.82rem;color:rgba(247,241,229,.6);margin:0 0 20px}
+.goal-table{display:grid;gap:0;border-top:1px solid rgba(247,241,229,.16)}
+.goal-row{
+  display:grid;grid-template-columns:1.1fr 1.5fr .9fr;gap:14px;align-items:center;
+  padding:13px 0;border-bottom:1px solid rgba(247,241,229,.12);font-size:.83rem;
+}
+.goal-row:last-child{border-bottom:0}
+.goal-row span:first-child{color:rgba(247,241,229,.72)}
+.goal-row strong{font-family:var(--serif);font-size:1rem;color:#f5c3a7;font-weight:700}
+.goal-row em{font-style:normal;color:rgba(247,241,229,.55);font-size:.76rem}
+.goal-note{font-size:.74rem;line-height:1.7;color:rgba(247,241,229,.48);margin:16px 0 0}
+.goal-note a{color:#f0b08d}
+.refer-box{
+  display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:24px;
+}
+.refer-item{
+  background:rgba(201,95,69,.06);border:1px solid rgba(201,95,69,.16);
+  border-radius:16px;padding:18px 20px;
+}
+.refer-item h4{font-family:var(--sans);font-size:.86rem;color:#8d3e2c;margin:0 0 5px}
+.refer-item p{font-size:.78rem;line-height:1.7;color:var(--ink-2);margin:0}
+
+/* ============ 清单 ============ */
+.checklist-card{
+  background:var(--white);border:1px solid var(--line);border-radius:26px;
+  padding:34px;box-shadow:var(--shadow-sm);
+}
+.checklist-head{display:flex;justify-content:space-between;align-items:flex-start;gap:20px;margin-bottom:22px}
+.checklist-head h3{font-size:1.35rem;margin:0 0 5px}
+.checklist-head p{font-size:.84rem;color:var(--muted);margin:0}
+.print-btn{
+  appearance:none;border:1px solid var(--ink);background:var(--ink);color:var(--paper);
+  border-radius:999px;padding:9px 16px;font-size:.78rem;cursor:pointer;
+  display:inline-flex;align-items:center;gap:7px;transition:.2s;white-space:nowrap;
+}
+.print-btn:hover{background:var(--teal);border-color:var(--teal)}
+.print-btn .icon{width:15px;height:15px}
+.checklist{display:grid;grid-template-columns:1fr 1fr;gap:0 26px;margin:0;padding:0;list-style:none}
+.checklist li{border-bottom:1px dashed var(--line);padding:11px 0}
+.checklist label{display:flex;align-items:flex-start;gap:10px;font-size:.86rem;line-height:1.6;color:var(--ink-2);cursor:pointer}
+.checklist input{
+  appearance:none;flex:0 0 auto;width:17px;height:17px;border:1.5px solid var(--line-strong);
+  border-radius:5px;margin-top:.2em;display:grid;place-items:center;cursor:pointer;background:#fff;
+}
+.checklist input::after{content:"";width:9px;height:5px;border-left:2px solid #fff;border-bottom:2px solid #fff;transform:rotate(-45deg) scale(0);transition:.12s}
+.checklist input:checked{background:var(--teal);border-color:var(--teal)}
+.checklist input:checked::after{transform:rotate(-45deg) scale(1)}
+.checklist-note{margin:18px 0 0;font-size:.76rem;color:var(--muted);line-height:1.7}
+
+/* ============ 参考文献 ============ */
+.refs{display:grid;gap:0;border-top:1px solid var(--line)}
+.ref-item{
+  display:grid;grid-template-columns:42px minmax(0,1fr);gap:14px;
+  padding:17px 0;border-bottom:1px solid var(--line);
+}
+.ref-num{
+  width:28px;height:28px;border-radius:50%;display:grid;place-items:center;
+  border:1px solid var(--line-strong);font-family:var(--serif);font-size:.72rem;color:var(--muted);
+  margin-top:2px;
+}
+.ref-title{font-size:.86rem;font-weight:600;line-height:1.6;margin:0 0 3px;color:var(--ink)}
+.ref-meta{font-size:.74rem;line-height:1.6;color:var(--muted);margin:0}
+.ref-meta a{color:var(--teal);text-decoration:none;border-bottom:1px solid rgba(15,107,98,.25)}
+.ref-meta a:hover{color:var(--coral);border-color:var(--coral)}
+.ref-note{font-size:.78rem;color:var(--muted);line-height:1.75;margin:0 0 18px}
+
+/* ============ 页脚 ============ */
+.footer{
+  background:#0b2427;color:rgba(247,241,229,.62);
+  padding:52px 0 40px;font-size:.8rem;line-height:1.75;
+}
+.footer .wrap{display:grid;grid-template-columns:1.3fr .7fr;gap:32px;align-items:start}
+.footer h4{color:#f7f1e5;font-family:var(--serif);font-size:1rem;margin:0 0 8px}
+.footer p{margin:0 0 9px;max-width:720px}
+.footer a{color:#f0b08d;text-decoration:none}
+.footer a:hover{text-decoration:underline}
+.footer .footer-meta{text-align:right;font-size:.72rem;color:rgba(247,241,229,.4)}
+.footer .footer-meta span{display:block}
+
+/* ============ 回到顶部 ============ */
+#toTop{
+  position:fixed;right:22px;bottom:22px;z-index:120;
+  width:44px;height:44px;border-radius:50%;border:1px solid rgba(18,42,47,.18);
+  background:rgba(255,253,248,.9);backdrop-filter:blur(10px);color:var(--ink);
+  display:grid;place-items:center;cursor:pointer;box-shadow:var(--shadow-sm);
+  opacity:0;pointer-events:none;transform:translateY(8px);transition:.25s;
+}
+#toTop.show{opacity:1;pointer-events:auto;transform:none}
+#toTop:hover{background:var(--ink);color:var(--paper)}
+
+/* ============ 动画 ============ */
+.js .reveal{opacity:0;transform:translateY(16px);transition:opacity .65s ease,transform .65s ease}
+.js .reveal.in{opacity:1;transform:none}
+@media (prefers-reduced-motion:reduce){
+  html{scroll-behavior:auto}
+  *,*::before,*::after{animation-duration:.001ms!important;transition-duration:.001ms!important}
+  .js .reveal{opacity:1;transform:none}
+}
+
+/* ============ 响应式 ============ */
+@media (max-width:1020px){
+  .hero-grid{grid-template-columns:1fr;gap:30px}
+  .hero-aside{border-left:0;border-top:1px solid rgba(247,241,229,.18);padding-left:0;padding-top:20px;max-width:620px}
+  .hero-aside strong{font-size:1.25rem}
+  .update-strip{grid-template-columns:1fr 1fr}
+  .update-item:nth-child(2){border-right:0}
+  .update-item:nth-child(3),.update-item:nth-child(4){border-top:1px solid var(--line)}
+  .mgmt-grid{grid-template-columns:1fr 1fr}
+  .goal-card{grid-column:1 / -1}
+}
+@media (max-width:820px){
+  body{font-size:16px}
+  .wrap{padding:0 22px}
+  .nav-links{display:none}
+  .hero{min-height:auto;padding:126px 0 46px}
+  .hero h1{font-size:clamp(2.9rem,13vw,5.4rem)}
+  .hero-stats{grid-template-columns:1fr 1fr}
+  .stat{padding:18px 14px 0 0}
+  .stat:nth-child(2){border-right:0}
+  .stat:nth-child(3),.stat:nth-child(4){border-top:1px solid rgba(247,241,229,.12);margin-top:16px}
+  .section{padding:72px 0}
+  .section-head{grid-template-columns:1fr;gap:10px;margin-bottom:28px}
+  .section-num{border-top:0;padding-top:0;font-size:.86rem}
+  .conclusion-grid,.cause-grid,.scene-grid,.refer-box{grid-template-columns:1fr}
+  .mech-lead{grid-template-columns:1fr;padding:26px}
+  .mech-badge{justify-self:start;width:150px;height:150px}
+  .mech-grid{grid-template-columns:1fr}
+  .mgmt-grid{grid-template-columns:1fr}
+  .checklist{grid-template-columns:1fr}
+  .checklist-head{flex-direction:column;align-items:flex-start}
+  .footer .wrap{grid-template-columns:1fr}
+  .footer .footer-meta{text-align:left}
+  .verdict{padding:30px 26px;border-radius:22px}
+  .verdict::before{font-size:10rem;top:-24px}
+  .step{grid-template-columns:54px minmax(0,1fr);gap:16px}
+  .step-num{width:44px;height:44px;font-size:1rem}
+  .goal-row{grid-template-columns:1fr 1.3fr .8fr;gap:8px;font-size:.78rem}
+  .goal-row strong{font-size:.9rem}
+  .checklist-card{padding:26px}
+}
+@media (max-width:540px){
+  .wrap{padding:0 17px}
+  .hero{padding-top:112px}
+  .hero h1{font-size:clamp(2.6rem,13vw,4.2rem)}
+  .lede{font-size:.98rem}
+  .hero-stats{grid-template-columns:1fr 1fr}
+  .stat{padding:16px 10px 0 0}
+  .stat b{font-size:1.4rem}
+  .update-strip{grid-template-columns:1fr}
+  .update-item{border-right:0;border-top:1px solid var(--line)}
+  .update-item:first-child{border-top:0}
+  .conclusion{grid-template-columns:34px 1fr;padding:20px}
+  .cause-card{padding:22px 20px 18px}
+  .goal-card{padding:24px 20px}
+  .goal-row{grid-template-columns:1fr 1.2fr;gap:4px 10px}
+  .goal-row em{grid-column:2;font-size:.7rem}
+  .goal-row span:first-child{grid-row:1 / span 2}
+  .scene,.mgmt-card{padding:22px}
+  .checklist-card{padding:22px}
+  .section-nav-inner{padding:8px 17px}
+  .ref-item{grid-template-columns:32px 1fr;gap:9px}
+}
+
+/* 手机端把证据表改为卡片，避免横向裁切 */
+@media (max-width:700px){
+  .table-wrap{overflow:visible;background:transparent;border:0;box-shadow:none}
+  table{min-width:0;display:block;font-size:.86rem}
+  thead{display:none}
+  tbody{display:block}
+  tbody tr{
+    display:block;background:var(--white);border:1px solid var(--line);
+    border-radius:16px;padding:16px 18px;margin-bottom:12px;box-shadow:var(--shadow-sm);
+  }
+  tbody td{display:block;width:auto!important;padding:6px 0;border:0}
+  tbody td::before{
+    display:block;font-size:.64rem;letter-spacing:.1em;text-transform:uppercase;
+    color:var(--muted);margin-bottom:2px;
+  }
+  tbody td:nth-child(1)::before{content:"病因"}
+  tbody td:nth-child(2)::before{content:"核心机制"}
+  tbody td:nth-child(3)::before{content:"临床线索"}
+  tbody td:nth-child(4)::before{content:"证据"}
+  tbody td:first-child{
+    font-size:1.02rem;padding-bottom:8px;border-bottom:1px dashed var(--line);margin-bottom:4px;
+  }
+  tbody td:last-child{white-space:normal;padding-top:8px}
+  tbody tr:hover td{background:transparent}
+  .table-foot{margin-top:4px}
+}
+
+/* ============ 打印 ============ */
+@media print{
+  @page{margin:14mm}
+  body{background:#fff;color:#000;font-size:10.5pt}
+  body::before,#progress,.topnav,.section-nav,#toTop,.filter-bar,.print-btn,.hero-aside{display:none!important}
+  .hero{min-height:auto;background:#fff;color:#000;padding:0 0 18px;border-bottom:2px solid #000}
+  .hero::before,.hero::after{display:none}
+  .hero h1{font-size:30pt;color:#000}
+  .hero h1 em{color:#000}
+  .lede,.hero-meta,.stat span{color:#222}
+  .kicker{color:#444}
+  .stat b{color:#000}
+  .hero-stats{border-color:#999}
+  .stat{border-color:#ccc}
+  .section{padding:16px 0;break-inside:avoid}
+  .section-head{grid-template-columns:1fr;gap:4px;margin-bottom:10px}
+  .section-head h2{font-size:17pt}
+  .verdict,.goal-card{background:#fff!important;color:#000!important;border:1px solid #999;box-shadow:none}
+  .verdict p,.goal-card h3{color:#000}
+  .verdict footer,.goal-note,.goal-sub,.goal-row span:first-child,.goal-row em{color:#333!important}
+  .goal-row{border-color:#ccc}
+  .goal-row strong{color:#000}
+  .cause-card,.scene,.mgmt-card,.checklist-card,.table-wrap{box-shadow:none;break-inside:avoid}
+  .cause-card.is-hidden{display:block!important}
+  .table-wrap{overflow:visible!important;border:1px solid #999!important;background:#fff!important}
+  table{display:table!important;min-width:0!important;width:100%!important}
+  thead{display:table-header-group!important}
+  tbody{display:table-row-group!important}
+  tbody tr{display:table-row!important;padding:0!important;border:0!important;box-shadow:none!important}
+  tbody td{display:table-cell!important;padding:7px 8px!important;border-bottom:1px solid #ccc!important}
+  tbody td::before{display:none!important}
+  .js .reveal{opacity:1!important;transform:none!important}
+  a{color:#000;text-decoration:none}
+  .footer{background:#fff;color:#000;border-top:1px solid #999}
+  .footer h4,.footer a{color:#000}
+  details{padding:0 14px}
+  details .myth-answer{display:block!important}
+  summary::after{display:none}
+}
+</style>
+</head>
+<body>
+<a class="skip-link" href="#main">跳到正文</a>
+<div id="progress" aria-hidden="true"></div>
+
+<!-- SVG 图标库 -->
+<svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false">
+  <symbol id="icon-dna" viewBox="0 0 24 24">
+    <path d="M7 3c0 6 10 6 10 12M17 3c0 6-10 6-10 12M7 21c0-1.2.3-2.3.9-3.3M17 21c0-1.2-.3-2.3-.9-3.3M8.2 6.2h7.6M8.2 10.2h7.6M8.8 14.2h6.4M9.6 18.2h4.8" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/>
+  </symbol>
+  <symbol id="icon-liver" viewBox="0 0 24 24">
+    <path d="M4.5 7.2c3.7-2.1 7.4-2.2 10.2-.4 2.5 1.6 3.6 4.1 4.1 7.1.3 1.8-.9 3.6-2.8 3.9-2.1.4-3.7-.9-5.2-2.1-2.4-1.8-4.7-2.2-6.6-1.4-1.9.7-3.1-.7-2.9-2.4.2-2 .9-3.6 3.2-4.7Z" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"/>
+    <path d="M9 9.2c1.4 1.9 2.2 4 2.4 6.4" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/>
+  </symbol>
+  <symbol id="icon-flame" viewBox="0 0 24 24">
+    <path d="M12.2 2.8c.4 3-1.1 4.4-2.4 5.9-1.2 1.4-2.4 2.9-2.4 5.4a5.5 5.5 0 0 0 11 0c0-2.2-1.1-3.8-2.5-5.2-.5-.5-1-.9-1.4-1.4-.1 1.7-.7 2.8-1.6 3.5.2-2.7.3-5.4-.7-8.2Z" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"/>
+  </symbol>
+  <symbol id="icon-pill" viewBox="0 0 24 24">
+    <rect x="3.2" y="8.1" width="17.6" height="7.8" rx="3.9" transform="rotate(-38 12 12)" fill="none" stroke="currentColor" stroke-width="1.7"/>
+    <path d="M9.2 8.4l5.6 7.2" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/>
+  </symbol>
+  <symbol id="icon-thyroid" viewBox="0 0 24 24">
+    <path d="M10.4 8.2c-1.8-1.7-4-2.4-5.6-1.5-1.4.8-1.8 2.6-1.1 4.4.8 2.2 2.5 3.9 4.4 4.6 1.3.5 2.4.1 2.8-1 .3-.8.1-1.8-.3-2.9M13.6 8.2c1.8-1.7 4-2.4 5.6-1.5 1.4.8 1.8 2.6 1.1 4.4-.8 2.2-2.5 3.9-4.4 4.6-1.3.5-2.4.1-2.8-1-.3-.8-.1-1.8.3-2.9M10.4 8.2V6.5M13.6 8.2V6.5" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/>
+  </symbol>
+  <symbol id="icon-kidney" viewBox="0 0 24 24">
+    <path d="M9.3 3.4c2.8 0 4.2 2.6 4.2 5.6 0 3.8-1.5 6.1-3.9 6.1-2.3 0-3.9-2.3-3.9-5.4 0-3.8 1.2-6.3 3.6-6.3ZM14.7 20.6c-2.8 0-4.2-2.6-4.2-5.6 0-3.8 1.5-6.1 3.9-6.1 2.3 0 3.9 2.3 3.9 5.4 0 3.8-1.2 6.3-3.6 6.3Z" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/>
+  </symbol>
+  <symbol id="icon-coffee" viewBox="0 0 24 24">
+    <path d="M4.5 9h11v5.2a5 5 0 0 1-5 5h-1a5 5 0 0 1-5-5V9ZM15.5 10.2h1.2a3 3 0 0 1 0 6h-1.2M7 6.2c.8-.8.8-1.6 0-2.4M10 6.2c.8-.8.8-1.6 0-2.4M13 6.2c.8-.8.8-1.6 0-2.4M5 20.2h12" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/>
+  </symbol>
+  <symbol id="icon-heart" viewBox="0 0 24 24">
+    <path d="M12 20.3S3.6 15.5 3.6 9.4A4.3 4.3 0 0 1 12 7.1a4.3 4.3 0 0 1 8.4 2.3c0 6.1-8.4 10.9-8.4 10.9Z" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"/>
+  </symbol>
+  <symbol id="icon-scale" viewBox="0 0 24 24">
+    <path d="M12 3v18M5 21h14M4 7h16M6 7l-3 6h6L6 7ZM18 7l-3 6h6l-3-6Z" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/>
+  </symbol>
+  <symbol id="icon-drop" viewBox="0 0 24 24">
+    <path d="M12 3.2c3.1 4.2 5.5 7 5.5 10a5.5 5.5 0 0 1-11 0c0-3 2.4-5.8 5.5-10Z" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"/>
+  </symbol>
+  <symbol id="icon-alert" viewBox="0 0 24 24">
+    <path d="M12 3.5 22 20.5H2L12 3.5Z" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"/>
+    <path d="M12 9v5M12 17.2v.2" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round"/>
+  </symbol>
+  <symbol id="icon-check" viewBox="0 0 24 24">
+    <circle cx="12" cy="12" r="9" fill="none" stroke="currentColor" stroke-width="1.7"/>
+    <path d="m8 12.2 2.8 2.8 5.5-5.8" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"/>
+  </symbol>
+  <symbol id="icon-print" viewBox="0 0 24 24">
+    <path d="M7 8V3.5h10V8M7 17H5.5A2.5 2.5 0 0 1 3 14.5v-4A2.5 2.5 0 0 1 5.5 8h13A2.5 2.5 0 0 1 21 10.5v4a2.5 2.5 0 0 1-2.5 2.5H17M7 14h10v6.5H7V14Z" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/>
+  </symbol>
+  <symbol id="icon-arrow-up" viewBox="0 0 24 24">
+    <path d="M12 19V5M6 11l6-6 6 6" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"/>
+  </symbol>
+</svg>
+
+<header class="hero" id="top">
+  <nav class="topnav" aria-label="主导航">
+    <div class="wrap">
+      <a class="brand" href="#top">
+        <span class="brand-mark">LDL</span>
+        <span>循证血脂<small>Evidence Review</small></span>
+      </a>
+      <div class="nav-links">
+        <a href="#summary">核心结论</a>
+        <a href="#mechanism">机制</a>
+        <a href="#map">病因地图</a>
+        <a href="#diagnosis">排查路径</a>
+        <a href="#references">参考文献</a>
+        <a class="nav-cta" href="#checklist">就诊清单</a>
+      </div>
+    </div>
+  </nav>
+
+  <div class="wrap">
+    <div class="hero-grid">
+      <div>
+        <p class="kicker">循证心血管 · 血脂专题 / Evidence Review</p>
+        <h1>LDL-C<br><em>为什么会升高？</em></h1>
+        <p class="lede">不是“油吃多了”这么简单。LDL-C 的水平，取决于肝脏生成、受体清除、遗传背景、继发疾病与药物之间的平衡。本报告汇总 2023–2026 年国内外指南、共识与高质量研究，拆解 20 个高频原因，并给出可操作的排查路径。</p>
+        <div class="hero-meta">
+          <span><i></i>证据更新至 2026 年 10 月</span>
+          <span><i></i>22 项核心来源</span>
+          <span><i></i>阅读约 14 分钟</span>
+        </div>
+      </div>
+      <aside class="hero-aside">
+        <p>先记住一句话</p>
+        <strong>“LDL-C 高”是结果，<br>“为什么高”才是诊断。</strong>
+        <p>同样是 4.5 mmol/L，有人是甲减，有人是家族性高胆固醇血症，有人只是短期内体重增加。处理方式完全不同。</p>
+        <p class="tiny">本页为健康科普与临床沟通材料，不替代个体化诊疗。</p>
+      </aside>
+    </div>
+
+    <div class="hero-stats" aria-label="关键数据">
+      <div class="stat"><b>1/250–1/300</b><span>成人杂合型家族性高胆固醇血症（HeFH）估计患病率</span></div>
+      <div class="stat"><b>≥4.9</b><span>mmol/L：成人应警惕 FH 的 LDL-C 阈值（约 190 mg/dL）</span></div>
+      <div class="stat"><b>51 项</b><span>2025 年膳食脂肪与 LDL-C  Meta 分析纳入的随机对照试验</span></div>
+      <div class="stat"><b>+15.3%</b><span>绝经后女性 LDL-C 平均升幅（27.3 万 UK Biobank 女性）</span></div>
+    </div>
+  </div>
+</header>
+
+<nav class="section-nav" aria-label="章节导航">
+  <div class="wrap section-nav-inner">
+    <a href="#summary">01 结论</a>
+    <a href="#mechanism">02 机制</a>
+    <a href="#map">03 病因地图</a>
+    <a href="#evidence">04 证据表</a>
+    <a href="#diagnosis">05 排查路径</a>
+    <a href="#scenes">06 场景</a>
+    <a href="#myths">07 误区</a>
+    <a href="#management">08 管理</a>
+    <a href="#checklist">09 清单</a>
+    <a href="#references">10 文献</a>
+  </div>
+</nav>
+
+<main id="main">
+
+<!-- ================= 01 结论 ================= -->
+<section class="section" id="summary">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <div class="section-num">01 / 先给结论</div>
+      <div>
+        <p class="eyebrow">The Bottom Line</p>
+        <h2>LDL-C 升高，<span class="nowrap">通常是三件事叠加</span></h2>
+        <p class="section-intro">把 LDL-C 想成水池里的水位：<strong>进水</strong>（VLDL 生成）变多、<strong>下水</strong>（LDL 受体清除）变慢，或者水池的“传感器”被遗传、激素、药物调错了。临床上，最常见的是可逆的代谢与生活方式因素，但必须主动排除<strong>继发性高胆固醇血症</strong>和遗传性 FH。中国血脂管理指南（2023）同样把 LDL-C 作为首要干预靶点，并要求排查继发性血脂异常。<a class="cite" href="#ref3">[3]</a></p>
+      </div>
+    </div>
+
+    <div class="verdict reveal">
+      <p>LDL-C 是动脉粥样硬化的因果性危险因素；但“为什么高”与“高到多少要治”是两个问题。前者靠病因学，后者靠风险分层。</p>
+      <footer>因果证据与指南共识 · 见文献 <a class="cite" href="#ref1">[1]</a><a class="cite" href="#ref2">[2]</a><a class="cite" href="#ref20">[20]</a></footer>
+    </div>
+
+    <div class="conclusion-grid">
+      <article class="conclusion reveal">
+        <div class="num">01</div>
+        <div>
+          <h3>吃得不对，只是其中一环</h3>
+          <p>饱和脂肪、反式脂肪、能量过剩和胰岛素抵抗会升高 LDL-C；但膳食胆固醇的个体差异很大，鸡蛋通常不是唯一元凶。</p>
+        </div>
+      </article>
+      <article class="conclusion reveal">
+        <div class="num">02</div>
+        <div>
+          <h3>甲减、肾病、糖尿病、药物，常被漏掉</h3>
+          <p>这些原因可逆或可治。不排查就不断加降脂药，容易事倍功半，也会错过真正需要处理的疾病。</p>
+        </div>
+      </article>
+      <article class="conclusion reveal">
+        <div class="num">03</div>
+        <div>
+          <h3>LDL-C ≥4.9 mmol/L，要想到 FH</h3>
+          <p>尤其合并早发 ASCVD 家族史、腱黄瘤、角膜弓（&lt;45 岁）时。基因检测和家系筛查，可能同时救下多位亲属。</p>
+        </div>
+      </article>
+      <article class="conclusion reveal">
+        <div class="num">04</div>
+        <div>
+          <h3>瘦人也会高</h3>
+          <p>FH、家族性混合型高脂血症、肾病综合征，以及低碳高脂饮食下的“瘦体重高反应者”，都可以出现在 BMI 正常的人身上。</p>
+        </div>
+      </article>
+      <article class="conclusion reveal">
+        <div class="num">05</div>
+        <div>
+          <h3>目标不是一刀切</h3>
+          <p>风险越高，LDL-C 目标越低。已患 ASCVD 者通常需 &lt;1.4 mmol/L，部分极端风险患者需 &lt;1.0 mmol/L；具体由医生评估。</p>
+        </div>
+      </article>
+      <article class="conclusion reveal">
+        <div class="num">06</div>
+        <div>
+          <h3>先对因，再谈“加药”</h3>
+          <p>把甲减、肾病、药物、饮酒和体重等因素处理掉，常常能让 LDL-C 明显下降；但高危患者不应因此延迟启动降脂治疗。</p>
+        </div>
+      </article>
+    </div>
+
+    <div class="update-strip reveal" aria-label="近期证据更新">
+      <div class="update-item">
+        <span class="date">2026.03 · ACC / AHA</span>
+        <strong>更早启动、降得更低、治疗更久</strong>
+        <p>2026 多学会血脂异常管理指南把“终身 LDL-C 暴露”推到前台，强调一级预防与早期干预。</p>
+      </div>
+      <div class="update-item">
+        <span class="date">2025 · ESC / EAS</span>
+        <strong>强调“极端风险”分层</strong>
+        <p>焦点更新进一步聚焦极端风险患者，推动部分患者追求更低的 LDL-C 目标。</p>
+      </div>
+      <div class="update-item">
+        <span class="date">2025 · J Clin Lipidol</span>
+        <strong>51 项 RCT：P/S 比值与 LDL-C</strong>
+        <p>提高多不饱和/饱和脂肪酸比值，与更低的 LDL-C 相关；用不饱和脂肪替代饱和脂肪仍是核心膳食策略。</p>
+      </div>
+      <div class="update-item">
+        <span class="date">2026 · J Clin Lipidol</span>
+        <strong>绝经后 LDL-C 平均 +15.3%</strong>
+        <p>27.3 万 UK Biobank 女性的分析提示，绝经过渡期的血脂重塑具有独立的心血管风险意义。</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= 02 机制 ================= -->
+<section class="section" id="mechanism">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <div class="section-num">02 / 一分钟机制</div>
+      <div>
+        <p class="eyebrow">The Balance</p>
+        <h2>“进、出、调”：LDL-C 的三本账</h2>
+        <p class="section-intro">LDL-C 不是一种“吃进来的毒素”，而是肝脏产生的脂蛋白在血液中的胆固醇含量。人体大部分胆固醇由自身合成，饮食、激素和药物只是调节因素。GBD 2021 仍将高 LDL-C 列为心血管病负担的重要代谢危险因素；理解“进、出、调”这三本账，就能理解为什么单靠“少吃蛋黄”解释不了一个 6.0 mmol/L 的 LDL-C。<a class="cite" href="#ref18">[18]</a></p>
+      </div>
+    </div>
+
+    <div class="mech-lead reveal">
+      <div>
+        <h3>肝脏是中心，LDL 受体是“下水口”</h3>
+        <p>肝细胞表面的 LDL 受体（LDLR）负责把血液中的 LDL 颗粒抓回肝脏。LDLR 数量减少、功能下降，或被 PCSK9 加速降解，血浆 LDL-C 就会升高。甲状腺激素、雌激素、胰岛素敏感性、炎症和多种药物，都会影响这套系统。</p>
+      </div>
+      <div class="mech-badge" aria-hidden="true">
+        <div>
+          <span>Plasma</span>
+          <b>LDL-C ↑</b>
+          <small>水位失衡</small>
+        </div>
+      </div>
+    </div>
+
+    <div class="mech-grid">
+      <article class="mech-card reveal" style="--accent:var(--coral);--accent-soft:rgba(201,95,69,.09)">
+        <svg class="icon" aria-hidden="true"><use href="#icon-liver"/></svg>
+        <h3>进：VLDL 分泌增加</h3>
+        <p>能量过剩、内脏脂肪、胰岛素抵抗、饱和脂肪和酒精，都会让肝脏输出更多 VLDL。VLDL 经 IDL 转化为 LDL，LDL-C 随之上升。</p>
+        <ul>
+          <li>体重增加、腰围变大</li>
+          <li>TG 升高、HDL 偏低</li>
+          <li>脂肪肝、空腹血糖偏高</li>
+        </ul>
+      </article>
+      <article class="mech-card reveal" style="--accent:var(--teal);--accent-soft:rgba(15,107,98,.09)">
+        <svg class="icon" aria-hidden="true"><use href="#icon-dna"/></svg>
+        <h3>出：LDLR 清除减少</h3>
+        <p>LDLR、APOB 或 PCSK9 的变异，甲状腺激素不足，肾病综合征，以及部分药物，都会降低肝脏对 LDL 的清除能力。</p>
+        <ul>
+          <li>LDL-C 很高，但 TG 不高</li>
+          <li>家族中多人早发冠心病</li>
+          <li>腱黄瘤、角膜弓、黄色瘤</li>
+        </ul>
+      </article>
+      <article class="mech-card reveal" style="--accent:var(--gold);--accent-soft:rgba(181,134,45,.1)">
+        <svg class="icon" aria-hidden="true"><use href="#icon-scale"/></svg>
+        <h3>调：特殊状态改写平衡</h3>
+        <p>妊娠、绝经、慢性肾病、胆汁淤积、糖皮质激素和抗精神病药等，既可能增加生成，也可能减少清除，需要单独评估。</p>
+        <ul>
+          <li>妊娠中晚期生理性升高</li>
+          <li>绝经后 LDL-C 平均升 15.3%</li>
+          <li>用药时间线与血脂变化相关</li>
+        </ul>
+      </article>
+    </div>
+
+    <div class="mech-note reveal">
+      <strong>关键推论：</strong>一个 LDL-C 升高的人，可能同时存在“吃得多、动得少、甲减、遗传易感”中的两项或三项。临床上不要满足于找到第一个原因；如果处理后仍未达标，要继续往下查。
+    </div>
+  </div>
+</section>
+
+<!-- ================= 03 病因地图 ================= -->
+<section class="section" id="map">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <div class="section-num">03 / 病因地图</div>
+      <div>
+        <p class="eyebrow">The Map</p>
+        <h2>20 个高频原因：从遗传到药物</h2>
+        <p class="section-intro">下面按<strong>遗传、代谢/生活方式、继发疾病、药物/特殊状态</strong>四类展开。每张卡片给出核心机制、临床线索和证据等级。点击标签可筛选；证据等级是作者基于研究类型的可读化标注，不是官方 GRADE 分级。</p>
+      </div>
+    </div>
+
+    <div class="filter-bar reveal" role="group" aria-label="病因分类筛选">
+      <span class="filter-label">Filter</span>
+      <button class="filter-btn active" type="button" data-filter="all" aria-pressed="true">全部 20</button>
+      <button class="filter-btn" type="button" data-filter="genetic" aria-pressed="false">遗传 / 家族性</button>
+      <button class="filter-btn" type="button" data-filter="metabolic" aria-pressed="false">代谢 / 生活方式</button>
+      <button class="filter-btn" type="button" data-filter="secondary" aria-pressed="false">继发疾病</button>
+      <button class="filter-btn" type="button" data-filter="drug" aria-pressed="false">药物 / 特殊状态</button>
+    </div>
+
+    <div class="cause-grid" id="causeGrid">
+
+      <!-- 遗传 01-05 -->
+      <article class="cause-card reveal" data-cat="genetic">
+        <div class="cause-top"><span class="cause-index">01 / GENETIC</span><span class="badge badge-a">证据 A</span></div>
+        <h3>杂合型家族性高胆固醇血症（HeFH）</h3>
+        <p class="cause-mech">LDLR、APOB 或 PCSK9 的致病变异，使肝脏清除 LDL 的能力下降；常为常染色体显性遗传。LDLR 变异最常见。</p>
+        <ul class="clues">
+          <li>LDL-C 常 ≥4.9 mmol/L，且从年轻时就高</li>
+          <li>早发 ASCVD 家族史、腱黄瘤、角膜弓 &lt;45 岁</li>
+          <li>对常规降脂治疗反应可偏弱，需联合治疗</li>
+        </ul>
+        <div class="cause-foot"><span class="cause-tag">遗传</span><span class="cause-refs"><a href="#ref5">[5]</a><a href="#ref6">[6]</a><a href="#ref7">[7]</a></span></div>
+      </article>
+
+      <article class="cause-card reveal" data-cat="genetic">
+        <div class="cause-top"><span class="cause-index">02 / GENETIC</span><span class="badge badge-a">证据 A</span></div>
+        <h3>纯合型家族性高胆固醇血症（HoFH）</h3>
+        <p class="cause-mech">双等位基因变异，LDLR 功能几乎缺失。LDL-C 极高，儿童期即可出现主动脉瓣和冠状动脉病变。</p>
+        <ul class="clues">
+          <li>LDL-C 常显著升高（可 &gt;13 mmol/L），皮肤/肌腱黄色瘤</li>
+          <li>儿童或青少年期即出现 ASCVD</li>
+          <li>需要脂质专科、联合药物或脂蛋白血浆置换</li>
+        </ul>
+        <div class="cause-foot"><span class="cause-tag">遗传</span><span class="cause-refs"><a href="#ref7">[7]</a><a href="#ref8">[8]</a></span></div>
+      </article>
+
+      <article class="cause-card reveal" data-cat="genetic">
+        <div class="cause-top"><span class="cause-index">03 / GENETIC</span><span class="badge badge-b">证据 B</span></div>
+        <h3>多基因高胆固醇血症</h3>
+        <p class="cause-mech">多个常见变异叠加，每个效应小，但总和可造成中度 LDL-C 升高。它是“临床像 FH、但单基因检测阴性”的常见解释之一。</p>
+        <ul class="clues">
+          <li>LDL-C 多在 4–6 mmol/L，家族聚集但不典型</li>
+          <li>单基因 panel 未发现致病变异</li>
+          <li>需要结合多基因风险评分与临床表型</li>
+        </ul>
+        <div class="cause-foot"><span class="cause-tag">遗传</span><span class="cause-refs"><a href="#ref6">[6]</a></span></div>
+      </article>
+
+      <article class="cause-card reveal" data-cat="genetic">
+        <div class="cause-top"><span class="cause-index">04 / GENETIC</span><span class="badge badge-b">证据 B</span></div>
+        <h3>家族性混合型高脂血症（FCHL）</h3>
+        <p class="cause-mech">以 VLDL 过度产生、LDL-C 与 TG 同时升高、apoB 升高为特征的常见遗传性血脂异常；常与脂肪肝、胰岛素抵抗共存。</p>
+        <ul class="clues">
+          <li>LDL-C 与 TG 同时升高，HDL-C 偏低</li>
+          <li>家族中多人早发冠心病</li>
+          <li>体重正常也可发生，不能只归因于肥胖</li>
+        </ul>
+        <div class="cause-foot"><span class="cause-tag">遗传</span><span class="cause-refs"><a href="#ref6">[6]</a><a href="#ref14">[14]</a></span></div>
+      </article>
+
+      <article class="cause-card reveal" data-cat="genetic">
+        <div class="cause-top"><span class="cause-index">05 / GENETIC</span><span class="badge badge-b">证据 B</span></div>
+        <h3>罕见遗传病：FH 的“模仿者”</h3>
+        <p class="cause-mech">ABCG5/ABCG8（谷固醇血症）、LIPA（溶酶体酸性脂肪酶缺乏）、LDLRAP1（常染色体隐性高胆固醇血症）等，可模拟 FH 表型。</p>
+        <ul class="clues">
+          <li>FH 基因阴性但表型典型，或家族史不典型</li>
+          <li>谷固醇血症可伴血小板减少、溶血</li>
+          <li>LAL-D 可伴肝大、转氨酶升高；ARH 为常染色体隐性，父母可无症状</li>
+        </ul>
+        <div class="cause-foot"><span class="cause-tag">遗传</span><span class="cause-refs"><a href="#ref6">[6]</a><a href="#ref7">[7]</a></span></div>
+      </article>
+
+      <!-- 代谢/生活方式 06-11 -->
+      <article class="cause-card reveal" data-cat="metabolic">
+        <div class="cause-top"><span class="cause-index">06 / LIFESTYLE</span><span class="badge badge-a">证据 A</span></div>
+        <h3>饱和脂肪与工业反式脂肪</h3>
+        <p class="cause-mech">饱和脂肪可抑制 LDLR 活性、增加 VLDL 分泌；工业反式脂肪升高 LDL-C、降低 HDL-C。用不饱和脂肪替代饱和脂肪，LDL-C 会下降。</p>
+        <ul class="clues">
+          <li>黄油、肥肉、椰子油、油炸食品摄入多</li>
+          <li>反式脂肪标签、部分烘焙/油炸食品</li>
+          <li>WHO 建议：饱和脂肪 &lt;10% 总能量，反式脂肪 &lt;1% 总能量</li>
+          <li>把饱和脂肪换成橄榄油、坚果、鱼类后改善</li>
+        </ul>
+        <div class="cause-foot"><span class="cause-tag">代谢 / 生活方式</span><span class="cause-refs"><a href="#ref13">[13]</a><a href="#ref21">[21]</a></span></div>
+      </article>
+
+      <article class="cause-card reveal" data-cat="metabolic">
+        <div class="cause-top"><span class="cause-index">07 / LIFESTYLE</span><span class="badge badge-a">证据 A</span></div>
+        <h3>能量过剩、肥胖与胰岛素抵抗</h3>
+        <p class="cause-mech">内脏脂肪和胰岛素抵抗让肝脏输出更多 VLDL，CETP 活性改变，小而密 LDL 增多。这是现代人 LDL-C 升高最常见的可逆背景之一。</p>
+        <ul class="clues">
+          <li>腰围增加、TG 升高、HDL-C 偏低</li>
+          <li>空腹血糖/HbA1c 偏高、脂肪肝</li>
+          <li>减重 5%–10% 后血脂谱常改善</li>
+        </ul>
+        <div class="cause-foot"><span class="cause-tag">代谢 / 生活方式</span><span class="cause-refs"><a href="#ref14">[14]</a></span></div>
+      </article>
+
+      <article class="cause-card reveal" data-cat="metabolic">
+        <div class="cause-top"><span class="cause-index">08 / LIFESTYLE</span><span class="badge badge-b">证据 B</span></div>
+        <h3>精制碳水与含糖饮料</h3>
+        <p class="cause-mech">高精制碳水/含糖饮料促进肝脏脂肪生成和 VLDL 分泌，TG 升高、sdLDL 增多；LDL-C 可能仅轻度升高，但动脉粥样硬化风险并不低。</p>
+        <ul class="clues">
+          <li>TG 高、HDL-C 低、腰围大</li>
+          <li>LDL-C 不高，但 apoB 或 non-HDL-C 偏高</li>
+          <li>减少含糖饮料后 TG 常明显下降</li>
+        </ul>
+        <div class="cause-foot"><span class="cause-tag">代谢 / 生活方式</span><span class="cause-refs"><a href="#ref14">[14]</a></span></div>
+      </article>
+
+      <article class="cause-card reveal" data-cat="metabolic">
+        <div class="cause-top"><span class="cause-index">09 / LIFESTYLE</span><span class="badge badge-a">证据 A</span></div>
+        <h3>膳食胆固醇：不是“唯一元凶”</h3>
+        <p class="cause-mech">膳食胆固醇可抑制内源性合成，但个体反应差异大；部分“高反应者”LDL-C 明显升高。总体效应通常小于饱和脂肪/反式脂肪。</p>
+        <ul class="clues">
+          <li>大量蛋黄、动物内脏、虾蟹等摄入</li>
+          <li>记录饮食后 LDL-C 明显波动</li>
+          <li>FH 或高反应者更需个体化限制</li>
+        </ul>
+        <div class="cause-foot"><span class="cause-tag">代谢 / 生活方式</span><span class="cause-refs"><a href="#ref12">[12]</a></span></div>
+      </article>
+
+      <article class="cause-card reveal" data-cat="metabolic">
+        <div class="cause-top"><span class="cause-index">10 / LIFESTYLE</span><span class="badge badge-b">证据 B</span></div>
+        <h3>未过滤咖啡</h3>
+        <p class="cause-mech">法压壶、土耳其咖啡、部分自动咖啡机中的 cafestol/kahweol 可下调 LDLR、增加胆固醇合成；纸滤可去除大部分二萜类。</p>
+        <ul class="clues">
+          <li>每天多杯未过滤咖啡，LDL-C 出现无法解释的升高</li>
+          <li>改用纸滤咖啡后 LDL-C 下降</li>
+          <li>效应与饮用量、冲泡方式、个体差异有关</li>
+        </ul>
+        <div class="cause-foot"><span class="cause-tag">代谢 / 生活方式</span><span class="cause-refs"><a href="#ref16">[16]</a></span></div>
+      </article>
+
+      <article class="cause-card reveal" data-cat="metabolic">
+        <div class="cause-top"><span class="cause-index">11 / LIFESTYLE</span><span class="badge badge-c">证据 C</span></div>
+        <h3>低碳高脂饮食与“瘦体重高反应者”</h3>
+        <p class="cause-mech">极低碳水高脂饮食下，部分瘦且胰岛素敏感的人 LDL-C 显著升高，伴 HDL-C 高、TG 低。机制未明，可能涉及胆固醇转运/合成；现有证据以病例和观察性研究为主。</p>
+        <ul class="clues">
+          <li>BMI 正常、长期生酮或极低碳水</li>
+          <li>LDL-C &gt;5 mmol/L，HDL-C &gt;2 mmol/L，TG &lt;0.8 mmol/L</li>
+          <li>不能仅凭“瘦 + 高 HDL”判断良性，需个体化评估</li>
+        </ul>
+        <div class="cause-foot"><span class="cause-tag">争议 / 证据有限</span><span class="cause-refs"><a href="#ref17">[17]</a></span></div>
+      </article>
+
+      <!-- 继发 12-16 -->
+      <article class="cause-card reveal" data-cat="secondary">
+        <div class="cause-top"><span class="cause-index">12 / SECONDARY</span><span class="badge badge-a">证据 A</span></div>
+        <h3>甲状腺功能减退</h3>
+        <p class="cause-mech">甲状腺激素不足 → 肝 LDLR 表达下降、胆汁酸合成减少；亚临床甲减也可升高 LDL-C。这是最常被漏掉的继发原因之一。</p>
+        <ul class="clues">
+          <li>TSH 升高、FT4 降低或正常</li>
+          <li>怕冷、便秘、体重增加、乏力、皮肤干</li>
+          <li>替代治疗后 6–8 周复查血脂</li>
+        </ul>
+        <div class="cause-foot"><span class="cause-tag">继发疾病</span><span class="cause-refs"><a href="#ref11">[11]</a></span></div>
+      </article>
+
+      <article class="cause-card reveal" data-cat="secondary">
+        <div class="cause-top"><span class="cause-index">13 / SECONDARY</span><span class="badge badge-b">证据 B</span></div>
+        <h3>肾病综合征</h3>
+        <p class="cause-mech">大量蛋白尿 → 肝脏代偿性合成脂蛋白增加；脂蛋白脂酶/肝脂酶活性下降，清除减少。LDL-C 和 TG 可同时升高。</p>
+        <ul class="clues">
+          <li>眼睑/下肢水肿、泡沫尿、低白蛋白</li>
+          <li>尿蛋白/肌酐比升高</li>
+          <li>控制肾病本身后血脂可改善</li>
+        </ul>
+        <div class="cause-foot"><span class="cause-tag">继发疾病</span><span class="cause-refs"><a href="#ref9">[9]</a><a href="#ref11">[11]</a></span></div>
+      </article>
+
+      <article class="cause-card reveal" data-cat="secondary">
+        <div class="cause-top"><span class="cause-index">14 / SECONDARY</span><span class="badge badge-b">证据 B</span></div>
+        <h3>慢性肾脏病（CKD）</h3>
+        <p class="cause-mech">肾脏清除和脂蛋白代谢改变，常表现为 TG 升高、HDL-C 降低、sdLDL 增多；LDL-C 可正常或仅轻中度升高。</p>
+        <ul class="clues">
+          <li>eGFR 下降、蛋白尿</li>
+          <li>糖尿病/高血压病史</li>
+          <li>apoB 常高于 LDL-C 所提示的风险</li>
+        </ul>
+        <div class="cause-foot"><span class="cause-tag">继发疾病</span><span class="cause-refs"><a href="#ref9">[9]</a></span></div>
+      </article>
+
+      <article class="cause-card reveal" data-cat="secondary">
+        <div class="cause-top"><span class="cause-index">15 / SECONDARY</span><span class="badge badge-a">证据 A</span></div>
+        <h3>糖尿病与代谢综合征</h3>
+        <p class="cause-mech">胰岛素抵抗 → VLDL 分泌增加、CETP 介导的 LDL 颗粒改变。LDL-C 可以不高，但 apoB、小而密 LDL 和 TG 往往已经升高。</p>
+        <ul class="clues">
+          <li>HbA1c 升高、TG 高、HDL-C 低、腰围大</li>
+          <li>不能只看 LDL-C，要结合 apoB/non-HDL-C</li>
+          <li>需要综合管理血糖、血压、体重</li>
+        </ul>
+        <div class="cause-foot"><span class="cause-tag">继发疾病</span><span class="cause-refs"><a href="#ref14">[14]</a></span></div>
+      </article>
+
+      <article class="cause-card reveal" data-cat="secondary">
+        <div class="cause-top"><span class="cause-index">16 / SECONDARY</span><span class="badge badge-b">证据 B</span></div>
+        <h3>胆汁淤积与其他内分泌病</h3>
+        <p class="cause-mech">胆汁淤积时胆汁酸排泄受阻，可出现 Lp-X，LDL-C 检测可能失真；皮质醇增多症、神经性厌食等也可改变脂蛋白代谢。</p>
+        <ul class="clues">
+          <li>ALP/GGT、胆红素升高、皮肤瘙痒</li>
+          <li>向心性肥胖、紫纹、高血压、高血糖</li>
+          <li>低 BMI、闭经、怕冷（厌食症）</li>
+        </ul>
+        <div class="cause-foot"><span class="cause-tag">继发疾病</span><span class="cause-refs"><a href="#ref9">[9]</a><a href="#ref11">[11]</a></span></div>
+      </article>
+
+      <!-- 药物/特殊 17-20 -->
+      <article class="cause-card reveal" data-cat="drug">
+        <div class="cause-top"><span class="cause-index">17 / DRUGS</span><span class="badge badge-a">证据 A</span></div>
+        <h3>糖皮质激素与免疫抑制剂</h3>
+        <p class="cause-mech">糖皮质激素增加 VLDL 合成；环孢素、他克莫司、西罗莫司可升高 LDL-C，并与他汀发生相互作用，增加肌病风险。</p>
+        <ul class="clues">
+          <li>长期激素、移植后、自身免疫病治疗</li>
+          <li>用药后血脂上升，减量/换药后改善</li>
+          <li>不可自行停药，需与处方医生共同调整</li>
+        </ul>
+        <div class="cause-foot"><span class="cause-tag">药物</span><span class="cause-refs"><a href="#ref10">[10]</a></span></div>
+      </article>
+
+      <article class="cause-card reveal" data-cat="drug">
+        <div class="cause-top"><span class="cause-index">18 / DRUGS</span><span class="badge badge-a">证据 A</span></div>
+        <h3>利尿剂、β 阻滞剂与抗精神病药</h3>
+        <p class="cause-mech">噻嗪类、非血管扩张性 β 阻滞剂可轻度升高 LDL-C/TG；非典型抗精神病药（奥氮平、氯氮平、喹硫平等）通过体重/胰岛素抵抗和直接效应升高血脂。</p>
+        <ul class="clues">
+          <li>用药后体重增加、血糖升高、TG 升高</li>
+          <li>抗精神病药需定期监测血脂，不可自行停药</li>
+          <li>与医生讨论替代药物或联合降脂</li>
+        </ul>
+        <div class="cause-foot"><span class="cause-tag">药物</span><span class="cause-refs"><a href="#ref10">[10]</a></span></div>
+      </article>
+
+      <article class="cause-card reveal" data-cat="drug">
+        <div class="cause-top"><span class="cause-index">19 / DRUGS</span><span class="badge badge-a">证据 A</span></div>
+        <h3>HIV 药物与性激素</h3>
+        <p class="cause-mech">部分抗逆转录病毒药（旧式蛋白酶抑制剂、依非韦伦；整合酶抑制剂与体重增加相关）可致血脂异常；孕激素、雄激素、达那唑、合成代谢类固醇可升高 LDL-C、降低 HDL-C。</p>
+        <ul class="clues">
+          <li>HIV 治疗史、体重和血脂同步变化</li>
+          <li>健身补剂、睾酮、合成代谢类固醇使用</li>
+          <li>月经紊乱、多毛、声音变化等雄激素效应</li>
+        </ul>
+        <div class="cause-foot"><span class="cause-tag">药物</span><span class="cause-refs"><a href="#ref10">[10]</a></span></div>
+      </article>
+
+      <article class="cause-card reveal" data-cat="drug">
+        <div class="cause-top"><span class="cause-index">20 / SPECIAL</span><span class="badge badge-b">证据 B</span></div>
+        <h3>妊娠与绝经</h3>
+        <p class="cause-mech">妊娠期雌激素、孕激素和胰岛素抵抗增加，血脂生理性升高；绝经后雌激素下降，LDLR 表达和胆固醇代谢改变。UK Biobank 显示绝经后 LDL-C 平均 +15.3%。</p>
+        <ul class="clues">
+          <li>孕中晚期血脂升高，产后复查</li>
+          <li>围绝经期潮热、月经紊乱、腰围增加</li>
+          <li>绝经不是“病”，但风险分层需要更新</li>
+        </ul>
+        <div class="cause-foot"><span class="cause-tag">特殊状态</span><span class="cause-refs"><a href="#ref15">[15]</a><a href="#ref22">[22]</a></span></div>
+      </article>
+
+    </div>
+
+    <div class="map-note reveal">
+      <b>读图提示</b>
+      <span>同一个患者身上，遗传易感与生活方式常同时存在。比如 FH 患者若合并甲减或体重增加，LDL-C 会更高；把继发因素处理掉，才能看清“基线”遗传风险。</span>
+    </div>
+  </div>
+</section>
+
+<!-- ================= 04 证据表 ================= -->
+<section class="section" id="evidence">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <div class="section-num">04 / 证据表</div>
+      <div>
+        <p class="eyebrow">Evidence Table</p>
+        <h2>把“可能原因”变成可核查的证据</h2>
+        <p class="section-intro">下表把常见病因的机制、临床线索和证据强度放在一起，便于快速对照。证据强度 <strong>A</strong> 主要来自指南/共识/高质量 RCT 或 Meta 分析；<strong>B</strong> 来自机制研究、队列或系统综述；<strong>C</strong> 为病例系列或新兴/争议概念。</p>
+      </div>
+    </div>
+
+    <div class="evidence-legend reveal">
+      <span><i class="ev ev-a">A</i> 指南 / 高质量 RCT / Meta 分析</span>
+      <span><i class="ev ev-b">B</i> 机制 / 队列 / 系统综述</span>
+      <span><i class="ev ev-c">C</i> 病例 / 新兴 / 争议</span>
+    </div>
+
+    <div class="table-wrap reveal">
+      <table>
+        <thead>
+          <tr>
+            <th scope="col">病因</th>
+            <th scope="col">核心机制</th>
+            <th scope="col">临床线索</th>
+            <th scope="col">证据</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>HeFH / 罕见遗传</td>
+            <td>LDLR、APOB、PCSK9 等变异 → 肝脏清除 LDL 减少；罕见病可模拟 FH。</td>
+            <td>LDL-C 很高、家族史、腱黄瘤、角膜弓；基因 panel 可辅助。</td>
+            <td><span class="ev ev-a">A</span></td>
+          </tr>
+          <tr>
+            <td>多基因 / FCHL</td>
+            <td>多个常见变异叠加，或 VLDL 过度产生；常伴 TG 升高、apoB 升高。</td>
+            <td>中度 LDL-C 升高、家族聚集、脂肪肝、胰岛素抵抗。</td>
+            <td><span class="ev ev-b">B</span></td>
+          </tr>
+          <tr>
+            <td>饱和 / 反式脂肪</td>
+            <td>饱和脂肪抑制 LDLR、增加 VLDL；反式脂肪升高 LDL、降低 HDL。</td>
+            <td>黄油/肥肉/椰子油/油炸食品；用不饱和脂肪替代后改善。</td>
+            <td><span class="ev ev-a">A</span></td>
+          </tr>
+          <tr>
+            <td>肥胖 / 胰岛素抵抗</td>
+            <td>内脏脂肪 → VLDL 分泌增加、CETP 改变、sdLDL 增多。</td>
+            <td>腰围大、TG 高、HDL 低、脂肪肝、血糖偏高。</td>
+            <td><span class="ev ev-a">A</span></td>
+          </tr>
+          <tr>
+            <td>膳食胆固醇</td>
+            <td>抑制内源合成，但个体反应差异大；高反应者 LDL-C 明显升高。</td>
+            <td>大量蛋黄/内脏/虾蟹；饮食记录与 LDL-C 波动相关。</td>
+            <td><span class="ev ev-a">A</span></td>
+          </tr>
+          <tr>
+            <td>未过滤咖啡</td>
+            <td>cafestol/kahweol 下调 LDLR、增加胆固醇合成；纸滤可去除。</td>
+            <td>多杯法压壶/土耳其咖啡/自动咖啡机；改纸滤后下降。</td>
+            <td><span class="ev ev-b">B</span></td>
+          </tr>
+          <tr>
+            <td>低碳高脂 / LMHR</td>
+            <td>机制未明，可能涉及胆固醇转运/合成；瘦人、高 HDL、低 TG。</td>
+            <td>长期生酮、LDL-C 很高但 TG 很低；不能据此判断良性。</td>
+            <td><span class="ev ev-c">C</span></td>
+          </tr>
+          <tr>
+            <td>甲状腺功能减退</td>
+            <td>甲状腺激素不足 → LDLR 表达下降、胆汁酸合成减少。</td>
+            <td>TSH 高、怕冷、便秘、体重增加、乏力。</td>
+            <td><span class="ev ev-a">A</span></td>
+          </tr>
+          <tr>
+            <td>肾病综合征</td>
+            <td>蛋白尿 → 肝脏脂蛋白合成增加；脂蛋白脂酶/肝脂酶活性下降。</td>
+            <td>水肿、泡沫尿、低白蛋白、尿蛋白升高。</td>
+            <td><span class="ev ev-b">B</span></td>
+          </tr>
+          <tr>
+            <td>慢性肾脏病</td>
+            <td>清除和脂蛋白代谢改变；TG↑、HDL↓、sdLDL↑，LDL-C 可正常。</td>
+            <td>eGFR 下降、蛋白尿、糖尿病/高血压病史。</td>
+            <td><span class="ev ev-b">B</span></td>
+          </tr>
+          <tr>
+            <td>糖尿病 / 代谢综合征</td>
+            <td>胰岛素抵抗 → VLDL 增加、LDL 颗粒改变；LDL-C 可不高但 apoB 高。</td>
+            <td>HbA1c↑、TG↑、HDL↓、腰围大。</td>
+            <td><span class="ev ev-a">A</span></td>
+          </tr>
+          <tr>
+            <td>胆汁淤积 / 内分泌病</td>
+            <td>胆汁酸排泄受阻可出现 Lp-X；皮质醇增多、厌食症改变脂蛋白代谢。</td>
+            <td>ALP/GGT/胆红素↑、瘙痒；紫纹、向心性肥胖；低 BMI/闭经。</td>
+            <td><span class="ev ev-b">B</span></td>
+          </tr>
+          <tr>
+            <td>药物</td>
+            <td>激素、免疫抑制剂、利尿剂、β 阻滞剂、抗精神病药、ART、性激素等。</td>
+            <td>用药时间线与血脂上升一致；停药/换药后改善。</td>
+            <td><span class="ev ev-a">A</span></td>
+          </tr>
+          <tr>
+            <td>妊娠</td>
+            <td>雌激素/孕激素/胰岛素抵抗增加，血脂生理性升高。</td>
+            <td>孕中晚期；产后 6–12 周复查。</td>
+            <td><span class="ev ev-b">B</span></td>
+          </tr>
+          <tr>
+            <td>绝经</td>
+            <td>雌激素下降 → LDLR 表达和胆固醇代谢改变。</td>
+            <td>围绝经期；LDL-C 平均 +15.3%，ApoB +13.5%。</td>
+            <td><span class="ev ev-b">B</span></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="table-foot">证据等级为作者基于研究类型的可读化标注，不是官方 GRADE 分级；具体研究设计、偏倚风险与适用人群请查阅原文。</p>
+  </div>
+</section>
+
+<!-- ================= 05 诊断路径 ================= -->
+<section class="section" id="diagnosis">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <div class="section-num">05 / 排查路径</div>
+      <div>
+        <p class="eyebrow">Clinical Pathway</p>
+        <h2>拿到一张“LDL-C 高”的化验单，怎么查？</h2>
+        <p class="section-intro">建议按“<strong>先复核、再排除、后分型、定目标</strong>”的顺序走。不要一上来就只开他汀，也不要在没有排除继发原因的情况下反复加药。</p>
+      </div>
+    </div>
+
+    <div class="steps">
+      <article class="step reveal">
+        <div class="step-num">1</div>
+        <div>
+          <h3>复核数值与检测质量</h3>
+          <p>空腹或非空腹均可，但随访尽量用同一实验室、同一方法。TG 明显升高时，Friedewald 公式计算的 LDL-C 不可靠，应改用直接 LDL-C 或 Martin-Hopkins 公式；同时计算 non-HDL-C，必要时查 apoB。</p>
+          <div class="chips">
+            <span class="chip">TG &gt;4.5 mmol/L → 直接 LDL-C</span>
+            <span class="chip">non-HDL-C = TC − HDL-C</span>
+            <span class="chip">apoB 反映颗粒数</span>
+            <span class="chip">1 mmol/L ≈ 38.7 mg/dL</span>
+          </div>
+        </div>
+      </article>
+
+      <article class="step reveal">
+        <div class="step-num">2</div>
+        <div>
+          <h3>先排除继发疾病与药物</h3>
+          <p>这是最容易被跳过、也最值得做的一步。至少查 TSH/FT4、尿蛋白/肌酐比、白蛋白、eGFR/肌酐、HbA1c、肝功能（ALT/AST/ALP/GGT/胆红素）；育龄女性做妊娠试验。同时逐条核对用药与补剂。</p>
+          <div class="chips">
+            <span class="chip">TSH / FT4</span>
+            <span class="chip">尿蛋白 / 肌酐</span>
+            <span class="chip">eGFR</span>
+            <span class="chip">HbA1c</span>
+            <span class="chip">肝功能</span>
+            <span class="chip">妊娠试验</span>
+            <span class="chip">用药清单</span>
+          </div>
+        </div>
+      </article>
+
+      <article class="step reveal">
+        <div class="step-num">3</div>
+        <div>
+          <h3>识别遗传性 / 家族性病因</h3>
+          <p>成人 LDL-C ≥4.9 mmol/L，或合并早发 ASCVD 家族史、腱黄瘤、角膜弓 &lt;45 岁、黄色瘤，应怀疑 FH。可用 DLCN 或 Simon Broome 标准评估，转脂质专科/遗传咨询，考虑基因 panel 与一级亲属 cascade screening。</p>
+          <div class="chips">
+            <span class="chip">LDL-C ≥4.9 mmol/L</span>
+            <span class="chip">早发 ASCVD 家族史</span>
+            <span class="chip">腱黄瘤 / 角膜弓</span>
+            <span class="chip">DLCN / Simon Broome</span>
+            <span class="chip">家系筛查</span>
+          </div>
+        </div>
+      </article>
+
+      <article class="step reveal">
+        <div class="step-num">4</div>
+        <div>
+          <h3>评估整体 ASCVD 风险</h3>
+          <p>不要只盯着 LDL-C。合并 ASCVD、糖尿病、CKD、高血压、吸烟、家族史，或 Lp(a) 明显升高，都会改变风险分层。风险不确定时，冠状动脉钙化（CAC）可辅助决策；但 CAC=0 不能排除 FH 或严重高 LDL-C。Lp(a) 的 mg/dL 与 nmol/L 报告单位不可直接换算，随访应尽量用同一方法。</p>
+          <div class="chips">
+            <span class="chip">ASCVD 病史</span>
+            <span class="chip">糖尿病 / CKD</span>
+            <span class="chip">吸烟 / 血压</span>
+            <span class="chip">Lp(a) 至少测一次</span>
+            <span class="chip">CAC 可选</span>
+          </div>
+        </div>
+      </article>
+
+      <article class="step reveal">
+        <div class="step-num">5</div>
+        <div>
+          <h3>定目标，对因 + 降 LDL 同步进行</h3>
+          <p>先处理可逆原因（甲减、肾病、药物、体重、饮酒等），同时根据风险启动或强化降脂。高危/ASCVD 患者不应因“先试 3 个月生活方式”而延迟药物治疗。开始或调整药物后 4–12 周复查。</p>
+          <div class="chips">
+            <span class="chip">对因治疗</span>
+            <span class="chip">生活方式</span>
+            <span class="chip">他汀为基础</span>
+            <span class="chip">联合达标</span>
+            <span class="chip">4–12 周复查</span>
+          </div>
+        </div>
+      </article>
+    </div>
+
+    <div class="red-flag reveal">
+      <svg class="icon" aria-hidden="true"><use href="#icon-alert"/></svg>
+      <div>
+        <h3>这些情况不要只开他汀</h3>
+        <p>LDL-C ≥4.9 mmol/L、腱黄瘤/黄色瘤、角膜弓 &lt;45 岁、家族中多人早发心梗/卒中、儿童期即高 LDL-C——应直接转脂质专科或遗传咨询，做 FH 评估与家系筛查。</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= 06 场景 ================= -->
+<section class="section" id="scenes">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <div class="section-num">06 / 四个场景</div>
+      <div>
+        <p class="eyebrow">Real-World Patterns</p>
+        <h2>同样是 LDL-C 高，故事完全不同</h2>
+        <p class="section-intro">以下为示意性场景，用于展示临床思路，不是真实病例。真实诊疗需结合完整病史、体检和实验室检查。</p>
+      </div>
+    </div>
+
+    <div class="scene-grid">
+      <article class="scene reveal" data-tone="coral">
+        <div class="scene-tag">场景 01 · 遗传</div>
+        <h3>28 岁，体检 LDL-C 6.4，父亲 45 岁心梗</h3>
+        <p>他不胖，饮食也不算油腻，但跟腱处可摸到增厚，母亲也有高胆固醇。这不是“年轻人代谢差”，而是典型的 FH 线索。</p>
+        <div class="scene-next"><b>下一步</b><span>脂质专科评估、DLCN/Simon Broome、基因 panel；一级亲属 cascade screening；高强度他汀 ± 依折麦布，必要时 PCSK9 抑制剂。</span></div>
+      </article>
+
+      <article class="scene reveal" data-tone="gold">
+        <div class="scene-tag">场景 02 · 继发</div>
+        <h3>52 岁女性，LDL-C 4.2，TSH 9.8</h3>
+        <p>她最近怕冷、便秘、体重增加，一直被当作“更年期”。甲减可以让 LDL-C 明显升高，单靠他汀往往不够。</p>
+        <div class="scene-next"><b>下一步</b><span>评估甲状腺功能，规范替代治疗；6–8 周后复查血脂，再决定是否需要降脂药。</span></div>
+      </article>
+
+      <article class="scene reveal" data-tone="purple">
+        <div class="scene-tag">场景 03 · 肾病</div>
+        <h3>35 岁，LDL-C 5.8，眼睑水肿、泡沫尿</h3>
+        <p>他以为只是“血脂高”，但尿常规提示大量蛋白尿、白蛋白偏低。肾病综合征的脂质异常，根子在肾脏和肝脏的代偿。</p>
+        <div class="scene-next"><b>下一步</b><span>肾内科评估，查尿蛋白/肌酐比、白蛋白、肾功能；治疗原发病，血脂随病情改善，必要时个体化降脂。</span></div>
+      </article>
+
+      <article class="scene reveal" data-tone="teal">
+        <div class="scene-tag">场景 04 · 争议</div>
+        <h3>30 岁，生酮 6 个月，LDL-C 6.0，HDL-C 2.2，TG 0.5</h3>
+        <p>他 BMI 21，肌肉量高，没有家族史。这是典型的“瘦体重高反应者”画像，但“瘦 + 高 HDL + 低 TG”不能自动等于安全。</p>
+        <div class="scene-next"><b>下一步</b><span>先排除 FH，查 apoB、Lp(a)、家族史；讨论饮食调整与定期复查；必要时影像评估，不能仅凭网络说法判断良性。</span></div>
+      </article>
+    </div>
+    <p class="scene-note">注：场景中提到的检查与治疗仅为思路示例，具体方案需由医生根据个体情况决定。</p>
+  </div>
+</section>
+
+<!-- ================= 07 误区 ================= -->
+<section class="section" id="myths">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <div class="section-num">07 / 常见误区</div>
+      <div>
+        <p class="eyebrow">Myth Busting</p>
+        <h2>关于 LDL-C，最常见的 7 个误解</h2>
+        <p class="section-intro">这些说法在门诊和网络上都很常见。理解它们为什么“只对了一半”，能帮你少走很多弯路。</p>
+      </div>
+    </div>
+
+    <div class="myth-list">
+      <details class="reveal">
+        <summary><span><span class="myth-label">误区 01</span>LDL-C 高，就是油吃多了</span></summary>
+        <div class="myth-answer">不完全是。<strong>饱和脂肪和反式脂肪</strong>确实会升高 LDL-C，但人体大部分胆固醇是自身合成的。遗传性 FH、甲减、肾病综合征、糖尿病、药物等，都可以让 LDL-C 很高，哪怕饮食很清淡。把 LDL-C 高全部归因于“吃油多”，会漏掉真正的原因。</div>
+      </details>
+      <details class="reveal">
+        <summary><span><span class="myth-label">误区 02</span>瘦人不会高胆固醇</span></summary>
+        <div class="myth-answer">错。FH、家族性混合型高脂血症、肾病综合征、甲减，以及低碳高脂饮食下的“瘦体重高反应者”，都可以出现在 BMI 正常甚至偏瘦的人身上。<strong>体型不是排除标准，家族史和化验线索更重要。</strong></div>
+      </details>
+      <details class="reveal">
+        <summary><span><span class="myth-label">误区 03</span>鸡蛋是 LDL-C 升高的元凶</span></summary>
+        <div class="myth-answer">鸡蛋不是“洪水猛兽”。AHA 科学建议认为，<strong>多数人每天 1 个鸡蛋可以纳入健康膳食模式</strong>；但 FH、糖尿病或对膳食胆固醇高反应的人，需要个体化限制。更重要的是整体膳食模式：饱和脂肪、反式脂肪、精制碳水和总能量，往往比单个食物影响更大。</div>
+      </details>
+      <details class="reveal">
+        <summary><span><span class="myth-label">误区 04</span>他汀伤肝伤肾，能不吃就不吃</span></summary>
+        <div class="myth-answer">他汀相关肝酶升高多为一过性，严重肝损伤罕见；严重肌肉损伤（横纹肌溶解）也很罕见，但确实可能发生，尤其与剂量、相互作用、甲状腺功能异常有关。<strong>对 ASCVD 高危人群，他汀的净获益远大于风险。</strong>不要自行停药；出现肌肉疼痛、无力、深色尿，应及时就医。</div>
+      </details>
+      <details class="reveal">
+        <summary><span><span class="myth-label">误区 05</span>LDL-C 越低越好，所有人都要降到 1.4 以下</span></summary>
+        <div class="myth-answer">目标是<strong>按风险分层</strong>的。已患 ASCVD、糖尿病合并靶器官损害、严重 CKD 等人群，目标更低；低危人群不需要追求同样的数值。2025 ESC/EAS 对“极端风险”患者提出更低目标，但这不是所有人的标准。具体目标应由医生结合整体风险、耐受性和患者意愿制定。</div>
+      </details>
+      <details class="reveal">
+        <summary><span><span class="myth-label">误区 06</span>保健品、红曲可以替代他汀</span></summary>
+        <div class="myth-answer">红曲中含 monacolin K（与他汀类似），但<strong>剂量不稳定、质量参差，还可能与他汀或其他药物相互作用</strong>。植物甾醇、可溶性纤维有一定降 LDL-C 作用，但不能替代处方药，尤其对 FH 或 ASCVD 患者。不要用“天然”两个字替代证据。</div>
+      </details>
+      <details class="reveal">
+        <summary><span><span class="myth-label">误区 07</span>LDL-C 正常，血脂就没事</span></summary>
+        <div class="myth-answer">不一定。糖尿病、肥胖、TG 高的人，LDL-C 可以“看起来正常”，但 <strong>apoB、non-HDL-C、小而密 LDL</strong> 可能已经升高；Lp(a) 也是独立风险因素。评估血脂，不能只看一个 LDL-C 数字。</div>
+      </details>
+    </div>
+  </div>
+</section>
+
+<!-- ================= 08 管理 ================= -->
+<section class="section" id="management">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <div class="section-num">08 / 管理启示</div>
+      <div>
+        <p class="eyebrow">What To Do</p>
+        <h2>从“降数字”到“管风险”</h2>
+        <p class="section-intro">病因明确后，治疗通常是“对因 + 生活方式 + 药物 + 长期随访”的组合。下面不是处方，而是与医生沟通时的框架。</p>
+      </div>
+    </div>
+
+    <div class="mgmt-grid">
+      <article class="mgmt-card reveal">
+        <svg class="icon" aria-hidden="true"><use href="#icon-check"/></svg>
+        <h3>01 · 对因：先处理可逆因素</h3>
+        <p>甲减、肾病综合征、CKD、糖尿病、药物、饮酒、体重增加——能处理的因素，往往能让 LDL-C 明显下降。</p>
+        <ul>
+          <li>甲减：规范替代治疗后复查</li>
+          <li>肾病：控制蛋白尿和原发病</li>
+          <li>药物：与医生讨论替代/减量</li>
+          <li>体重：减重 5%–10% 即有收益</li>
+        </ul>
+      </article>
+
+      <article class="mgmt-card reveal">
+        <svg class="icon" aria-hidden="true"><use href="#icon-flame"/></svg>
+        <h3>02 · 生活方式：证据最强的四件事</h3>
+        <p>不是“什么都不能吃”，而是把膳食结构换成更有利于血脂的模式。国家卫健委《高脂血症营养和运动指导原则（2024年版）》也强调限制饱和脂肪、反式脂肪，增加膳食纤维与规律运动。<a class="cite" href="#ref4">[4]</a></p>
+        <ul>
+          <li>用不饱和脂肪替代饱和脂肪</li>
+          <li>避免工业反式脂肪</li>
+          <li>增加全谷物、蔬果、豆类、坚果</li>
+          <li>规律运动 + 控制腰围</li>
+        </ul>
+      </article>
+
+      <article class="mgmt-card reveal">
+        <svg class="icon" aria-hidden="true"><use href="#icon-pill"/></svg>
+        <h3>03 · 药物：他汀为基石，联合达标</h3>
+        <p>高危/ASCVD 患者通常需要高强度他汀；不达标时联合依折麦布、PCSK9 抑制剂、inclisiran、bempedoic acid 等。</p>
+        <ul>
+          <li>他汀：首选，除非禁忌/不耐受</li>
+          <li>依折麦布：常用联合起点</li>
+          <li>PCSK9 单抗 / siRNA：强效降 LDL</li>
+          <li>HoFH：需脂质专科，部分需 apheresis</li>
+        </ul>
+      </article>
+    </div>
+
+    <div class="goal-card reveal">
+      <h3>LDL-C 目标：风险越高，目标越低</h3>
+      <p class="goal-sub">以下为 2025 ESC/EAS 风险分层示例。2026 ACC/AHA 等多学会指南同样强调“更早启动、降得更低、治疗更久”；具体目标以最新版指南与个体评估为准。</p>
+      <div class="goal-table" role="table" aria-label="LDL-C 风险分层目标">
+        <div class="goal-row" role="row"><span role="cell">极端风险</span><strong role="cell">&lt;1.0 mmol/L</strong><em role="cell">&lt;40 mg/dL · 且 ≥50% 降幅</em></div>
+        <div class="goal-row" role="row"><span role="cell">极高危</span><strong role="cell">&lt;1.4 mmol/L</strong><em role="cell">&lt;55 mg/dL · 且 ≥50% 降幅</em></div>
+        <div class="goal-row" role="row"><span role="cell">高危</span><strong role="cell">&lt;1.8 mmol/L</strong><em role="cell">&lt;70 mg/dL · 且 ≥50% 降幅</em></div>
+        <div class="goal-row" role="row"><span role="cell">中危</span><strong role="cell">&lt;2.6 mmol/L</strong><em role="cell">&lt;100 mg/dL</em></div>
+        <div class="goal-row" role="row"><span role="cell">低危</span><strong role="cell">&lt;3.0 mmol/L</strong><em role="cell">&lt;116 mg/dL</em></div>
+      </div>
+      <p class="goal-note">“极端风险”通常指尽管已接受最大耐受降脂治疗仍发生复发性重大血管事件，或存在多血管病变等情况。不要自行按表格给自己定目标。参考文献 [1][2]。</p>
+    </div>
+
+    <div class="mech-note reveal">
+      <strong>为什么强调“降得更低、更久”：</strong>胆固醇治疗试验者协作组（CTT）汇总 26 项随机试验、约 17 万例参与者的数据显示，LDL-C 每降低 1 mmol/L，主要血管事件的相对风险约降低 22%。<a class="cite" href="#ref19">[19]</a> 这也是“越早、越低、越久”策略的核心证据之一。
+    </div>
+
+    <div class="refer-box">
+      <div class="refer-item reveal">
+        <h4>什么时候需要转诊？</h4>
+        <p>疑似 FH/HoFH、LDL-C ≥4.9 mmol/L、儿童期高 LDL-C、早发 ASCVD 家族史、他汀不耐受、妊娠合并严重血脂异常、原因不明的继发性血脂异常。</p>
+      </div>
+      <div class="refer-item reveal">
+        <h4>随访怎么做？</h4>
+        <p>开始/调整降脂药后 4–12 周复查血脂与必要安全指标；稳定后每 3–12 个月复查。FH 患者还需家系筛查和长期管理。不要因为“数值正常”自行停药。</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= 09 清单 ================= -->
+<section class="section" id="checklist">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <div class="section-num">09 / 就诊清单</div>
+      <div>
+        <p class="eyebrow">Prepare For Your Visit</p>
+        <h2>下次看医生，带上这份清单</h2>
+        <p class="section-intro">LDL-C 升高的评估，很多关键信息来自病史和用药史。提前准备，能显著提高一次门诊的效率。</p>
+      </div>
+    </div>
+
+    <div class="checklist-card reveal">
+      <div class="checklist-head">
+        <div>
+          <h3>就诊前，逐项打勾</h3>
+          <p>可以打印，或在手机上截图保存。勾选状态不会上传，仅用于你自己的就诊准备。</p>
+        </div>
+        <button class="print-btn" type="button" id="printBtn">
+          <svg class="icon" aria-hidden="true"><use href="#icon-print"/></svg>
+          打印 / 存为 PDF
+        </button>
+      </div>
+      <ul class="checklist">
+        <li><label><input type="checkbox"> 我带上了历次血脂化验单（至少 2 次）</label></li>
+        <li><label><input type="checkbox"> 我列出了所有处方药、非处方药和保健品</label></li>
+        <li><label><input type="checkbox"> 我记录了家族中早发心梗、卒中、高胆固醇的情况</label></li>
+        <li><label><input type="checkbox"> 我注意了是否有腱黄瘤、黄色瘤、角膜弓</label></li>
+        <li><label><input type="checkbox"> 我最近查过 TSH、尿蛋白、肾功能、血糖、肝功能</label></li>
+        <li><label><input type="checkbox"> 我问过是否需要查 Lp(a) 和 apoB</label></li>
+        <li><label><input type="checkbox"> 我问过是否需要 FH 基因检测和家系筛查</label></li>
+        <li><label><input type="checkbox"> 我明确了自己的 LDL-C 目标值和随访时间</label></li>
+        <li><label><input type="checkbox"> 我没有自行停用降脂药或其他处方药</label></li>
+        <li><label><input type="checkbox"> 我知道出现胸痛、呼吸困难、晕厥时要立即就医</label></li>
+      </ul>
+      <p class="checklist-note">提示：如果你正在备孕、怀孕或哺乳，请主动告知医生；部分降脂药在妊娠期需要调整。不要根据网络信息自行用药或停药。</p>
+    </div>
+  </div>
+</section>
+
+<!-- ================= 10 参考文献 ================= -->
+<section class="section" id="references">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <div class="section-num">10 / 参考文献</div>
+      <div>
+        <p class="eyebrow">References</p>
+        <h2>证据来源</h2>
+        <p class="section-intro">以下按正文引用顺序排列，优先纳入 2023–2026 年指南、共识、系统综述与高质量研究。部分链接为指南页面、摘要或出版社页面，完整内容请通过机构订阅获取。</p>
+      </div>
+    </div>
+
+    <p class="ref-note">检索与纳入：以 LDL-C、dyslipidemia、familial hypercholesterolemia、secondary hyperlipidemia 等关键词，优先检索 2023–2026 年指南、共识、系统综述、Meta 分析与大型队列；机制性内容辅以权威综述。说明：本报告为叙事性证据综述，不是系统评价或 Meta 分析；证据等级为作者基于研究类型的可读化标注，不是官方 GRADE 分级。医学证据持续更新，具体诊疗请遵循最新版指南与个体化评估。</p>
+
+    <ol class="refs">
+      <li class="ref-item" id="ref1">
+        <span class="ref-num">1</span>
+        <div>
+          <p class="ref-title">2026 ACC/AHA/Multisociety Guideline on the Management of Dyslipidemia: Guideline-at-a-Glance.</p>
+          <p class="ref-meta">J Am Coll Cardiol. 2026. DOI: <a href="https://doi.org/10.1016/j.jacc.2026.02.4872" target="_blank" rel="noopener">10.1016/j.jacc.2026.02.4872</a></p>
+        </div>
+      </li>
+      <li class="ref-item" id="ref2">
+        <span class="ref-num">2</span>
+        <div>
+          <p class="ref-title">2025 Focused Update of the 2019 ESC/EAS Guidelines for the management of dyslipidaemias.</p>
+          <p class="ref-meta">European Heart Journal. 2025. <a href="https://www.escardio.org/static-file/Escardio/Guidelines/Products/Slide%20sets/2025/2025%20official%20slides_Dyslipidaemias.pdf" target="_blank" rel="noopener">ESC 官方幻灯片</a></p>
+        </div>
+      </li>
+      <li class="ref-item" id="ref3">
+        <span class="ref-num">3</span>
+        <div>
+          <p class="ref-title">中国血脂管理指南（2023年）.</p>
+          <p class="ref-meta">中华心血管病杂志. 2023;51(3):221-255. <a href="https://rs.yiigle.com/cmaid/1449955" target="_blank" rel="noopener">全文页面</a></p>
+        </div>
+      </li>
+      <li class="ref-item" id="ref4">
+        <span class="ref-num">4</span>
+        <div>
+          <p class="ref-title">国家卫生健康委办公厅. 高血压等慢性病营养和运动指导原则（2024年版）.</p>
+          <p class="ref-meta">2024. <a href="https://app.www.gov.cn/govdata/gov/202407/02/516820/article.html" target="_blank" rel="noopener">政策原文</a></p>
+        </div>
+      </li>
+      <li class="ref-item" id="ref5">
+        <span class="ref-num">5</span>
+        <div>
+          <p class="ref-title">Hu P, Dharmayat KI, Stevens CAT, et al. Prevalence of Familial Hypercholesterolemia Among the General Population and Patients With Atherosclerotic Cardiovascular Disease: A Systematic Review and Meta-Analysis.</p>
+          <p class="ref-meta">Circulation. 2020;141(22):1742-1759. DOI: <a href="https://doi.org/10.1161/CIRCULATIONAHA.119.044795" target="_blank" rel="noopener">10.1161/CIRCULATIONAHA.119.044795</a></p>
+        </div>
+      </li>
+      <li class="ref-item" id="ref6">
+        <span class="ref-num">6</span>
+        <div>
+          <p class="ref-title">Humphries SE, et al. Genetic Determinants of the Familial Hypercholesterolaemia Phenotype.</p>
+          <p class="ref-meta">Annals of Human Genetics. 2025. DOI: <a href="https://doi.org/10.1111/ahg.12594" target="_blank" rel="noopener">10.1111/ahg.12594</a></p>
+        </div>
+      </li>
+      <li class="ref-item" id="ref7">
+        <span class="ref-num">7</span>
+        <div>
+          <p class="ref-title">纯合子家族性高胆固醇血症早期筛查与管理中国专家共识（2024年）.</p>
+          <p class="ref-meta">中国专家共识. 2024. <a href="https://rs.yiigle.com/cmaid/1517863" target="_blank" rel="noopener">全文页面</a></p>
+        </div>
+      </li>
+      <li class="ref-item" id="ref8">
+        <span class="ref-num">8</span>
+        <div>
+          <p class="ref-title">European Atherosclerosis Society. Familial hypercholesterolaemia in children and adolescents: an EAS consensus statement.</p>
+          <p class="ref-meta">2026. <a href="https://eas-society.org/publications/familial-hypercholesterolaemia-in-children-and-adolescents/" target="_blank" rel="noopener">EAS 页面</a></p>
+        </div>
+      </li>
+      <li class="ref-item" id="ref9">
+        <span class="ref-num">9</span>
+        <div>
+          <p class="ref-title">Yoshida H. Secondary dyslipidemia: its treatments and association with atherosclerosis.</p>
+          <p class="ref-meta">Global Health &amp; Medicine. 2021;3(1):15-21. DOI: <a href="https://doi.org/10.35772/ghm.2020.01078" target="_blank" rel="noopener">10.35772/ghm.2020.01078</a></p>
+        </div>
+      </li>
+      <li class="ref-item" id="ref10">
+        <span class="ref-num">10</span>
+        <div>
+          <p class="ref-title">Medication Induced Changes in Lipids and Lipoproteins.</p>
+          <p class="ref-meta">Endotext [Internet]. NCBI Bookshelf NBK326739. <a href="https://www.ncbi.nlm.nih.gov/books/NBK326739/" target="_blank" rel="noopener">全文页面</a></p>
+        </div>
+      </li>
+      <li class="ref-item" id="ref11">
+        <span class="ref-num">11</span>
+        <div>
+          <p class="ref-title">The Effect of Endocrine Disorders on Lipids and Lipoproteins.</p>
+          <p class="ref-meta">Endotext [Internet]. NCBI Bookshelf NBK409608. <a href="https://www.ncbi.nlm.nih.gov/books/NBK409608/" target="_blank" rel="noopener">全文页面</a></p>
+        </div>
+      </li>
+      <li class="ref-item" id="ref12">
+        <span class="ref-num">12</span>
+        <div>
+          <p class="ref-title">Carson JAS, Lichtenstein AH, Anderson CAM, et al. Dietary Cholesterol and Cardiovascular Risk: A Science Advisory From the American Heart Association.</p>
+          <p class="ref-meta">Circulation. 2020;141(3):e39-e53. DOI: <a href="https://doi.org/10.1161/CIR.0000000000000743" target="_blank" rel="noopener">10.1161/CIR.0000000000000743</a></p>
+        </div>
+      </li>
+      <li class="ref-item" id="ref13">
+        <span class="ref-num">13</span>
+        <div>
+          <p class="ref-title">Dietary Polyunsaturated to Saturated Fatty Acid Ratio as an Indicator for LDL Cholesterol Response: A Systematic Review and Meta-Analysis of Randomized Clinical Trials.</p>
+          <p class="ref-meta">Journal of Clinical Lipidology. 2025. DOI: <a href="https://doi.org/10.1016/j.jacl.2025.06.015" target="_blank" rel="noopener">10.1016/j.jacl.2025.06.015</a></p>
+        </div>
+      </li>
+      <li class="ref-item" id="ref14">
+        <span class="ref-num">14</span>
+        <div>
+          <p class="ref-title">Bays HE, et al. Obesity, dyslipidemia, and cardiovascular disease: A joint expert review from the Obesity Medicine Association and the National Lipid Association 2024.</p>
+          <p class="ref-meta">Journal of Clinical Lipidology. 2024. DOI: <a href="https://doi.org/10.1016/j.jacl.2024.04.001" target="_blank" rel="noopener">10.1016/j.jacl.2024.04.001</a></p>
+        </div>
+      </li>
+      <li class="ref-item" id="ref15">
+        <span class="ref-num">15</span>
+        <div>
+          <p class="ref-title">Physiological versus risk-relevant lipid remodelling across the menopausal transition: FMP-anchored trajectories, male benchmarking, LDLR genetics, risk calibration and incident MACE in 273,036 UK Biobank women.</p>
+          <p class="ref-meta">Journal of Clinical Lipidology. 2026. <a href="https://www.sciencedirect.com/science/article/pii/S1933287426004526" target="_blank" rel="noopener">文章页面</a></p>
+        </div>
+      </li>
+      <li class="ref-item" id="ref16">
+        <span class="ref-num">16</span>
+        <div>
+          <p class="ref-title">Fristedt R, et al. Cafestol and kahweol concentrations in workplace machine coffee compared with conventional brewing methods.</p>
+          <p class="ref-meta">Nutrition, Metabolism and Cardiovascular Diseases. 2025. <a href="https://www.sciencedirect.com/science/article/pii/S0939475325000870" target="_blank" rel="noopener">文章页面</a></p>
+        </div>
+      </li>
+      <li class="ref-item" id="ref17">
+        <span class="ref-num">17</span>
+        <div>
+          <p class="ref-title">Increasing Carbohydrate Intake to Reduce Cholesterol Levels: A Lean Mass Hyperresponder Case Report.</p>
+          <p class="ref-meta">Journal of the American College of Cardiology. 2025. DOI: <a href="https://doi.org/10.1016/S0735-1097(25)04514-0" target="_blank" rel="noopener">10.1016/S0735-1097(25)04514-0</a></p>
+        </div>
+      </li>
+      <li class="ref-item" id="ref18">
+        <span class="ref-num">18</span>
+        <div>
+          <p class="ref-title">GBD 2021 Risk Factors Collaborators. Global burden and strength of evidence for 88 risk factors in 204 countries and 811 subnational locations, 1990–2021: a systematic analysis for the Global Burden of Disease Study 2021.</p>
+          <p class="ref-meta">The Lancet. 2024;403(10440):2162-2203. DOI: <a href="https://doi.org/10.1016/S0140-6736(24)00933-4" target="_blank" rel="noopener">10.1016/S0140-6736(24)00933-4</a></p>
+        </div>
+      </li>
+      <li class="ref-item" id="ref19">
+        <span class="ref-num">19</span>
+        <div>
+          <p class="ref-title">Cholesterol Treatment Trialists' (CTT) Collaboration. Efficacy and safety of more intensive lowering of LDL cholesterol: a meta-analysis of data from 170,000 participants in 26 randomised trials.</p>
+          <p class="ref-meta">The Lancet. 2010;376(9753):1670-1681. DOI: <a href="https://doi.org/10.1016/S0140-6736(10)61350-5" target="_blank" rel="noopener">10.1016/S0140-6736(10)61350-5</a></p>
+        </div>
+      </li>
+      <li class="ref-item" id="ref20">
+        <span class="ref-num">20</span>
+        <div>
+          <p class="ref-title">Pedro-Botet J, et al. LDL cholesterol as a causal agent of atherosclerosis.</p>
+          <p class="ref-meta">Clinical Investigation in Arteriosclerosis. 2025. PMID: <a href="https://pubmed.ncbi.nlm.nih.gov/39043480/" target="_blank" rel="noopener">39043480</a></p>
+        </div>
+      </li>
+      <li class="ref-item" id="ref21">
+        <span class="ref-num">21</span>
+        <div>
+          <p class="ref-title">World Health Organization. Saturated fatty acid and trans-fatty acid intake for adults and children: WHO guideline.</p>
+          <p class="ref-meta">2023. <a href="https://www.who.int/publications/i/item/9789240073630" target="_blank" rel="noopener">WHO 页面</a></p>
+        </div>
+      </li>
+      <li class="ref-item" id="ref22">
+        <span class="ref-num">22</span>
+        <div>
+          <p class="ref-title">Effect of Pregnancy on Lipid Metabolism and Lipoprotein Levels.</p>
+          <p class="ref-meta">Endotext [Internet]. NCBI Bookshelf NBK498654. <a href="https://www.ncbi.nlm.nih.gov/books/NBK498654/" target="_blank" rel="noopener">全文页面</a></p>
+        </div>
+      </li>
+    </ol>
+  </div>
+</section>
+
+</main>
+
+<footer class="footer">
+  <div class="wrap">
+    <div>
+      <h4>关于本报告</h4>
+      <p>本页为健康科普与临床沟通材料，汇总 2023–2026 年国内外指南、共识与高质量研究，用于帮助理解 LDL-C 升高的常见原因和排查思路。它不构成诊断、处方或个体化治疗建议。</p>
+      <p>具体检查、药物选择和目标值，应由具备资质的医疗专业人员结合你的病史、用药、妊娠状态、肝肾功能和整体心血管风险决定。若出现胸痛、呼吸困难、晕厥、单侧肢体无力或言语不清，请立即就医。</p>
+      <p>引用文献见 <a href="#references">参考文献</a>。部分链接为指南/摘要页面，完整内容请通过机构订阅获取。</p>
+    </div>
+    <div class="footer-meta">
+      <span>LDL-C 病因循证报告</span>
+      <span>证据检索至 2026 年 10 月</span>
+      <span>版本 1.0 · 单页 HTML</span>
+      <span style="margin-top:12px"><a href="#top">回到顶部 ↑</a></span>
+    </div>
+  </div>
+</footer>
+
+<button id="toTop" type="button" aria-label="回到顶部">
+  <svg width="18" height="18" aria-hidden="true"><use href="#icon-arrow-up"/></svg>
+</button>
+
+<script>
+document.documentElement.classList.add('js');
+
+/* 阅读进度 */
+const progress = document.getElementById('progress');
+const updateProgress = () => {
+  const h = document.documentElement;
+  const max = h.scrollHeight - h.clientHeight;
+  const pct = max > 0 ? (h.scrollTop / max) * 100 : 0;
+  progress.style.width = pct.toFixed(2) + '%';
+};
+window.addEventListener('scroll', updateProgress, {passive:true});
+window.addEventListener('resize', updateProgress);
+updateProgress();
+
+/* 回到顶部 */
+const toTop = document.getElementById('toTop');
+const toggleTop = () => toTop.classList.toggle('show', window.scrollY > 700);
+window.addEventListener('scroll', toggleTop, {passive:true});
+toggleTop();
+toTop.addEventListener('click', () => window.scrollTo({top:0, behavior:'smooth'}));
+
+/* 病因筛选 */
+const filterButtons = document.querySelectorAll('.filter-btn');
+const causeCards = document.querySelectorAll('.cause-card');
+filterButtons.forEach(btn => {
+  btn.addEventListener('click', () => {
+    filterButtons.forEach(b => {
+      const active = b === btn;
+      b.classList.toggle('active', active);
+      b.setAttribute('aria-pressed', String(active));
+    });
+    const filter = btn.dataset.filter;
+    causeCards.forEach(card => {
+      const show = filter === 'all' || card.dataset.cat === filter;
+      card.classList.toggle('is-hidden', !show);
+    });
+  });
+});
+
+/* 章节导航高亮 */
+const navLinks = [...document.querySelectorAll('.section-nav a')];
+const sections = navLinks
+  .map(a => document.querySelector(a.getAttribute('href')))
+  .filter(Boolean);
+const activateNav = () => {
+  if (!sections.length) return;
+  let current = sections[0];
+  for (const section of sections) {
+    if (section.getBoundingClientRect().top <= 130) current = section;
+  }
+  navLinks.forEach(a => a.classList.toggle('active', a.getAttribute('href') === '#' + current.id));
+};
+window.addEventListener('scroll', activateNav, {passive:true});
+window.addEventListener('resize', activateNav);
+activateNav();
+
+/* 入场动画 */
+const reveals = document.querySelectorAll('.reveal');
+if ('IntersectionObserver' in window && !window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+  const revealObserver = new IntersectionObserver(entries => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('in');
+        revealObserver.unobserve(entry.target);
+      }
+    });
+  }, {rootMargin:'0px 0px -8% 0px', threshold:0.06});
+  reveals.forEach(el => revealObserver.observe(el));
+} else {
+  reveals.forEach(el => el.classList.add('in'));
+}
+
+/* 打印 */
+document.getElementById('printBtn')?.addEventListener('click', () => window.print());
+</script>
+</body>
+</html>

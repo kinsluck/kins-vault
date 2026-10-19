@@ -9,7 +9,7 @@
 [![License](https://img.shields.io/badge/license-MIT-blue?style=flat-square)](LICENSE)
 [![PRs](https://img.shields.io/badge/PRs-welcome-ff69b4?style=flat-square)](#-反馈与建议)
 
-**23 个页面 · 6 个分类 · 单文件 · 零依赖**
+**24 个页面 · 6 个分类 · 单文件 · 零依赖**
 
 </div>
 
@@ -115,6 +115,7 @@ kins-vault/
 | [**Nature 重磅综述：2型糖尿病**](https://kinsluck.github.io/kins-vault/reading/nature-t2dm-review.html) | 「根本不是血糖高那么简单」—— 关于 2 型糖尿病的认知重塑 |
 | [**柳叶刀：吃饭习惯与肠癌风险**](https://kinsluck.github.io/kins-vault/reading/lancet-colorectal-cancer-notes.html) | 饮食结构与结直肠癌风险的关联研究，观点整理 |
 | [**为什么跑得再多还是脂肪肝？**](https://kinsluck.github.io/kins-vault/reading/fatty-liver-notes.html) | 「一周跑四次五公里依然中招」背后的机制，观点整理 |
+| [**LDL-C 为什么会升高？— 2026 循证病因地图**](https://kinsluck.github.io/kins-vault/reading/ldl-c-causes-report.html) | 汇总 2023–2026 指南与共识：「进、出、调」三本账、20 个高频原因、化验单排查路径与 7 个常见误解 |
 
 ## ✨ 收录原则
 
