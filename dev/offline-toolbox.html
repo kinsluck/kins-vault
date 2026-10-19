@@ -755,10 +755,10 @@ table.cand tr.win td{background:#eefaf3;color:var(--ok);font-weight:600}
         <div class="opt-row" id="imgMaxRow">
           <span class="opt-label">最长边不超过</span>
           <div class="seg" data-img="maxEdge">
+            <button data-val="0" class="on" type="button">不缩放</button>
             <button data-val="1280" type="button">1280</button>
-            <button data-val="1920" class="on" type="button">1920</button>
+            <button data-val="1920" type="button">1920</button>
             <button data-val="2560" type="button">2560</button>
-            <button data-val="0" type="button">不缩放</button>
           </div>
         </div>
         <div class="opt-row" id="imgScaleRow" hidden>
@@ -822,7 +822,7 @@ table.cand tr.win td{background:#eefaf3;color:var(--ok);font-weight:600}
         <div class="file-list" id="imgFiles"></div>
       </div>
 
-      <p class="hint" id="imgHint">判据与 <b>smartimg</b> 技能一致：多通道 SSIM + 逐格式搜索刚好达标的最低质量，取体积最小者，全不达标就保留原图。编码器受浏览器限制（canvas 的 libjpeg/libwebp，不是 MozJPEG/AVIF/OxiPNG），同样画质下的体积会略大于本地 CLI；要出成品图仍建议跑本地 CLI。</p>
+      <p class="hint" id="imgHint">输出只给 <b>JPG / PNG</b>（微信都能直接当图片预览）。判据与 <b>smartimg</b> 技能一致：多通道 SSIM + 逐格式搜索刚好达标的最低质量，取体积最小者，全不达标就保留原图；默认不改尺寸。编码器受浏览器限制（canvas 自带编码器，不是 MozJPEG / OxiPNG），同画质体积会略大于本地 CLI。</p>
     </div>
   </section>
 
@@ -2508,14 +2508,15 @@ function imgFit(w, h, opt){
   return { width: tw, height: th, scale: tw / w, upscaled: tw > w || th > h };
 }
 
+// 输出只支持 JPG / PNG（微信都能直接当图片预览，WebP 会被当成文件）。
+// WebP 仅作为**输入**支持：有人可能拖进来，但不会被当作输出格式。
 var IMG_FORMATS = {
-  'image/jpeg': { ext: 'jpg', label: 'JPG', lossless: false, wechat: true },
-  'image/png': { ext: 'png', label: 'PNG', lossless: true, wechat: true },
-  'image/webp': { ext: 'webp', label: 'WebP', lossless: false, wechat: false }
+  'image/jpeg': { ext: 'jpg', label: 'JPG', lossless: false },
+  'image/png': { ext: 'png', label: 'PNG', lossless: true }
 };
 
 function imgFormatInfo(mime){
-  return IMG_FORMATS[mime] || { ext: 'dat', label: mime || '未知', lossless: false, wechat: false };
+  return IMG_FORMATS[mime] || { ext: 'dat', label: mime || '未知', lossless: false };
 }
 
 function imgBytes(n){
@@ -3770,7 +3771,7 @@ function wbSeg(scope, attr, onChange){
   var elHolderT = document.getElementById('imgAfterHolderT');
 
   var opt = {
-    mode: 'max', maxEdge: 1920, scale: 100,
+    mode: 'max', maxEdge: 0, scale: 100,
     criteria: 'ssim', threshold: 0.98, quality: 0.82, format: 'auto'
   };
   var items = [];
@@ -3831,10 +3832,12 @@ function wbSeg(scope, attr, onChange){
     return ssimCompare(refData, d, cw, ch, 8).ssim;
   }
 
+  // 只输出 JPG / PNG（微信都能直接当图片预览，WebP 会被当成文件）
+  // 自动择优：无透明比 JPG 与 PNG；有透明则只能用 PNG（JPG 会丢 alpha）
   function formatsFor(it){
     if (opt.format === 'jpeg') return ['image/jpeg'];
     if (opt.format === 'png') return ['image/png'];
-    return it.hasAlpha ? ['image/webp', 'image/png'] : ['image/jpeg', 'image/webp'];
+    return it.hasAlpha ? ['image/png'] : ['image/jpeg', 'image/png'];
   }
 
   async function trial(it, fit, fmt, q, refData, cw, ch){
@@ -4080,10 +4083,15 @@ function wbSeg(scope, attr, onChange){
     renderFiles();
     elDownloadAll.hidden = items.filter(function(x){ return x.best; }).length < 2;
     elDownload.disabled = !it.best;
-    // 格式提醒单独占一行，绝不覆盖进度/完成消息
-    if (it.best && it.best.fmt === 'image/webp'){
+    // 提醒单独占一行，绝不覆盖进度/完成消息
+    if (opt.format === 'jpeg' && it.hasAlpha){
       elWarn.hidden = false;
-      elWarn.textContent = '注意：选中的是 WebP —— 发到微信会被当成文件而不是图片，要发微信请把格式改成「仅 PNG」。';
+      elWarn.textContent = '注意：JPG 不支持透明通道，这张图的透明区域会变成白底；要保留透明请改选「仅 PNG」或「自动择优」。';
+    } else if (opt.criteria === 'size' && it.best && it.best.ssim && it.best.ssim < opt.threshold){
+      // 目标体积模式是"按体积硬压"，可能牺牲画质 —— 明确告诉用户越线了多少
+      elWarn.hidden = false;
+      elWarn.textContent = '为压到 ' + Math.round(targetKB() / 1024) + ' KB，画质已降到 SSIM ' + it.best.ssim.toFixed(4)
+        + '（低于 ' + opt.threshold + ' 的视觉无损线）。想保住画质，可把目标调大，或用上面的尺寸限制先缩小。';
     } else {
       elWarn.hidden = true;
       elWarn.textContent = '';
