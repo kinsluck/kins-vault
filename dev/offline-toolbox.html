@@ -1,11 +1,11 @@
 <!DOCTYPE html>
-<html data-page-node-id="aPC0R0uUHTs5Pu6ECkUfEW" lang="zh-CN">
-<head data-page-node-id="X0a0F0R9hsTWXJTpkX1oLd">
-<meta data-page-node-id="wTFkhj5CTqA1UjMzvDFkdu" charset="UTF-8">
-<meta data-page-node-id="jb8VJCGnoxAh1UC3J0jHzv" content="width=device-width, initial-scale=1.0" name="viewport">
-<title data-page-node-id="MBfprTtn4p4N8mirsHrYLC" data-pnid-children="mManye8QReZ6IRi7jTWbnX">离线工具箱 · 金额大写转换 / 二维码生成</title>
-<link data-page-node-id="FEsCk7QCLOPOXlrmxOppVl" href="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%20100%20100%22%3E%3Ctext%20y%3D%22.9em%22%20font-size%3D%2290%22%3E%F0%9F%A7%B0%3C%2Ftext%3E%3C%2Fsvg%3E" rel="icon">
-<style data-page-node-id="BxPvYh2KwjAs3fY4YHvZ2b" data-pnid-children="A3LC6mQLMMuWVocJXyTTbW">
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>离线工具箱 · 金额大写转换 / 二维码生成</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%20100%20100%22%3E%3Ctext%20y%3D%22.9em%22%20font-size%3D%2290%22%3E%F0%9F%A7%B0%3C%2Ftext%3E%3C%2Fsvg%3E">
+<style>
 :root{
   --bg:#f4f6fa;
   --panel:#ffffff;
@@ -184,7 +184,6 @@ footer{text-align:center;font-size:12px;color:var(--ink3);margin-top:22px;line-h
 .qr-err{margin:4px 0 0;font-size:12.5px;color:#c0392b;min-height:18px}
 .qr-opts{margin-top:12px;padding-top:14px;border-top:1px solid var(--line2)}
 .opt-row{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:11px}
-.opt-row[hidden]{display:none!important}
 .opt-row:last-child{margin-bottom:0}
 .colors{display:flex;gap:8px;align-items:center}
 .colors input[type=color]{width:44px;height:30px;padding:0;border:1px solid var(--line);border-radius:8px;background:#fff;cursor:pointer}
@@ -211,6 +210,11 @@ footer{text-align:center;font-size:12px;color:var(--ink3);margin-top:22px;line-h
 .meta b{color:var(--ink2);font-weight:600}
 .actions{display:flex;gap:7px;flex-wrap:wrap;margin-top:12px}
 .hint{margin:10px 0 0;font-size:11.5px;color:var(--ink3);line-height:1.75}
+
+/* 兜底：只要元素带 hidden 就必须不显示。
+   注意 .ba{display:grid} 和 .opt-row{display:flex} 会盖掉 hidden 的 UA 样式 display:none，
+   导致"本该隐藏的对比区/选项行"一直显示（空 src 的 img 于是变成破图）。 */
+[hidden]{display:none!important}
 
 /* ===== 通用：双栏 / 单栏工具布局 ===== */
 .tool-grid{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:16px;align-items:start}
@@ -283,14 +287,43 @@ tr.d-fold td{background:#f6f8fc;color:#8b97ac;font-size:12px;text-align:center;p
 .drop .t{font-size:13.5px;color:var(--ink2);margin-top:8px}
 .drop .s{font-size:11.5px;color:var(--ink3);margin-top:4px}
 .ba{display:grid;grid-template-columns:1fr 1fr;gap:10px}
-.ba[hidden]{display:none!important}
 .ba figure{margin:0;border:1px solid var(--line);border-radius:10px;overflow:hidden;background:#fff}
-.ba img{width:100%;height:148px;object-fit:contain;display:block}
+.ba-frame{position:relative;height:148px;display:flex;align-items:center;justify-content:center;background:#fbfcfe}
+.ba-frame img{width:100%;height:100%;object-fit:contain;display:block}
+.ba-frame img[hidden]{display:none!important}
+/* 处理中的占位：骨架流光 + 转圈，避免出现"破图" */
+.ba-holder{
+  position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:9px;
+  background:linear-gradient(100deg,#f5f7fb 30%,#eceff6 50%,#f5f7fb 70%);
+  background-size:220% 100%;animation:baShine 1.5s linear infinite;
+}
+.ba-holder[hidden]{display:none!important}
+.ba-holder-t{font-size:12px;color:var(--ink3)}
+.spin{
+  width:18px;height:18px;border-radius:50%;border:2px solid #d9e1ef;border-top-color:var(--brand);
+  animation:baSpin .8s linear infinite;
+}
+@keyframes baSpin{to{transform:rotate(360deg)}}
+@keyframes baShine{from{background-position:130% 0}to{background-position:-30% 0}}
 .ba figcaption{font-size:11.5px;color:var(--ink3);padding:6px 8px;border-top:1px solid var(--line2);font-family:ui-monospace,Consolas,monospace}
 .slider{display:flex;align-items:center;gap:10px}
 .slider input[type=range]{flex:1;accent-color:var(--brand);min-width:80px}
 .slider .v{font-family:ui-monospace,Consolas,monospace;font-size:12.5px;color:var(--ink2);width:46px;text-align:right}
 .badge-warn{background:#fff5e0;color:#a8801a;border-color:#ecd9a8}
+
+/* ===== 图片：候选表与批量列表 ===== */
+.cand-wrap{margin-top:8px;overflow:auto}
+table.cand{width:100%;border-collapse:collapse;font-size:12.5px}
+table.cand th{text-align:left;font-weight:600;color:var(--ink3);font-size:11.5px;padding:4px 8px;border-bottom:1px solid var(--line);white-space:nowrap}
+table.cand td{padding:4px 8px;border-bottom:1px solid var(--line2);font-family:ui-monospace,Consolas,monospace;color:var(--ink2);white-space:nowrap}
+table.cand tr.win td{background:#eefaf3;color:var(--ok);font-weight:600}
+.file-list{margin-top:10px;border-top:1px solid var(--line2);padding-top:8px}
+.fl-head{font-size:11.5px;color:var(--ink3);margin-bottom:6px}
+.fl-row{display:flex;gap:10px;justify-content:space-between;align-items:baseline;padding:5px 8px;border-radius:7px;cursor:pointer;font-size:12px}
+.fl-row:hover{background:#f7f9fc}
+.fl-row.cur{background:var(--brand-soft)}
+.fl-name{overflow:hidden;text-overflow:ellipsis;white-space:nowrap;max-width:48%;color:var(--ink)}
+.fl-st{color:var(--ink3);font-family:ui-monospace,Consolas,monospace;text-align:right}
 
 @media screen and (max-width:640px){
   body{padding:18px 12px 36px}
@@ -320,7 +353,7 @@ tr.d-fold td{background:#f6f8fc;color:#8b97ac;font-size:12px;text-align:center;p
 @media screen and (max-width:640px){
   .ta.tall{min-height:170px}
   .ba{grid-template-columns:1fr}
-  .ba img{height:130px}
+  .ba-frame{height:130px}
   .kv{grid-template-columns:minmax(0,1fr);gap:2px 0}
   .kv dt{margin-top:6px}
   .kv dd{margin-bottom:2px}
@@ -330,440 +363,477 @@ tr.d-fold td{background:#f6f8fc;color:#8b97ac;font-size:12px;text-align:center;p
 }
 </style>
 </head>
-<body data-page-node-id="JHeCYUNMn5x3KbnMjdfahY">
-<div data-page-node-id="CS4vTSwIWiVOwqQvTjpDRd" class="wrap">
+<body>
+<div class="wrap">
 
-    <header data-page-node-id="DZTucF8VFh07GO9Ts19dJO" class="hdr">
-    <div data-page-node-id="tey2owilq9L1eJUOoECYdQ" class="hdr-l">
-      <div data-page-node-id="bUmpW00dTJYI5H3rDOldX7" class="logo"><!--pnid:lRMjAaHm2uO78YQ70Ebcob-->&#129520;</div>
-      <div data-page-node-id="eo8akUut83jg7Z5ARSNt4h">
-        <h1 data-page-node-id="R6GFPl5FiSzGCJuOKJaQrP"><!--pnid:GwLwq93rPYTp7CIoetHFzL-->离线工具箱</h1>
-        <p data-page-node-id="EZzY4q8W38C8u5Whg0k4xh" class="sub"><!--pnid:GQ1WY3xm91WHcFweDoecXp-->金额 · 二维码 · 图片压缩 · JSON · 时间戳 · 文本对比 &middot; 单文件离线工具</p>
+    <header class="hdr">
+    <div class="hdr-l">
+      <div class="logo">&#129520;</div>
+      <div>
+        <h1>离线工具箱</h1>
+        <p class="sub">金额 · 二维码 · 图片压缩 · JSON · 时间戳 · 文本对比 &middot; 单文件离线工具</p>
       </div>
     </div>
-    <div data-page-node-id="jiKZ9ev4er5WxEbrm9BeZA" class="hdr-r">
-      <span data-page-node-id="4vhi1pXxZfOLs041QI5Sua" class="badge"><!--pnid:56tQlyjL3ZyQW3FITo6PFg-->v3 &middot; 2026-10-14</span>
-      <span data-page-node-id="aHeMBUPpzZvXqrgRmb6m4P" class="badge badge-ok"><!--pnid:Ok1FJF208LTlvtHKoG68VV-->离线可用</span>
+    <div class="hdr-r">
+      <span class="badge">v3 &middot; 2026-10-14</span>
+      <span class="badge badge-ok">离线可用</span>
     </div>
   </header>
 
-    <nav data-page-node-id="Q7TIH2AAq5n2Ka6jeKS96p" class="tools">
-    <button data-page-node-id="FoZ7zHp37VsJFUIMzr212R" class="tool active" data-tool="money" type="button"><span data-page-node-id="PfQmQSmsMUpEoVdpy9pprp" class="ic"><!--pnid:nVDYqHG60e18ZIcUY9HYsR-->&#128176;</span><!--pnid:wMItsT2botmBRcXTCUBM5R-->金额大写</button>
-    <button data-page-node-id="d12V9l2jWOglZrjDk8HvtG" class="tool" data-tool="qr" type="button"><span data-page-node-id="cUEkTB24snDn7cfwU17LjO" class="ic"><!--pnid:eYZpZ1dOfMlA7T9MNK35uW-->&#128307;</span><!--pnid:8Ya8DkpEMgRkLpv0lNEkK1-->二维码</button>
-    <button data-page-node-id="V1307iNkxpMv94cUNsEvPb" class="tool" data-tool="image" type="button"><span data-page-node-id="zFUb5u1AHOak8aUDlAYF1n" class="ic"><!--pnid:68d2KEc21pOI9IBhC9dHXI-->&#128444;</span><!--pnid:ctEiFLyFON7DpG9XusNoIc-->图片压缩</button>
-    <button data-page-node-id="03KJMA0EXYXrVBD02963Rp" class="tool" data-tool="json" type="button"><span data-page-node-id="TXUbHBSzFJzNsLXDUGnRac" class="ic"><!--pnid:e1XSz5UHJ570QtUXa2P2ga-->&#129513;</span><!--pnid:jxU0DIE8YqCXJHFvw7hksT-->JSON</button>
-    <button data-page-node-id="a7AOjr03ytoqpqQFP5KYQs" class="tool" data-tool="time" type="button"><span data-page-node-id="8xAReUhxqcye2bcLjSc1rl" class="ic"><!--pnid:rnxEVMqrC0NUhvF4MklLrj-->&#9201;</span><!--pnid:Fsab5WMFZYUHU9PBye7B82-->时间戳</button>
-    <button data-page-node-id="EOn4sI6hKfwxegXKhKdTr9" class="tool" data-tool="diff" type="button"><span data-page-node-id="aKXbiYYPloENXCAblOjSo8" class="ic"><!--pnid:6qqkOg5jyoQbwz6pvYptZc-->&#128256;</span><!--pnid:HNHlrGtQLLBxpcD29v3uIo-->文本对比</button>
+    <nav class="tools">
+    <button class="tool active" data-tool="money" type="button"><span class="ic">&#128176;</span>金额大写</button>
+    <button class="tool" data-tool="qr" type="button"><span class="ic">&#128307;</span>二维码</button>
+    <button class="tool" data-tool="image" type="button"><span class="ic">&#128444;&#65039;</span>图片压缩</button>
+    <button class="tool" data-tool="json" type="button"><span class="ic">&#129513;</span>JSON</button>
+    <button class="tool" data-tool="time" type="button"><span class="ic">&#9201;&#65039;</span>时间戳</button>
+    <button class="tool" data-tool="diff" type="button"><span class="ic">&#128256;</span>文本对比</button>
   </nav>
 
-  <section data-page-node-id="XElmF4TjKCKngYlzNyADfs" class="tool-panel" id="tool-money">
-<div data-page-node-id="C6GUz1e0nl2zCAznfXH97N" class="tabs" role="tablist">
-    <button data-page-node-id="jor3ukTcs7t3n7SEhgM65J" class="tab active" data-mode="l2u" role="tab"><!--pnid:GQlDEieL1XYopCURNvxERQ-->小写 &rarr; 大写</button>
-    <button data-page-node-id="uDRlT9LyMC5ltSrRM4QZmU" class="tab" data-mode="u2l" role="tab"><!--pnid:AlP2dWjFFVKVE8TZD3Rpen-->大写 &rarr; 小写</button>
+  <section class="tool-panel" id="tool-money">
+<div class="tabs" role="tablist">
+    <button class="tab active" data-mode="l2u" role="tab">小写 &rarr; 大写</button>
+    <button class="tab" data-mode="u2l" role="tab">大写 &rarr; 小写</button>
   </div>
 
-  <section data-page-node-id="f5NbniJ6xd3funiPXPLuQm" class="card" id="panel-l2u">
-    <label data-page-node-id="NwZTxODRA35AupTRq1UStl" class="lbl" for="lowerInput"><!--pnid:47VezuOIFpdRNzf6CK7LqL-->输入小写金额</label>
-    <div data-page-node-id="ix8yR9TTbb1oinhjxDQOQY" class="input-row">
-      <span data-page-node-id="SqCWTJxue0bUCcJIwHeG3G" class="unit"><!--pnid:e6GW3syQkFP9LUVUWIUd0a-->&#165;</span>
-      <input data-page-node-id="8iA13g3TSQYn998c6QgPgL" autocapitalize="off" autocomplete="off" id="lowerInput" inputmode="decimal" placeholder="例如 1409.50" spellcheck="false" type="text">
-      <button data-page-node-id="UEitA4VNRl7o2lT4TIIRc1" class="ghost" id="clearLower" title="清空"><!--pnid:KXfJ4n92QlgaMbe13UHoDl-->&#10005;</button>
+  <section class="card" id="panel-l2u">
+    <label class="lbl" for="lowerInput">输入小写金额</label>
+    <div class="input-row">
+      <span class="unit">&#165;</span>
+      <input id="lowerInput" type="text" inputmode="decimal" autocomplete="off" autocapitalize="off" spellcheck="false" placeholder="例如 1409.50">
+      <button class="ghost" id="clearLower" title="清空">&#10005;</button>
     </div>
-    <p data-page-node-id="L9kMnyiBudyKdVfe3lFcvP" class="err" id="lowerErr"></p>
-    <div data-page-node-id="EidnVimAPi0t0WeSvG4Fio" class="chips" id="lowerChips"></div>
+    <p class="err" id="lowerErr"></p>
+    <div class="chips" id="lowerChips"></div>
 
-    <button data-page-node-id="jPqHMyhZ1a39mMnuED74kI" class="keypad-toggle" id="kpToggle"><!--pnid:02XopJzjXbpJd3VEBqn6jB-->展开数字键盘</button>
-    <div data-page-node-id="PqPxqSVEn6Oj8zC6rnRTnG" class="keypad" hidden id="keypad"></div>
+    <button class="keypad-toggle" id="kpToggle">展开数字键盘</button>
+    <div class="keypad" id="keypad" hidden></div>
 
-    <div data-page-node-id="eYB8ueheuCQxnByN03dWlq" class="result">
-      <div data-page-node-id="84aYNJKpiVj6YRTnhBg4Cu" class="result-head">
-        <span data-page-node-id="AXobbKpuBKpV94c9Rdu0bh"><!--pnid:FIEBtoRyWvdYZzddjtOorI-->大写金额</span>
-        <button data-page-node-id="XgYLqJy7gwdQjmU8Va23lV" class="copy" id="copyLower"><!--pnid:ypPV7pQGydOlP2akKPuKOA-->复制</button>
+    <div class="result">
+      <div class="result-head">
+        <span>大写金额</span>
+        <button class="copy" id="copyLower">复制</button>
       </div>
-      <div data-page-node-id="WVbF9AqAJQ6Vt4vUJ0M8s6" class="upper-text empty" id="lowerUpper"><!--pnid:8RKtqjbxCSVjii32i3Fsvn-->在上方输入金额，这里实时生成大写</div>
-      <div data-page-node-id="ilCcLghmgPzAbIm6HWL76P" class="result-foot" id="lowerFoot"></div>
+      <div class="upper-text empty" id="lowerUpper">在上方输入金额，这里实时生成大写</div>
+      <div class="result-foot" id="lowerFoot"></div>
     </div>
 
-    <div data-page-node-id="k4YgmYdPNUpzIAed4KIvec" class="opts">
-      <div data-page-node-id="lDN40Wblqjo99sQr3Hl7b0" class="opt">
-        <span data-page-node-id="PcH9ckfzXlJDOER5ynbDCF" class="opt-label"><!--pnid:jk6OIEVYtUFNcZaQuyloTR-->货币前缀</span>
-        <div data-page-node-id="JIjhtHOK859cEDeJX7VFCL" class="seg" data-opt="prefix">
-          <button data-page-node-id="VqTa5NrS0jSME7sL0vyh2s" class="on" data-val="人民币"><!--pnid:vFsaQCDGRlocBkPzZLOXYG-->人民币</button>
-          <button data-page-node-id="w29BGx45hG4jvI5vPo6AFL" data-val><!--pnid:goVXybZMQPNrTLycXcJ97q-->不加</button>
+    <div class="opts">
+      <div class="opt">
+        <span class="opt-label">货币前缀</span>
+        <div class="seg" data-opt="prefix">
+          <button data-val="人民币" class="on">人民币</button>
+          <button data-val="">不加</button>
         </div>
       </div>
-      <div data-page-node-id="DBt7h4VCF6z0LrC4kcpTj9" class="opt">
-        <span data-page-node-id="MekZi7Si7wVXU3qyf15AEG" class="opt-label"><!--pnid:V6uYoproYdSI12XG7Nh3Io-->结尾用字</span>
-        <div data-page-node-id="SoyMg7AFdzj4mEnvw4G6B2" class="seg" data-opt="zheng">
-          <button data-page-node-id="g6hbKgObJA3zr7x6x8agTI" class="on" data-val="整"><!--pnid:LUzYeLcdOWlZsSlLXy443K-->整</button>
-          <button data-page-node-id="qKgTCWZ0rqraLeYxmdnYLC" data-val="正"><!--pnid:ebkw2qhQmEAyUvUgHGO4V3-->正</button>
+      <div class="opt">
+        <span class="opt-label">结尾用字</span>
+        <div class="seg" data-opt="zheng">
+          <button data-val="整" class="on">整</button>
+          <button data-val="正">正</button>
         </div>
       </div>
-      <div data-page-node-id="RRqPUqpE2XPtVLGsrSUhnl" class="opt">
-        <span data-page-node-id="vnXE6OsRqM5mwf2NVR2Uat" class="opt-label"><!--pnid:qv06uYXeOakMxLcOVIin5M-->&ldquo;角&rdquo;后加&ldquo;整&rdquo;</span>
-        <div data-page-node-id="DfepBqOmcRZlwzr9CdtYqx" class="seg" data-opt="zhengAfterJiao">
-          <button data-page-node-id="yurGL2MFpCkNlegMFOEr8V" class="on" data-val="1"><!--pnid:vcCMevvVzHPvCZZNcq9J9a-->加</button>
-          <button data-page-node-id="PyPycoovI65AMgjI97U2KT" data-val="0"><!--pnid:3oAfOHUSA29Joez7atEynO-->不加</button>
+      <div class="opt">
+        <span class="opt-label">&ldquo;角&rdquo;后加&ldquo;整&rdquo;</span>
+        <div class="seg" data-opt="zhengAfterJiao">
+          <button data-val="1" class="on">加</button>
+          <button data-val="0">不加</button>
         </div>
       </div>
-      <div data-page-node-id="4XyiUV5EcT3nkEfCNsKf71" class="opt">
-        <span data-page-node-id="NpzpCfYOfBxhuFtIXDdR6E" class="opt-label"><!--pnid:tcazZ7W7Av0iYcsh4z1ofB-->元位为 0 补&ldquo;零&rdquo;</span>
-        <div data-page-node-id="yAiEdGS4JxXNgaUcgsUQiE" class="seg" data-opt="zeroBeforeJiao">
-          <button data-page-node-id="ByOM0ii9JDsRLdGn6qJwjU" data-val="1"><!--pnid:FR6Lc3ZKDvozWLc8EI37dd-->补</button>
-          <button data-page-node-id="IJSkV6ANeF1L0vbFodzofr" class="on" data-val="0"><!--pnid:LLFc45rvO3tbPHVozcn9Qo-->不补</button>
+      <div class="opt">
+        <span class="opt-label">元位为 0 补&ldquo;零&rdquo;</span>
+        <div class="seg" data-opt="zeroBeforeJiao">
+          <button data-val="1">补</button>
+          <button data-val="0" class="on">不补</button>
         </div>
       </div>
     </div>
   </section>
 
-  <section data-page-node-id="J9ET6cmNgHum2HAzD4sdsy" class="card" hidden id="panel-u2l">
-    <label data-page-node-id="p9axEp5LY0u8Ry16b7DrAf" class="lbl" for="upperInput"><!--pnid:n1WbVkxORpFXxjuh2lFAfw-->输入大写金额</label>
-    <div data-page-node-id="WOe4H6z2vh5vktdOAEpkFY" class="input-row" style="align-items:stretch">
-      <textarea data-page-node-id="gJSaTgr30Dlm5k3aIvHOqm" autocomplete="off" id="upperInput" placeholder="例如 人民币壹仟肆佰零玖元伍角整" spellcheck="false"></textarea>
-      <button data-page-node-id="upfbPLemxTyLoJM5Ayk6Ri" class="ghost" id="clearUpper" title="清空" style="margin-top:10px"><!--pnid:zUJKzeaHf13EE9EvmymZgJ-->&#10005;</button>
+  <section class="card" id="panel-u2l" hidden>
+    <label class="lbl" for="upperInput">输入大写金额</label>
+    <div class="input-row" style="align-items:stretch">
+      <textarea id="upperInput" autocomplete="off" spellcheck="false" placeholder="例如 人民币壹仟肆佰零玖元伍角整"></textarea>
+      <button class="ghost" id="clearUpper" title="清空" style="margin-top:10px">&#10005;</button>
     </div>
-    <p data-page-node-id="4wRekAZoKqv0Q1vnqUnA9k" class="err" id="upperErr"></p>
-    <div data-page-node-id="h74HRTQ9RlYquOS5y89AIP" class="chips" id="upperChips"></div>
+    <p class="err" id="upperErr"></p>
+    <div class="chips" id="upperChips"></div>
 
-    <div data-page-node-id="EG1xfqytF0x1MbfIDQsP7D" class="result">
-      <div data-page-node-id="bRVQTQ5dLVKKU5ZwKpRGSu" class="result-head">
-        <span data-page-node-id="quswZr9TP1JjkyP84qS1em"><!--pnid:60TLAAKVEl7q6xwclEENFY-->小写金额</span>
-        <button data-page-node-id="4v3mlXpshD9LWOqhFFGgxM" class="copy" id="copyUpper"><!--pnid:LgVInrwtBGINpmSGjg5YXq-->复制</button>
+    <div class="result">
+      <div class="result-head">
+        <span>小写金额</span>
+        <button class="copy" id="copyUpper">复制</button>
       </div>
-      <div data-page-node-id="dVldv3YJueA8nQeNZ1FRpa" class="upper-text" id="upperLower" style="font-family:ui-monospace,Consolas,monospace; letter-spacing:.5px; color:#1d4ed8; font-size:27px; word-break:normal"><!--pnid:7QiPpPBfEwD3aJMXskw7yM-->&#8212;</div>
-      <div data-page-node-id="etSkT7PuErYMbSGuUl1xbf" class="result-foot" id="upperFoot"></div>
+      <div class="upper-text" id="upperLower" style="font-family:ui-monospace,Consolas,monospace;letter-spacing:.5px;color:#1d4ed8;font-size:27px;word-break:normal">&#8212;</div>
+      <div class="result-foot" id="upperFoot"></div>
     </div>
   </section>
 
-  <details data-page-node-id="JmzSao4nFniUBilIxxzi2B">
-    <summary data-page-node-id="fR77ysUJLvn3SHk1Qt5EhP"><!--pnid:E3SiLeYLo1KA3JeDUzkYWR-->转换规则与依据（点开查看）</summary>
-    <ul data-page-node-id="1e7cVqULRM2Ztz7OUiXHC3" class="rules">
-      <li data-page-node-id="RYiHjISD0Uw5EC9xaDBhMl"><!--pnid:Ly0MKBrAtJeHKtuWWdkQRr-->大写数字用 <code data-page-node-id="rb82MK0duL5UVU4E9XGrMP" data-pnid-children="W2ua6hurkWHv5gGibMvZ9F">零壹贰叁肆伍陆柒捌玖</code><!--pnid:c0i5Z2ADjXiDCvAr2khTFO-->，单位用 <code data-page-node-id="EtpoxhTZ8vzrWIh939q5kn" data-pnid-children="044dRjyNti5vY1eTmOKX2B">拾佰仟万亿</code><!--pnid:JppPTkYOo5iEABlWPUXnIP-->，不得用简化字或自造字。</li>
-      <li data-page-node-id="L4B1lsjIW11z7ZW0rhaltC"><!--pnid:nfS48YoeUKxyXuoPByaGrl-->大写金额前应标明&ldquo;人民币&rdquo;，币种与金额之间不留空白。</li>
-      <li data-page-node-id="G1StKUjIZBUzTGJRGEyOIs"><!--pnid:Jt0zi7ub2MlRcFStkLjIja-->金额到&ldquo;元&rdquo;或&ldquo;角&rdquo;为止的，在&ldquo;元&rdquo;或&ldquo;角&rdquo;后写<code data-page-node-id="ZYWRfcNeku8aGXbY7IRQ8L" data-pnid-children="lrWagiVQNRkI39BoXJ1hWv">整</code><!--pnid:e1EITcvNfOCR7JFYW27fvg-->（或<code data-page-node-id="kmdKioZlgrNJIwUYPmL2i6" data-pnid-children="MHAeuyUpYtgUopATxQB6BN">正</code><!--pnid:nJFEBrqPZIYqt6VepkWV8A-->）；有&ldquo;分&rdquo;的，&ldquo;分&rdquo;后不写<code data-page-node-id="ESQd0V8oPsZu3jWnNfpQVn" data-pnid-children="qMHq4ZJ2WsFxcFcQNyE4Q7">整</code><!--pnid:bQvewOimNMbbuC50UUUzDn-->。</li>
-      <li data-page-node-id="UBBbASndnp35aNjR2iiDJL"><!--pnid:52nW7YVUsnQ5Eodakad1W7-->数字中间有 <code data-page-node-id="jXphp0dUVqb9cKEWK4HTCz" data-pnid-children="GuM4hsEvZ5cfXaS9hwWnBx">0</code><!--pnid:xtt3J5cPIyxVixHLFnogA1--> 时写&ldquo;零&rdquo;；连续多个 <code data-page-node-id="vqU1EvmegGz7NXM2dyIN9O" data-pnid-children="CIjw8suBb5jNdNkQI3jbST">0</code><!--pnid:buZF52cHLEObaBVNF0fBNN--> 只写一个&ldquo;零&rdquo;。</li>
-      <li data-page-node-id="f7EdqkbWkipK8yR07iTWlr"><!--pnid:RblzsQSM4vPF5UxSYIr1ji-->元位是 <code data-page-node-id="8VpAIafCjAthW3wmJSGbN9" data-pnid-children="VqGfmVBNch397LnzAiSvP1">0</code><!--pnid:Wic1qUQkz1SQPy7eqA8KXw-->、角位不是 <code data-page-node-id="T9D6oJGYbkMynigh2QH2t0" data-pnid-children="RoZyr1rJLCptHIyMH56DMg">0</code><!--pnid:anF81i0sSxqkPZdipCRmal--> 时，可写一个&ldquo;零&rdquo;也可不写（页面提供开关）。</li>
-      <li data-page-node-id="l1wPmdEmakOK1FzYqyujXR"><!--pnid:BP3sUVamVTLsLQQofktpkx-->角位是 <code data-page-node-id="G5FItotD06hkAyupId2a4D" data-pnid-children="0Mp7It9DHjis5Jg3cRqiuB">0</code><!--pnid:3tvCCHlzseMhQvkA7zYUpr-->、分位不是 <code data-page-node-id="xTeD2dtNQ7vv6nVhxSZmZz" data-pnid-children="rWn0CnFSTlqNvYKvoUHUuL">0</code><!--pnid:C0YdU8J1uuoDXkNK9JhP67--> 时，&ldquo;元&rdquo;后应写&ldquo;零&rdquo;，如 <code data-page-node-id="qtuEdY4wRbrv1Tk9tksj75" data-pnid-children="TQo1pg8vog1aYd3ti6YK10">&#165;1409.05</code><!--pnid:bRSmD6fv4B0IbRPQwyRrS4--> &rarr; 人民币壹仟肆佰零玖元零伍分。</li>
+  <details>
+    <summary>转换规则与依据（点开查看）</summary>
+    <ul class="rules">
+      <li>大写数字用 <code>零壹贰叁肆伍陆柒捌玖</code>，单位用 <code>拾佰仟万亿</code>，不得用简化字或自造字。</li>
+      <li>大写金额前应标明&ldquo;人民币&rdquo;，币种与金额之间不留空白。</li>
+      <li>金额到&ldquo;元&rdquo;或&ldquo;角&rdquo;为止的，在&ldquo;元&rdquo;或&ldquo;角&rdquo;后写<code>整</code>（或<code>正</code>）；有&ldquo;分&rdquo;的，&ldquo;分&rdquo;后不写<code>整</code>。</li>
+      <li>数字中间有 <code>0</code> 时写&ldquo;零&rdquo;；连续多个 <code>0</code> 只写一个&ldquo;零&rdquo;。</li>
+      <li>元位是 <code>0</code>、角位不是 <code>0</code> 时，可写一个&ldquo;零&rdquo;也可不写（页面提供开关）。</li>
+      <li>角位是 <code>0</code>、分位不是 <code>0</code> 时，&ldquo;元&rdquo;后应写&ldquo;零&rdquo;，如 <code>&#165;1409.05</code> &rarr; 人民币壹仟肆佰零玖元零伍分。</li>
     </ul>
-    <p data-page-node-id="6n7IuhXHG3gw8CIfFqiWie" class="src"><!--pnid:hKrJAYzaAa7sTLeeCVanyS-->
-      依据：财政部《会计基础工作规范》第五十二条；《正确填写票据和结算凭证的基本规定》。<br data-page-node-id="BZX7425Y9368JSWyDNVb30"><!--pnid:OPEluPJrv976jR6sVSt41D-->
-      示例：<code data-page-node-id="7GJFFacAK3PI9XYgP2jyc7" data-pnid-children="LcDsd6dNVhPVn1GnmXBIpv">&#165;1409.50</code><!--pnid:tHklFoPnO948GkMWZwKPro--> &rarr; 人民币壹仟肆佰零玖元伍角整；<code data-page-node-id="62xFDZdwGLwYBU1gkaoDdk" data-pnid-children="wnisGEi2ECeRoXkq1vvLvP">&#165;6007.14</code><!--pnid:yBGSHiLa90HEZIaMMY1iZG--> &rarr; 人民币陆仟零柒元壹角肆分；<code data-page-node-id="bbkzybMnWzwQIplDPMCKvi" data-pnid-children="YI4rHFZE5MjTYkxDJOD617">&#165;107000.53</code><!--pnid:7Oj35gfUyq4F3VRBJXl6eM--> &rarr; 人民币壹拾万柒仟元伍角叁分。
+    <p class="src">
+      依据：财政部《会计基础工作规范》第五十二条；《正确填写票据和结算凭证的基本规定》。<br>
+      示例：<code>&#165;1409.50</code> &rarr; 人民币壹仟肆佰零玖元伍角整；<code>&#165;6007.14</code> &rarr; 人民币陆仟零柒元壹角肆分；<code>&#165;107000.53</code> &rarr; 人民币壹拾万柒仟元伍角叁分。
     </p>
   </details>
   </section>
 
-  <section data-page-node-id="kUleAYz7eHCa7dwWW4fRLY" class="tool-panel" hidden id="tool-qr">
-    <div data-page-node-id="btBr2jF9iWclcbsBXDLO5Z" class="qr-grid">
-      <div data-page-node-id="PVndRJTiXCggvbVozYtzUc" class="card">
-        <label data-page-node-id="PzXLis5u5J204ZEqWolqsv" class="lbl"><!--pnid:gLwUnasRKCSzFF4413KBno-->内容类型</label>
-        <div data-page-node-id="EiL5bcmgeg46dBzDDTN90G" class="type-chips" id="qrTypes"></div>
-        <div data-page-node-id="0PlrJ9lUEr5286wcYdpWDl" id="qrFields"></div>
-        <p data-page-node-id="bqwUO22mwYCsEO1PrTQqLa" class="count" id="qrCount"></p>
-        <p data-page-node-id="9hQQR2JsDa3H1APmPjnRZn" class="qr-err" id="qrErr"></p>
+  <section class="tool-panel" id="tool-qr" hidden>
+    <div class="qr-grid">
+      <div class="card">
+        <label class="lbl">内容类型</label>
+        <div class="type-chips" id="qrTypes"></div>
+        <div id="qrFields"></div>
+        <p class="count" id="qrCount"></p>
+        <p class="qr-err" id="qrErr"></p>
 
-        <div data-page-node-id="h7aNF81bwYvh058mq2GCsl" class="qr-opts">
-          <div data-page-node-id="IMbDFLrcIjF55FDX3PtzpK" class="opt-row">
-            <span data-page-node-id="i392pIUAq0WybdmWVGuErb" class="opt-label"><!--pnid:8xi6LslPiP2DcNfKUbFRl2-->容错等级</span>
-            <div data-page-node-id="IlQxsMmXOy2pOl2IXEZdVS" class="seg" data-qr="level">
-              <button data-page-node-id="LrsszCvxqyFe1RWIRAam4o" data-val="L" type="button"><!--pnid:RSepHlpdPKhaqy2t68au3Z-->L 7%</button>
-              <button data-page-node-id="8AlS8CGjIlLeAwGXkSToaY" class="on" data-val="M" type="button"><!--pnid:ZZOGybjLtCRHQ5OKNzcXSZ-->M 15%</button>
-              <button data-page-node-id="l5GaATLaIg3CHylrbIYXMU" data-val="Q" type="button"><!--pnid:kH3X64Fuc0qFZtZZ5SD2Lh-->Q 25%</button>
-              <button data-page-node-id="sm3lj4meLVh6NFtHogzmtI" data-val="H" type="button"><!--pnid:k3vjQdtERqhh0e53fzow15-->H 30%</button>
+        <div class="qr-opts">
+          <div class="opt-row">
+            <span class="opt-label">容错等级</span>
+            <div class="seg" data-qr="level">
+              <button data-val="L" type="button">L 7%</button>
+              <button data-val="M" class="on" type="button">M 15%</button>
+              <button data-val="Q" type="button">Q 25%</button>
+              <button data-val="H" type="button">H 30%</button>
             </div>
           </div>
-          <div data-page-node-id="d6zXlL46n1oWg6PeG6wrne" class="opt-row">
-            <span data-page-node-id="jcNCXMk028uY1VYCdO3Gv6" class="opt-label"><!--pnid:8HsKvCSilMsd0VcDrkNgiK-->码点样式</span>
-            <div data-page-node-id="PZXSdLAyIVwZ1WzW3okaB3" class="seg" data-qr="dot">
-              <button data-page-node-id="U9dZjqvw9WqXWOcSm45K0k" class="on" data-val="square" type="button"><!--pnid:m7cBdiI0O51m5xEAvGboaB-->方形</button>
-              <button data-page-node-id="HLbD9fTK50rqGUWrtR76Rp" data-val="dot" type="button"><!--pnid:tDp5TRlsQTxyDBPcElt5nG-->圆点</button>
+          <div class="opt-row">
+            <span class="opt-label">码点样式</span>
+            <div class="seg" data-qr="dot">
+              <button data-val="square" class="on" type="button">方形</button>
+              <button data-val="dot" type="button">圆点</button>
             </div>
           </div>
-          <div data-page-node-id="Aqxb5l7nNp33MSFSvSsSQb" class="opt-row">
-            <span data-page-node-id="Q06lsaonIHRY49y6JRmv8P" class="opt-label"><!--pnid:psIi1JLgHKfMhjbI6efSwN-->输出尺寸</span>
-            <div data-page-node-id="ROvdHaRB6WT0hDzgUb13RH" class="seg" data-qr="px">
-              <button data-page-node-id="jILJQVh60bwhhY4YXFMnPQ" data-val="256" type="button"><!--pnid:OqDJjLDNEEVr7Y6VNFm2xa-->256</button>
-              <button data-page-node-id="NzYMz8REG1tyIzE7FleQk5" class="on" data-val="512" type="button"><!--pnid:Xo9H9nQF6rUkrM8s3GvjUY-->512</button>
-              <button data-page-node-id="F1S6pk0DHx2fgeCGjGx0xB" data-val="768" type="button"><!--pnid:h2Xcd2dP7kYN6v7uX9Epdb-->768</button>
-              <button data-page-node-id="1dnM7akKo8WeepxOXEhtEv" data-val="1024" type="button"><!--pnid:WuGpLSkrF5XXlSP53arTFD-->1024</button>
+          <div class="opt-row">
+            <span class="opt-label">输出尺寸</span>
+            <div class="seg" data-qr="px">
+              <button data-val="256" type="button">256</button>
+              <button data-val="512" class="on" type="button">512</button>
+              <button data-val="768" type="button">768</button>
+              <button data-val="1024" type="button">1024</button>
             </div>
           </div>
-          <div data-page-node-id="fO3ybpBPShdJsjFajwX44z" class="opt-row">
-            <span data-page-node-id="mdKDmzPO8byzPYMtkuYnQe" class="opt-label"><!--pnid:yjCHVu9K2BU3B7Fdp6pgoL-->静默区边距</span>
-            <div data-page-node-id="4Yg31M5CVNTZ0v7F4BAsck" class="seg" data-qr="margin">
-              <button data-page-node-id="tY6r7IkYQsKczpKU1BPjbO" data-val="0" type="button"><!--pnid:BPJZIdN4URDTqNUR5iZXdH-->0</button>
-              <button data-page-node-id="Rn8TLZCXdQd8lFYV2fKK42" data-val="2" type="button"><!--pnid:pFO6bgRWBS3Og812jWiDRz-->2</button>
-              <button data-page-node-id="XUKIp89IFeWQ9vb8xrXF5v" class="on" data-val="4" type="button"><!--pnid:FUcWgwmA6XYQG6Oc04mZdZ-->4</button>
-              <button data-page-node-id="0c7wqKhaEXHNeLNcKglFPs" data-val="8" type="button"><!--pnid:vVkM24FVnMPMUGYqlHyd9h-->8</button>
+          <div class="opt-row">
+            <span class="opt-label">静默区边距</span>
+            <div class="seg" data-qr="margin">
+              <button data-val="0" type="button">0</button>
+              <button data-val="2" type="button">2</button>
+              <button data-val="4" class="on" type="button">4</button>
+              <button data-val="8" type="button">8</button>
             </div>
           </div>
-          <div data-page-node-id="OgrOmTUkhwvpPOStj1sQwv" class="opt-row">
-            <span data-page-node-id="C4qF7aXull1YHk4PZpdH9v" class="opt-label"><!--pnid:1Yvs3vbVU9ApYM11qiRMia-->前景 / 背景</span>
-            <div data-page-node-id="dxSqwZRm9wC8Fc54JPivsM" class="colors">
-              <input data-page-node-id="yyXwWIrsPWEf0NV4BhTMpD" id="qrFg" title="前景色" type="color" value="#000000">
-              <input data-page-node-id="0thQ8HnBhcTSEElw6Dn9P5" id="qrBg" title="背景色" type="color" value="#ffffff">
+          <div class="opt-row">
+            <span class="opt-label">前景 / 背景</span>
+            <div class="colors">
+              <input type="color" id="qrFg" value="#000000" title="前景色">
+              <input type="color" id="qrBg" value="#ffffff" title="背景色">
             </div>
           </div>
-          <div data-page-node-id="zKnb698Rd4GXglO1AsBijA" class="opt-row">
-            <span data-page-node-id="ojXbejiIF0DFuUgpNbrDk7" class="opt-label"><!--pnid:H7aMdrLUHv6PtF4IKWKWUp-->中心 Logo</span>
-            <div data-page-node-id="9Bog3Kxzydi4dDeK0tfF1G" class="logo-ctl">
-              <label data-page-node-id="8nPnXaHHYHWpS6LXuJJWUo" class="btn small" for="qrLogo"><!--pnid:xexg6qsEWOQIVJgcC433mm-->选择图片</label>
-              <input data-page-node-id="qvAluvkeAXsoIEdUid3PX3" accept="image/*" hidden id="qrLogo" type="file">
-              <button data-page-node-id="N5OlAbGSCDcRqrk6YfJHZN" class="btn small" hidden id="qrLogoClear" type="button"><!--pnid:jJpvL9w5WhVVjXo3iI9617-->移除</button>
+          <div class="opt-row">
+            <span class="opt-label">中心 Logo</span>
+            <div class="logo-ctl">
+              <label class="btn small" for="qrLogo">选择图片</label>
+              <input type="file" id="qrLogo" accept="image/*" hidden>
+              <button class="btn small" id="qrLogoClear" type="button" hidden>移除</button>
             </div>
           </div>
         </div>
       </div>
 
-      <div data-page-node-id="LF39LXsMGDi8D6Q2ISWFiO" class="qr-side">
-        <div data-page-node-id="NwpNVKoNmTEErItmEkEkTQ" class="card">
-          <div data-page-node-id="pR4rzEoOFvRIoKB4GvsdOY" class="preview-box" id="qrBox"><p data-page-node-id="yzxRYqQuLowBZg8UfK7Eb4" class="ph"><!--pnid:TgzHrRLoPcfyOtu8FrRNP3-->输入内容后<br data-page-node-id="fKkPfnCyFU8ELadAQmTIcc"><!--pnid:4vafyGT42kiZYNM0V5GQKe-->自动生成二维码</p></div>
-          <div data-page-node-id="PkLQmFPonPyHQ1bLP2sBFS" class="meta" id="qrMeta"></div>
-          <div data-page-node-id="6ZZAwjywdGMn6ngModHt47" class="actions">
-            <button data-page-node-id="a6EtpdXGhejDaehkkt7zBL" class="btn primary" id="qrDownload" type="button"><!--pnid:GHQ1V6WikfM8oDpNGXaZ3T-->下载 PNG</button>
-            <button data-page-node-id="VNFZEQWB5nn6QNP4iLWTtl" class="btn" id="qrCopySvg" type="button"><!--pnid:bL6H7pCI2TatTKjAeYN6qa-->复制 SVG</button>
-            <button data-page-node-id="hT98JxWUSjagWymaR5Tk9K" class="btn" id="qrCopyText" type="button"><!--pnid:NMITmLdn5DulEK5CgyLeEB-->复制内容</button>
+      <div class="qr-side">
+        <div class="card">
+          <div class="preview-box" id="qrBox"><p class="ph">输入内容后<br>自动生成二维码</p></div>
+          <div class="meta" id="qrMeta"></div>
+          <div class="actions">
+            <button class="btn primary" id="qrDownload" type="button">下载 PNG</button>
+            <button class="btn" id="qrCopySvg" type="button">复制 SVG</button>
+            <button class="btn" id="qrCopyText" type="button">复制内容</button>
           </div>
-          <p data-page-node-id="Lc1SARxuLMASV8RXrRL3Wl" class="hint"><!--pnid:5TOD7MZzFNsngmvC0NXdoP-->若浏览器拦截下载，可右键（手机长按）预览图另存为。加 Logo 时建议容错等级用 H。</p>
+          <p class="hint">若浏览器拦截下载，可右键（手机长按）预览图另存为。加 Logo 时建议容错等级用 H。</p>
         </div>
       </div>
     </div>
   </section>
 
-  <section data-page-node-id="tarJV03pZ6N23ry34rqTPo" class="tool-panel" hidden id="tool-json">
-    <div data-page-node-id="Ffxjo3BFEBxsBkWjM96vso" class="tool-grid">
-      <div data-page-node-id="DHWKBuqFYjDwBeIOmXOd9R" class="card io-pane">
-        <div data-page-node-id="0CQ90oNdxRp2gVZed0JTNy" class="io-head">
-          <span data-page-node-id="fQ3YHNcrnsFWtItyQaR9OV" class="io-title"><!--pnid:7LOJPl8k4SBni14yIwR5ew-->输入 JSON</span>
-          <div data-page-node-id="9YGDb8EXn26bIB0nVa0DQg" class="btn-row">
-            <button data-page-node-id="9Md1rp7zdSvsM1YnVHxU9j" class="btn small" id="jsonDemo" type="button"><!--pnid:4p1R6FmizAivpaeouo9M9W-->示例</button>
-            <button data-page-node-id="HKeC8ejkQ3mlEEmkxGY5Wb" class="btn small" id="jsonClear" type="button"><!--pnid:hTWCnK14nWhe5RC7GelHs1-->清空</button>
+  <section class="tool-panel" id="tool-json" hidden>
+    <div class="tool-grid">
+      <div class="card io-pane">
+        <div class="io-head">
+          <span class="io-title">输入 JSON</span>
+          <div class="btn-row">
+            <button class="btn small" id="jsonDemo" type="button">示例</button>
+            <button class="btn small" id="jsonClear" type="button">清空</button>
           </div>
         </div>
-        <textarea data-page-node-id="MW1Mv2hcsJ9iRGePywbaWT" autocomplete="off" class="ta tall" id="jsonIn" placeholder="把 JSON 粘到这里，或点「示例」试一下" spellcheck="false"></textarea>
-        <div data-page-node-id="VzV1L5oJzvTn9pQcPdcMzW" class="fld">
-          <span data-page-node-id="BAdEllRvkgPNf8dlzs8RWv" class="opt-label"><!--pnid:rnvR76RNUtCpUCkbuPwt6l-->缩进</span>
-          <div data-page-node-id="CQs6PEEIxuzc6uvMo9zI4m" class="seg" data-json="indent">
-            <button data-page-node-id="XCPL4EItnBKMRYu1rGLLPV" class="on" data-val="2" type="button"><!--pnid:CEyB2maTwMZ6ikyxEkUmmR-->2 空格</button>
-            <button data-page-node-id="PG3hjhikxj3NCRanfdrsoo" data-val="4" type="button"><!--pnid:GZgUrAwboYLRqLSmEGqsP5-->4 空格</button>
-            <button data-page-node-id="OF1v9RJmXdOstpHvw4wLe2" data-val="tab" type="button"><!--pnid:R0ojHZHZbFOfIXAaHyuaso-->Tab</button>
+        <textarea class="ta tall" id="jsonIn" spellcheck="false" autocomplete="off" placeholder='把 JSON 粘到这里，或点「示例」试一下'></textarea>
+        <div class="fld">
+          <span class="opt-label">缩进</span>
+          <div class="seg" data-json="indent">
+            <button data-val="2" class="on" type="button">2 空格</button>
+            <button data-val="4" type="button">4 空格</button>
+            <button data-val="tab" type="button">Tab</button>
           </div>
         </div>
-        <div data-page-node-id="fnicLZ4Pro8cgHQ7x1fzym" class="fld">
-          <span data-page-node-id="OBAlDBkXHIxNAbSAouVS9m" class="opt-label"><!--pnid:F0d0x0jmiCgKJSw0wkCHeF-->键序</span>
-          <div data-page-node-id="2Be2Kqa7SqykuQriA8MFWd" class="seg" data-json="sortKeys">
-            <button data-page-node-id="RW0ItpcuhtqPRdk4bI9aM6" class="on" data-val="0" type="button"><!--pnid:pS0j6A0vlmgq9y9EIDA9LA-->保持原样</button>
-            <button data-page-node-id="5jUaKzxsPlIUW8RAxrFFHQ" data-val="1" type="button"><!--pnid:Q2UtVi3cWQ32QPcZp6sqCX-->递归排序</button>
+        <div class="fld">
+          <span class="opt-label">键序</span>
+          <div class="seg" data-json="sortKeys">
+            <button data-val="0" class="on" type="button">保持原样</button>
+            <button data-val="1" type="button">递归排序</button>
           </div>
         </div>
-        <div data-page-node-id="Mm74nuH6QzHq1sDiLSZbj7" class="btn-row">
-          <button data-page-node-id="HehVJzwGlzZWPEAZBLSrWr" class="btn primary" id="jsonPretty" type="button"><!--pnid:bytQHXLXiAm72trFFAGK9A-->格式化</button>
-          <button data-page-node-id="7EVJPwaWAntngbY94OCgY9" class="btn" id="jsonMinify" type="button"><!--pnid:QGzt3zWw81cShjIQp2mLYf-->压缩</button>
-          <button data-page-node-id="ei5qwTbrJGs2Xc2YIZZe89" class="btn" id="jsonEscape" type="button"><!--pnid:MBZiPxoHSSpaU2pHwLzu8E-->转义为字符串</button>
-          <button data-page-node-id="kDAuzgdAHBUHhTh0fTsQeF" class="btn" id="jsonUnescape" type="button"><!--pnid:1uACUPzVhKw5haaiZLVwrC-->去转义</button>
+        <div class="btn-row">
+          <button class="btn primary" id="jsonPretty" type="button">格式化</button>
+          <button class="btn" id="jsonMinify" type="button">压缩</button>
+          <button class="btn" id="jsonEscape" type="button">转义为字符串</button>
+          <button class="btn" id="jsonUnescape" type="button">去转义</button>
         </div>
-        <p data-page-node-id="wps1VG73dEa1vzSiv0E09V" class="msg" id="jsonMsg"></p>
+        <p class="msg" id="jsonMsg"></p>
       </div>
-      <div data-page-node-id="aNDlwW813QMHIwuzOO3Xx8" class="card io-pane">
-        <div data-page-node-id="llvZAlW3GO4Z66r116IAse" class="io-head">
-          <span data-page-node-id="zX5RS3suVMwlbUqCmpgbOY" class="io-title"><!--pnid:n3fONLR80WSNSVgtSPay9c-->结果</span>
-          <div data-page-node-id="O9q98VEJC2Wc9bHxtCsL5a" class="btn-row"><button data-page-node-id="cGHGCvFDuaSNvbPkvmaBuX" class="btn small" id="jsonCopy" type="button"><!--pnid:4zShwRJVWEnBGPaxHxLCnQ-->复制</button></div>
+      <div class="card io-pane">
+        <div class="io-head">
+          <span class="io-title">结果</span>
+          <div class="btn-row"><button class="btn small" id="jsonCopy" type="button">复制</button></div>
         </div>
-        <pre data-page-node-id="6EZpnAvwZhyx8F0uFEW0oQ" class="code" id="jsonOut"></pre>
-        <div data-page-node-id="0OmKlLk5CRdXdUXGuHv8GG" class="stats-bar" id="jsonStats"></div>
-      </div>
-    </div>
-    <div data-page-node-id="FcsrAcGUwJyIJCj8M8XhXD" class="card" hidden id="jsonErrCard" style="margin-top:14px">
-      <div data-page-node-id="FLv7UIAKOCm6N2QvaIZXML" class="err-box" id="jsonErr"></div>
-    </div>
-  </section>
-
-  <section data-page-node-id="GpsUADOfqgSutq8r9Otpm7" class="tool-panel" hidden id="tool-time">
-    <div data-page-node-id="U3CsbTdMIfYrGjv7I8umbW" class="card" style="margin-bottom:16px">
-      <div data-page-node-id="QyvSZrh0rK5NEaqq5mq3UO" class="io-head">
-        <span data-page-node-id="zVVS26n7YY9do2nXQrb3Is" class="io-title"><!--pnid:j5qA5uG3DDMBENFQDWOZpt-->当前时间</span>
-        <div data-page-node-id="FT2Ambf1T2MlsTX1692alL" class="btn-row">
-          <button data-page-node-id="yhPbQG2LGwIAljLnRdtfQ8" class="btn small" id="timeNowUse" type="button"><!--pnid:Nnhoe2NXsJlREIJxRjaEb8-->拿去换算</button>
-          <button data-page-node-id="z4s39VvzJOfRMyvGQIYm5e" class="btn small" id="timeNowCopy" type="button"><!--pnid:4TYXft2wmafmS7GDIbyh4k-->复制秒级时间戳</button>
-        </div>
-      </div>
-      <div data-page-node-id="gn9HWBwHV3dYMeqFHG7pBE" class="big-ts" id="timeNowTs"><!--pnid:vIJoo4dP0PjaRd2BDoC7v8-->&mdash;</div>
-      <p data-page-node-id="CHo9hnjeq2WOAIys5mNMuR" class="msg" id="timeNowText"></p>
-    </div>
-
-    <div data-page-node-id="rhaVBJUnY09tICnga0eTo7" class="tool-grid">
-      <div data-page-node-id="jQA6JEUI5b7YCpC6Vbh7cM" class="card io-pane">
-        <div data-page-node-id="zWHIbSudavAL9Aan5BRNrI" class="io-head"><span data-page-node-id="0lnTYxDN3jxTFbQsTCPC8g" class="io-title"><!--pnid:hfSh5Etzwcj8CwBecznw6E-->时间戳 &rarr; 时间</span></div>
-        <div data-page-node-id="Vy8UXOcDdEX0VoAobrnFYk" class="fld">
-          <input data-page-node-id="MTJl5FazNmio4OOnjggfzJ" autocomplete="off" class="inp mono" id="timeTsIn" placeholder="1700000000 或 1700000000000" style="flex:1; min-width:150px">
-          <button data-page-node-id="08LEbF2iUNY92lZIjhBam9" class="btn small" id="timeTsNow" type="button"><!--pnid:gFGjImCzDdHcGzgG9g1X3q-->现在</button>
-        </div>
-        <p data-page-node-id="IZc3TkCk4lK7hahVheCunI" class="msg" id="timeTsMsg"></p>
-        <div data-page-node-id="5WZUiW3n0uK4GSKq1l4r1R" class="fld">
-          <span data-page-node-id="IL8W3CdGgvy00p6oa186BV" class="opt-label"><!--pnid:qxTEtKZ5gwteH0Ak752cCk-->再看一个时区</span>
-          <select data-page-node-id="qETBx1gOkrDMDCY7faBIzj" class="sel" id="timeZoneMain"></select>
-        </div>
-        <dl data-page-node-id="vwKq3YFGcS7mw0ZplUOMKx" class="kv" id="timeTsOut"></dl>
-      </div>
-
-      <div data-page-node-id="o3vbbWS17eaVzU2zfmzi4r" class="card io-pane">
-        <div data-page-node-id="WGP0tvF3yU7kkHkdGwMZKy" class="io-head"><span data-page-node-id="5JdRVyrRUoJRDO5Hk05tcu" class="io-title"><!--pnid:tLaafcK1ZqUf0h7TCQrrYW-->时间 &rarr; 时间戳</span></div>
-        <div data-page-node-id="ndfLZQgxb6qzy75tAPjQSy" class="fld">
-          <input data-page-node-id="jeepkSLquw4M1fvhRrHAYv" autocomplete="off" class="inp mono" id="timeWallIn" placeholder="2026-10-14 12:29:02" style="flex:1; min-width:150px">
-        </div>
-        <p data-page-node-id="GMIyKejjgVheFwpMXmaLfz" class="msg" id="timeWallMsg"></p>
-        <div data-page-node-id="x9axuXlVkiTtOnWU0oXbAp" class="fld">
-          <span data-page-node-id="LCY7vvpHpTeo0vcuIsqNUP" class="opt-label"><!--pnid:L8aYyagDRECfpC4j8RgvJ5-->这个时间属于</span>
-          <select data-page-node-id="txvMKyicUt9lW4y1jv1Y8M" class="sel" id="timeZoneWall"></select>
-        </div>
-        <dl data-page-node-id="bYNOSfBPTYxGIAiajYiO1P" class="kv" id="timeWallOut"></dl>
-        <div data-page-node-id="oBDyNxFjmw9hZS22QpbtLw" class="btn-row">
-          <button data-page-node-id="GmJ6FPZtcZRR76OTqwOqCm" class="btn small" id="timeWallCopyS" type="button"><!--pnid:Agvove5qDgPPyd8XcOBJDl-->复制秒级</button>
-          <button data-page-node-id="aACwUm6a8NbdEDeIAMd9vu" class="btn small" id="timeWallCopyMs" type="button"><!--pnid:kN3cjHciInHpYKZfrdF1tE-->复制毫秒级</button>
-        </div>
+        <pre class="code" id="jsonOut"></pre>
+        <div class="stats-bar" id="jsonStats"></div>
       </div>
     </div>
-
-    <div data-page-node-id="okQkQq7Xrc6qjlBGvjin8m" class="card" style="margin-top:14px">
-      <div data-page-node-id="mY44q2IIyP8DCVtUilPwn2" class="io-head">
-        <span data-page-node-id="4hqRE9Lf0TC9E3ccoyQKfH" class="io-title"><!--pnid:pS7qBuQVEACIyY3uI8BQbg-->批量转换（每行一个时间戳，自动识别秒 / 毫秒）</span>
-        <button data-page-node-id="nMn0abkcBvkXMUD2wKiNpy" class="btn small" id="timeBatchCopy" type="button"><!--pnid:2pH9KE9CCGT9gBwXaAhWME-->复制结果</button>
-      </div>
-      <textarea data-page-node-id="YKXdRUkBp830WmV1FdYlFE" class="ta short" id="timeBatchIn" placeholder="1700000000&#10;1700000000000" spellcheck="false"></textarea>
-      <div data-page-node-id="F81OvuEmfcs0OKi2xuMFdv" class="fld" style="margin-top:8px">
-        <span data-page-node-id="l1PY2eKinLp5vMpJT8Uldi" class="opt-label"><!--pnid:2wOVp9coJgqS8K3KNQpcML-->换算到</span>
-        <select data-page-node-id="6pqJrTKuXHhkMl0K5hJZse" class="sel" id="timeZoneBatch"></select>
-      </div>
-      <pre data-page-node-id="3WjnCxYfNEPMgAc6lVqkKB" class="code" id="timeBatchOut" style="margin-top:8px; max-height:250px"></pre>
+    <div class="card" id="jsonErrCard" hidden style="margin-top:14px">
+      <div class="err-box" id="jsonErr"></div>
     </div>
   </section>
 
-  <section data-page-node-id="rTDSh2FOX77E9yKnDhSuir" class="tool-panel" hidden id="tool-diff">
-    <div data-page-node-id="RHrCce5gNgrB9cQfwiLCDs" class="card">
-      <div data-page-node-id="pY78WEjUw53fGol8ttfWr3" class="tool-grid">
-        <div data-page-node-id="3NMOVPKQEJet7SZMicte95" class="io-pane">
-          <div data-page-node-id="NfTlUfYRFkVIFaQ7OUOy6w" class="io-head"><span data-page-node-id="NwheQSo6fhDkXi40eIBPnB" class="io-title"><!--pnid:Ukd1tykNqcYd0ifr43LBXu-->原始文本 A</span></div>
-          <textarea data-page-node-id="YLP2TLPbJXZ8qaFqjO0tya" class="ta tall" id="diffA" placeholder="粘贴原始文本" spellcheck="false"></textarea>
-        </div>
-        <div data-page-node-id="2ObliW758c6MBKi7NlswB4" class="io-pane">
-          <div data-page-node-id="ge5Sxi1mlk97TZlysRhfzl" class="io-head"><span data-page-node-id="a2zPrT4U9KT8JNYXJkuzUx" class="io-title"><!--pnid:KOKyzxUKd1wc2mgUrGvJAg-->修改后文本 B</span></div>
-          <textarea data-page-node-id="tfMGtN5Xt4OHRV6YuuT2dP" class="ta tall" id="diffB" placeholder="粘贴修改后的文本" spellcheck="false"></textarea>
+  <section class="tool-panel" id="tool-time" hidden>
+    <div class="card" style="margin-bottom:16px">
+      <div class="io-head">
+        <span class="io-title">当前时间</span>
+        <div class="btn-row">
+          <button class="btn small" id="timeNowUse" type="button">拿去换算</button>
+          <button class="btn small" id="timeNowCopy" type="button">复制秒级时间戳</button>
         </div>
       </div>
-      <div data-page-node-id="uziPz9hCuHCqGM0jR9o18h" class="fld" style="margin-top:12px">
-        <div data-page-node-id="J8w0tmhHoGoSzr40O27mQd" class="seg" data-diff="ignoreCase">
-          <button data-page-node-id="ROXqNNCWkKRLeV9F2QTpWZ" class="on" data-val="0" type="button"><!--pnid:1TaOxUESZdE25KHJHUd6az-->区分大小写</button>
-          <button data-page-node-id="Ji74xWUQKv9V2FxuNtcEX2" data-val="1" type="button"><!--pnid:TN0X7tAnRszrWvNIbj58ZQ-->忽略大小写</button>
-        </div>
-        <div data-page-node-id="L3ZXvFY21FqPT4qwUKeepk" class="seg" data-diff="ignoreWhitespace">
-          <button data-page-node-id="piqwziFfnjgabVXfLaTUVT" class="on" data-val="0" type="button"><!--pnid:E41qBtq0qyd1OHMTzi9Db0-->不忽略空白</button>
-          <button data-page-node-id="ZTPDxUk35tcZT79ntmtFWg" data-val="1" type="button"><!--pnid:hc0jBf0vDvla4NAoKOHQB1-->忽略空白差异</button>
-        </div>
-        <div data-page-node-id="QzjLAfMl5t9CC5eMyzMAww" class="seg" data-diff="onlyChanges">
-          <button data-page-node-id="Xt4Cr7x9PT3ETnGLeIvfsZ" class="on" data-val="0" type="button"><!--pnid:DwPvjYMD8QGIJKUSpmrQEO-->显示全部行</button>
-          <button data-page-node-id="kn7MpEBX6ZvPW17UrZye5O" data-val="1" type="button"><!--pnid:DHAgxWwCQz12vza96BAQrM-->只看改动</button>
-        </div>
-        <div data-page-node-id="iTfP3BB0CTFtehTTPTUwZv" class="seg" data-diff="ctx">
-          <button data-page-node-id="rwsvCfxwkA418nBNpauMVa" class="on" data-val="-1" type="button"><!--pnid:mPEfCqszZUhS03rlgs58Cn-->不折叠</button>
-          <button data-page-node-id="TkXyzrjtg3EFYmYtrtbwis" data-val="1" type="button"><!--pnid:U8DdmKGQgvuZuthCjoWcAr-->1 行上下文</button>
-          <button data-page-node-id="U7kPEiCRPfz7kbTC4ifA69" data-val="3" type="button"><!--pnid:36VdMcGHkESGHueohJmMoT-->3 行上下文</button>
-        </div>
-      </div>
-      <div data-page-node-id="GrwNX32wppZydIFP8HFf0w" class="btn-row" style="margin-top:10px">
-        <button data-page-node-id="JMKRsdG3wVLXTaOm4MoGeE" class="btn" id="diffSwap" type="button"><!--pnid:Uno6Mrx8T1tKEyUagz0L8G-->交换 A / B</button>
-        <button data-page-node-id="i3BPsM6ULSFnPvSpT9RfM2" class="btn" id="diffDemo" type="button"><!--pnid:tvX5Gbe7tHFJNQTIbQXkoU-->示例</button>
-        <button data-page-node-id="p4jzUYTLgq8AQMCrvGHzed" class="btn" id="diffClear" type="button"><!--pnid:ueMwg20EyxI00zIFvHw8ZA-->清空</button>
-        <button data-page-node-id="6SCgkVFUqmzf0dSv8lCANQ" class="btn" id="diffCopyText" type="button"><!--pnid:kUN2I17LRRJzzfVNyMiHj4-->复制带 +/- 的纯文本</button>
-      </div>
-      <p data-page-node-id="ClVGF9TLqozGgKUF5W88Fo" class="msg" id="diffMsg"></p>
+      <div class="big-ts" id="timeNowTs">&mdash;</div>
+      <p class="msg" id="timeNowText"></p>
     </div>
-    <div data-page-node-id="zsxZwxlobhfFuOgUEPySkK" class="card" style="margin-top:14px">
-      <div data-page-node-id="ynsZ9L6Ci15CCwtSlyPoE8" class="io-head"><span data-page-node-id="PRXhZbg6iljfPvUOWSaedQ" class="io-title"><!--pnid:Or0ZMQi6ac10xFRiF4XK0S-->对比结果</span></div>
-      <div data-page-node-id="QyQXALEVvUVH6aV9zzX0V9" class="diff-wrap" id="diffWrap"><p data-page-node-id="tnjOWfy9igmJT4a5Sf5ekg" class="ph"><!--pnid:sPHxllQpoyxFLf0JysHvpu-->两栏都输入内容后，这里实时显示差异</p></div>
-      <div data-page-node-id="18GJPCp9iGVcLqVqRg3Tdl" class="stats-bar" id="diffStats"></div>
+
+    <div class="tool-grid">
+      <div class="card io-pane">
+        <div class="io-head"><span class="io-title">时间戳 &rarr; 时间</span></div>
+        <div class="fld">
+          <input class="inp mono" id="timeTsIn" autocomplete="off" placeholder="1700000000 或 1700000000000" style="flex:1;min-width:150px">
+          <button class="btn small" id="timeTsNow" type="button">现在</button>
+        </div>
+        <p class="msg" id="timeTsMsg"></p>
+        <div class="fld">
+          <span class="opt-label">再看一个时区</span>
+          <select class="sel" id="timeZoneMain"></select>
+        </div>
+        <dl class="kv" id="timeTsOut"></dl>
+      </div>
+
+      <div class="card io-pane">
+        <div class="io-head"><span class="io-title">时间 &rarr; 时间戳</span></div>
+        <div class="fld">
+          <input class="inp mono" id="timeWallIn" autocomplete="off" placeholder="2026-10-14 12:29:02" style="flex:1;min-width:150px">
+        </div>
+        <p class="msg" id="timeWallMsg"></p>
+        <div class="fld">
+          <span class="opt-label">这个时间属于</span>
+          <select class="sel" id="timeZoneWall"></select>
+        </div>
+        <dl class="kv" id="timeWallOut"></dl>
+        <div class="btn-row">
+          <button class="btn small" id="timeWallCopyS" type="button">复制秒级</button>
+          <button class="btn small" id="timeWallCopyMs" type="button">复制毫秒级</button>
+        </div>
+      </div>
     </div>
-  </section>
 
-  <section data-page-node-id="CGT2OJMLNRyDO6Z3ql58bL" class="tool-panel" hidden id="tool-image">
-    <div data-page-node-id="4Dn1FHFKjaV824rCVera1Z" class="card">
-      <div data-page-node-id="nNsGYowS3X8dB8ln8LiWUO" class="drop" id="imgDrop">
-        <div data-page-node-id="hrXJAtfVDbiSjXy27xmKQY" class="big"><!--pnid:HupmEP5t1nZs6NJAMxyJo2-->&#128444;</div>
-        <div data-page-node-id="cW2uoo6pGQCyjSdncOofgh" class="t"><!--pnid:8xwrFjD0ZMLK3YDrDWuxlv-->把图片拖进来，或点击选择（也支持直接粘贴）</div>
-        <div data-page-node-id="VcRiGzZoOOmUw24y7AhKFA" class="s"><!--pnid:bogW2h2jtmmUAorgWaFVpA-->JPG / PNG / WebP / GIF &middot; 全程在本机处理，不上传</div>
-        <input data-page-node-id="61prr4LAlQWJP6To0s8RSf" accept="image/*" hidden id="imgFile" type="file">
+    <div class="card" style="margin-top:14px">
+      <div class="io-head">
+        <span class="io-title">批量转换（每行一个时间戳，自动识别秒 / 毫秒）</span>
+        <button class="btn small" id="timeBatchCopy" type="button">复制结果</button>
       </div>
-      <p data-page-node-id="NHysF2QmYh9Nd4sJgqmz6U" class="msg" id="imgMsg"></p>
-
-      <div data-page-node-id="zeuulHjqktpQeLFoOUUe5E" class="ba" hidden id="imgBA" style="margin-top:12px">
-        <figure data-page-node-id="mJI2iznh1i9dM1ZHJRd1L1"><img data-page-node-id="TA0mPyzkQxnLnbRxjCCxxM" alt="原图" id="imgBefore"><figcaption data-page-node-id="O6C7KRnIVDZIeR94MqNApL" id="imgBeforeCap"><!--pnid:ZWvG0J6yEglVvXsIgvVbTJ-->&mdash;</figcaption></figure>
-        <figure data-page-node-id="n7SlnyK4dFaE2GnaiTNKcu"><img data-page-node-id="hGqjfl6jiLMS8Mb1XVX8XC" alt="处理后" id="imgAfter"><figcaption data-page-node-id="3NqygQYlMONcNRiYVuE5pc" id="imgAfterCap"><!--pnid:hck8mMdbNXnbRVohz59F9f-->&mdash;</figcaption></figure>
+      <textarea class="ta short" id="timeBatchIn" spellcheck="false" placeholder="1700000000&#10;1700000000000"></textarea>
+      <div class="fld" style="margin-top:8px">
+        <span class="opt-label">换算到</span>
+        <select class="sel" id="timeZoneBatch"></select>
       </div>
-
-      <div data-page-node-id="jDthjQGW7T1l0h89Uu3WLK" class="qr-opts" hidden id="imgOpts">
-        <div data-page-node-id="C2C56YN4wYahePrVaN9GFK" class="opt-row">
-          <span data-page-node-id="3tHvKEzUdUV4MukSaHDcVj" class="opt-label"><!--pnid:fPwbhZEFxTWgO0AJlfgeug-->尺寸</span>
-          <div data-page-node-id="JP6qbP67WMZvTjD4382ecj" class="seg" data-img="mode">
-            <button data-page-node-id="DagEki7eOXf2pmhxzJGjXr" class="on" data-val="max" type="button"><!--pnid:XyBvjBzsV2tfUCNByReVcO-->限制最长边</button>
-            <button data-page-node-id="fAer4Hd2OxJfY37Ffg3LmS" data-val="scale" type="button"><!--pnid:ZYvBMtaiyi2kHeSfcVqpN0-->按百分比</button>
-          </div>
-        </div>
-        <div data-page-node-id="85WkaTlG3SRst1jPPVePkX" class="opt-row" id="imgMaxRow">
-          <span data-page-node-id="uRmTkk3FkUKquFlKIhtLuM" class="opt-label"><!--pnid:iN080dAQOQS0GgiCWuWfyL-->最长边不超过</span>
-          <div data-page-node-id="ztiQpQjKTauBZxc0r7OjaT" class="seg" data-img="maxEdge">
-            <button data-page-node-id="7FBvTulDsJwjVI8qPHncyq" data-val="1280" type="button"><!--pnid:2nBb9Qr4zkepYy5BtIrsYM-->1280</button>
-            <button data-page-node-id="CGgt3xzIfPAlHvAW70tfyK" class="on" data-val="1920" type="button"><!--pnid:PAPMKnVjRHOHVpt0WEACMq-->1920</button>
-            <button data-page-node-id="9Exya43CFLHWLijais5vP9" data-val="2560" type="button"><!--pnid:8XXp0Znadh6cWQSKFoWJ90-->2560</button>
-            <button data-page-node-id="7KIGuC6Rxq1rQS5Eiaum6O" data-val="0" type="button"><!--pnid:HOJM83pQC3UH61A7yqRuGb-->不缩放</button>
-          </div>
-        </div>
-        <div data-page-node-id="lAT4cP2bLDivX5Q3zpHmke" class="opt-row" hidden id="imgScaleRow">
-          <span data-page-node-id="uDZF96zi5hJcnIDrcrqvbF" class="opt-label"><!--pnid:6OeY8ZGgP4pgOJIwJ5bYoz-->缩放到</span>
-          <div data-page-node-id="DgqcHNgAUovEnk9JgJhjdF" class="slider" style="flex:1; max-width:280px">
-            <input data-page-node-id="qgtH1FMaUFFPduGUyCprn5" id="imgScale" max="100" min="5" step="5" type="range" value="100">
-            <span data-page-node-id="9OhM6989I6ZDVGM1Xt7bLK" class="v" id="imgScaleV"><!--pnid:RWUy9HCZNVXWqfk5zCohFg-->100%</span>
-          </div>
-        </div>
-        <div data-page-node-id="W8FsAMvmME40Y9N3JYubxi" class="opt-row">
-          <span data-page-node-id="xwy68uCkuhEVAlEoA0MFHl" class="opt-label"><!--pnid:j3eCrkOzWUfY6XYz8abaEX-->输出格式</span>
-          <div data-page-node-id="S9fxOlkKApw7zAevXSXYHY" class="seg" data-img="format">
-            <button data-page-node-id="gaRpoOJNrieyStxKFxFe6q" class="on" data-val="image/jpeg" type="button"><!--pnid:mCe6aMOtRWTbauTvwMt8PR-->JPG</button>
-            <button data-page-node-id="gycgDdT7aivb2q3pBg6URI" data-val="image/png" type="button"><!--pnid:MKxB9nczS05kEVsTn5wBUw-->PNG</button>
-            <button data-page-node-id="kzfgHsduK0hyK5grP1D5tr" data-val="image/webp" type="button"><!--pnid:4dr4TJPABC7ZMUxKb4jVSe-->WebP</button>
-          </div>
-        </div>
-        <div data-page-node-id="472rU9M1i8MH8YpX2FGGgr" class="opt-row" id="imgQualityRow">
-          <span data-page-node-id="jUzXRNLoTQ945FgB4z6oG7" class="opt-label"><!--pnid:8Rxeq7fZcy9DdghF7x04wj-->质量</span>
-          <div data-page-node-id="o082Ywe9ud3vwmMFpu2jee" class="slider" style="flex:1; max-width:280px">
-            <input data-page-node-id="OnAVBJtvFRQi3m3f5vmPGI" id="imgQuality" max="95" min="30" step="1" type="range" value="82">
-            <span data-page-node-id="0oKu54HWbBC5X2fPIuZ4TW" class="v" id="imgQualityV"><!--pnid:oRTrc36hnn42ygRJvWk95o-->82</span>
-          </div>
-        </div>
-        <div data-page-node-id="DneYpymeyOB5lDEUE9HkSk" class="opt-row">
-          <span data-page-node-id="TxeKK5UVBo6mnr61z9sTmM" class="opt-label"><!--pnid:xO10ZesHck7gfUMEnjbUsY-->压到不超过</span>
-          <div data-page-node-id="CindyWmxW9Qp1fIafv7QGF" class="fld">
-            <input data-page-node-id="Ae1pwPP5kxRIcNUsMF4RcY" autocomplete="off" class="inp mono" id="imgTarget" placeholder="300" style="width:84px">
-            <span data-page-node-id="Z959trioHIuqgY8YUDH1Nc" class="msg" style="min-height:auto"><!--pnid:lJ9Lv45jjwGebYwTlTzDCK-->KB（留空则用上面的质量）</span>
-          </div>
-        </div>
-        <div data-page-node-id="j0TQhVM0lGW4ddNYTFqnn6" class="opt-row">
-          <span data-page-node-id="1cLio8wscMQECdoQSKG07v" class="opt-label"></span>
-          <div data-page-node-id="ZCoD1RdvcMD4StWXfDIWEo" class="btn-row">
-            <button data-page-node-id="ojuoLrMH7NVBylsxBXlPor" class="btn primary" id="imgDownload" type="button"><!--pnid:tiv3IF1K7njXIevfuOclAR-->下载</button>
-            <button data-page-node-id="dJptPhitG6nhjhBMlBaOEg" class="btn" id="imgReset" type="button"><!--pnid:NmzpO3m3VJgPeL0wT56rSU-->重新选择</button>
-          </div>
-        </div>
-      </div>
-      <p data-page-node-id="mDqXeuNNFIJHLA1wo2yiXe" class="hint" id="imgHint"><!--pnid:vEHAu5beTwX9zt2tnPIpqP-->微信只把 JPG / PNG 当图片预览，WebP 会被当成文件发；对画质要求高的场合，桌面端仍建议走 jpegli 流程。</p>
+      <pre class="code" id="timeBatchOut" style="margin-top:8px;max-height:250px"></pre>
     </div>
   </section>
 
-<footer data-page-node-id="17X6N4qIvwzV8BkQ0SVbcQ"><!--pnid:yejl2zusLb8AMmC1xQmtwh-->
-    单文件离线工具箱 · 不联网、不上传、数据不出本机<br data-page-node-id="BI7EWFBL86zLu1mXwzobAd"><!--pnid:Q8DENNdcW9Ws8xVfH3JruD-->
+  <section class="tool-panel" id="tool-diff" hidden>
+    <div class="card">
+      <div class="tool-grid">
+        <div class="io-pane">
+          <div class="io-head"><span class="io-title">原始文本 A</span></div>
+          <textarea class="ta tall" id="diffA" spellcheck="false" placeholder="粘贴原始文本"></textarea>
+        </div>
+        <div class="io-pane">
+          <div class="io-head"><span class="io-title">修改后文本 B</span></div>
+          <textarea class="ta tall" id="diffB" spellcheck="false" placeholder="粘贴修改后的文本"></textarea>
+        </div>
+      </div>
+      <div class="fld" style="margin-top:12px">
+        <div class="seg" data-diff="ignoreCase">
+          <button data-val="0" class="on" type="button">区分大小写</button>
+          <button data-val="1" type="button">忽略大小写</button>
+        </div>
+        <div class="seg" data-diff="ignoreWhitespace">
+          <button data-val="0" class="on" type="button">不忽略空白</button>
+          <button data-val="1" type="button">忽略空白差异</button>
+        </div>
+        <div class="seg" data-diff="onlyChanges">
+          <button data-val="0" class="on" type="button">显示全部行</button>
+          <button data-val="1" type="button">只看改动</button>
+        </div>
+        <div class="seg" data-diff="ctx">
+          <button data-val="-1" class="on" type="button">不折叠</button>
+          <button data-val="1" type="button">1 行上下文</button>
+          <button data-val="3" type="button">3 行上下文</button>
+        </div>
+      </div>
+      <div class="btn-row" style="margin-top:10px">
+        <button class="btn" id="diffSwap" type="button">交换 A / B</button>
+        <button class="btn" id="diffDemo" type="button">示例</button>
+        <button class="btn" id="diffClear" type="button">清空</button>
+        <button class="btn" id="diffCopyText" type="button">复制带 +/- 的纯文本</button>
+      </div>
+      <p class="msg" id="diffMsg"></p>
+    </div>
+    <div class="card" style="margin-top:14px">
+      <div class="io-head"><span class="io-title">对比结果</span></div>
+      <div class="diff-wrap" id="diffWrap"><p class="ph">两栏都输入内容后，这里实时显示差异</p></div>
+      <div class="stats-bar" id="diffStats"></div>
+    </div>
+  </section>
+
+  <section class="tool-panel" id="tool-image" hidden>
+    <div class="card">
+      <div class="drop" id="imgDrop">
+        <div class="big" style="line-height:0"><svg width="44" height="44" viewBox="0 0 24 24" fill="none" stroke="#7b8798" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="4.5" width="18" height="15" rx="2.5"/><circle cx="8.6" cy="10" r="1.55"/><path d="M20.5 15.6 16 11.1 7.4 19.5"/></svg></div>
+        <div class="t">把图片拖进来，或点击选择（支持多选、可直接粘贴）</div>
+        <div class="s">JPG / PNG / WebP / GIF &middot; 全程在本机处理，不上传</div>
+        <input type="file" id="imgFile" accept="image/*" multiple hidden>
+      </div>
+      <p class="msg" id="imgMsg"></p>
+      <p class="msg warn" id="imgWarn" hidden></p>
+
+      <div class="ba" id="imgBA" hidden style="margin-top:12px">
+        <figure>
+          <div class="ba-frame"><img id="imgBefore" alt="原图"></div>
+          <figcaption id="imgBeforeCap">&mdash;</figcaption>
+        </figure>
+        <figure>
+          <div class="ba-frame">
+            <img id="imgAfter" alt="处理后" hidden>
+            <div class="ba-holder" id="imgAfterHolder">
+              <span class="spin" aria-hidden="true"></span>
+              <span class="ba-holder-t" id="imgAfterHolderT">处理中…</span>
+            </div>
+          </div>
+          <figcaption id="imgAfterCap">&mdash;</figcaption>
+        </figure>
+      </div>
+
+      <div class="qr-opts" id="imgOpts" hidden>
+        <div class="opt-row">
+          <span class="opt-label">尺寸</span>
+          <div class="seg" data-img="mode">
+            <button data-val="max" class="on" type="button">限制最长边</button>
+            <button data-val="scale" type="button">按百分比</button>
+          </div>
+        </div>
+        <div class="opt-row" id="imgMaxRow">
+          <span class="opt-label">最长边不超过</span>
+          <div class="seg" data-img="maxEdge">
+            <button data-val="1280" type="button">1280</button>
+            <button data-val="1920" class="on" type="button">1920</button>
+            <button data-val="2560" type="button">2560</button>
+            <button data-val="0" type="button">不缩放</button>
+          </div>
+        </div>
+        <div class="opt-row" id="imgScaleRow" hidden>
+          <span class="opt-label">缩放到</span>
+          <div class="slider" style="flex:1;max-width:280px">
+            <input type="range" id="imgScale" min="5" max="100" step="5" value="100">
+            <span class="v" id="imgScaleV">100%</span>
+          </div>
+        </div>
+        <div class="opt-row" id="imgFormatRow">
+          <span class="opt-label">输出格式</span>
+          <div class="seg" data-img2="format">
+            <button data-val="auto" class="on" type="button">自动择优</button>
+            <button data-val="jpeg" type="button">仅 JPG</button>
+            <button data-val="png" type="button">仅 PNG</button>
+          </div>
+        </div>
+        <div class="opt-row">
+          <span class="opt-label">压缩依据</span>
+          <div class="seg" data-img2="criteria">
+            <button data-val="ssim" class="on" type="button">视觉无损</button>
+            <button data-val="quality" type="button">手调质量</button>
+            <button data-val="size" type="button">目标体积</button>
+          </div>
+        </div>
+        <div class="opt-row" id="imgThreshRow">
+          <span class="opt-label">相似度下限</span>
+          <div class="seg" data-img2="threshold">
+            <button data-val="0.99" type="button">0.99 极保守</button>
+            <button data-val="0.98" class="on" type="button">0.98 视觉无损</button>
+            <button data-val="0.97" type="button">0.97 更小</button>
+          </div>
+        </div>
+        <div class="opt-row" id="imgQualityRow" hidden>
+          <span class="opt-label">质量</span>
+          <div class="slider" style="flex:1;max-width:280px">
+            <input type="range" id="imgQuality" min="30" max="95" step="1" value="82">
+            <span class="v" id="imgQualityV">82</span>
+          </div>
+        </div>
+        <div class="opt-row" id="imgTargetRow" hidden>
+          <span class="opt-label">压到不超过</span>
+          <div class="fld">
+            <input class="inp mono" id="imgTarget" autocomplete="off" placeholder="300" style="width:84px">
+            <span class="msg" style="min-height:auto">KB</span>
+          </div>
+        </div>
+        <div class="opt-row">
+          <span class="opt-label"></span>
+          <div class="btn-row">
+            <button class="btn primary" id="imgDownload" type="button">下载（当前）</button>
+            <button class="btn" id="imgDownloadAll" type="button" hidden>全部下载 ZIP</button>
+            <button class="btn" id="imgReset" type="button">清空</button>
+          </div>
+        </div>
+      </div>
+
+      <div id="imgPanel" hidden style="margin-top:14px">
+        <div class="io-head"><span class="io-title">候选（按体积排序，达标的才参与竞争）</span></div>
+        <div class="cand-wrap" id="imgCands"></div>
+        <div class="file-list" id="imgFiles"></div>
+      </div>
+
+      <p class="hint" id="imgHint">判据与 <b>smartimg</b> 技能一致：多通道 SSIM + 逐格式搜索刚好达标的最低质量，取体积最小者，全不达标就保留原图。编码器受浏览器限制（canvas 的 libjpeg/libwebp，不是 MozJPEG/AVIF/OxiPNG），同样画质下的体积会略大于本地 CLI；要出成品图仍建议跑本地 CLI。</p>
+    </div>
+  </section>
+
+<footer>
+    单文件离线工具箱 · 不联网、不上传、数据不出本机<br>
     金额精度到分、整数支持至&ldquo;万亿&rdquo;级；二维码本地编码，支持 L/M/Q/H 容错与中心 Logo。
   </footer>
 
 </div>
 
-<script data-page-node-id="yuq4bhtI1yIYi9MKTB5RVZ" data-pnid-children="KtHnQelWmT2iqq41cBA05O">
+<script>
 // ==== CORE START ====
 var CN_DIGIT = ['零','壹','贰','叁','肆','伍','陆','柒','捌','玖'];
 var CN_UNIT4 = ['','拾','佰','仟'];
@@ -2524,6 +2594,263 @@ function imgQualityVerdict(st, target){
 }
 // ==== IMG CORE END ====
 
+// ==== SSIM CORE START ====
+// 与 smartimg-image-compress 的 ssim() 对齐：
+//   通道 = 亮度 + RGB；源图有透明时先白底合成，并额外保留 alpha 平面
+//   局部统计用 k×k 积分图（内存 O(H*W)，不用滑窗物化）
+//   C1=(0.01*255)^2, C2=(0.03*255)^2；各通道 SSIM 取均值后再对各通道平均
+// 入参都是非预乘的 RGBA（canvas getImageData 的原始顺序），与 PIL 的取法一致。
+
+function ssimHasAlpha(rgba){
+  for (var i = 3; i < rgba.length; i += 4) if (rgba[i] < 250) return true;
+  return false;
+}
+
+function ssimPlanes(rgba, w, h){
+  var n = w * h, i, p;
+  var lum = new Float32Array(n);
+  var planes = [];
+  if (ssimHasAlpha(rgba)){
+    var pr = new Float32Array(n), pg = new Float32Array(n), pb = new Float32Array(n), pa = new Float32Array(n);
+    for (i = 0, p = 0; i < n; i++, p += 4){
+      var al = rgba[p + 3] / 255;
+      var r = rgba[p] * al + 255 * (1 - al);
+      var g = rgba[p + 1] * al + 255 * (1 - al);
+      var b = rgba[p + 2] * al + 255 * (1 - al);
+      pr[i] = r; pg[i] = g; pb[i] = b;
+      pa[i] = rgba[p + 3];
+      lum[i] = 0.299 * r + 0.587 * g + 0.114 * b;
+    }
+    planes.push(pr, pg, pb, lum, pa);
+  } else {
+    var r2 = new Float32Array(n), g2 = new Float32Array(n), b2 = new Float32Array(n);
+    for (i = 0, p = 0; i < n; i++, p += 4){
+      r2[i] = rgba[p]; g2[i] = rgba[p + 1]; b2[i] = rgba[p + 2];
+      lum[i] = 0.299 * rgba[p] + 0.587 * rgba[p + 1] + 0.114 * rgba[p + 2];
+    }
+    planes.push(lum, r2, g2, b2);
+  }
+  return planes;
+}
+
+// 前缀和（积分图），sat 尺寸 (h+1)*(w+1)
+function ssimPrefix(src, w, h, sat){
+  var W = w + 1, i, j, rowSum, base, sbase, pbase;
+  for (j = 0; j <= w; j++) sat[j] = 0;
+  for (i = 1; i <= h; i++){
+    rowSum = 0;
+    base = i * W;
+    sbase = (i - 1) * W;
+    pbase = (i - 1) * w;
+    sat[base] = 0;
+    for (j = 1; j <= w; j++){
+      rowSum += src[pbase + j - 1];
+      sat[base + j] = sat[sbase + j] + rowSum;
+    }
+  }
+}
+
+// k×k 滑窗和：out 尺寸 oh*ow
+function ssimBox(sat, w, h, k, out){
+  var W = w + 1, oh = h - k + 1, ow = w - k + 1, i, j, a, b, c, d;
+  for (i = 0; i < oh; i++){
+    for (j = 0; j < ow; j++){
+      a = (i + k) * W + (j + k);
+      b = i * W + (j + k);
+      c = (i + k) * W + j;
+      d = i * W + j;
+      out[i * ow + j] = sat[a] - sat[b] - sat[c] + sat[d];
+    }
+  }
+  return { ow: ow, oh: oh };
+}
+
+function ssimCompare(rgbaA, rgbaB, w, h, k){
+  k = k || 8;
+  if (!rgbaA || !rgbaB || rgbaA.length !== rgbaB.length) return { ssim: 0, planes: 0 };
+  if (w < k || h < k) return { ssim: 1, planes: 0 };
+  var pa = ssimPlanes(rgbaA, w, h);
+  var pb = ssimPlanes(rgbaB, w, h);
+  var m = Math.min(pa.length, pb.length);
+  var W = w + 1, H = h + 1, sz = W * H, nn = w * h;
+  var sA = new Float64Array(sz), sB = new Float64Array(sz);
+  var sAA = new Float64Array(sz), sBB = new Float64Array(sz), sAB = new Float64Array(sz);
+  var oh = h - k + 1, ow = w - k + 1, on = oh * ow;
+  var bA = new Float64Array(on), bB = new Float64Array(on), bAA = new Float64Array(on), bBB = new Float64Array(on), bAB = new Float64Array(on);
+  var tmp = new Float32Array(nn);
+  var C1 = Math.pow(0.01 * 255, 2), C2 = Math.pow(0.03 * 255, 2);
+  var n2 = k * k;
+  var total = 0, used = 0, pi, i, mx, my, vx, vy, sxy, acc, den;
+  for (pi = 0; pi < m; pi++){
+    var x = pa[pi], y = pb[pi];
+    ssimPrefix(x, w, h, sA);
+    ssimPrefix(y, w, h, sB);
+    for (i = 0; i < nn; i++) tmp[i] = x[i] * x[i];
+    ssimPrefix(tmp, w, h, sAA);
+    for (i = 0; i < nn; i++) tmp[i] = y[i] * y[i];
+    ssimPrefix(tmp, w, h, sBB);
+    for (i = 0; i < nn; i++) tmp[i] = x[i] * y[i];
+    ssimPrefix(tmp, w, h, sAB);
+    ssimBox(sA, w, h, k, bA);
+    ssimBox(sB, w, h, k, bB);
+    ssimBox(sAA, w, h, k, bAA);
+    ssimBox(sBB, w, h, k, bBB);
+    ssimBox(sAB, w, h, k, bAB);
+    acc = 0;
+    for (i = 0; i < on; i++){
+      mx = bA[i] / n2;
+      my = bB[i] / n2;
+      vx = bAA[i] / n2 - mx * mx;
+      vy = bBB[i] / n2 - my * my;
+      sxy = bAB[i] / n2 - mx * my;
+      if (vx < 0) vx = 0;
+      if (vy < 0) vy = 0;
+      den = (mx * mx + my * my + C1) * (vx + vy + C2);
+      acc += den === 0 ? 0 : ((2 * mx * my + C1) * (2 * sxy + C2)) / den;
+    }
+    total += acc / on;
+    used++;
+  }
+  return { ssim: used ? total / used : 1, planes: used };
+}
+
+// 候选排名：达标的里取体积最小；同体积按格式名定序（保证结果可复现）
+function ssimRank(cands, thr){
+  var passing = [], i, c;
+  for (i = 0; i < cands.length; i++){
+    c = cands[i];
+    if (c && c.ssim !== null && c.ssim !== undefined && c.ssim >= thr && c.size > 0) passing.push(c);
+  }
+  passing.sort(function (m, n){
+    if (m.size !== n.size) return m.size - n.size;
+    return m.fmt < n.fmt ? -1 : (m.fmt > n.fmt ? 1 : 0);
+  });
+  return { winner: passing.length ? passing[0] : null, passing: passing, total: cands.length };
+}
+
+// ==== SSIM CORE END ====
+
+// ==== ZIP CORE START ====
+// 最小 ZIP 写入器（store，不压缩）。只为"批量下载"服务：图已经是压过的，再压一遍没意义。
+// UTF-8 文件名靠通用标志位 bit 11（0x0800），否则中文名在解压时会乱码。
+
+var ZIP_CRC_TABLE = null;
+
+function zipCrc32(bytes){
+  if (!ZIP_CRC_TABLE){
+    ZIP_CRC_TABLE = new Int32Array(256);
+    for (var i = 0; i < 256; i++){
+      var c = i;
+      for (var k = 0; k < 8; k++) c = (c & 1) ? (0xEDB88320 ^ (c >>> 1)) : (c >>> 1);
+      ZIP_CRC_TABLE[i] = c;
+    }
+  }
+  var crc = -1;
+  for (var j = 0; j < bytes.length; j++) crc = (crc >>> 8) ^ ZIP_CRC_TABLE[(crc ^ bytes[j]) & 0xFF];
+  return (crc ^ -1) >>> 0;
+}
+
+function zipUtf8(str){
+  var out = [], i, c;
+  for (i = 0; i < str.length; i++){
+    c = str.charCodeAt(i);
+    if (c < 0x80) out.push(c);
+    else if (c < 0x800) out.push(0xC0 | (c >> 6), 0x80 | (c & 63));
+    else if (c >= 0xD800 && c <= 0xDBFF && i + 1 < str.length && str.charCodeAt(i + 1) >= 0xDC00 && str.charCodeAt(i + 1) <= 0xDFFF){
+      var cp = 0x10000 + ((c - 0xD800) << 10) + (str.charCodeAt(++i) - 0xDC00);
+      out.push(0xF0 | (cp >> 18), 0x80 | ((cp >> 12) & 63), 0x80 | ((cp >> 6) & 63), 0x80 | (cp & 63));
+    } else {
+      out.push(0xE0 | (c >> 12), 0x80 | ((c >> 6) & 63), 0x80 | (c & 63));
+    }
+  }
+  return new Uint8Array(out);
+}
+
+function ZipWriter(){
+  this.parts = [];
+  this.central = [];
+  this.offset = 0;
+}
+ZipWriter.prototype.add = function(name, data, mtime){
+  var nameBytes = zipUtf8(name);
+  var crc = zipCrc32(data);
+  var d = mtime ? new Date(mtime) : new Date();
+  var time = ((d.getHours() & 31) << 11) | ((d.getMinutes() & 63) << 5) | ((d.getSeconds() / 2) & 31);
+  var date = (((d.getFullYear() - 1980) & 127) << 9) | (((d.getMonth() + 1) & 15) << 5) | (d.getDate() & 31);
+
+  var lh = new Uint8Array(30 + nameBytes.length);
+  var dv = new DataView(lh.buffer);
+  dv.setUint32(0, 0x04034b50, true);
+  dv.setUint16(4, 20, true);
+  dv.setUint16(6, 0x0800, true);
+  dv.setUint16(8, 0, true);
+  dv.setUint16(10, time, true);
+  dv.setUint16(12, date, true);
+  dv.setUint32(14, crc, true);
+  dv.setUint32(18, data.length, true);
+  dv.setUint32(22, data.length, true);
+  dv.setUint16(26, nameBytes.length, true);
+  dv.setUint16(28, 0, true);
+  lh.set(nameBytes, 30);
+
+  this.parts.push(lh, data);
+  this.central.push({ name: nameBytes, crc: crc, size: data.length, time: time, date: date, offset: this.offset });
+  this.offset += lh.length + data.length;
+  return this;
+};
+ZipWriter.prototype.finish = function(){
+  var i, c, cdSize = 0, arrs = [];
+  for (i = 0; i < this.central.length; i++){
+    c = this.central[i];
+    var ch = new Uint8Array(46 + c.name.length);
+    var dv = new DataView(ch.buffer);
+    dv.setUint32(0, 0x02014b50, true);
+    dv.setUint16(4, 20, true);
+    dv.setUint16(6, 20, true);
+    dv.setUint16(8, 0x0800, true);
+    dv.setUint16(10, 0, true);
+    dv.setUint16(12, c.time, true);
+    dv.setUint16(14, c.date, true);
+    dv.setUint32(16, c.crc, true);
+    dv.setUint32(20, c.size, true);
+    dv.setUint32(24, c.size, true);
+    dv.setUint16(28, c.name.length, true);
+    dv.setUint16(30, 0, true);
+    dv.setUint16(32, 0, true);
+    dv.setUint16(34, 0, true);
+    dv.setUint16(36, 0, true);
+    dv.setUint32(38, 0, true);
+    dv.setUint32(42, c.offset, true);
+    ch.set(c.name, 46);
+    arrs.push(ch);
+    cdSize += ch.length;
+  }
+  var eocd = new Uint8Array(22);
+  var ev = new DataView(eocd.buffer);
+  ev.setUint32(0, 0x06054b50, true);
+  ev.setUint16(4, 0, true);
+  ev.setUint16(6, 0, true);
+  ev.setUint16(8, this.central.length, true);
+  ev.setUint16(10, this.central.length, true);
+  ev.setUint32(12, cdSize, true);
+  ev.setUint32(16, this.offset, true);
+  ev.setUint16(20, 0, true);
+
+  var total = this.offset + cdSize + eocd.length;
+  var out = new Uint8Array(total), pos = 0, j;
+  for (j = 0; j < this.parts.length; j++){ out.set(this.parts[j], pos); pos += this.parts[j].length; }
+  for (j = 0; j < arrs.length; j++){ out.set(arrs[j], pos); pos += arrs[j].length; }
+  out.set(eocd, pos);
+  return out;
+};
+
+function zipStore(files, mtime){
+  var w = new ZipWriter();
+  for (var i = 0; i < files.length; i++) w.add(files[i].name, files[i].data, mtime);
+  return w.finish();
+}
+// ==== ZIP CORE END ====
+
 
 /* ================= 工具切换 ================= */
 (function(){
@@ -3413,8 +3740,12 @@ function wbSeg(scope, attr, onChange){
   render();
 })();
 
-/* ================= 图片压缩工具 ================= */
+/* ================= 图片压缩工具（视觉无损优先） ================= */
 (function(){
+  // SSIM 采样长边：搜索与终校用**同一尺度**（技能红线：尺度不配套会得出相反结论）
+  var COMPARE_SIDE = 720;
+  var Q_MIN = 30, Q_MAX = 95;
+
   var elDrop = document.getElementById('imgDrop');
   var elFile = document.getElementById('imgFile');
   var elMsg = document.getElementById('imgMsg');
@@ -3424,172 +3755,385 @@ function wbSeg(scope, attr, onChange){
   var elBeforeCap = document.getElementById('imgBeforeCap');
   var elAfterCap = document.getElementById('imgAfterCap');
   var elOpts = document.getElementById('imgOpts');
+  var elPanel = document.getElementById('imgPanel');
+  var elCands = document.getElementById('imgCands');
+  var elFiles = document.getElementById('imgFiles');
   var elMaxRow = document.getElementById('imgMaxRow');
   var elScaleRow = document.getElementById('imgScaleRow');
+  var elThreshRow = document.getElementById('imgThreshRow');
   var elQualityRow = document.getElementById('imgQualityRow');
-  var elCtrl = document.getElementById('imgTarget');
+  var elTargetRow = document.getElementById('imgTargetRow');
+  var elDownloadAll = document.getElementById('imgDownloadAll');
+  var elWarn = document.getElementById('imgWarn');
+  var elDownload = document.getElementById('imgDownload');
+  var elHolder = document.getElementById('imgAfterHolder');
+  var elHolderT = document.getElementById('imgAfterHolderT');
 
-  var srcImg = null, srcFile = null, srcUrl = '', outUrl = '', outBlob = null, busy = false;
-  var opt = { mode: 'max', maxEdge: 1920, scale: 100, format: 'image/jpeg', quality: 0.82 };
+  var opt = {
+    mode: 'max', maxEdge: 1920, scale: 100,
+    criteria: 'ssim', threshold: 0.98, quality: 0.82, format: 'auto'
+  };
+  var items = [];
+  var cur = -1;
+  var running = false;
 
-  function releaseUrls(){
-    if (srcUrl){ try { URL.revokeObjectURL(srcUrl); } catch (e) {} srcUrl = ''; }
-    if (outUrl){ try { URL.revokeObjectURL(outUrl); } catch (e) {} outUrl = ''; }
+  function setMsg(t, cls){ elMsg.textContent = t || ''; elMsg.className = 'msg' + (cls ? ' ' + cls : ''); }
+  function targetKB(){ var v = parseFloat(document.getElementById('imgTarget').value); return (isFinite(v) && v > 0) ? v * 1024 : 0; }
+
+  function compareSize(w, h){
+    var s = Math.min(1, COMPARE_SIDE / Math.max(w, h));
+    return { w: Math.max(1, Math.round(w * s)), h: Math.max(1, Math.round(h * s)) };
   }
 
-  function setMsg(text, cls){ elMsg.textContent = text || ''; elMsg.className = 'msg' + (cls ? ' ' + cls : ''); }
-
-  function targetBytes(){
-    var v = parseFloat(elCtrl.value);
-    if (!isFinite(v) || v <= 0) return 0;
-    return Math.round(v * 1024);
+  function rgbaAt(img, w, h){
+    var cv = document.createElement('canvas');
+    cv.width = w; cv.height = h;
+    var ctx = cv.getContext('2d', { willReadFrequently: true });
+    ctx.clearRect(0, 0, w, h);
+    ctx.drawImage(img, 0, 0, w, h);
+    return ctx.getImageData(0, 0, w, h).data;
   }
 
-  function encodeOne(q, w, h){
-    return new Promise(function(resolve){
+  // 基准画布：原图按**输出尺寸**渲染一次。之后所有编码与比对都从它出发，
+  // 保证"基准"与"编码结果"走同一条重采样链（否则连无损 PNG 都会被判低分）。
+  function makeFitCanvas(img, w, h){
+    var cv = document.createElement('canvas');
+    cv.width = w; cv.height = h;
+    var ctx = cv.getContext('2d', { willReadFrequently: true });
+    ctx.clearRect(0, 0, w, h);
+    ctx.drawImage(img, 0, 0, w, h);
+    return cv;
+  }
+
+  function encodeBlob(img, w, h, fmt, q){
+    return new Promise(function(res){
       var cv = document.createElement('canvas');
-      cv.width = w;
-      cv.height = h;
+      cv.width = w; cv.height = h;
       var ctx = cv.getContext('2d');
-      if (opt.format === 'image/jpeg'){
+      if (fmt === 'image/jpeg'){
         ctx.fillStyle = '#ffffff';
         ctx.fillRect(0, 0, w, h);
       }
-      ctx.drawImage(srcImg, 0, 0, w, h);
-      cv.toBlob(function(blob){
-        if (!blob){ resolve(null); return; }
-        var fr = new FileReader();
-        fr.onload = function(){
-          var head = new Uint8Array(fr.result);
-          resolve({ blob: blob, size: blob.size, mime: imgSniffMime(head) });
-        };
-        fr.onerror = function(){ resolve({ blob: blob, size: blob.size, mime: null }); };
-        fr.readAsArrayBuffer(blob.slice(0, 16));
-      }, opt.format, q);
+      ctx.drawImage(img, 0, 0, w, h);
+      cv.toBlob(function(b){ res(b); }, fmt, q);
     });
   }
 
-  // 两段式压到目标体积：先固定尺寸二分质量；压不动再缩尺寸，最后在该尺寸下把质量顶回去
-  async function fitToTarget(target, baseFit){
-    var st = imgQualitySearchNew(0.3, 0.95, 8), q, r;
+  async function ssimOfBlob(blob, refData, cw, ch){
+    var bmp = await createImageBitmap(blob);
+    var cv = document.createElement('canvas');
+    cv.width = cw; cv.height = ch;
+    var ctx = cv.getContext('2d', { willReadFrequently: true });
+    ctx.clearRect(0, 0, cw, ch);
+    ctx.drawImage(bmp, 0, 0, cw, ch);
+    var d = ctx.getImageData(0, 0, cw, ch).data;
+    if (bmp.close) bmp.close();
+    return ssimCompare(refData, d, cw, ch, 8).ssim;
+  }
+
+  function formatsFor(it){
+    if (opt.format === 'jpeg') return ['image/jpeg'];
+    if (opt.format === 'png') return ['image/png'];
+    return it.hasAlpha ? ['image/webp', 'image/png'] : ['image/jpeg', 'image/webp'];
+  }
+
+  async function trial(it, fit, fmt, q, refData, cw, ch){
+    var t0 = (window.__probe && performance.now()) || 0;
+    var blob = await encodeBlob(it.fitCanvas || it.img, fit.width, fit.height, fmt, q);
+    var t1 = (window.__probe && performance.now()) || 0;
+    if (!blob) return null;
+    // PNG 虽是无损，也实测一次 SSIM：画布色彩管理/降采样仍可能带来细微差异
+    var ssim = await ssimOfBlob(blob, refData, cw, ch);
+    if (window.__probe) console.log('[trial] ' + fmt + ' q=' + q + ' enc=' + (t1 - t0).toFixed(0) + 'ms ssim=' + (performance.now() - t1).toFixed(0) + 'ms size=' + blob.size + ' ssimv=' + ssim.toFixed(4));
+    return { fmt: fmt, q: q, blob: blob, size: blob.size, ssim: ssim, w: 0, h: 0 };
+  }
+
+  // 二分：找「刚好达标的最低质量」；最高质量都不达标则返回 null
+  async function searchQuality(it, fit, fmt, refData, cw, ch, thr){
+    var lo = Q_MIN, hi = Q_MAX, best = null, rec, mid;
+    while (lo <= hi){
+      mid = Math.round((lo + hi) / 2);
+      rec = await trial(it, fit, fmt, mid / 100, refData, cw, ch);
+      if (!rec) return null;
+      if (rec.ssim >= thr){ best = rec; hi = mid - 1; }
+      else lo = mid + 1;
+    }
+    return best;
+  }
+
+  // 目标体积：先二分质量，压不动再二分尺寸（沿用既有策略，按指定格式跑）
+  async function fitToTarget(it, fit, fmt, target, refData, cw, ch){
+    var st = imgQualitySearchNew(0.35, 0.95, 7), q, r, best = null;
     while ((q = imgQualitySearchNext(st)) !== null){
-      r = await encodeOne(q, baseFit.width, baseFit.height);
+      r = await trial(it, fit, fmt, q, refData, cw, ch);
       if (!r) break;
       imgQualitySearchFeed(st, q, r.size, target);
+      if (r.size <= target && (!best || r.size > best.size)) best = r;
     }
-    var v = imgQualityVerdict(st, target);
-    if (v.ok){
-      var rb = await encodeOne(v.q, baseFit.width, baseFit.height);
-      return { rec: rb, w: baseFit.width, h: baseFit.height, q: v.q, note: rb ? '' : 'encode-failed' };
-    }
-    var ss = imgQualitySearchNew(0.2, 1, 7), sc, w, h;
+    if (best){ best.w = fit.width; best.h = fit.height; return best; }
+    var ss = imgQualitySearchNew(0.2, 1, 6), sc, w, h, r2, best2 = null;
     while ((sc = imgQualitySearchNext(ss)) !== null){
-      w = Math.max(1, Math.round(baseFit.width * sc));
-      h = Math.max(1, Math.round(baseFit.height * sc));
-      r = await encodeOne(0.72, w, h);
-      if (!r) break;
-      imgQualitySearchFeed(ss, sc, r.size, target);
+      w = Math.max(1, Math.round(fit.width * sc));
+      h = Math.max(1, Math.round(fit.height * sc));
+      it.fitCanvas = makeFitCanvas(it.img, w, h);
+      var ref2 = rgbaAt(it.fitCanvas, cw, ch);
+      r2 = await trial(it, { width: w, height: h }, fmt, 0.72, ref2, cw, ch);
+      if (!r2) break;
+      r2.w = w; r2.h = h;
+      imgQualitySearchFeed(ss, sc, r2.size, target);
+      if (r2.size <= target && (!best2 || r2.size > best2.size)) best2 = r2;
     }
-    var sv = imgQualityVerdict(ss, target);
-    if (sv.ok){
-      w = Math.max(1, Math.round(baseFit.width * sv.q));
-      h = Math.max(1, Math.round(baseFit.height * sv.q));
-      var st2 = imgQualitySearchNew(0.3, 0.95, 6), q2, r2 = null;
-      while ((q2 = imgQualitySearchNext(st2)) !== null){
-        r2 = await encodeOne(q2, w, h);
-        if (!r2) break;
-        imgQualitySearchFeed(st2, q2, r2.size, target);
-      }
-      var v2 = imgQualityVerdict(st2, target);
-      var useQ = (v2.ok ? v2.q : (v2.q === null || v2.q === undefined ? 0.72 : v2.q));
-      var r3 = await encodeOne(useQ, w, h);
-      return { rec: r3, w: w, h: h, q: useQ, note: r3 ? '' : 'encode-failed' };
-    }
-    w = Math.max(1, Math.round(baseFit.width * 0.2));
-    h = Math.max(1, Math.round(baseFit.height * 0.2));
-    var rmin = await encodeOne(0.3, w, h);
-    return { rec: rmin, w: w, h: h, q: 0.3, note: rmin ? 'unreachable' : 'encode-failed' };
+    if (best2) return best2;
+    var wmin = Math.max(1, Math.round(fit.width * 0.2));
+    var hmin = Math.max(1, Math.round(fit.height * 0.2));
+    it.fitCanvas = makeFitCanvas(it.img, wmin, hmin);
+    var refMin = rgbaAt(it.fitCanvas, cw, ch);
+    var rmin = await trial(it, { width: wmin, height: hmin }, fmt, 0.4, refMin, cw, ch);
+    if (rmin){ rmin.w = wmin; rmin.h = hmin; rmin.note = 'unreachable'; }
+    return rmin;
   }
 
-  async function run(){
-    if (!srcImg || busy) return;
-    busy = true;
-    try {
-      var fit = imgFit(srcImg.naturalWidth, srcImg.naturalHeight, opt);
-      var target = opt.format === 'image/png' ? 0 : targetBytes();
-      var res = null, warn = '', usedW = fit.width, usedH = fit.height;
+  async function processItem(it){
+    var __t = (window.__probe && performance.now()) || 0;
+    if (window.__probe) console.log('[item] start ' + it.name + ' ' + it.w + 'x' + it.h);
+    it.status = 'running';
+    it.cands = [];
+    it.best = null;
+    it.note = '';
+    renderFiles();
+    if (items[cur] === it) renderAll();
+    var fit = imgFit(it.w, it.h, opt);
+    var cs = compareSize(fit.width, fit.height);
+    it.fitCanvas = makeFitCanvas(it.img, fit.width, fit.height);
+    var refData = rgbaAt(it.fitCanvas, cs.w, cs.h);
+    var thr = opt.threshold;
+    var cands = [];
 
-      if (target > 0){
-        setMsg('处理中…（正在逼近 ' + Math.round(target / 1024) + ' KB）');
-        var plan = await fitToTarget(target, fit);
-        usedW = plan.w;
-        usedH = plan.h;
-        res = plan.rec;
-        if (plan.note === 'unreachable'){
-          warn = '⚠ 压不到 ' + Math.round(target / 1024) + ' KB：已缩到 ' + plan.w + '×' + plan.h
-            + '、质量 ' + Math.round(plan.q * 100) + '，最低 ' + imgBytes(plan.rec ? plan.rec.size : 0) + '。';
-        }
+    if (opt.criteria === 'ssim'){
+      var fmts = formatsFor(it);
+      for (var i = 0; i < fmts.length; i++){
+        var rec = fmts[i] === 'image/png'
+          ? await trial(it, fit, 'image/png', 1, refData, cs.w, cs.h)
+          : await searchQuality(it, fit, fmts[i], refData, cs.w, cs.h, thr);
+        if (rec){ rec.pass = rec.ssim >= thr; cands.push(rec); }
+      }
+      it.cands = cands;
+      var rank = ssimRank(cands, thr);
+      it.best = rank.winner;
+      if (!it.best) it.note = 'no-candidate';
+    } else if (opt.criteria === 'quality'){
+      var f2 = formatsFor(it)[0];
+      var r3 = await trial(it, fit, f2, opt.quality, refData, cs.w, cs.h);
+      if (r3){ r3.pass = r3.ssim >= thr; cands.push(r3); }
+      it.cands = cands;
+      it.best = r3;
+    } else {
+      var f3 = formatsFor(it)[0];
+      var tb = targetKB();
+      if (tb <= 0){ it.note = 'no-target'; it.status = 'kept'; return it; }
+      var r4;
+      if (f3 === 'image/png'){
+        r4 = await trial(it, fit, 'image/png', 1, refData, cs.w, cs.h);
+        if (r4){ r4.w = fit.width; r4.h = fit.height; r4.pass = true; }
       } else {
-        res = await encodeOne(opt.quality, fit.width, fit.height);
+        r4 = tb > 0 ? await fitToTarget(it, fit, f3, tb, refData, cs.w, cs.h) : null;
       }
-
-      if (!res || !res.blob){ setMsg('处理失败，请换一张图片试试', 'err'); busy = false; return; }
-      if (outUrl){ try { URL.revokeObjectURL(outUrl); } catch (e) {} }
-      outBlob = res.blob;
-      outUrl = URL.createObjectURL(res.blob);
-      elAfter.src = outUrl;
-
-      var fmt = imgFormatInfo(opt.format);
-      var sav = imgSavings(srcFile.size, res.size);
-      elBeforeCap.textContent = srcImg.naturalWidth + '×' + srcImg.naturalHeight + ' · ' + imgBytes(srcFile.size) + ' · 原文件';
-      elAfterCap.textContent = usedW + '×' + usedH + ' · ' + imgBytes(res.size) + ' · ' + fmt.label;
-      elBA.hidden = false;
-      elOpts.hidden = false;
-
-      var note = '', cls = 'ok';
-      if (res.mime && res.mime !== opt.format){
-        note = '⚠ 浏览器实际输出的是 ' + imgFormatInfo(res.mime).label + '，请改用 JPG 或 PNG。';
-      } else if (opt.format === 'image/png' && sav && sav.bigger){
-        note = 'PNG 是无损格式，通常比原 JPG 大；要压小请选 JPG。';
-      } else if (fmt.wechat === false){
-        note = '注意：WebP 发到微信会被当成文件而不是图片。';
-      }
-      if (warn){ note = warn + (note ? ' ' + note : ''); }
-      if (!note) note = (sav && sav.percent > 0) ? ('已减小 ' + sav.percent + '%') : '体积没有变小，可调低质量或缩小尺寸';
-      if (note.indexOf('⚠') === 0 || note.indexOf('注意') === 0 || note.indexOf('PNG') === 0 || note.indexOf('体积没有') === 0) cls = 'warn';
-      setMsg(note, cls);
-    } catch (e) {
-      setMsg('处理出错：' + (e && e.message ? e.message : e), 'err');
+      if (r4){ r4.pass = true; cands.push(r4); }
+      it.cands = cands;
+      it.best = r4;
+      if (r4 && r4.note === 'unreachable') it.note = 'unreachable';
     }
-    busy = false;
+
+    if (it.best){
+      if (!it.best.w) it.best.w = fit.width;
+      if (!it.best.h) it.best.h = fit.height;
+      if (it.best.size >= it.file.size){
+        it.note = 'no-gain';
+        it.best = null;
+      } else {
+        it.best.rawBytes = new Uint8Array(await it.best.blob.arrayBuffer());
+      }
+    }
+    if (window.__probe) console.log('[item] end took=' + (performance.now() - __t).toFixed(0) + 'ms best=' + (it.best ? it.best.fmt + '/' + it.best.size : 'none'));
+    it.status = it.best ? 'done' : (it.note ? 'kept' : 'error');
+    it.doneSize = it.best ? it.best.size : it.file.size;
+    return it;
   }
 
-  function loadFile(file){
-    if (!file) return;
-    var chk = imgFileCheck(file.name, file.type, file.size);
-    if (!chk.ok){ setMsg(chk.msg, 'err'); return; }
-    releaseUrls();
-    srcFile = file;
-    srcUrl = URL.createObjectURL(file);
-    var im = new Image();
-    im.onload = function(){
-      srcImg = im;
-      elBefore.src = srcUrl;
-      elBeforeCap.textContent = im.naturalWidth + '×' + im.naturalHeight + ' · ' + imgBytes(file.size) + ' · 原文件';
-      elBA.hidden = false;
-      elOpts.hidden = false;
-      elAfterCap.textContent = '处理中…';
-      setMsg('已读取「' + file.name + '」', 'ok');
-      run();
-    };
-    im.onerror = function(){ setMsg('这张图片无法解码，请换一张', 'err'); };
-    im.src = srcUrl;
+  var pendingRerun = false;
+
+  async function processAll(){
+    // 处理中又改了选项：记下来，本轮结束后立刻按新参数重跑（不能直接丢弃）
+    if (running){ pendingRerun = true; return; }
+    running = true;
+    do {
+      pendingRerun = false;
+      var n = 0, total = items.length;
+      setMsg('处理中 0 / ' + total + '…');
+      for (var i = 0; i < items.length; i++){
+        var it = items[i];
+        if (it.status === 'done' && it.best) continue;
+        n++;
+        setMsg('处理中 ' + n + ' / ' + total + '：' + it.name);
+        try{ await processItem(it); }
+        catch (e){ it.status = 'error'; it.err = (e && e.message) ? e.message : String(e); }
+        renderAll();
+        await new Promise(function(r){ setTimeout(r, 0); });
+      }
+      var okN = items.filter(function(x){ return x.best; }).length;
+      var saved = items.reduce(function(s, x){ return s + Math.max(0, x.file.size - x.doneSize); }, 0);
+      setMsg('完成 ' + okN + ' / ' + items.length + ' 张，共省 ' + imgBytes(saved)
+        + (okN < items.length ? '（未能压小的已保留原图）' : ''), 'ok');
+      renderAll();
+    } while (pendingRerun);
+    running = false;
+  }
+
+  function fmtName(fmt){ return imgFormatInfo(fmt).label; }
+
+  function renderCands(it){
+    if (!it || !it.cands || !it.cands.length){ elCands.innerHTML = ''; return; }
+    var rows = it.cands.slice().sort(function(a, b){ return a.size - b.size; });
+    var h = '<table class="cand"><thead><tr><th>格式</th><th>质量</th><th>体积</th><th>SSIM</th><th>结论</th></tr></thead><tbody>';
+    for (var i = 0; i < rows.length; i++){
+      var c = rows[i];
+      var win = it.best && c === it.best;
+      h += '<tr' + (win ? ' class="win"' : '') + '>'
+        + '<td>' + fmtName(c.fmt) + (win ? ' ★' : '') + '</td>'
+        + '<td>' + (c.fmt === 'image/png' ? '无损' : Math.round(c.q * 100)) + '</td>'
+        + '<td>' + imgBytes(c.size) + '</td>'
+        + '<td>' + (c.ssim === null ? '—' : c.ssim.toFixed(4)) + '</td>'
+        + '<td>' + (c.pass ? (win ? '采用' : '达标但更大') : '未达标') + '</td>'
+        + '</tr>';
+    }
+    h += '</tbody></table>';
+    elCands.innerHTML = h;
+  }
+
+  function renderFiles(){
+    if (items.length <= 1){ elFiles.innerHTML = ''; return; }
+    var h = '<div class="fl-head">共 ' + items.length + ' 张</div>';
+    for (var i = 0; i < items.length; i++){
+      var it = items[i];
+      var st = it.status === 'running' ? '处理中…' : (it.status === 'error' ? ('失败：' + (it.err || '')) :
+        (it.best ? (imgBytes(it.file.size) + ' → ' + imgBytes(it.best.size) + '（省 ' + Math.max(0, Math.round((1 - it.best.size / it.file.size) * 100)) + '%）· SSIM ' + (it.best.ssim ? it.best.ssim.toFixed(4) : '—'))
+          : (it.note === 'no-gain' ? '已保留原图（压不小）'
+            : (it.note === 'unreachable' ? '压不到目标体积，已尽量压小'
+            : (it.note === 'no-target' ? '请填写目标体积'
+            : (it.note === 'no-candidate' ? '没有达标的候选，保留原图' : '未处理'))))));
+      h += '<div class="fl-row' + (i === cur ? ' cur' : '') + '" data-i="' + i + '">'
+        + '<span class="fl-name">' + wbEsc(it.name) + '</span>'
+        + '<span class="fl-st">' + wbEsc(st) + '</span>'
+        + '</div>';
+    }
+    elFiles.innerHTML = h;
+    var rows = elFiles.querySelectorAll('.fl-row');
+    for (var k = 0; k < rows.length; k++){
+      (function(row){
+        row.addEventListener('click', function(){ select(parseInt(row.getAttribute('data-i'), 10)); });
+      })(rows[k]);
+    }
+  }
+
+  function select(i){
+    if (i < 0 || i >= items.length) return;
+    cur = i;
+    renderAll();
+  }
+
+  function renderPreview(it){
+    if (!it){ elBA.hidden = true; return; }
+    elBefore.src = it.srcUrl;
+    elBeforeCap.textContent = it.w + '×' + it.h + ' · ' + imgBytes(it.file.size) + ' · 原文件';
+    var busy = (it.status === 'running' || it.status === 'pending' || it.status === 'loading');
+    if (it.best && it.best.blob){
+      // 只在换结果时重建 URL，避免每次重渲染都闪一下
+      if (it.__urlFor !== it.best.blob){
+        if (it.outUrl){ try { URL.revokeObjectURL(it.outUrl); } catch (e) {} }
+        it.outUrl = URL.createObjectURL(it.best.blob);
+        it.__urlFor = it.best.blob;
+      }
+      elAfter.src = it.outUrl;
+      elAfter.hidden = false;
+      elHolder.hidden = true;
+      elAfterCap.textContent = it.best.w + '×' + it.best.h + ' · ' + imgBytes(it.best.size) + ' · ' + fmtName(it.best.fmt);
+    } else {
+      // 没有结果时把 img 整个藏掉（留空 src 会画成"破图"），改用骨架占位
+      elAfter.hidden = true;
+      elAfter.removeAttribute('src');
+      if (it.outUrl){ try { URL.revokeObjectURL(it.outUrl); } catch (e) {} it.outUrl = ''; it.__urlFor = null; }
+      elHolder.hidden = false;
+      elHolderT.textContent = busy ? '处理中…' : (it.status === 'error' ? '处理失败' : '已保留原图');
+      elAfterCap.textContent = busy ? '处理中…'
+        : (it.status === 'error' ? ('失败：' + (it.err || '')) : '原图（压不小或无达标候选）');
+    }
+    elBA.hidden = false;
+  }
+
+  function renderAll(){
+    var it = items[cur];
+    if (!it) return;
+    elOpts.hidden = false;
+    elPanel.hidden = false;
+    renderPreview(it);
+    renderCands(it);
+    renderFiles();
+    elDownloadAll.hidden = items.filter(function(x){ return x.best; }).length < 2;
+    elDownload.disabled = !it.best;
+    // 格式提醒单独占一行，绝不覆盖进度/完成消息
+    if (it.best && it.best.fmt === 'image/webp'){
+      elWarn.hidden = false;
+      elWarn.textContent = '注意：选中的是 WebP —— 发到微信会被当成文件而不是图片，要发微信请把格式改成「仅 PNG」。';
+    } else {
+      elWarn.hidden = true;
+      elWarn.textContent = '';
+    }
+  }
+
+  /* ---------- 文件接入 ---------- */
+  function addFiles(list){
+    var arr = Array.prototype.slice.call(list || []);
+    if (!arr.length) return;
+    var added = 0, pending = 0;
+    arr.forEach(function(f){
+      var chk = imgFileCheck(f.name, f.type, f.size);
+      if (!chk.ok){ setMsg(chk.msg, 'err'); return; }
+      var it = {
+        name: f.name, file: f, img: null, srcUrl: '', w: 0, h: 0,
+        status: 'loading', err: '', cands: [], best: null, note: '', doneSize: 0,
+        hasAlpha: false, outUrl: ''
+      };
+      items.push(it);
+      added++;
+      pending++;
+      var url = URL.createObjectURL(f);
+      it.srcUrl = url;
+      var im = new Image();
+      im.onload = function(){
+        it.img = im; it.w = im.naturalWidth; it.h = im.naturalHeight;
+        var cs0 = compareSize(it.w, it.h);
+        it.hasAlpha = ssimHasAlpha(rgbaAt(im, cs0.w, cs0.h));
+        if (--pending === 0){ if (cur < 0) cur = 0; startProcessing(); }
+        renderFiles();
+      };
+      im.onerror = function(){
+        it.status = 'error'; it.err = '无法解码';
+        if (--pending === 0){ if (cur < 0) cur = 0; startProcessing(); }
+      };
+      im.src = url;
+    });
+    if (added){ elOpts.hidden = false; elPanel.hidden = false; setMsg('已读入 ' + added + ' 张，准备处理…'); }
+  }
+
+  function startProcessing(){
+    if (cur < 0) cur = 0;
+    renderAll();
+    processAll();
   }
 
   elDrop.addEventListener('click', function(){ elFile.click(); });
   elFile.addEventListener('change', function(ev){
-    var f = ev.target.files && ev.target.files[0];
-    loadFile(f);
+    addFiles(ev.target.files);
     ev.target.value = '';
   });
   ['dragenter', 'dragover'].forEach(function(k){
@@ -3600,77 +4144,120 @@ function wbSeg(scope, attr, onChange){
   });
   elDrop.addEventListener('drop', function(ev){
     var dt = ev.dataTransfer;
-    if (dt && dt.files && dt.files.length) loadFile(dt.files[0]);
+    if (dt && dt.files && dt.files.length) addFiles(dt.files);
   });
   document.addEventListener('paste', function(ev){
     if (document.getElementById('tool-image').hidden) return;
-    var items = ev.clipboardData && ev.clipboardData.items;
-    if (!items) return;
-    for (var i = 0; i < items.length; i++){
-      if (items[i].type && items[i].type.indexOf('image/') === 0){
-        var f = items[i].getAsFile();
-        if (f){ loadFile(f); ev.preventDefault(); }
-        return;
+    var its = ev.clipboardData && ev.clipboardData.items;
+    if (!its) return;
+    var picked = [];
+    for (var i = 0; i < its.length; i++){
+      if (its[i].type && its[i].type.indexOf('image/') === 0){
+        var f = its[i].getAsFile();
+        if (f) picked.push(f);
       }
     }
+    if (picked.length){ addFiles(picked); ev.preventDefault(); }
   });
 
+  /* ---------- 选项 ---------- */
+  function syncRows(){
+    elScaleRow.hidden = (opt.mode !== 'scale');
+    elMaxRow.hidden = (opt.mode !== 'max');
+    elThreshRow.hidden = (opt.criteria !== 'ssim');
+    elQualityRow.hidden = (opt.criteria !== 'quality');
+    elTargetRow.hidden = (opt.criteria !== 'size');
+  }
+
   wbSeg(null, 'data-img', function(key, val){
-    if (key === 'mode'){
-      opt.mode = val;
-      elMaxRow.hidden = (val !== 'max');
-      elScaleRow.hidden = (val !== 'scale');
-      if (!srcImg) return;
-      run();
-    } else if (key === 'maxEdge'){
-      opt.maxEdge = parseInt(val, 10);
-      if (srcImg) run();
-    } else if (key === 'format'){
-      opt.format = val;
-      var lossless = imgFormatInfo(val).lossless;
-      elQualityRow.hidden = lossless ? false : false;
-      elQualityRow.style.opacity = lossless ? '.45' : '1';
-      document.getElementById('imgQuality').disabled = lossless;
-      if (srcImg) run();
-    }
+    if (key === 'mode') opt.mode = val;
+    else if (key === 'maxEdge') opt.maxEdge = parseInt(val, 10);
+    syncRows();
+    if (items.length) reprocess();
   });
+
+  wbSeg(null, 'data-img2', function(key, val){
+    if (key === 'threshold') opt.threshold = parseFloat(val);
+    else if (key === 'format') opt.format = val;
+    else if (key === 'criteria') opt.criteria = val;
+    syncRows();
+    if (items.length) reprocess();
+  });
+
   document.getElementById('imgScale').addEventListener('input', function(){
     opt.scale = parseInt(this.value, 10);
     document.getElementById('imgScaleV').textContent = opt.scale + '%';
   });
-  document.getElementById('imgScale').addEventListener('change', function(){ if (srcImg) run(); });
+  document.getElementById('imgScale').addEventListener('change', function(){ if (items.length) reprocess(); });
   document.getElementById('imgQuality').addEventListener('input', function(){
     opt.quality = parseInt(this.value, 10) / 100;
     document.getElementById('imgQualityV').textContent = this.value;
   });
-  document.getElementById('imgQuality').addEventListener('change', function(){ if (srcImg) run(); });
+  document.getElementById('imgQuality').addEventListener('change', function(){ if (items.length) reprocess(); });
   var tTimer = null;
-  elCtrl.addEventListener('input', function(){
+  document.getElementById('imgTarget').addEventListener('input', function(){
     if (tTimer) clearTimeout(tTimer);
-    tTimer = setTimeout(function(){ if (srcImg) run(); }, 420);
+    tTimer = setTimeout(function(){ if (items.length) reprocess(); }, 450);
   });
-  document.getElementById('imgDownload').addEventListener('click', function(){
-    if (!outBlob) return;
+
+  function reprocess(){
+    items.forEach(function(it){ it.best = null; it.status = 'pending'; it.note = ''; });
+    renderAll();
+    processAll();
+  }
+
+  /* ---------- 下载 ---------- */
+  function saveBlob(blob, name){
+    var url = URL.createObjectURL(blob);
     try{
-      var name = (srcFile && srcFile.name ? srcFile.name.replace(/\.[^.]+$/, '') : 'image') + '-压缩.' + imgFormatInfo(opt.format).ext;
       var a = document.createElement('a');
-      a.href = outUrl;
-      a.download = name;
-      document.body.appendChild(a);
-      a.click();
-      document.body.removeChild(a);
+      a.href = url; a.download = name;
+      document.body.appendChild(a); a.click(); document.body.removeChild(a);
     }catch(e){ alert('下载被当前环境拦截，请在 Chrome 里打开本文件后再下载。'); }
+    setTimeout(function(){ try { URL.revokeObjectURL(url); } catch (e) {} }, 4000);
+  }
+
+  document.getElementById('imgDownload').addEventListener('click', function(){
+    var it = items[cur];
+    if (!it || !it.best) return;
+    var base = it.name.replace(/\.[^.]+$/, '');
+    saveBlob(it.best.blob, base + '-压缩.' + imgFormatInfo(it.best.fmt).ext);
   });
+
+  elDownloadAll.addEventListener('click', function(){
+    var files = [], used = {};
+    items.forEach(function(it){
+      if (!it.best) return;
+      var base = it.name.replace(/\.[^.]+$/, '');
+      var ext = imgFormatInfo(it.best.fmt).ext;
+      var nm = base + '-压缩.' + ext;
+      if (used[nm]) { used[nm]++; nm = base + '-压缩(' + used[nm] + ').' + ext; }
+      else used[nm] = 1;
+      files.push({ name: nm, data: new Uint8Array(it.best.rawBytes) });
+    });
+    if (!files.length) return;
+    var zip = zipStore(files);
+    saveBlob(new Blob([zip], { type: 'application/zip' }), '压缩结果-' + files.length + '张.zip');
+  });
+
   document.getElementById('imgReset').addEventListener('click', function(){
-    releaseUrls();
-    srcImg = null; srcFile = null; outBlob = null;
+    items.forEach(function(it){
+      if (it.srcUrl){ try { URL.revokeObjectURL(it.srcUrl); } catch (e) {} }
+      if (it.outUrl){ try { URL.revokeObjectURL(it.outUrl); } catch (e) {} }
+    });
+    items = []; cur = -1;
     elFile.value = '';
     elBA.hidden = true;
     elOpts.hidden = true;
+    elPanel.hidden = true;
     elBefore.removeAttribute('src');
     elAfter.removeAttribute('src');
+    elCands.innerHTML = '';
+    elFiles.innerHTML = '';
     setMsg('');
   });
+
+  syncRows();
 })();
 </script>
 </body>
