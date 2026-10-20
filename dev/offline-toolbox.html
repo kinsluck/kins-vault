@@ -758,14 +758,20 @@ table.cand tr.win td{background:#eefaf3;color:var(--ok);font-weight:600}
           </div>
         </div>
         <div class="opt-row" id="imgMaxRow">
-          <span class="opt-label">最长边不超过</span>
-          <div class="seg" data-img="maxEdge">
-            <button data-val="0" class="on" type="button">不缩放</button>
-            <button data-val="1280" type="button">1280</button>
-            <button data-val="1920" type="button">1920</button>
-            <button data-val="2560" type="button">2560</button>
+          <span class="opt-label">最长边</span>
+          <div class="fld">
+            <input class="inp mono" id="imgMaxEdge" type="number" min="0" max="20000" step="1" value="0"
+                   style="width:88px" inputmode="numeric" autocomplete="off" aria-label="最长边像素">
+            <span class="msg" style="min-height:auto">px</span>
+            <div class="seg" data-img2="maxEdgePreset">
+              <button data-val="0" class="on" type="button">不缩放</button>
+              <button data-val="1280" type="button">1280</button>
+              <button data-val="1920" type="button">1920</button>
+              <button data-val="2560" type="button">2560</button>
+            </div>
           </div>
         </div>
+        <p class="msg" id="imgMaxEdgeHint" style="margin:-4px 0 8px"></p>
         <div class="opt-row" id="imgScaleRow" hidden>
           <span class="opt-label">缩放到</span>
           <div class="slider" style="flex:1;max-width:280px">
@@ -3968,6 +3974,9 @@ function wbSeg(scope, attr, onChange){
   var elDownload = document.getElementById('imgDownload');
   var elHolder = document.getElementById('imgAfterHolder');
   var elHolderT = document.getElementById('imgAfterHolderT');
+  var elMaxEdge = document.getElementById('imgMaxEdge');
+  var elMaxEdgeHint = document.getElementById('imgMaxEdgeHint');
+  var edgePresets = document.querySelectorAll('.seg[data-img2="maxEdgePreset"] button');
 
   var opt = {
     mode: 'max', maxEdge: 0, scale: 100,
@@ -4099,6 +4108,7 @@ function wbSeg(scope, attr, onChange){
     var __t = (window.__probe && performance.now()) || 0;
     if (window.__probe) console.log('[item] start ' + it.name + ' ' + it.w + 'x' + it.h);
     it.status = 'running';
+    it.dirty = false;
     it.cands = [];
     it.best = null;
     it.note = '';
@@ -4165,6 +4175,7 @@ function wbSeg(scope, attr, onChange){
   var pendingRerun = false;
 
   async function processAll(){
+    if (window.__probe) console.log('[pa] enter running=' + running + ' pending=' + pendingRerun + ' items=' + items.length);
     // 处理中又改了选项：记下来，本轮结束后立刻按新参数重跑（不能直接丢弃）
     if (running){ pendingRerun = true; return; }
     running = true;
@@ -4174,7 +4185,7 @@ function wbSeg(scope, attr, onChange){
       setMsg('处理中 0 / ' + total + '…');
       for (var i = 0; i < items.length; i++){
         var it = items[i];
-        if (it.status === 'done' && it.best) continue;
+        if (!it.dirty && it.status === 'done' && it.best) continue;
         n++;
         setMsg('处理中 ' + n + ' / ' + total + '：' + it.name);
         try{ await processItem(it); }
@@ -4189,6 +4200,7 @@ function wbSeg(scope, attr, onChange){
       renderAll();
     } while (pendingRerun);
     running = false;
+    if (window.__probe) console.log('[pa] exit');
   }
 
   function fmtName(fmt){ return imgFormatInfo(fmt).label; }
@@ -4282,6 +4294,8 @@ function wbSeg(scope, attr, onChange){
     renderFiles();
     elDownloadAll.hidden = items.filter(function(x){ return x.best; }).length < 2;
     elDownload.disabled = !it.best;
+    presetSync();
+    updateEdgeHint();
     // 提醒单独占一行，绝不覆盖进度/完成消息
     if (opt.format === 'jpeg' && it.hasAlpha){
       elWarn.hidden = false;
@@ -4307,7 +4321,7 @@ function wbSeg(scope, attr, onChange){
       if (!chk.ok){ setMsg(chk.msg, 'err'); return; }
       var it = {
         name: f.name, file: f, img: null, srcUrl: '', w: 0, h: 0,
-        status: 'loading', err: '', cands: [], best: null, note: '', doneSize: 0,
+        status: 'loading', dirty: true, err: '', cands: [], best: null, note: '', doneSize: 0,
         hasAlpha: false, outUrl: ''
       };
       items.push(it);
@@ -4368,9 +4382,43 @@ function wbSeg(scope, attr, onChange){
   });
 
   /* ---------- 选项 ---------- */
+  // 预设按钮只负责把数值写进输入框，opt.maxEdge 永远是唯一真值
+  function presetSync(){
+    var v = String(opt.maxEdge);
+    for (var i = 0; i < edgePresets.length; i++){
+      edgePresets[i].classList.toggle('on', edgePresets[i].getAttribute('data-val') === v);
+    }
+  }
+
+  // 实时算出短边，让"按比例"这件事看得见
+  function updateEdgeHint(){
+    var it = items[cur];
+    if (!it || !it.w){ elMaxEdgeHint.textContent = ''; return; }
+    var fit = imgFit(it.w, it.h, { mode: 'max', maxEdge: opt.maxEdge, allowUpscale: false });
+    if (fit.width === it.w && fit.height === it.h){
+      elMaxEdgeHint.textContent = '原图 ' + it.w + '×' + it.h + (opt.maxEdge > 0 ? '，已是最长边上限内，不再缩小' : '，不缩放');
+    } else {
+      elMaxEdgeHint.textContent = '→ ' + fit.width + '×' + fit.height + '（短边按比例自动算）';
+    }
+  }
+
+  function applyMaxEdge(){
+    var v = parseInt(elMaxEdge.value, 10);
+    if (!isFinite(v) || v < 0) v = 0;
+    if (v > 0 && v < 16) v = 16;
+    if (v > 20000) v = 20000;
+    opt.maxEdge = v;
+    if (String(v) !== elMaxEdge.value) elMaxEdge.value = String(v);
+    presetSync();
+    updateEdgeHint();
+    if (window.__probe) console.log('[edge] apply v=' + v + ' items=' + items.length + ' running=' + running);
+    if (items.length) reprocess();
+  }
+
   function syncRows(){
     elScaleRow.hidden = (opt.mode !== 'scale');
     elMaxRow.hidden = (opt.mode !== 'max');
+    elMaxEdgeHint.style.display = (opt.mode === 'max') ? '' : 'none';
     elThreshRow.hidden = (opt.criteria !== 'ssim');
     elQualityRow.hidden = (opt.criteria !== 'quality');
     elTargetRow.hidden = (opt.criteria !== 'size');
@@ -4378,7 +4426,6 @@ function wbSeg(scope, attr, onChange){
 
   wbSeg(null, 'data-img', function(key, val){
     if (key === 'mode') opt.mode = val;
-    else if (key === 'maxEdge') opt.maxEdge = parseInt(val, 10);
     syncRows();
     if (items.length) reprocess();
   });
@@ -4390,6 +4437,24 @@ function wbSeg(scope, attr, onChange){
     syncRows();
     if (items.length) reprocess();
   });
+
+  var edgeTimer = null;
+  elMaxEdge.addEventListener('input', function(){
+    if (edgeTimer) clearTimeout(edgeTimer);
+    edgeTimer = setTimeout(applyMaxEdge, 420);
+  });
+  elMaxEdge.addEventListener('change', function(){
+    if (edgeTimer) clearTimeout(edgeTimer);
+    applyMaxEdge();
+  });
+  for (var ei = 0; ei < edgePresets.length; ei++){
+    (function(b){
+      b.addEventListener('click', function(){
+        elMaxEdge.value = b.getAttribute('data-val');
+        applyMaxEdge();
+      });
+    })(edgePresets[ei]);
+  }
 
   document.getElementById('imgScale').addEventListener('input', function(){
     opt.scale = parseInt(this.value, 10);
@@ -4408,8 +4473,10 @@ function wbSeg(scope, attr, onChange){
   });
 
   function reprocess(){
-    items.forEach(function(it){ it.best = null; it.status = 'pending'; it.note = ''; });
+    if (window.__probe) console.log('[reprocess] start');
+    items.forEach(function(it){ it.best = null; it.status = 'pending'; it.note = ''; it.dirty = true; });
     renderAll();
+    if (window.__probe) console.log('[reprocess] renderAll ok');
     processAll();
   }
 
