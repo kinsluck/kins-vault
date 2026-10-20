@@ -325,6 +325,10 @@ table.cand tr.win td{background:#eefaf3;color:var(--ok);font-weight:600}
 .fl-name{overflow:hidden;text-overflow:ellipsis;white-space:nowrap;max-width:48%;color:var(--ink)}
 .fl-st{color:var(--ink3);font-family:ui-monospace,Consolas,monospace;text-align:right}
 
+/* 加到 7 个工具后导航更挤：收一点间距，保证在预览面板这种中等宽度下仍是一行 */
+.tools{gap:5px}
+.tool{padding:9px 11px;gap:5px;font-size:13.5px}
+
 @media screen and (max-width:640px){
   body{padding:18px 12px 36px}
   h1{font-size:17px}
@@ -371,11 +375,11 @@ table.cand tr.win td{background:#eefaf3;color:var(--ok);font-weight:600}
       <div class="logo">&#129520;</div>
       <div>
         <h1>离线工具箱</h1>
-        <p class="sub">金额 · 二维码 · 图片压缩 · JSON · 时间戳 · 文本对比 &middot; 单文件离线工具</p>
+        <p class="sub">金额 · 二维码 · 图片压缩 · JSON · 时间戳 · 文本对比 · 列转行 &middot; 单文件离线工具</p>
       </div>
     </div>
     <div class="hdr-r">
-      <span class="badge">v3 &middot; 2026-10-14</span>
+      <span class="badge">v4 &middot; 2026-10-20</span>
       <span class="badge badge-ok">离线可用</span>
     </div>
   </header>
@@ -387,6 +391,7 @@ table.cand tr.win td{background:#eefaf3;color:var(--ok);font-weight:600}
     <button class="tool" data-tool="json" type="button"><span class="ic">&#129513;</span>JSON</button>
     <button class="tool" data-tool="time" type="button"><span class="ic">&#9201;&#65039;</span>时间戳</button>
     <button class="tool" data-tool="diff" type="button"><span class="ic">&#128256;</span>文本对比</button>
+    <button class="tool" data-tool="join" type="button"><span class="ic">&#128279;</span>列转行</button>
   </nav>
 
   <section class="tool-panel" id="tool-money">
@@ -824,6 +829,72 @@ table.cand tr.win td{background:#eefaf3;color:var(--ok);font-weight:600}
 
       <p class="hint" id="imgHint">输出只给 <b>JPG / PNG</b>（微信都能直接当图片预览）。判据与 <b>smartimg</b> 技能一致：多通道 SSIM + 逐格式搜索刚好达标的最低质量，取体积最小者，全不达标就保留原图；默认不改尺寸。编码器受浏览器限制（canvas 自带编码器，不是 MozJPEG / OxiPNG），同画质体积会略大于本地 CLI。</p>
     </div>
+  </section>
+
+  <section class="tool-panel" id="tool-join" hidden>
+    <div class="tool-grid">
+      <div class="card io-pane">
+        <div class="io-head">
+          <span class="io-title">竖着粘贴（一行一个）</span>
+          <div class="btn-row">
+            <button class="btn small" id="joinDemo" type="button">示例</button>
+            <button class="btn small" id="joinClear" type="button">清空</button>
+          </div>
+        </div>
+        <textarea class="ta tall" id="joinIn" spellcheck="false" autocomplete="off" placeholder="15011635951&#10;13612633231&#10;19864809881"></textarea>
+        <p class="msg" id="joinMsg"></p>
+
+        <div class="fld">
+          <span class="opt-label">分隔符</span>
+          <input class="inp mono" id="joinSep" value="," style="width:92px" autocomplete="off">
+          <button class="btn small" id="joinSepFix" type="button" hidden>改为半角</button>
+        </div>
+        <p class="msg warn" id="joinSepWarn" hidden></p>
+
+        <div class="fld">
+          <span class="opt-label">每项处理</span>
+          <div class="seg" data-join="trim">
+            <button data-val="1" class="on" type="button">去首尾空格</button>
+            <button data-val="0" type="button">保留</button>
+          </div>
+        </div>
+        <div class="fld">
+          <span class="opt-label"></span>
+          <div class="seg" data-join="dropEmpty">
+            <button data-val="1" class="on" type="button">去空行</button>
+            <button data-val="0" type="button">保留空行</button>
+          </div>
+          <div class="seg" data-join="dedupe">
+            <button data-val="0" class="on" type="button">不去重</button>
+            <button data-val="1" type="button">去重</button>
+          </div>
+        </div>
+        <div class="fld">
+          <span class="opt-label">每项加</span>
+          <div class="seg" data-join="quote">
+            <button data-val="" class="on" type="button">不加引号</button>
+            <button data-val="&quot;" type="button">双引号</button>
+            <button data-val="'" type="button">单引号</button>
+          </div>
+        </div>
+        <div class="fld">
+          <span class="opt-label">整体包裹</span>
+          <input class="inp mono" id="joinPrefix" placeholder="前缀 e.g. IN (" style="width:118px" autocomplete="off">
+          <input class="inp mono" id="joinSuffix" placeholder="后缀 e.g. )" style="width:100px" autocomplete="off">
+        </div>
+      </div>
+
+      <div class="card io-pane">
+        <div class="io-head">
+          <span class="io-title">拼成一行</span>
+          <div class="btn-row"><button class="btn small" id="joinCopy" type="button">复制</button></div>
+        </div>
+        <pre class="code" id="joinOut"></pre>
+        <div class="stats-bar" id="joinStats"></div>
+      </div>
+    </div>
+    <p class="hint">把 Excel / 聊天里竖排的数据直接粘进左栏即可。<b>分隔符可以自己填</b>（<code>,</code> <code>;</code> <code>|</code> 或 <code>, </code> 这类），
+      填了中文或全角符号会提醒你——SQL、接口参数、表格公式通常只认半角符号。需要生成 SQL / JSON 的形态时，用「每项加引号」+「整体包裹」。</p>
   </section>
 
 <footer>
@@ -2852,6 +2923,134 @@ function zipStore(files, mtime){
 }
 // ==== ZIP CORE END ====
 
+// ==== JOIN CORE START ====
+// 竖列 → 一行：切行、清洗、去重、加引号、拼接；以及「分隔符是不是半角英文」的检查。
+
+// 常见全角/中文符号 → 半角
+var JOIN_HALF_MAP = {
+  '\uFF0C': ',',   // ，
+  '\uFF1B': ';',   // ；
+  '\uFF1A': ':',   // ：
+  '\u3001': ',',   // 、
+  '\uFF5C': '|',   // ｜
+  '\u3000': ' ',   // 全角空格
+  '\uFF08': '(',   // （
+  '\uFF09': ')',   // ）
+  '\uFF3B': '[',   // ［
+  '\uFF3D': ']',   // ］
+  '\u201C': '"', '\u201D': '"',
+  '\u2018': "'", '\u2019': "'",
+  '\u3002': '.',   // 。
+  '\uFF0E': '.',   // ．
+  '\uFF0D': '-',   // －
+  '\uFF0B': '+',   // ＋
+  '\uFF1D': '=',   // ＝
+  '\uFF5E': '~',   // ～
+  '\uFF0A': '*',   // ＊
+  '\uFF0F': '/'    // ／
+};
+
+function joinSplit(text, opt){
+  opt = opt || {};
+  var s = String(text === undefined || text === null ? '' : text);
+  if (s === '') return [];
+  var lines = s.split(/\r\n|\r|\n/);
+  var out = [], i, v;
+  for (i = 0; i < lines.length; i++){
+    v = lines[i];
+    if (opt.trim) v = v.replace(/^[\s\u3000]+|[\s\u3000]+$/g, '');
+    if (opt.dropEmpty && v === '') continue;
+    out.push(v);
+  }
+  return out;
+}
+
+function joinDedupe(list, ignoreCase){
+  var seen = {}, out = [], i, k;
+  for (i = 0; i < list.length; i++){
+    k = ignoreCase ? String(list[i]).toLowerCase() : String(list[i]);
+    if (seen[k]) continue;
+    seen[k] = 1;
+    out.push(list[i]);
+  }
+  return out;
+}
+
+// 全角/中文符号转半角（无法对应的一律原样保留）
+function joinToHalf(sep){
+  var s = String(sep === undefined || sep === null ? '' : sep);
+  var out = '', i, ch, cp;
+  for (i = 0; i < s.length; i++){
+    ch = s.charAt(i);
+    cp = s.charCodeAt(i);
+    if (Object.prototype.hasOwnProperty.call(JOIN_HALF_MAP, ch)) out += JOIN_HALF_MAP[ch];
+    else if (cp >= 0xFF01 && cp <= 0xFF5E) out += String.fromCharCode(cp - 0xFEE0);
+    else out += ch;
+  }
+  return out;
+}
+
+// 分隔符检查：空 / 含非英文符号
+function joinSepCheck(sep){
+  var s = String(sep === undefined || sep === null ? '' : sep);
+  if (s === '') return { ok: false, level: 'warn', code: 'empty', chars: [], msg: '分隔符是空的，结果会全部连在一起。' };
+  var bad = [], uniq = [], seen = {}, i, ch;
+  for (i = 0; i < s.length; i++){
+    ch = s.charAt(i);
+    if (s.charCodeAt(i) > 127 && !seen[ch]){ seen[ch] = 1; bad.push(ch); }
+  }
+  if (bad.length){
+    var pairs = [], k;
+    for (k = 0; k < bad.length; k++){
+      if (Object.prototype.hasOwnProperty.call(JOIN_HALF_MAP, bad[k])) pairs.push(bad[k] + ' 改成 ' + JOIN_HALF_MAP[bad[k]]);
+    }
+    return {
+      ok: false, level: 'warn', code: 'non-ascii', chars: bad,
+      msg: '分隔符里有非英文符号「' + bad.join('') + '」，很多系统（SQL、接口参数、表格公式）只认半角符号。'
+        + (pairs.length ? '建议：' + pairs.join('；') + '。' : '建议改用半角 , ; | 之类。')
+    };
+  }
+  return { ok: true, level: 'ok', code: 'ok', chars: [], msg: '' };
+}
+
+function joinQuote(item, q){
+  var s = String(item);
+  if (!q) return s;
+  // 项里本来就有引号时转义，避免拼出来的串结构被破坏
+  return q + s.split(q).join('\\' + q) + q;
+}
+
+function joinBuild(list, opt){
+  opt = opt || {};
+  var sep = (opt.sep === undefined || opt.sep === null) ? ',' : String(opt.sep);
+  var parts = [], i;
+  for (i = 0; i < list.length; i++) parts.push(joinQuote(list[i], opt.quote));
+  var body = parts.join(sep);
+  if (opt.prefix) body = String(opt.prefix) + body;
+  if (opt.suffix) body = body + String(opt.suffix);
+  return body;
+}
+
+// 一次性给出结果与统计
+function joinRun(text, opt){
+  opt = opt || {};
+  var raw = String(text === undefined || text === null ? '' : text);
+  var all = joinSplit(raw, { trim: !!opt.trim, dropEmpty: false });
+  var kept = joinSplit(raw, { trim: !!opt.trim, dropEmpty: !!opt.dropEmpty });
+  var before = kept.length;
+  if (opt.dedupe) kept = joinDedupe(kept, !!opt.dedupeIgnoreCase);
+  var out = kept.length ? joinBuild(kept, opt) : '';
+  return {
+    out: out,
+    rows: all.length,
+    kept: kept.length,
+    droppedEmpty: all.length - before,
+    droppedDup: before - kept.length,
+    sepCheck: joinSepCheck(opt.sep)
+  };
+}
+// ==== JOIN CORE END ====
+
 
 /* ================= 工具切换 ================= */
 (function(){
@@ -4266,6 +4465,107 @@ function wbSeg(scope, attr, onChange){
   });
 
   syncRows();
+})();
+
+/* ================= 竖列转一行 ================= */
+(function(){
+  var elIn = document.getElementById('joinIn');
+  var elSep = document.getElementById('joinSep');
+  var elSepWarn = document.getElementById('joinSepWarn');
+  var elSepFix = document.getElementById('joinSepFix');
+  var elOut = document.getElementById('joinOut');
+  var elStats = document.getElementById('joinStats');
+  var elMsg = document.getElementById('joinMsg');
+  var elPrefix = document.getElementById('joinPrefix');
+  var elSuffix = document.getElementById('joinSuffix');
+
+  var opt = { trim: true, dropEmpty: true, dedupe: false, dedupeIgnoreCase: false, quote: '' };
+  var last = '';
+  var timer = null;
+
+  function render(){
+    var src = elIn.value;
+    var r = joinRun(src, {
+      sep: elSep.value,
+      trim: opt.trim,
+      dropEmpty: opt.dropEmpty,
+      dedupe: opt.dedupe,
+      dedupeIgnoreCase: opt.dedupeIgnoreCase,
+      quote: opt.quote,
+      prefix: elPrefix.value,
+      suffix: elSuffix.value
+    });
+    last = r.out;
+    elOut.textContent = r.out || '';
+
+    // 分隔符检查：空 / 含非英文符号都要提醒
+    var c = r.sepCheck;
+    if (c.ok){
+      elSepWarn.hidden = true;
+      elSepWarn.textContent = '';
+      elSepFix.hidden = true;
+    } else {
+      elSepWarn.hidden = false;
+      elSepWarn.textContent = c.msg;
+      elSepFix.hidden = (c.code !== 'non-ascii');
+    }
+
+    var bits = [];
+    if (r.rows) bits.push('原始 <b>' + r.rows + '</b> 行');
+    if (r.droppedEmpty) bits.push('去掉空行 <b>' + r.droppedEmpty + '</b>');
+    if (r.droppedDup) bits.push('去重 <b>' + r.droppedDup + '</b>');
+    bits.push('输出 <b>' + r.kept + '</b> 项 / ' + r.out.length + ' 字符');
+    elStats.innerHTML = bits.map(function(t){ return '<span>' + t + '</span>'; }).join('');
+
+    if (!src.replace(/\s/g, '')){
+      elMsg.textContent = '';
+      elMsg.className = 'msg';
+    } else if (r.kept === 0){
+      elMsg.textContent = '没有可拼接的内容';
+      elMsg.className = 'msg warn';
+    } else {
+      elMsg.textContent = '✅ 已拼成 ' + r.kept + ' 项';
+      elMsg.className = 'msg ok';
+    }
+  }
+
+  function schedule(){
+    if (timer) clearTimeout(timer);
+    timer = setTimeout(render, 110);
+  }
+
+  elIn.addEventListener('input', schedule);
+  elSep.addEventListener('input', render);
+  elPrefix.addEventListener('input', schedule);
+  elSuffix.addEventListener('input', schedule);
+
+  wbSeg(null, 'data-join', function(key, val){
+    if (key === 'quote') opt.quote = val;
+    else opt[key] = (val === '1');
+    render();
+  });
+
+  elSepFix.addEventListener('click', function(){
+    elSep.value = joinToHalf(elSep.value);
+    render();
+    elSep.focus();
+  });
+
+  document.getElementById('joinCopy').addEventListener('click', function(){ wbCopy(last, this); });
+  document.getElementById('joinClear').addEventListener('click', function(){
+    elIn.value = '';
+    render();
+    elIn.focus();
+  });
+  document.getElementById('joinDemo').addEventListener('click', function(){
+    elIn.value = '15011635951\n13612633231\n19864809881';
+    elSep.value = ',';
+    elPrefix.value = '';
+    elSuffix.value = '';
+    render();
+  });
+
+  render();
 })();
 </script>
 </body>
