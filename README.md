@@ -78,7 +78,7 @@ kins-vault/
 | :--- | :--- |
 | [**Godot 游戏开发学习路径**](https://kinsluck.github.io/kins-vault/dev/godot-learning-path.html) | 汇总顶级开发者建议的学习路线：从入门到能独立做出游戏的推荐顺序 |
 | [**图片压缩方案调研与实测**](https://kinsluck.github.io/kins-vault/dev/image-compression-research.html) | 各家压缩方案横向实测对比：体积、画质与实际使用取舍 |
-| [**离线工具箱 · 九个常用小工具**](https://kinsluck.github.io/kins-vault/dev/offline-toolbox.html) | 金额大写 / 二维码 / **截图套壳**（iPhone 15–18 Pro、一加 13T，iPhone 用 Apple 官方 Product Bezels 真机边框，批量套壳 + 打包 ZIP）/ **视觉无损图片压缩**（SSIM 判据，批量+打包）/ JSON / 时间戳 / 文本对比 / **列转行**（竖排转一行，分隔符自定义）/ **三姑六婆**（亲戚称谓计算）：单文件零依赖，断网可用，数据不出本机 |
+| [**离线工具箱 · 十个常用小工具**](https://kinsluck.github.io/kins-vault/dev/offline-toolbox.html) | 金额大写 / 二维码 / **截图套壳**（iPhone 15–18 Pro、一加 13T，iPhone 用 Apple 官方 Product Bezels 真机边框，批量套壳 + 打包 ZIP）/ **文字出图**（贴一段文字生成卡片图：8 种风格、渐变背景、长文自动拆页、2×–3× 高清导出）/ **视觉无损图片压缩**（SSIM 判据，批量+打包）/ JSON / 时间戳 / 文本对比 / **列转行**（竖排转一行，分隔符自定义）/ **三姑六婆**（亲戚称谓计算）：单文件零依赖，断网可用，数据不出本机 |
 
 ### 📊 数据可视化
 
