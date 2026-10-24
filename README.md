@@ -49,12 +49,15 @@ kins-vault/
 ├── README.md
 ├── LICENSE
 │
+├── dev/                                # 🧑‍💻 开发与编程（首页置顶）
+│   ├── offline-toolbox.html            #   🧰 离线工具箱 · 十个常用小工具（置顶）
+│   ├── godot-learning-path.html        #   Godot 游戏开发学习路径
+│   └── image-compression-research.html #   图片压缩方案调研与实测
 ├── games/                              # 🎮 游戏攻略
 │   ├── baldurs-gate-3-walkthrough/     #   含 198 张实机截图
 │   ├── tales-of-destiny-2-guide.html   #   宿命传说2攻略
 │   ├── sekiro-upgrade-guide.html       #   只狼 · 一周目升级路线
 │   └── root-board-game-quickref.html   #   茂林源记规则速查
-├── dev/                                # 🧑‍💻 开发与编程
 ├── visual/                             # 📊 数据可视化
 ├── life/                               # 🏠 生活指南
 ├── gear/                               # 🔧 硬件与装备
@@ -62,6 +65,16 @@ kins-vault/
 ```
 
 ## 📚 内容索引
+
+> 📌 **首页置顶**：分类「🧑‍💻 开发与编程」排在最前，其中「🧰 离线工具箱 · 十个常用小工具」为置顶卡片。
+
+### 🧑‍💻 开发与编程
+
+| 页面 | 简介 |
+| :--- | :--- |
+| 📌 [**离线工具箱 · 十个常用小工具**](https://kinsluck.github.io/kins-vault/dev/offline-toolbox.html) | 金额大写 / 二维码 / **截图套壳**（iPhone 15–18 Pro、一加 13T，iPhone 用 Apple 官方 Product Bezels 真机边框，批量套壳 + 打包 ZIP）/ **文字出图**（贴一段文字生成卡片图：8 种风格、渐变背景、长文自动拆页、2×–3× 高清导出）/ **视觉无损图片压缩**（SSIM 判据，批量+打包）/ JSON / 时间戳 / 文本对比 / **列转行**（竖排转一行，分隔符自定义）/ **三姑六婆**（亲戚称谓计算）：单文件零依赖，断网可用，数据不出本机 |
+| [**Godot 游戏开发学习路径**](https://kinsluck.github.io/kins-vault/dev/godot-learning-path.html) | 汇总顶级开发者建议的学习路线：从入门到能独立做出游戏的推荐顺序 |
+| [**图片压缩方案调研与实测**](https://kinsluck.github.io/kins-vault/dev/image-compression-research.html) | 各家压缩方案横向实测对比：体积、画质与实际使用取舍 |
 
 ### 🎮 游戏攻略
 
@@ -71,14 +84,6 @@ kins-vault/
 | [**宿命传说2攻略**](https://kinsluck.github.io/kins-vault/games/tales-of-destiny-2-guide.html) | 战斗系统与流程要点整理，传说系列的经典一作 |
 | [**茂林源记 · 规则速查**](https://kinsluck.github.io/kins-vault/games/root-board-game-quickref.html) | 桌游 Root 的快速回忆卡：先串一遍全局流程，再随时翻派系细节 |
 | [**只狼 · 影逝二度 — 一周目升级路线完全指南**](https://kinsluck.github.io/kins-vault/games/sekiro-upgrade-guide.html) | 四条升级线怎么分配：技能点分级、P1–P5 加点节奏、三大流派与忍具、琉璃升级优先级 |
-
-### 🧑‍💻 开发与编程
-
-| 页面 | 简介 |
-| :--- | :--- |
-| [**Godot 游戏开发学习路径**](https://kinsluck.github.io/kins-vault/dev/godot-learning-path.html) | 汇总顶级开发者建议的学习路线：从入门到能独立做出游戏的推荐顺序 |
-| [**图片压缩方案调研与实测**](https://kinsluck.github.io/kins-vault/dev/image-compression-research.html) | 各家压缩方案横向实测对比：体积、画质与实际使用取舍 |
-| [**离线工具箱 · 十个常用小工具**](https://kinsluck.github.io/kins-vault/dev/offline-toolbox.html) | 金额大写 / 二维码 / **截图套壳**（iPhone 15–18 Pro、一加 13T，iPhone 用 Apple 官方 Product Bezels 真机边框，批量套壳 + 打包 ZIP）/ **文字出图**（贴一段文字生成卡片图：8 种风格、渐变背景、长文自动拆页、2×–3× 高清导出）/ **视觉无损图片压缩**（SSIM 判据，批量+打包）/ JSON / 时间戳 / 文本对比 / **列转行**（竖排转一行，分隔符自定义）/ **三姑六婆**（亲戚称谓计算）：单文件零依赖，断网可用，数据不出本机 |
 
 ### 📊 数据可视化
 
