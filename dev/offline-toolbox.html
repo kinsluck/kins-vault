@@ -253,11 +253,10 @@ footer{text-align:center;font-size:12px;color:var(--ink3);margin-top:22px;line-h
 .err-snippet{margin:8px 0 0;font-family:var(--font-mono);font-size:12.5px;color:#5a6b82;white-space:pre;overflow:auto;line-height:1.5}
 .err-snippet .hl{background:#ffded8;color:#a8261d;font-weight:700;border-radius:2px}
 
-/* ===== 时间戳 ===== */
+/* ===== 键值 / 表单控件 ===== */
 .kv{display:grid;grid-template-columns:96px minmax(0,1fr);gap:7px 10px;font-size:13px;align-items:baseline;margin:0}
 .kv dt{color:var(--ink3);font-size:12px}
 .kv dd{margin:0;font-family:var(--font-mono);word-break:break-all}
-.big-ts{font-family:var(--font-mono);font-size:25px;color:var(--brand);letter-spacing:.5px;line-height:1.2}
 select.sel,input.inp{
   border:1.5px solid var(--line);border-radius:10px;padding:8px 10px;font:inherit;font-size:13.5px;
   background:#fbfcfe;color:var(--ink);outline:0;max-width:100%;transition:.16s;
@@ -266,7 +265,7 @@ select.sel:focus,input.inp:focus{border-color:var(--brand);background:#fff;box-s
 .fld{display:flex;align-items:center;gap:8px;flex-wrap:wrap}
 
 /* ===== 文本对比 ===== */
-.diff-wrap{border:1.5px solid var(--line);border-radius:11px;overflow:auto;max-height:470px;background:#fff}
+.diff-wrap{border:1.5px solid var(--line);border-radius:11px;overflow:auto;max-height:470px;background:#fff;position:relative}
 table.diff{width:100%;border-collapse:collapse;font-family:var(--font-mono);font-size:12.5px;line-height:1.62}
 table.diff td{padding:0 8px;white-space:pre-wrap;word-break:break-word;vertical-align:top}
 td.d-no{width:1%;text-align:right;color:#9aa6b8;user-select:none;background:#fafbfd;border-right:1px solid var(--line2);white-space:nowrap}
@@ -275,7 +274,35 @@ tr.d-del td.d-text{background:#fff2f0}
 tr.d-del td.d-sign{color:#c0392b;background:#ffe6e2}
 tr.d-ins td.d-text{background:#eefaf3}
 tr.d-ins td.d-sign{color:#0f8a5f;background:#dff5ea}
-tr.d-fold td{background:#f6f8fc;color:#8b97ac;font-size:12px;text-align:center;padding:5px 8px}
+tr.d-fold td{background:#f6f8fc;color:#8b97ac;font-size:12px;text-align:center;padding:5px 8px;cursor:pointer}
+tr.d-fold:hover td{background:#eef2f9;color:var(--brand)}
+/* 行内词 / 字级高亮：只标真正变化的片段 */
+table.diff mark.dw{background:#ffc8bf;color:#8c2318;border-radius:3px;padding:0 1px}
+table.diff mark.dw2{background:#b6e8cc;color:#0a6b47;border-radius:3px;padding:0 1px}
+/* 并排视图：固定表格布局，两栏各占一半，行号列定宽 */
+table.diff.d-split{table-layout:fixed}
+table.diff.d-split td.d-no{width:46px}
+table.diff.d-split td.d-mid{width:1px}
+td.dl{background:#fff2f0}
+td.di{background:#eefaf3}
+td.dx{background:#f7f8fb}
+td.d-mid{width:0;padding:0!important;border-right:1px solid var(--line);background:#fafbfd}
+/* 跳转定位：当前改动块左侧留一道标记 */
+tr.d-cur td:first-child{box-shadow:inset 3px 0 0 #f0b429}
+/* 文件来源徽标 / 跳转计数 */
+.df-name{
+  display:inline-block;max-width:190px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;vertical-align:bottom;
+  font-size:11px;font-weight:500;color:var(--brand);background:var(--brand-soft);
+  border:1px solid var(--brand-line);border-radius:5px;padding:0 6px;margin-left:6px;
+}
+.df-count{font-size:12px;color:var(--ink3);font-variant-numeric:tabular-nums;white-space:nowrap}
+#tool-diff .io-pane{position:relative}
+.io-pane.drag-over .ta{border-color:var(--brand);background:var(--brand-soft)}
+.io-pane.drag-over::after{content:"松开即导入这个文件";position:absolute;inset:auto 0 8px 0;text-align:center;font-size:11.5px;color:var(--brand)}
+@media screen and (max-width:560px){
+  table.diff.d-split{font-size:11.5px}
+  table.diff.d-split td{padding:0 5px}
+}
 .stats-bar{display:flex;gap:6px;flex-wrap:wrap;margin-top:10px}
 .stats-bar span{font-size:11.5px;border-radius:6px;padding:2px 8px;background:#f3f5fa;color:var(--ink3)}
 .stats-bar .s-add{background:#e6f7ef;color:#0f8a5f}
@@ -383,7 +410,6 @@ table.cand tr.win td{background:#eefaf3;color:var(--ok);font-weight:600}
   .kv{grid-template-columns:minmax(0,1fr);gap:2px 0}
   .kv dt{margin-top:6px}
   .kv dd{margin-bottom:2px}
-  .big-ts{font-size:20px}
   .tool{padding:8px 10px;font-size:13px}
   .err-snippet{font-size:11.5px}
 }
@@ -609,11 +635,11 @@ table.cand tr.win td{background:#eefaf3;color:var(--ok);font-weight:600}
       <div data-page-node-id="mHsYmtPIaoaO2ZZDmCcDrd" class="logo"><!--pnid:5E6tt2utb4u9ogrq6CLvRU-->&#129520;</div>
       <div data-page-node-id="wEFU0SufpKUPbo6sew3xnz">
         <h1 data-page-node-id="gYvKet7cdc4iVrhr7036qe"><!--pnid:T3m0nns9JIsNkMDSCGqRDg-->离线工具箱</h1>
-        <p data-page-node-id="6aUH3hrTiGUTn1anLa0KrK" class="sub"><!--pnid:Y9qhPTagkTO2Wi2clAIrRu-->10 个离线小工具 &middot; 金额 / 二维码 / 截图套壳 / 文字出图 / 图片 / JSON / 时间 / 文本 / 列转行 / 称谓 &middot; 断网可用</p>
+        <p data-page-node-id="6aUH3hrTiGUTn1anLa0KrK" class="sub"><!--pnid:Y9qhPTagkTO2Wi2clAIrRu-->9 个离线小工具 &middot; 金额 / 二维码 / 截图套壳 / 文字出图 / 图片 / JSON / 文本对比 / 列转行 / 称谓 &middot; 断网可用</p>
       </div>
     </div>
     <div data-page-node-id="wkKf8J04pBQFDRzKKYDKhN" class="hdr-r">
-      <span data-page-node-id="7aAWllmVb8Fp2cvX0Axm19" class="badge"><!--pnid:rFzqcvyu0Jd6ckVWj8UoC0-->v9 &middot; 2026-10-22</span>
+      <span data-page-node-id="7aAWllmVb8Fp2cvX0Axm19" class="badge"><!--pnid:rFzqcvyu0Jd6ckVWj8UoC0-->v10 &middot; 2026-10-24</span>
       <span data-page-node-id="uPWhTUoPPuZLDXjsWpoclk" class="badge badge-ok"><!--pnid:fij8wnjFigBIaulXEhrBR8-->离线可用</span>
     </div>
   </header>
@@ -623,7 +649,6 @@ table.cand tr.win td{background:#eefaf3;color:var(--ok);font-weight:600}
     <button data-page-node-id="T9Otu3jBAwFuX2zbu8qF2M" class="tool" data-tool="qr" type="button"><span data-page-node-id="Z5rJfG0NWRTWb5tfqPROtA" class="ic"><!--pnid:AnoZP3PbsufScwpSzjyfAX-->&#128307;</span><!--pnid:TmjewAzlYUVJUnCtfCGDZU-->二维码</button>
     <button data-page-node-id="c25v14kJogH6OdbC0d9grf" class="tool" data-tool="image" type="button"><span data-page-node-id="zNUsFPYH2helosnrtk23pb" class="ic"><!--pnid:AKNwRkxdKBqyIIjofGayjF-->&#128444;&#65039;</span><!--pnid:tgpZT5PJWqSHhDFKCBsKkY-->图片压缩</button>
     <button data-page-node-id="WltvZrN1mBPR2EufXpiAbA" class="tool" data-tool="json" type="button"><span data-page-node-id="bAf6N38mwXqZMIcVfBmM8C" class="ic"><!--pnid:Urc4dhJeeeyg9OX1Yot07l-->&#129513;</span><!--pnid:nxu5GjOb5sTqyIFgHdiFji-->JSON</button>
-    <button data-page-node-id="fG4lAsRpeIekUcY4GXBzv9" class="tool" data-tool="time" type="button"><span data-page-node-id="tBGAOI9mxcLP8LW5hMeG3K" class="ic"><!--pnid:f5piz2Z7QUAlcUKNDGzbp2-->&#9201;&#65039;</span><!--pnid:uhoI1exs6QWig8g8tldiDB-->时间戳</button>
     <button data-page-node-id="vscUQ7bmUOWe5II79IJRbw" class="tool" data-tool="diff" type="button"><span data-page-node-id="XkC5QRqytszhZy61qwQMSJ" class="ic"><!--pnid:vFiD6sSvQrRJaagLjLddww-->&#128256;</span><!--pnid:1qlNrTkt4htUZP6hLZvJHA-->文本对比</button>
     <button data-page-node-id="oS8zDHucLuQtICFbnhg675" class="tool" data-tool="join" type="button"><span data-page-node-id="5soeGoZrs9l4DFGoBs2O4w" class="ic"><!--pnid:1bKsnAFt36kevNr7S70T8j-->&#128279;</span><!--pnid:PxAC3zxiTBL69BiBrszge8-->列转行</button>
     <button data-page-node-id="z97IziC4d8scHkJudy3C5Q" class="tool" data-tool="kin" type="button"><span data-page-node-id="we9wdCkqFxLsJgY2dg4Fsr" class="ic"><!--pnid:JQBQA5GyVjFAYE5HD69LHY-->&#128106;</span><!--pnid:UEEQSUP2ZvQ2JJO5MAOs85-->三姑六婆</button>
@@ -852,79 +877,31 @@ table.cand tr.win td{background:#eefaf3;color:var(--ok);font-weight:600}
     </div>
   </section>
 
-  <section data-page-node-id="iswbM5Q0GntJuSw0DykdXv" class="tool-panel" hidden id="tool-time">
-    <div data-page-node-id="7IcQP1IThk74EFk0pdRo49" class="card" style="margin-bottom:16px">
-      <div data-page-node-id="oK2D1pei5q0ATNqiyblxg3" class="io-head">
-        <span data-page-node-id="VcKE3avSuSV2LjzmvCfbkB" class="io-title"><!--pnid:MoSjxHbwlV8Bqx1MeDtwpV-->当前时间</span>
-        <div data-page-node-id="k4RVMQ2YHHx59rRLHu3jUd" class="btn-row">
-          <button data-page-node-id="06tco1BwvZYnunBXyL7Xmx" class="btn small" id="timeNowUse" type="button"><!--pnid:uB2B472dOl12Rvs1FgZBZ0-->拿去换算</button>
-          <button data-page-node-id="2hiQI3l2axxa2yjLdo54Qc" class="btn small" id="timeNowCopy" type="button"><!--pnid:spShIktwdgorVU2Ib4djvt-->复制秒级时间戳</button>
-        </div>
-      </div>
-      <div data-page-node-id="rkWrQ22BHFmAzdI0oEzCnu" class="big-ts" id="timeNowTs"><!--pnid:uu0Z5vQvp9U0IWdFFHRUWb-->&mdash;</div>
-      <p data-page-node-id="Focc7s2CDxGtaA9YeNvhYg" class="msg" id="timeNowText"></p>
-    </div>
-
-    <div data-page-node-id="tjKYvtLdRyNs3pruQXnEAz" class="tool-grid">
-      <div data-page-node-id="SeEG0rGyOF9kc6UDipsa6Z" class="card io-pane">
-        <div data-page-node-id="iRnhBlRoTrnpWkmPkKDZWm" class="io-head"><span data-page-node-id="Lbm38lrztcBWJmO25gzWzt" class="io-title"><!--pnid:thD6W8fiR87HieePWAHj4C-->时间戳 &rarr; 时间</span></div>
-        <div data-page-node-id="Xb5iC1qENfBbmhlM1yur2X" class="fld">
-          <input data-page-node-id="nInHWXJRHZn60B1RNNPptQ" autocomplete="off" class="inp mono" id="timeTsIn" placeholder="1700000000 或 1700000000000" style="flex:1; min-width:150px">
-          <button data-page-node-id="hoDGAyi8oJEOWKRyq6BRM6" class="btn small" id="timeTsNow" type="button"><!--pnid:FTIbRwfyLEHrMLFAshOFNr-->现在</button>
-        </div>
-        <p data-page-node-id="EmnVBCzOLRtySENVotRVjB" class="msg" id="timeTsMsg"></p>
-        <div data-page-node-id="MMC8ddXNElifsHbq4ObjiM" class="fld">
-          <span data-page-node-id="XRjPQKgUY1MZo4aQoTnm4U" class="opt-label"><!--pnid:dTSQYOJCSRJ6sKdJXBjXcy-->再看一个时区</span>
-          <select data-page-node-id="1sJ6DWuoo4FHkNvtoR6nrU" class="sel" id="timeZoneMain"></select>
-        </div>
-        <dl data-page-node-id="a55lhW4JFktOCQjYEbRxSU" class="kv" id="timeTsOut"></dl>
-      </div>
-
-      <div data-page-node-id="EtMfcRbwfyoO1G8aYzNX2j" class="card io-pane">
-        <div data-page-node-id="9m3la7s8MhhZSYeemmR3Nd" class="io-head"><span data-page-node-id="B6zyOKeNUhiuy16qaZmvEF" class="io-title"><!--pnid:BqJrQqJxJbCMIcMMSYXy24-->时间 &rarr; 时间戳</span></div>
-        <div data-page-node-id="8a7BYpd4EJM9CxrAzHGM7c" class="fld">
-          <input data-page-node-id="MOwKbcSU2oBUAVvn087VcM" autocomplete="off" class="inp mono" id="timeWallIn" placeholder="2026-10-14 12:29:02" style="flex:1; min-width:150px">
-        </div>
-        <p data-page-node-id="gqG9UHmDkYzmSeElVVzKxw" class="msg" id="timeWallMsg"></p>
-        <div data-page-node-id="YpzQAJy9cjutOWDAZZSBxw" class="fld">
-          <span data-page-node-id="vC2VpBQ4ZWncN3QdWawWzH" class="opt-label"><!--pnid:15twr1UbJD61AeDfALzSTj-->这个时间属于</span>
-          <select data-page-node-id="tRWH9I08X1r0PxPQN6ESbB" class="sel" id="timeZoneWall"></select>
-        </div>
-        <dl data-page-node-id="uM12taYNdYENyWgknGHPlB" class="kv" id="timeWallOut"></dl>
-        <div data-page-node-id="FRGvx3QnZfLmPqD80OtH93" class="btn-row">
-          <button data-page-node-id="VF6kForwcEOzFqmsgdB9T9" class="btn small" id="timeWallCopyS" type="button"><!--pnid:QCsO7XqQnKJOlMY3VWiwXf-->复制秒级</button>
-          <button data-page-node-id="YFJgq7LnAkE0gdGFGrSOFp" class="btn small" id="timeWallCopyMs" type="button"><!--pnid:ljptwCtUzBjDW1fzK3CTq3-->复制毫秒级</button>
-        </div>
-      </div>
-    </div>
-
-    <div data-page-node-id="ghtJMnJQ9D6C1DcHcgsZbL" class="card" style="margin-top:14px">
-      <div data-page-node-id="6bXA20ANY6je59nXKGJZ58" class="io-head">
-        <span data-page-node-id="gjHvKkDZ1lndisY70JzizP" class="io-title"><!--pnid:2IZEqFR3hwxA1akahNNbf1-->批量转换（每行一个时间戳，自动识别秒 / 毫秒）</span>
-        <button data-page-node-id="VJ2J6plkkYHHA5GOpOUHsY" class="btn small" id="timeBatchCopy" type="button"><!--pnid:3QFkWiUSqQLBWdS9trLZ6U-->复制结果</button>
-      </div>
-      <textarea data-page-node-id="FQn3cEyfrWMpEB0lvs9stZ" class="ta short" id="timeBatchIn" placeholder="1700000000&#10;1700000000000" spellcheck="false"></textarea>
-      <div data-page-node-id="qxHmiwjblINZSlGk6PfD5F" class="fld" style="margin-top:8px">
-        <span data-page-node-id="W6bQIlyAjuAKxD0tvTgvtJ" class="opt-label"><!--pnid:wcKGkEMTK86iAqs9ymrB20-->换算到</span>
-        <select data-page-node-id="Y4Wt714DFLdRoboTUvGqlv" class="sel" id="timeZoneBatch"></select>
-      </div>
-      <pre data-page-node-id="cDdDox6kwgwV7tmdjRkS3V" class="code" id="timeBatchOut" style="margin-top:8px; max-height:250px"></pre>
-    </div>
-  </section>
-
   <section data-page-node-id="PWa1fp6rZAkztXU5L93TKT" class="tool-panel" hidden id="tool-diff">
     <div data-page-node-id="SkjWbdVxQuNaIg3BcE7DpX" class="card">
       <div data-page-node-id="oVTvDkdzLR6kWEZFLKB5ID" class="tool-grid">
-        <div data-page-node-id="8eQEWuuxzO4J56xdn7JALf" class="io-pane">
-          <div data-page-node-id="iuv46L0NQxGDMntNtYWIoO" class="io-head"><span data-page-node-id="9PSNYEcdriusBTvf9sGppV" class="io-title"><!--pnid:Ikt4RBe6fbXC2s7YMdpuKF-->原始文本 A</span></div>
-          <textarea data-page-node-id="brZIFWJzEeLktrvv0uNdXJ" class="ta tall" id="diffA" placeholder="粘贴原始文本" spellcheck="false"></textarea>
+        <div data-page-node-id="8eQEWuuxzO4J56xdn7JALf" class="io-pane" id="diffPaneA">
+          <div data-page-node-id="iuv46L0NQxGDMntNtYWIoO" class="io-head">
+            <span data-page-node-id="9PSNYEcdriusBTvf9sGppV" class="io-title"><!--pnid:Ikt4RBe6fbXC2s7YMdpuKF-->原始文本 A<span class="df-name" hidden id="diffNameA"></span></span>
+            <div class="btn-row"><button class="btn small" id="diffOpenA" type="button">打开文件</button></div>
+          </div>
+          <textarea data-page-node-id="brZIFWJzEeLktrvv0uNdXJ" class="ta tall" id="diffA" placeholder="粘贴原始文本；也可以把文件拖到这里" spellcheck="false"></textarea>
+          <input accept=".txt,.md,.markdown,.json,.csv,.tsv,.log,.xml,.yml,.yaml,.ini,.conf,.properties,.env,.html,.css,.js,.ts,.py,.go,.java,.sql,text/*" hidden id="diffFileA" type="file">
         </div>
-        <div data-page-node-id="DqbKGUctpKci6YbtvFpcx4" class="io-pane">
-          <div data-page-node-id="ClIZ6ZwU8KP14qTfvkBr8x" class="io-head"><span data-page-node-id="1faSUcWq0hjZoGpgK1F0Zl" class="io-title"><!--pnid:TbJZNVe2M4SNgXmepr42Vk-->修改后文本 B</span></div>
-          <textarea data-page-node-id="Uzfab5f73Dd5Fxvl2Cb7HX" class="ta tall" id="diffB" placeholder="粘贴修改后的文本" spellcheck="false"></textarea>
+        <div data-page-node-id="DqbKGUctpKci6YbtvFpcx4" class="io-pane" id="diffPaneB">
+          <div data-page-node-id="ClIZ6ZwU8KP14qTfvkBr8x" class="io-head">
+            <span data-page-node-id="1faSUcWq0hjZoGpgK1F0Zl" class="io-title"><!--pnid:TbJZNVe2M4SNgXmepr42Vk-->修改后文本 B<span class="df-name" hidden id="diffNameB"></span></span>
+            <div class="btn-row"><button class="btn small" id="diffOpenB" type="button">打开文件</button></div>
+          </div>
+          <textarea data-page-node-id="Uzfab5f73Dd5Fxvl2Cb7HX" class="ta tall" id="diffB" placeholder="粘贴修改后的文本；也可以把文件拖到这里" spellcheck="false"></textarea>
+          <input accept=".txt,.md,.markdown,.json,.csv,.tsv,.log,.xml,.yml,.yaml,.ini,.conf,.properties,.env,.html,.css,.js,.ts,.py,.go,.java,.sql,text/*" hidden id="diffFileB" type="file">
         </div>
       </div>
       <div data-page-node-id="p7xmhw5lHpZwGFnCBtdNPV" class="fld" style="margin-top:12px">
+        <div class="seg" data-diff="view">
+          <button class="on" data-val="split" type="button">并排</button>
+          <button data-val="unified" type="button">统一</button>
+        </div>
         <div data-page-node-id="lbE63HvLBsAW4oRLYE2few" class="seg" data-diff="ignoreCase">
           <button data-page-node-id="2bpSxaRdu71repqOwIA4sa" class="on" data-val="0" type="button"><!--pnid:exguZyZCHLZtQOYS4MV0rW-->区分大小写</button>
           <button data-page-node-id="9vF5b7MCbJT4kHx7aody3h" data-val="1" type="button"><!--pnid:wOOAxFvkhvt6BGWFd9Xo3Q-->忽略大小写</button>
@@ -947,14 +924,23 @@ table.cand tr.win td{background:#eefaf3;color:var(--ok);font-weight:600}
         <button data-page-node-id="OHuZcMT0FGqOjziM5TZUTP" class="btn" id="diffSwap" type="button"><!--pnid:nJVK1Aw58gDsj2C9tk0bsl-->交换 A / B</button>
         <button data-page-node-id="PppsEWVlzn0nrAMoSaZFby" class="btn" id="diffDemo" type="button"><!--pnid:x0kwWYQjLGigiYtyq3LoBZ-->示例</button>
         <button data-page-node-id="lDzPq5MshAxf7wDx9ixXbl" class="btn" id="diffClear" type="button"><!--pnid:MT1iOUXNY5zlVTesL7jxDe-->清空</button>
-        <button data-page-node-id="sSwULasbsAxBJKndka5vSb" class="btn" id="diffCopyText" type="button"><!--pnid:kO4tXWrrrauRu3s7t6cVwe-->复制带 +/- 的纯文本</button>
+        <button class="btn" id="diffCopyDiff" type="button">复制 diff</button>
+        <button class="btn" id="diffDownload" type="button">下载 .diff</button>
       </div>
       <p data-page-node-id="Vhf2aUcSCd0XK9BttQSGcE" class="msg" id="diffMsg"></p>
     </div>
     <div data-page-node-id="rpqS8VGP203i8afhvjgoOo" class="card" style="margin-top:14px">
-      <div data-page-node-id="wwXNCpdCbzKAmeHhHLT9Zy" class="io-head"><span data-page-node-id="GiPYmLXjOdykEgBKnbAMZO" class="io-title"><!--pnid:rtU22Lq2HzOGC9Nddum4G3-->对比结果</span></div>
+      <div data-page-node-id="wwXNCpdCbzKAmeHhHLT9Zy" class="io-head">
+        <span data-page-node-id="GiPYmLXjOdykEgBKnbAMZO" class="io-title"><!--pnid:rtU22Lq2HzOGC9Nddum4G3-->对比结果</span>
+        <div class="btn-row">
+          <span class="df-count" id="diffCount"></span>
+          <button class="btn small" id="diffPrev" title="上一处改动（快捷键 p）" type="button">&uarr; 上一处</button>
+          <button class="btn small" id="diffNext" title="下一处改动（快捷键 n）" type="button">&darr; 下一处</button>
+        </div>
+      </div>
       <div data-page-node-id="3ic1iDBtkBz4Xnf6HF4g9B" class="diff-wrap" id="diffWrap"><p data-page-node-id="AalwVsHaVgBZ0A9JJf2LYR" class="ph"><!--pnid:3znlddPYyDiY9j17d1TrAq-->两栏都输入内容后，这里实时显示差异</p></div>
       <div data-page-node-id="9igrxDaYUOMRKRr06bOaNR" class="stats-bar" id="diffStats"></div>
+      <p class="hint">逐处跳转：点上方按钮，或让页面获得焦点后按 <b>n</b> / <b>p</b>；折叠条点一下即展开。</p>
     </div>
   </section>
 
@@ -2750,169 +2736,12 @@ function jsonHtmlEscape(s){
 }
 // ==== JSON CORE END ====
 
-// ==== TIME CORE START ====
-// 时间戳内核：基于浏览器内置 Intl（离线可用，且夏令时准确），不依赖任何时区数据表。
-var TIME_FALLBACK_ZONES = ['UTC', 'Asia/Shanghai', 'Asia/Hong_Kong', 'Asia/Taipei', 'Asia/Tokyo',
-  'Asia/Singapore', 'Asia/Seoul', 'Asia/Bangkok', 'Asia/Kolkata', 'Asia/Dubai', 'Asia/Jerusalem',
-  'Europe/London', 'Europe/Paris', 'Europe/Berlin', 'Europe/Madrid', 'Europe/Moscow', 'Europe/Istanbul',
-  'America/New_York', 'America/Chicago', 'America/Denver', 'America/Los_Angeles', 'America/Vancouver',
-  'America/Sao_Paulo', 'America/Mexico_City', 'Australia/Sydney', 'Australia/Perth', 'Pacific/Auckland', 'Africa/Cairo'];
-
-var TIME_FMT_CACHE = {};
-
-function timeZoneList(){
-  try {
-    if (typeof Intl !== 'undefined' && typeof Intl.supportedValuesOf === 'function'){
-      var l = Intl.supportedValuesOf('timeZone');
-      if (l && l.length) return l;
-    }
-  } catch (e) {}
-  return TIME_FALLBACK_ZONES.slice();
-}
-
-function timeFmt(tz){
-  if (!TIME_FMT_CACHE[tz]){
-    TIME_FMT_CACHE[tz] = new Intl.DateTimeFormat('en-US', {
-      timeZone: tz, hourCycle: 'h23',
-      year: 'numeric', month: '2-digit', day: '2-digit',
-      hour: '2-digit', minute: '2-digit', second: '2-digit',
-      weekday: 'short', timeZoneName: 'longOffset'
-    });
-  }
-  return TIME_FMT_CACHE[tz];
-}
-
-function timePad2(n){ return (n < 10 ? '0' : '') + n; }
-
-function timeParseOffset(name){
-  if (!name) return 0;
-  var m = String(name).match(/GMT([+-])(\d{1,2})(?::(\d{2}))?/);
-  if (!m) return 0;
-  var sign = m[1] === '-' ? -1 : 1;
-  return sign * (parseInt(m[2], 10) * 60 + parseInt(m[3] || '0', 10));
-}
-
-function timeParts(ms, tz){
-  var parts = timeFmt(tz).formatToParts(new Date(ms));
-  var o = {}, i;
-  for (i = 0; i < parts.length; i++) o[parts[i].type] = parts[i].value;
-  var off = timeParseOffset(o.timeZoneName);
-  return {
-    year: +o.year, month: +o.month, day: +o.day,
-    hour: +o.hour, minute: +o.minute, second: +o.second,
-    weekday: o.weekday, offsetMinutes: off,
-    offsetText: (off < 0 ? '-' : '+') + timePad2(Math.floor(Math.abs(off) / 60)) + ':' + timePad2(Math.abs(off) % 60)
-  };
-}
-
-function timeZoneOffsetMinutes(ms, tz){ return timeParts(ms, tz).offsetMinutes; }
-
-// 墙上时间（某时区的年月日时分秒）→ 时间戳；迭代求解，正确处理夏令时
-function timeWallToMs(y, mo, d, h, mi, s, tz){
-  var base = Date.UTC(y, mo - 1, d, h, mi, s || 0, 0);
-  var ms = base, i, off, next;
-  for (i = 0; i < 3; i++){
-    off = timeZoneOffsetMinutes(ms, tz);
-    next = base - off * 60000;
-    if (next === ms) break;
-    ms = next;
-  }
-  return ms;
-}
-
-function timeParseTs(input){
-  var s = String(input == null ? '' : input).trim().replace(/[,\u3000\s]/g, '');
-  if (s === '') return null;
-  var neg = false;
-  if (s.charAt(0) === '-'){ neg = true; s = s.slice(1); }
-  else if (s.charAt(0) === '+') s = s.slice(1);
-  if (!/^\d+(\.\d+)?$/.test(s)) return null;
-  var dot = s.indexOf('.');
-  var intLen = dot >= 0 ? dot : s.length;
-  if (intLen > 19) return null;              // 纳秒已是最高精度，更长的数字不是时间戳
-  var unit, factor;
-  if (dot >= 0){ unit = 's'; factor = 1000; }
-  else if (intLen <= 10){ unit = 's'; factor = 1000; }
-  else if (intLen <= 13){ unit = 'ms'; factor = 1; }
-  else if (intLen <= 16){ unit = 'us'; factor = 0.001; }
-  else { unit = 'ns'; factor = 0.000001; }
-  var ms = Number(s) * factor;
-  if (!isFinite(ms) || Math.abs(ms) > 8.64e15) return null;
-  return { ms: neg ? -ms : ms, unit: unit, digits: intLen };
-}
-
-function timeIsoZoned(ms, tz){
-  var p = timeParts(ms, tz);
-  return p.year + '-' + timePad2(p.month) + '-' + timePad2(p.day) + 'T'
-    + timePad2(p.hour) + ':' + timePad2(p.minute) + ':' + timePad2(p.second) + p.offsetText;
-}
-
-var TIME_WEEKDAY_CN = { Sun: '周日', Mon: '周一', Tue: '周二', Wed: '周三', Thu: '周四', Fri: '周五', Sat: '周六' };
-
-function timeFormatParts(p){
-  return p.year + '-' + timePad2(p.month) + '-' + timePad2(p.day) + ' '
-    + timePad2(p.hour) + ':' + timePad2(p.minute) + ':' + timePad2(p.second)
-    + ' ' + (TIME_WEEKDAY_CN[p.weekday] || p.weekday);
-}
-
-function timeRelativeCn(ms, now){
-  if (now === undefined || now === null) now = Date.now();
-  var d = ms - now;
-  var abs = Math.abs(d);
-  var fut = d > 0;
-  var n, u;
-  if (abs < 1000) return fut ? '即将' : '刚刚';
-  if (abs < 60000){ n = Math.round(abs / 1000); u = '秒'; }
-  else if (abs < 3600000){ n = Math.round(abs / 60000); u = '分钟'; }
-  else if (abs < 86400000){ n = Math.round(abs / 3600000); u = '小时'; }
-  else if (abs < 2592000000){ n = Math.round(abs / 86400000); u = '天'; }
-  else if (abs < 31536000000){ n = Math.round(abs / 2592000000); u = '个月'; }
-  else { n = Math.round(abs / 31536000000); u = '年'; }
-  return n + ' ' + u + (fut ? '后' : '前');
-}
-
-// 两个时间戳之间的人话间隔
-function timeGapCn(a, b){
-  var abs = Math.abs(b - a);
-  var day = Math.floor(abs / 86400000);
-  var hour = Math.floor((abs % 86400000) / 3600000);
-  var min = Math.floor((abs % 3600000) / 60000);
-  var sec = Math.floor((abs % 60000) / 1000);
-  var parts = [];
-  if (day) parts.push(day + ' 天');
-  if (hour) parts.push(hour + ' 小时');
-  if (min) parts.push(min + ' 分');
-  if (sec && !day) parts.push(sec + ' 秒');
-  return parts.length ? parts.join(' ') : '0 秒';
-}
-
-// 一次性给出某个时间戳的全部展示形态
-function timeReport(ms, tz, now){
-  if (!isFinite(ms)) return null;
-  var p = timeParts(ms, tz);
-  var d = new Date(ms);
-  return {
-    ms: ms,
-    epochSeconds: Math.floor(ms / 1000),
-    zoned: p,
-    zonedText: timeFormatParts(p),
-    isoZoned: timeIsoZoned(ms, tz),
-    isoUtc: d.toISOString(),
-    utcText: timeFormatParts(timeParts(ms, 'UTC')),
-    utcOffsetText: timeParts(ms, 'UTC').offsetText,
-    relative: timeRelativeCn(ms, now),
-    offsetMinutes: p.offsetMinutes,
-    offsetText: p.offsetText,
-    isValid: !isNaN(d.getTime())
-  };
-}
-
-function timeNowMs(){ return Date.now(); }
-// ==== TIME CORE END ====
-
 // ==== DIFF CORE START ====
 // 行级 diff：前后缀裁剪 + LCS 动态规划（方向位图省内存），可选忽略大小写/空白差异。
+// 行内再做一次「词 / 字」级 LCS，只标出真正变化的片段：英文按词、中文按字。
 var DIFF_MAX_CELLS = 9000000;
+var DIFF_INLINE_MAX_TOKENS = 3000;   // 单行内联对比的 token 上限，超了退回整行标记
+var DIFF_INLINE_MAX_CHANGE = 0.62;   // 两侧变化占比都超过此值 → 视为整行重写，不做行内高亮
 
 function diffSplitLines(text){
   var s = String(text == null ? '' : text);
@@ -3029,7 +2858,7 @@ function diffCollapse(rows, ctx){
     run = j - i;
     if (run > ctx * 2 + 1){
       for (k = 0; k < ctx; k++) out.push(rows[i + k]);
-      out.push({ t: '~', count: run - ctx * 2, a: null, b: null, text: '' });
+      out.push({ t: '~', count: run - ctx * 2, a: null, b: null, text: '', foldFrom: i });
       for (k = run - ctx; k < run; k++) out.push(rows[i + k]);
     } else {
       for (k = 0; k < run; k++) out.push(rows[i + k]);
@@ -3060,6 +2889,148 @@ function diffToText(rows, opt){
 
 function diffHtmlEscape(s){
   return String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+}
+
+/* ---------- 行内分词：英文/数字成词，中文与标点按单字，空白独立 ---------- */
+function diffTokens(s){
+  var m = String(s == null ? '' : s).match(/[A-Za-z0-9_]+|[\s\S]/g);
+  return m || [];
+}
+
+/* ---------- 行内 LCS：返回 [{t:'='|'-'|'+', text}]，无法细算时返回 null ---------- */
+function diffInline(a, b){
+  a = String(a == null ? '' : a);
+  b = String(b == null ? '' : b);
+  if (a === b) return [{ t: '=', text: a }];
+  var A = diffTokens(a), B = diffTokens(b);
+  var n = A.length, m = B.length;
+  if (!n || !m || n + m > DIFF_INLINE_MAX_TOKENS) return null;
+
+  var pre = 0;
+  while (pre < n && pre < m && A[pre] === B[pre]) pre++;
+  var suf = 0;
+  while (suf < n - pre && suf < m - pre && A[n - 1 - suf] === B[m - 1 - suf]) suf++;
+
+  var N = n - pre - suf, M = m - pre - suf;
+  var ops = [], i, j;
+  for (i = 0; i < pre; i++) ops.push(0);
+
+  if (N > 0 && M > 0 && N * M <= 4000000){
+    var W = M + 1;
+    var dir = new Uint8Array((N + 1) * W);
+    var prev = new Uint32Array(W), cur = new Uint32Array(W), t, cell;
+    for (i = 1; i <= N; i++){
+      for (j = 1; j <= M; j++){
+        cell = i * W + j;
+        if (A[pre + i - 1] === B[pre + j - 1]){ cur[j] = prev[j - 1] + 1; dir[cell] = 0; }
+        else if (prev[j] >= cur[j - 1]){ cur[j] = prev[j]; dir[cell] = 1; }
+        else { cur[j] = cur[j - 1]; dir[cell] = 2; }
+      }
+      t = prev; prev = cur; cur = t;
+    }
+    var back = [];
+    i = N; j = M;
+    while (i > 0 || j > 0){
+      if (i > 0 && j > 0 && dir[i * W + j] === 0){ back.push(0); i--; j--; }
+      else if (i > 0 && (j === 0 || dir[i * W + j] === 1)){ back.push(-1); i--; }
+      else { back.push(1); j--; }
+    }
+    for (i = back.length - 1; i >= 0; i--) ops.push(back[i]);
+  } else {
+    for (i = 0; i < N; i++) ops.push(-1);
+    for (j = 0; j < M; j++) ops.push(1);
+  }
+  for (i = 0; i < suf; i++) ops.push(0);
+
+  // 相邻同类操作合并成段
+  var segs = [], ia = 0, ib = 0, type = null, buf = '';
+  function push(k, txt){
+    if (type === k) buf += txt;
+    else { if (type !== null) segs.push({ t: type, text: buf }); type = k; buf = txt; }
+  }
+  for (i = 0; i < ops.length; i++){
+    if (ops[i] === 0){ push('=', A[ia]); ia++; ib++; }
+    else if (ops[i] === -1){ push('-', A[ia]); ia++; }
+    else { push('+', B[ib]); ib++; }
+  }
+  if (type !== null) segs.push({ t: type, text: buf });
+  return segs;
+}
+
+// 两侧改动都占了大半行 → 整行重写，行内高亮只会变成噪声
+function diffInlineTooNoisy(segs, a, b){
+  if (!a.length || !b.length) return false;
+  var chgA = 0, chgB = 0, i, s;
+  for (i = 0; i < segs.length; i++){
+    s = segs[i];
+    if (s.t === '-') chgA += s.text.length;
+    else if (s.t === '+') chgB += s.text.length;
+  }
+  return (chgA / a.length) > DIFF_INLINE_MAX_CHANGE && (chgB / b.length) > DIFF_INLINE_MAX_CHANGE;
+}
+
+// 给「改动块内配对的两行」附上行内段（按顺序配对：第 k 个删除行 ↔ 第 k 个新增行）
+function diffDecorate(rows){
+  var i = 0, n = rows.length, del, ins, j, k, m, segs;
+  while (i < n){
+    if (rows[i].t === '='){ i++; continue; }
+    del = []; ins = []; j = i;
+    while (j < n && rows[j].t !== '='){ if (rows[j].t === '-') del.push(rows[j]); else ins.push(rows[j]); j++; }
+    m = Math.min(del.length, ins.length);
+    for (k = 0; k < m; k++){
+      segs = diffInline(del[k].text, ins[k].text);
+      if (segs && !diffInlineTooNoisy(segs, del[k].text, ins[k].text)){
+        del[k].segs = segs;
+        ins[k].segs = segs;
+      }
+    }
+    i = j;
+  }
+  return rows;
+}
+
+/* ---------- unified diff：可直接 patch / git apply ---------- */
+function diffHunks(rows, ctx){
+  if (ctx === undefined || ctx === null || ctx < 0) ctx = 3;
+  var out = [], i = 0, n = rows.length, start, j, k;
+  while (i < n){
+    if (rows[i].t === '='){ i++; continue; }
+    start = Math.max(0, i - ctx);
+    j = i;
+    while (j < n){
+      if (rows[j].t !== '='){ j++; continue; }
+      k = j;
+      while (k < n && rows[k].t === '=') k++;
+      if (k >= n || (k - j) > ctx * 2) break;
+      j = k;
+    }
+    out.push({ from: start, to: Math.min(n, j + ctx) });
+    i = Math.min(n, j + ctx);
+  }
+  return out;
+}
+
+function diffToUnified(rows, opt){
+  opt = opt || {};
+  var ctx = (opt.ctx === undefined || opt.ctx === null || opt.ctx < 0) ? 3 : opt.ctx;
+  var hunks = diffHunks(rows, ctx);
+  if (!hunks.length) return '';
+  var out = ['--- ' + (opt.nameA || 'a/A'), '+++ ' + (opt.nameB || 'b/B')];
+  var i, k, r, aStart, bStart, aCount, bCount, h;
+  for (i = 0; i < hunks.length; i++){
+    h = hunks[i]; aStart = 0; bStart = 0; aCount = 0; bCount = 0;
+    for (k = h.from; k < h.to; k++){
+      r = rows[k];
+      if (r.t !== '+'){ aCount++; if (!aStart) aStart = r.a; }
+      if (r.t !== '-'){ bCount++; if (!bStart) bStart = r.b; }
+    }
+    out.push('@@ -' + aStart + ',' + aCount + ' +' + bStart + ',' + bCount + ' @@');
+    for (k = h.from; k < h.to; k++){
+      r = rows[k];
+      out.push((r.t === '-' ? '-' : r.t === '+' ? '+' : ' ') + r.text);
+    }
+  }
+  return out.join('\n') + '\n';
 }
 // ==== DIFF CORE END ====
 
@@ -4195,7 +4166,7 @@ function wbSeg(scope, attr, onChange){
   var elErr = document.getElementById('jsonErr');
   var opt = { indent: '  ', sortKeys: false };
   var lastOut = '';
-  var DEMO = '{"project":"离线工具箱","version":3,"offline":true,"tags":["json","diff","time","image"],'
+  var DEMO = '{"project":"离线工具箱","version":3,"offline":true,"tags":["json","diff","qr","image"],'
     + '"nested":{"list":[1,2,{"deep":null}],"中文":"值","emoji":"🎉"},"numbers":[0.1,1000,-2.5],"ok":false}';
 
   function indentOf(v){ return v === 'tab' ? '\t' : (v === '4' ? '    ' : '  '); }
@@ -4299,185 +4270,6 @@ function wbSeg(scope, attr, onChange){
   document.getElementById('jsonDemo').addEventListener('click', function(){ elIn.value = DEMO; run('pretty'); });
 })();
 
-/* ================= 时间戳工具 ================= */
-(function(){
-  var elNowTs = document.getElementById('timeNowTs');
-  var elNowText = document.getElementById('timeNowText');
-  var elTsIn = document.getElementById('timeTsIn');
-  var elTsMsg = document.getElementById('timeTsMsg');
-  var elTsOut = document.getElementById('timeTsOut');
-  var elWallIn = document.getElementById('timeWallIn');
-  var elWallMsg = document.getElementById('timeWallMsg');
-  var elWallOut = document.getElementById('timeWallOut');
-  var elBatchIn = document.getElementById('timeBatchIn');
-  var elBatchOut = document.getElementById('timeBatchOut');
-  var selMain = document.getElementById('timeZoneMain');
-  var selWall = document.getElementById('timeZoneWall');
-  var selBatch = document.getElementById('timeZoneBatch');
-  var clockTimer = null;
-
-  var localZone = 'UTC';
-  try { localZone = Intl.DateTimeFormat().resolvedOptions().timeZone || 'UTC'; } catch (e) {}
-
-  function fillZones(sel){
-    var list = timeZoneList();
-    var head = ['UTC'];
-    if (localZone) head.unshift(localZone);
-    var seen = {}, frag = document.createDocumentFragment();
-    head.concat(list).forEach(function(z){
-      if (seen[z]) return;
-      seen[z] = 1;
-      var o = document.createElement('option');
-      o.value = z;
-      o.textContent = z === localZone ? (z + '（本地）') : z;
-      frag.appendChild(o);
-    });
-    sel.appendChild(frag);
-    sel.value = localZone || 'UTC';
-  }
-  fillZones(selMain);
-  fillZones(selWall);
-  fillZones(selBatch);
-  selMain.value = 'Asia/Shanghai';
-
-  function tick(){
-    if (document.getElementById('tool-time').hidden) return;
-    var ms = Date.now();
-    var p = timeParts(ms, localZone);
-    elNowTs.textContent = Math.floor(ms / 1000) + '   ' + ms;
-    elNowText.textContent = timeFormatParts(p) + ' · ' + localZone + '（' + p.offsetText + '） · UTC ' + timeIsoZoned(ms, 'UTC');
-  }
-  window.__toolHook('time', function(){ tick(); if (!clockTimer) clockTimer = setInterval(tick, 1000); });
-
-  function kv(rows){
-    var html = '';
-    for (var i = 0; i < rows.length; i++){
-      html += '<dt>' + wbEsc(rows[i][0]) + '</dt><dd>' + wbEsc(rows[i][1]) + '</dd>';
-    }
-    return html;
-  }
-
-  function renderTs(){
-    var raw = elTsIn.value.trim();
-    if (raw === ''){ elTsOut.innerHTML = ''; elTsMsg.textContent = ''; elTsMsg.className = 'msg'; return; }
-    var parsed = timeParseTs(raw);
-    if (!parsed){
-      elTsOut.innerHTML = '';
-      elTsMsg.textContent = '无法识别：请输入纯数字时间戳（10 位秒 / 13 位毫秒 / 16 位微秒 / 19 位纳秒）';
-      elTsMsg.className = 'msg err';
-      return;
-    }
-    var unitCn = { s: '秒', ms: '毫秒', us: '微秒', ns: '纳秒' }[parsed.unit];
-    var zones = [['本地', localZone], ['UTC', 'UTC'], ['选定时区', selMain.value]];
-    var rows = [['识别为', unitCn + '（' + parsed.digits + ' 位数字）']];
-    var seen = {};
-    for (var i = 0; i < zones.length; i++){
-      var label = zones[i][0], tz = zones[i][1];
-      if (seen[tz]) continue;
-      seen[tz] = 1;
-      var p = timeParts(parsed.ms, tz);
-      rows.push([label + ' ' + (tz === localZone ? '' : tz), timeFormatParts(p) + '  ' + p.offsetText]);
-    }
-    rows.push(['ISO 8601', timeIsoZoned(parsed.ms, selMain.value)]);
-    rows.push(['UTC', new Date(parsed.ms).toISOString()]);
-    rows.push(['相对现在', timeRelativeCn(parsed.ms)]);
-    elTsOut.innerHTML = kv(rows);
-    elTsMsg.textContent = '✅ ' + (parsed.unit === 's' ? '按秒解读' : '按' + unitCn + '解读');
-    elTsMsg.className = 'msg ok';
-  }
-
-  function parseWall(s){
-    var m = String(s).trim().match(/^(\d{4})[-/.](\d{1,2})[-/.](\d{1,2})(?:[ T](\d{1,2}):(\d{2})(?::(\d{2}))?)?$/);
-    if (!m) return null;
-    var y = +m[1], mo = +m[2], d = +m[3];
-    var h = m[4] === undefined ? 0 : +m[4];
-    var mi = m[5] === undefined ? 0 : +m[5];
-    var se = m[6] === undefined ? 0 : +m[6];
-    if (mo < 1 || mo > 12 || d < 1 || d > 31 || h > 23 || mi > 59 || se > 59) return null;
-    return { y: y, mo: mo, d: d, h: h, mi: mi, s: se };
-  }
-
-  function renderWall(){
-    var w = parseWall(elWallIn.value);
-    if (!w){
-      elWallOut.innerHTML = '';
-      if (elWallIn.value.trim() === ''){ elWallMsg.textContent = ''; elWallMsg.className = 'msg'; }
-      else { elWallMsg.textContent = '格式示例：2026-10-14 12:29:02（时间部分可省略）'; elWallMsg.className = 'msg err'; }
-      return;
-    }
-    var tz = selWall.value;
-    var ms = timeWallToMs(w.y, w.mo, w.d, w.h, w.mi, w.s, tz);
-    var back = timeParts(ms, tz);
-    var drift = (back.year !== w.y || back.month !== w.mo || back.day !== w.d || back.hour !== w.h || back.minute !== w.mi);
-    elWallOut.innerHTML = kv([
-      ['时间戳（秒）', String(Math.floor(ms / 1000))],
-      ['时间戳（毫秒）', String(ms)],
-      ['该时区', tz + '（' + back.offsetText + '）'],
-      ['当地实际时间', timeFormatParts(back)],
-      ['本地时区', timeFormatParts(timeParts(ms, localZone))],
-      ['UTC', timeIsoZoned(ms, 'UTC')]
-    ]);
-    if (drift){
-      elWallMsg.textContent = '⚠ 该时刻在 ' + tz + ' 处于夏令时切换的空档（当地不存在这个时间），已按切换后的规则换算';
-      elWallMsg.className = 'msg warn';
-    } else {
-      elWallMsg.textContent = '✅ 已按 ' + tz + ' 换算';
-      elWallMsg.className = 'msg ok';
-    }
-  }
-
-  function renderBatch(){
-    var src = elBatchIn.value;
-    if (src.trim() === ''){ elBatchOut.textContent = ''; return; }
-    var tz = selBatch.value;
-    var out = [], lines = src.split(/\r\n|\r|\n/), okN = 0;
-    for (var i = 0; i < lines.length; i++){
-      var line = lines[i].trim();
-      if (line === '') continue;
-      var p = timeParseTs(line);
-      if (!p){ out.push(pad(line, 28) + '  ✗ 无法识别'); continue; }
-      okN++;
-      out.push(pad(line, 28) + '  ' + timeFormatParts(timeParts(p.ms, tz)) + '  (' + tz + ')');
-    }
-    elBatchOut.textContent = out.join('\n');
-  }
-  function pad(s, n){ s = String(s); while (s.length < n) s += ' '; return s; }
-
-  elTsIn.addEventListener('input', renderTs);
-  elWallIn.addEventListener('input', renderWall);
-  elBatchIn.addEventListener('input', renderBatch);
-  selMain.addEventListener('change', renderTs);
-  selWall.addEventListener('change', renderWall);
-  selBatch.addEventListener('change', renderBatch);
-  document.getElementById('timeTsNow').addEventListener('click', function(){
-    elTsIn.value = String(Math.floor(Date.now() / 1000));
-    renderTs();
-  });
-  document.getElementById('timeNowUse').addEventListener('click', function(){
-    elTsIn.value = String(Math.floor(Date.now() / 1000));
-    renderTs();
-  });
-  document.getElementById('timeNowCopy').addEventListener('click', function(){
-    wbCopy(String(Math.floor(Date.now() / 1000)), this);
-  });
-  document.getElementById('timeWallCopyS').addEventListener('click', function(){
-    var w = parseWall(elWallIn.value);
-    if (w) wbCopy(String(Math.floor(timeWallToMs(w.y, w.mo, w.d, w.h, w.mi, w.s, selWall.value) / 1000)), this);
-  });
-  document.getElementById('timeWallCopyMs').addEventListener('click', function(){
-    var w = parseWall(elWallIn.value);
-    if (w) wbCopy(String(timeWallToMs(w.y, w.mo, w.d, w.h, w.mi, w.s, selWall.value)), this);
-  });
-  document.getElementById('timeBatchCopy').addEventListener('click', function(){ wbCopy(elBatchOut.textContent, this); });
-
-  (function init(){
-    var now = new Date();
-    var p = timeParts(now.getTime(), localZone);
-    elWallIn.value = p.year + '-' + timePad2(p.month) + '-' + timePad2(p.day) + ' ' + timePad2(p.hour) + ':' + timePad2(p.minute) + ':' + timePad2(p.second);
-    renderWall();
-  })();
-})();
-
 /* ================= 文本对比工具 ================= */
 (function(){
   var elA = document.getElementById('diffA');
@@ -4485,44 +4277,143 @@ function wbSeg(scope, attr, onChange){
   var elWrap = document.getElementById('diffWrap');
   var elStats = document.getElementById('diffStats');
   var elMsg = document.getElementById('diffMsg');
-  var opt = { ignoreCase: false, ignoreWhitespace: false, onlyChanges: false, ctx: -1 };
-  var lastText = '';
-  var A0 = '项目：离线工具箱\n版本：v3\n支持工具：金额大写、二维码\n备注：待补充\n联系人：张三\n结束';
-  var B0 = '项目：离线工具箱\n版本：v4\n支持工具：金额大写、二维码、图片压缩、JSON、时间戳、文本对比\n备注：待补充\n联系人：张三、李四\n结束';
+  var elCount = document.getElementById('diffCount');
+  var elNameA = document.getElementById('diffNameA');
+  var elNameB = document.getElementById('diffNameB');
+  var panel = document.getElementById('tool-diff');
 
-  function render(){
-    var a = elA.value, b = elB.value;
-    if (a === '' && b === ''){ elWrap.innerHTML = '<p class="ph">两栏都输入内容后，这里实时显示差异</p>'; elStats.innerHTML = ''; elMsg.textContent = ''; lastText = ''; return; }
-    var r = diffLines(a, b, { ignoreCase: opt.ignoreCase, ignoreWhitespace: opt.ignoreWhitespace });
-    if (!r.ok){
-      elWrap.innerHTML = '<p class="ph">文本太大（' + r.cells + ' 格，上限 ' + r.max + ' 格）<br>请先精简后再对比</p>';
-      elStats.innerHTML = '';
-      elMsg.textContent = '文本过长，已停止计算';
-      elMsg.className = 'msg err';
-      lastText = '';
-      return;
+  var opt = { view: 'split', ignoreCase: false, ignoreWhitespace: false, onlyChanges: false, ctx: -1 };
+  var full = [];        // 未折叠的完整行
+  var blocks = [];      // 展示区里的改动块（每块是若干 tr）
+  var curBlock = -1;
+  var lastUnified = '';
+  var nameA = '', nameB = '';
+
+  var A0 = '项目：离线工具箱\n版本：v9\n支持工具：金额大写、二维码、图片压缩、JSON\n备注：待补充\n联系人：张三\n结束';
+  var B0 = '项目：离线工具箱\n版本：v10\n支持工具：金额大写、二维码、图片压缩、JSON、文本对比\n备注：行内高亮、并排视图、逐处跳转都加上了\n联系人：张三、李四\n结束';
+
+  function setMsg(t, cls){ elMsg.textContent = t || ''; elMsg.className = 'msg' + (cls ? ' ' + cls : ''); }
+  function setSeg(key, val){
+    var btns = document.querySelectorAll('.seg[data-diff="' + key + '"] button');
+    for (var i = 0; i < btns.length; i++) btns[i].classList.toggle('on', btns[i].getAttribute('data-val') === String(val));
+  }
+  // 窄屏默认统一视图：并排两栏在手机上挤不下
+  if (window.innerWidth < 720){ opt.view = 'unified'; setSeg('view', 'unified'); }
+
+  /* ---------- 行内段渲染 ---------- */
+  function segsHtml(segs, side){
+    if (!segs) return null;
+    var html = '', i, s;
+    for (i = 0; i < segs.length; i++){
+      s = segs[i];
+      if (s.t === '=') html += wbEsc(s.text);
+      else if (s.t === '-' && side === 'a') html += '<mark class="dw">' + wbEsc(s.text) + '</mark>';
+      else if (s.t === '+' && side === 'b') html += '<mark class="dw2">' + wbEsc(s.text) + '</mark>';
     }
-    var rows = opt.ctx >= 0 ? diffCollapse(r.rows, opt.ctx) : r.rows;
-    if (opt.onlyChanges) rows = rows.filter(function(x){ return x.t !== '=' && x.t !== '~'; });
-    var html = '<table class="diff">', i, x, cls, sign;
+    return html;
+  }
+  function lineText(row, side){
+    var h = row ? segsHtml(row.segs, side) : null;
+    if (h === null) h = wbEsc(row ? (row.text === '' ? ' ' : row.text) : '');
+    return h;
+  }
+
+  /* ---------- 统一视图 ---------- */
+  function unifiedHtml(rows){
+    var html = '<table class="diff">', i, x, cls, sign, blk = -1, prevChg = false;
     for (i = 0; i < rows.length; i++){
       x = rows[i];
-      if (x.t === '~'){
-        html += '<tr class="d-fold"><td colspan="4">⋯ 还有 ' + x.count + ' 行未改动 ⋯</td></tr>';
-        continue;
-      }
-      cls = x.t === '-' ? 'd-del' : (x.t === '+' ? 'd-ins' : '');
+      if (x.t === '~'){ html += '<tr class="d-fold"><td colspan="4">⋯ 还有 ' + x.count + ' 行未改动，点击展开 ⋯</td></tr>'; prevChg = false; continue; }
+      if (x.t !== '='){
+        if (!prevChg) blk++;
+        prevChg = true;
+        cls = 'd-chg ' + (x.t === '-' ? 'd-del' : 'd-ins');
+      } else { prevChg = false; cls = ''; }
       sign = x.t === '-' ? '−' : (x.t === '+' ? '+' : '');
-      html += '<tr class="' + cls + '">'
+      html += '<tr class="' + cls + '"' + (x.t !== '=' ? ' data-blk="' + blk + '"' : '') + '>'
         + '<td class="d-no">' + (x.a === null ? '' : x.a) + '</td>'
         + '<td class="d-no">' + (x.b === null ? '' : x.b) + '</td>'
         + '<td class="d-sign">' + sign + '</td>'
-        + '<td class="d-text">' + wbEsc(x.text === '' ? ' ' : x.text) + '</td>'
+        + '<td class="d-text">' + lineText(x, x.t === '+' ? 'b' : 'a') + '</td>'
         + '</tr>';
     }
-    html += '</table>';
-    if (!rows.length) html = '<p class="ph">两段文本完全一致</p>';
-    elWrap.innerHTML = html;
+    return html + '</table>';
+  }
+
+  /* ---------- 并排视图：同一张表，天然同步滚动 ---------- */
+  function splitHtml(rows){
+    var html = '<table class="diff d-split">', i = 0, n = rows.length, del, ins, j, m, k;
+    var blk = -1, prevChg = false, L, R, lc, rc;
+    while (i < n){
+      var x = rows[i];
+      if (x.t === '~'){
+        html += '<tr class="d-fold"><td colspan="5">⋯ 还有 ' + x.count + ' 行未改动，点击展开 ⋯</td></tr>';
+        prevChg = false; i++; continue;
+      }
+      if (x.t === '='){
+        html += '<tr><td class="d-no">' + x.a + '</td><td class="d-c">' + lineText(x, 'a') + '</td>'
+          + '<td class="d-mid"></td>'
+          + '<td class="d-no">' + x.b + '</td><td class="d-c">' + lineText(x, 'b') + '</td></tr>';
+        prevChg = false; i++; continue;
+      }
+      del = []; ins = []; j = i;
+      while (j < n && rows[j].t !== '=' && rows[j].t !== '~'){
+        if (rows[j].t === '-') del.push(rows[j]); else ins.push(rows[j]);
+        j++;
+      }
+      if (!prevChg) blk++;
+      prevChg = true;
+      m = Math.max(del.length, ins.length);
+      for (k = 0; k < m; k++){
+        L = del[k] || null; R = ins[k] || null;
+        lc = L ? 'd-c dl' : 'd-c dx';
+        rc = R ? 'd-c di' : 'd-c dx';
+        html += '<tr class="d-chg" data-blk="' + blk + '">'
+          + '<td class="d-no">' + (L ? L.a : '') + '</td>'
+          + '<td class="' + lc + '">' + (L ? lineText(L, 'a') : '') + '</td>'
+          + '<td class="d-mid"></td>'
+          + '<td class="d-no">' + (R ? R.b : '') + '</td>'
+          + '<td class="' + rc + '">' + (R ? lineText(R, 'b') : '') + '</td>'
+          + '</tr>';
+      }
+      i = j;
+    }
+    return html + '</table>';
+  }
+
+  /* ---------- 渲染 ---------- */
+  function render(){
+    var a = elA.value, b = elB.value;
+    blocks = []; curBlock = -1; elCount.textContent = '';
+
+    if (a === '' && b === ''){
+      elWrap.innerHTML = '<p class="ph">两栏都输入内容后，这里实时显示差异</p>';
+      elStats.innerHTML = '';
+      setMsg(''); lastUnified = '';
+      return;
+    }
+
+    var r = diffLines(a, b, { ignoreCase: opt.ignoreCase, ignoreWhitespace: opt.ignoreWhitespace });
+    if (!r.ok){
+      elWrap.innerHTML = '<p class="ph">文本太大（' + r.cells + ' 格，上限 ' + r.max + ' 格）<br>请先精简后再对比</p>';
+      elStats.innerHTML = ''; setMsg('文本过长，已停止计算', 'err'); lastUnified = '';
+      return;
+    }
+
+    full = diffDecorate(r.rows);
+    var rows = opt.ctx >= 0 ? diffCollapse(full, opt.ctx) : full.slice();
+    if (opt.onlyChanges) rows = rows.filter(function(x){ return x.t !== '=' && x.t !== '~'; });
+
+    lastUnified = diffToUnified(full, {
+      ctx: opt.ctx >= 0 ? opt.ctx : 3,
+      nameA: (nameA ? 'a/' + nameA : 'a/A'),
+      nameB: (nameB ? 'b/' + nameB : 'b/B')
+    });
+
+    elWrap.innerHTML = rows.length
+      ? (opt.view === 'split' ? splitHtml(rows) : unifiedHtml(rows))
+      : '<p class="ph">两段文本完全一致</p>';
+
     var s = r.stats;
     elStats.innerHTML =
       '<span class="s-add">新增行 <b>' + s.added + '</b></span>'
@@ -4531,24 +4422,156 @@ function wbSeg(scope, attr, onChange){
       + '<span>未改动 <b>' + s.equal + '</b></span>'
       + '<span>A <b>' + r.lineCountA + '</b> 行</span>'
       + '<span>B <b>' + r.lineCountB + '</b> 行</span>';
-    lastText = diffToText(r.rows, { lineNumbers: true });
-    elMsg.textContent = (s.added + s.removed + s.changed) === 0 ? '两段文本完全一致' : '共 ' + (s.added + s.removed + s.changed) + ' 处差异';
-    elMsg.className = 'msg';
+
+    var diffN = s.added + s.removed + s.changed;
+    setMsg(diffN === 0 ? '两段文本完全一致' : '共 ' + diffN + ' 处差异');
+
+    collectBlocks();
   }
 
+  /* ---------- 逐处跳转 ---------- */
+  function collectBlocks(){
+    blocks = []; curBlock = -1;
+    var trs = elWrap.querySelectorAll('tr.d-chg'), i, bk;
+    for (i = 0; i < trs.length; i++){
+      bk = parseInt(trs[i].getAttribute('data-blk'), 10);
+      if (isNaN(bk)) continue;
+      if (!blocks[bk]) blocks[bk] = [];
+      blocks[bk].push(trs[i]);
+    }
+    if (!blocks.length){ elCount.textContent = ''; return; }
+    setBlock(0, true);
+  }
+
+  function setBlock(i, noScroll){
+    if (!blocks.length) return;
+    if (i < 0) i = blocks.length - 1;
+    if (i >= blocks.length) i = 0;
+    curBlock = i;
+    var old = elWrap.querySelectorAll('tr.d-cur'), k;
+    for (k = 0; k < old.length; k++) old[k].classList.remove('d-cur');
+    var g = blocks[i];
+    for (k = 0; k < g.length; k++) g[k].classList.add('d-cur');
+    elCount.textContent = '第 ' + (i + 1) + ' / ' + blocks.length + ' 处';
+    if (noScroll) return;
+    var wr = elWrap.getBoundingClientRect(), tr = g[0].getBoundingClientRect();
+    elWrap.scrollTop += (tr.top - wr.top) - (elWrap.clientHeight - tr.height) / 2;
+  }
+
+  /* ---------- 文件导入：UTF-8 优先，失败回退 GB18030 ---------- */
+  function loadFile(file, ta, nameEl, which){
+    if (!file) return;
+    if (file.size > 8 * 1024 * 1024){ setMsg('文件超过 8 MB，先切一小段再比吧', 'err'); return; }
+    var fr = new FileReader();
+    fr.onload = function(){
+      var buf = fr.result, txt = '';
+      try { txt = new TextDecoder('utf-8', { fatal: true }).decode(buf); }
+      catch (e){
+        try { txt = new TextDecoder('gb18030').decode(buf); }
+        catch (e2){ try { txt = new TextDecoder('utf-8').decode(buf); } catch (e3){ txt = ''; } }
+      }
+      ta.value = txt.replace(/^\uFEFF/, '');
+      nameEl.textContent = file.name;
+      nameEl.hidden = false;
+      if (which === 'a') nameA = file.name; else nameB = file.name;
+      render();
+    };
+    fr.readAsArrayBuffer(file);
+  }
+
+  function bindPane(paneId, inputId, openId, ta, nameEl, which){
+    var pane = document.getElementById(paneId);
+    var input = document.getElementById(inputId);
+    document.getElementById(openId).addEventListener('click', function(){ input.click(); });
+    input.addEventListener('change', function(){ loadFile(input.files && input.files[0], ta, nameEl, which); input.value = ''; });
+    ['dragenter', 'dragover'].forEach(function(ev){
+      pane.addEventListener(ev, function(e){ e.preventDefault(); e.stopPropagation(); pane.classList.add('drag-over'); });
+    });
+    ['dragleave', 'dragend'].forEach(function(ev){
+      pane.addEventListener(ev, function(e){ if (e.target === pane) pane.classList.remove('drag-over'); });
+    });
+    pane.addEventListener('drop', function(e){
+      e.preventDefault(); e.stopPropagation();
+      pane.classList.remove('drag-over');
+      var f = e.dataTransfer && e.dataTransfer.files && e.dataTransfer.files[0];
+      loadFile(f, ta, nameEl, which);
+    });
+  }
+
+  /* ---------- 事件 ---------- */
   elA.addEventListener('input', render);
   elB.addEventListener('input', render);
+
   wbSeg(null, 'data-diff', function(key, val){
     if (key === 'ctx') opt.ctx = parseInt(val, 10);
+    else if (key === 'view') opt.view = val;
     else opt[key] = (val === '1');
     render();
   });
+
   document.getElementById('diffSwap').addEventListener('click', function(){
-    var t = elA.value; elA.value = elB.value; elB.value = t; render();
+    var t = elA.value; elA.value = elB.value; elB.value = t;
+    var n = nameA; nameA = nameB; nameB = n;
+    var h = elNameA.textContent; elNameA.textContent = elNameB.textContent; elNameB.textContent = h;
+    elNameA.hidden = !nameA; elNameB.hidden = !nameB;
+    render();
   });
-  document.getElementById('diffDemo').addEventListener('click', function(){ elA.value = A0; elB.value = B0; render(); });
-  document.getElementById('diffClear').addEventListener('click', function(){ elA.value = ''; elB.value = ''; render(); });
-  document.getElementById('diffCopyText').addEventListener('click', function(){ wbCopy(lastText, this); });
+  document.getElementById('diffDemo').addEventListener('click', function(){
+    elA.value = A0; elB.value = B0;
+    nameA = ''; nameB = '';
+    elNameA.hidden = true; elNameB.hidden = true;
+    render();
+  });
+  document.getElementById('diffClear').addEventListener('click', function(){
+    elA.value = ''; elB.value = '';
+    nameA = ''; nameB = '';
+    elNameA.hidden = true; elNameB.hidden = true;
+    render();
+  });
+  document.getElementById('diffCopyDiff').addEventListener('click', function(){
+    if (!lastUnified){ setMsg('还没有差异可以复制', 'err'); return; }
+    wbCopy(lastUnified, this);
+  });
+  document.getElementById('diffDownload').addEventListener('click', function(){
+    if (!lastUnified){ setMsg('还没有差异可以导出', 'err'); return; }
+    try {
+      var blob = new Blob([lastUnified], { type: 'text/plain;charset=utf-8' });
+      var url = URL.createObjectURL(blob);
+      var a = document.createElement('a');
+      a.href = url;
+      a.download = (nameB ? nameB.replace(/\.[^.]+$/, '') : 'diff') + '.patch';
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+      setTimeout(function(){ URL.revokeObjectURL(url); }, 2000);
+    } catch (e){ setMsg('下载失败，可改用「复制 diff」', 'err'); }
+  });
+  document.getElementById('diffPrev').addEventListener('click', function(){ setBlock(curBlock - 1); });
+  document.getElementById('diffNext').addEventListener('click', function(){ setBlock(curBlock + 1); });
+
+  // 点折叠条 = 展开全部（等价于切到「不折叠」）
+  elWrap.addEventListener('click', function(e){
+    var tr = e.target;
+    while (tr && tr.tagName !== 'TR' && tr !== elWrap) tr = tr.parentNode;
+    if (!tr || tr.tagName !== 'TR' || !/d-fold/.test(tr.className)) return;
+    setSeg('ctx', '-1');
+    opt.ctx = -1;
+    render();
+  });
+
+  // n / p 逐处跳转（不在输入框里时生效，且只在对比工具显示时响应）
+  document.addEventListener('keydown', function(e){
+    if (panel.hidden) return;
+    if (e.metaKey || e.ctrlKey || e.altKey) return;
+    var t = e.target;
+    if (t && (t.tagName === 'INPUT' || t.tagName === 'TEXTAREA' || t.tagName === 'SELECT' || t.isContentEditable)) return;
+    var k = (e.key || '').toLowerCase();
+    if (k === 'n'){ setBlock(curBlock + 1); e.preventDefault(); }
+    else if (k === 'p'){ setBlock(curBlock - 1); e.preventDefault(); }
+  });
+
+  bindPane('diffPaneA', 'diffFileA', 'diffOpenA', elA, elNameA, 'a');
+  bindPane('diffPaneB', 'diffFileB', 'diffOpenB', elB, elNameB, 'b');
   render();
 })();
 

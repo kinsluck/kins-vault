@@ -50,7 +50,7 @@ kins-vault/
 ├── LICENSE
 │
 ├── dev/                                # 🧑‍💻 开发与编程（首页置顶）
-│   ├── offline-toolbox.html            #   🧰 离线工具箱 · 十个常用小工具（置顶）
+│   ├── offline-toolbox.html            #   🧰 离线工具箱 · 九个常用小工具（置顶）
 │   ├── godot-learning-path.html        #   Godot 游戏开发学习路径
 │   └── image-compression-research.html #   图片压缩方案调研与实测
 ├── games/                              # 🎮 游戏攻略
@@ -66,13 +66,13 @@ kins-vault/
 
 ## 📚 内容索引
 
-> 📌 **首页置顶**：分类「🧑‍💻 开发与编程」排在最前，其中「🧰 离线工具箱 · 十个常用小工具」为置顶卡片。
+> 📌 **首页置顶**：分类「🧑‍💻 开发与编程」排在最前，其中「🧰 离线工具箱 · 九个常用小工具」为置顶卡片。
 
 ### 🧑‍💻 开发与编程
 
 | 页面 | 简介 |
 | :--- | :--- |
-| 📌 [**离线工具箱 · 十个常用小工具**](https://kinsluck.github.io/kins-vault/dev/offline-toolbox.html) | 金额大写 / 二维码 / **截图套壳**（iPhone 15–18 Pro、一加 13T，iPhone 用 Apple 官方 Product Bezels 真机边框，批量套壳 + 打包 ZIP）/ **文字出图**（贴一段文字生成卡片图：8 种风格、渐变背景、长文自动拆页、2×–3× 高清导出）/ **视觉无损图片压缩**（SSIM 判据，批量+打包）/ JSON / 时间戳 / 文本对比 / **列转行**（竖排转一行，分隔符自定义）/ **三姑六婆**（亲戚称谓计算）：单文件零依赖，断网可用，数据不出本机 |
+| 📌 [**离线工具箱 · 九个常用小工具**](https://kinsluck.github.io/kins-vault/dev/offline-toolbox.html) | 金额大写 / 二维码 / **截图套壳**（iPhone 15–18 Pro、一加 13T，iPhone 用 Apple 官方 Product Bezels 真机边框，批量套壳 + 打包 ZIP）/ **文字出图**（贴一段文字生成卡片图：8 种风格、渐变背景、长文自动拆页、2×–3× 高清导出）/ **视觉无损图片压缩**（SSIM 判据，批量+打包）/ JSON / **文本对比**（行内词·字级高亮，并排 / 统一双视图，逐处跳转 n·p，拖入文件对比 UTF-8 或 GBK，导出 .diff）/ **列转行**（竖排转一行，分隔符自定义）/ **三姑六婆**（亲戚称谓计算）：单文件零依赖，断网可用，数据不出本机 |
 | [**Godot 游戏开发学习路径**](https://kinsluck.github.io/kins-vault/dev/godot-learning-path.html) | 汇总顶级开发者建议的学习路线：从入门到能独立做出游戏的推荐顺序 |
 | [**图片压缩方案调研与实测**](https://kinsluck.github.io/kins-vault/dev/image-compression-research.html) | 各家压缩方案横向实测对比：体积、画质与实际使用取舍 |
 
