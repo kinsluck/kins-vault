@@ -742,6 +742,76 @@ table.cand tr.win td{background:#eefaf3;color:var(--ok);font-weight:600}
   #tool-tier .tl-bar2{gap:10px}
   #tool-tier input[type=range]{width:80px}
 }
+/* ===== 证件水印 ===== */
+#tool-wm .wm-bar{display:flex;gap:8px;flex-wrap:wrap;align-items:center;justify-content:space-between;margin-bottom:14px}
+#tool-wm .wm-cols{display:grid;grid-template-columns:296px minmax(0,1fr);gap:20px;align-items:start}
+#tool-wm .wm-side{display:flex;flex-direction:column;gap:13px}
+#tool-wm .wm-field{display:flex;flex-direction:column;gap:6px}
+#tool-wm .wm-label{display:flex;align-items:baseline;justify-content:space-between;gap:8px;font-size:12px;color:var(--ink2)}
+#tool-wm .wm-label b{font-weight:600;color:var(--ink);font-variant-numeric:tabular-nums}
+#tool-wm textarea.wm-ta{
+  width:100%;min-height:62px;resize:vertical;font:inherit;font-size:13px;line-height:1.6;
+  border:1.5px solid var(--line);border-radius:10px;padding:8px 10px;background:#fbfcfe;
+  color:var(--ink);outline:0;transition:.16s;
+}
+#tool-wm textarea.wm-ta:focus{border-color:var(--brand);background:#fff;box-shadow:0 0 0 3px var(--brand-soft)}
+#tool-wm .wm-chips{display:flex;gap:6px;flex-wrap:wrap}
+#tool-wm .wm-chip{
+  border:1px solid var(--line);background:#fff;border-radius:999px;padding:3px 10px;
+  font:inherit;font-size:11.5px;color:var(--ink2);cursor:pointer;transition:.14s;
+}
+#tool-wm .wm-chip:hover{border-color:var(--brand-line);color:var(--brand);background:var(--brand-soft)}
+#tool-wm .wm-row{display:flex;align-items:center;gap:8px}
+#tool-wm .wm-row input[type=range]{flex:1;accent-color:var(--brand);min-width:0}
+#tool-wm .wm-row input[type=text]{
+  flex:1;min-width:0;border:1.5px solid var(--line);border-radius:8px;padding:5px 9px;
+  font:inherit;font-size:13px;background:#fbfcfe;color:var(--ink);outline:0;
+}
+#tool-wm .wm-row input[type=text]:focus{border-color:var(--brand);background:#fff;box-shadow:0 0 0 3px var(--brand-soft)}
+#tool-wm .wm-swatches{display:flex;gap:7px;align-items:center;flex-wrap:wrap}
+#tool-wm .wm-sw{
+  width:22px;height:22px;border-radius:50%;border:2px solid #fff;padding:0;cursor:pointer;
+  box-shadow:0 0 0 1px var(--line);transition:.14s;
+}
+#tool-wm .wm-sw.on{box-shadow:0 0 0 2px var(--brand)}
+#tool-wm .wm-picker{
+  width:26px;height:26px;padding:0;border:1px solid var(--line);border-radius:7px;
+  background:#fff;cursor:pointer;
+}
+#tool-wm .wm-list{display:grid;grid-template-columns:repeat(auto-fill,minmax(196px,1fr));gap:12px}
+#tool-wm .wm-item{
+  border-radius:11px;border:1px solid var(--line);background:#fff;overflow:hidden;
+  box-shadow:0 1px 2px rgba(20,35,70,.06);
+}
+#tool-wm .wm-item canvas{display:block;width:100%;height:auto;background:#fff}
+#tool-wm .wm-item .wm-meta{
+  display:flex;align-items:center;justify-content:space-between;gap:6px;
+  padding:6px 8px;border-top:1px solid var(--line2);font-size:11.5px;color:var(--ink3);
+}
+#tool-wm .wm-item .wm-name{overflow:hidden;text-overflow:ellipsis;white-space:nowrap;min-width:0}
+#tool-wm .wm-dl{
+  border:0;background:var(--brand-soft);color:var(--brand);border-radius:6px;
+  font:inherit;font-size:11.5px;padding:2px 8px;cursor:pointer;white-space:nowrap;
+}
+#tool-wm .wm-dl:hover{background:var(--brand);color:#fff}
+#tool-wm .wm-x{
+  border:0;background:#f1f4fa;color:var(--ink2);width:20px;height:20px;border-radius:6px;
+  font:inherit;font-size:12px;line-height:20px;cursor:pointer;padding:0;flex:none;
+}
+#tool-wm .wm-x:hover{background:#ffe8e6;color:#c0392b}
+#tool-wm .wm-empty{
+  grid-column:1/-1;border:1.5px dashed var(--line);border-radius:12px;padding:36px 14px;
+  text-align:center;color:var(--ink3);font-size:13px;line-height:2;background:#fbfcfe;
+}
+#tool-wm .wm-tip{
+  margin:2px 0 0;font-size:11.5px;line-height:1.75;color:var(--ink3);
+  background:#f7f9fc;border-radius:9px;padding:8px 10px;
+}
+#tool-wm .wm-tip b{color:var(--ink2);font-weight:600}
+@media screen and (max-width:900px){
+  #tool-wm .wm-cols{grid-template-columns:minmax(0,1fr);gap:14px}
+  #tool-wm .wm-list{grid-template-columns:repeat(auto-fill,minmax(150px,1fr))}
+}
 </style>
 </head>
 <body data-page-node-id="fgWxz8GLCRrgQYFN6ShgEG">
@@ -752,11 +822,11 @@ table.cand tr.win td{background:#eefaf3;color:var(--ok);font-weight:600}
       <div data-page-node-id="mHsYmtPIaoaO2ZZDmCcDrd" class="logo"><!--pnid:5E6tt2utb4u9ogrq6CLvRU-->&#129520;</div>
       <div data-page-node-id="wEFU0SufpKUPbo6sew3xnz">
         <h1 data-page-node-id="gYvKet7cdc4iVrhr7036qe"><!--pnid:T3m0nns9JIsNkMDSCGqRDg-->离线工具箱</h1>
-        <p data-page-node-id="6aUH3hrTiGUTn1anLa0KrK" class="sub"><!--pnid:Y9qhPTagkTO2Wi2clAIrRu-->10 个离线小工具 &middot; 金额 / 二维码 / 图片 / JSON / 文本对比 / 分级表 / 列转行 / 称谓 / 截图套壳 / 文字出图 &middot; 断网可用</p>
+        <p data-page-node-id="6aUH3hrTiGUTn1anLa0KrK" class="sub"><!--pnid:Y9qhPTagkTO2Wi2clAIrRu-->11 个离线小工具 &middot; 金额 / 二维码 / 图片 / JSON / 文本对比 / 分级表 / 证件水印 / 列转行 / 称谓 / 截图套壳 / 文字出图 &middot; 断网可用</p>
       </div>
     </div>
     <div data-page-node-id="wkKf8J04pBQFDRzKKYDKhN" class="hdr-r">
-      <span data-page-node-id="7aAWllmVb8Fp2cvX0Axm19" class="badge"><!--pnid:rFzqcvyu0Jd6ckVWj8UoC0-->v11 &middot; 2026-10-24</span>
+      <span data-page-node-id="7aAWllmVb8Fp2cvX0Axm19" class="badge"><!--pnid:rFzqcvyu0Jd6ckVWj8UoC0-->v12 &middot; 2026-10-26</span>
       <span data-page-node-id="uPWhTUoPPuZLDXjsWpoclk" class="badge badge-ok"><!--pnid:fij8wnjFigBIaulXEhrBR8-->离线可用</span>
     </div>
   </header>
@@ -772,6 +842,7 @@ table.cand tr.win td{background:#eefaf3;color:var(--ok);font-weight:600}
     <button data-page-node-id="FXwBpgT9XAH9B0oXNkvrxq" class="tool" data-tool="mockup" type="button"><span data-page-node-id="vm6soXN9fC8SBavPsHXiRl" class="ic"><!--pnid:WdW3ZTeFdysKCr0jur0OSX-->&#128241;</span><!--pnid:tqZfLe8HhzRvT9QmzUH5yR--><!--pnid:mkMockupNav--><!--pnid:jP8OVbiZbcoEQalMhWVnAY-->截图套壳</button>
     <button data-page-node-id="CLgqMXfMCMEpjC1JuuPWkE" class="tool" data-tool="textcard" type="button"><span data-page-node-id="TbuJHROg0l8iHxWMBzdAXe" class="ic"><!--pnid:4oYJnT0JirmOd8G8gZdUZc-->&#128395;&#65039;</span><!--pnid:v4D75ZH4Jk0VL31MThlTDn-->文字出图</button>
     <button class="tool" data-tool="tier" type="button"><span class="ic">&#127942;</span>分级表</button>
+    <button class="tool" data-tool="wm" type="button"><span class="ic">&#128274;</span>证件水印</button>
   </nav>
 
   <section data-page-node-id="9qv7sZ8FtL5wbLMxZ96Y3c" class="tool-panel" id="tool-money">
@@ -1577,6 +1648,87 @@ table.cand tr.win td{background:#eefaf3;color:var(--ok);font-weight:600}
         </div>
       </div>
     </div>
+  </section>
+
+  <section class="tool-panel" hidden id="tool-wm">
+    <div class="card">
+      <div class="wm-bar">
+        <div class="btn-row">
+          <button class="btn primary" id="wmAdd" type="button">添加图片</button>
+          <button class="btn" id="wmDemo" type="button">示例</button>
+          <button class="btn" id="wmClear" type="button">清空</button>
+        </div>
+        <div class="btn-row">
+          <button class="btn primary" id="wmZip" type="button">打包下载</button>
+        </div>
+      </div>
+
+      <div class="wm-cols">
+        <div class="wm-side">
+          <div class="wm-field">
+            <div class="wm-label"><span>用途模板</span></div>
+            <div class="wm-row"><input id="wmPurpose" maxlength="30" placeholder="填用途，回车套用；或点下面标签" type="text"></div>
+            <div class="wm-chips" id="wmChips"></div>
+          </div>
+
+          <div class="wm-field">
+            <div class="wm-label"><span>水印文字</span><b id="wmTextN">0 字</b></div>
+            <textarea class="wm-ta" id="wmText" spellcheck="false"></textarea>
+          </div>
+
+          <div class="wm-field">
+            <div class="wm-label"><span>字号</span><b id="wmSizeV">2.8%</b></div>
+            <div class="wm-row"><input id="wmSize" max="90" min="10" type="range" value="28"></div>
+          </div>
+
+          <div class="wm-field">
+            <div class="wm-label"><span>透明度</span><b id="wmOpaV">24%</b></div>
+            <div class="wm-row"><input id="wmOpa" max="90" min="4" type="range" value="24"></div>
+          </div>
+
+          <div class="wm-field">
+            <div class="wm-label"><span>角度</span><b id="wmAngV">-30°</b></div>
+            <div class="wm-row"><input id="wmAng" max="90" min="-90" type="range" value="-30"></div>
+          </div>
+
+          <div class="wm-field">
+            <div class="wm-label"><span>间距</span><b id="wmGapV">中</b></div>
+            <div class="wm-row"><input id="wmGap" max="100" min="0" type="range" value="34"></div>
+          </div>
+
+          <div class="wm-field">
+            <div class="wm-label"><span>颜色</span></div>
+            <div class="wm-swatches" id="wmColors"></div>
+          </div>
+
+          <div class="wm-field">
+            <div class="wm-label"><span>排布</span></div>
+            <div class="seg" id="wmMode">
+              <button class="on" data-val="tile" type="button">平铺</button>
+              <button data-val="center" type="button">居中</button>
+              <button data-val="diag" type="button">斜线</button>
+            </div>
+          </div>
+
+          <div class="wm-field">
+            <div class="wm-label"><span>输出格式</span></div>
+            <div class="seg" id="wmFmt">
+              <button class="on" data-val="png" type="button">PNG</button>
+              <button data-val="jpg" type="button">JPG</button>
+            </div>
+          </div>
+
+          <p class="wm-tip">水印要压住<b>照片、身份证号、有效期</b>，但别把姓名性别糊死；文案写全<b>用途 + 日期 + 无效声明</b>才算有效签注。全程本机处理，图片不上传、不联网。</p>
+        </div>
+
+        <div class="wm-main">
+          <div class="wm-list" id="wmList"></div>
+        </div>
+      </div>
+
+      <p class="msg" id="wmMsg"></p>
+    </div>
+    <input accept="image/*" hidden id="wmFile" multiple type="file">
   </section>
 
 <footer data-page-node-id="VD0vhefggJq5nk3PP7p6LA"><!--pnid:yPvPFwf3ZxkHcugIGRmWWN-->
@@ -8324,6 +8476,505 @@ window.MK_BEZELS={"b15nat":{"s":"data:image/webp;base64,UklGRtR9AABXRUJQVlA4WAoA
 
   // 供调试与自动化测试使用
   window.__tier = { state: function(){ return S; }, render: render, preload: preload, buildCanvas: buildCanvas, blank: blank };
+})();
+
+/* ================= 证件水印 ================= */
+(function(){
+  var panel = document.getElementById('tool-wm');
+  if (!panel) return;
+
+  var FONT = '"Noto Sans SC","Microsoft YaHei","PingFang SC","Hiragino Sans GB",sans-serif';
+  var COLORS = ['#d0342c', '#2f6df0', '#0f8a5f', '#3f4652', '#ffffff'];
+  var CHIPS = ['银行开户', '入职材料', '实名认证', '房屋租赁', '复印件无效'];
+
+  var items = [], seq = 0, timer = null;
+  var O = {
+    text: '', size: 0.028, opa: 0.24, ang: -30, gap: 0.34,
+    color: COLORS[0], mode: 'tile', fmt: 'png'
+  };
+
+  var elList = document.getElementById('wmList');
+  var elMsg = document.getElementById('wmMsg');
+  var elText = document.getElementById('wmText');
+
+  function msg(t, cls){ elMsg.textContent = t || ''; elMsg.className = 'msg' + (cls ? ' ' + cls : ''); }
+  function pad2(n){ return (n < 10 ? '0' : '') + n; }
+  function today(){
+    var d = new Date();
+    return d.getFullYear() + '.' + pad2(d.getMonth() + 1) + '.' + pad2(d.getDate());
+  }
+  function saveBlob(blob, name){
+    var url = URL.createObjectURL(blob);
+    try{
+      var a = document.createElement('a');
+      a.href = url; a.download = name;
+      document.body.appendChild(a); a.click(); document.body.removeChild(a);
+    } catch (e){ alert('下载被当前环境拦截，请用 Chrome 打开本文件后再下载。'); }
+    setTimeout(function(){ try { URL.revokeObjectURL(url); } catch (e){} }, 4000);
+  }
+
+  /* ---------- 水印绘制核心（纯函数，字号/间距都按图片宽高比例算） ---------- */
+  function drawWM(g, W, H, o){
+    var text = String(o.text || '');
+    if (!text.trim()) return;
+    var fs = Math.max(7, W * o.size);
+    var lines = text.split('\n');
+    g.save();
+    g.globalAlpha = o.opa;
+    g.fillStyle = o.color;
+    g.font = '700 ' + fs.toFixed(1) + 'px ' + FONT;
+    g.textAlign = 'center';
+    g.textBaseline = 'middle';
+
+    var lineH = fs * 1.38;
+    var blockH = lineH * lines.length;
+    var maxW = 0, i;
+    for (i = 0; i < lines.length; i++){
+      maxW = Math.max(maxW, g.measureText(lines[i]).width);
+    }
+    if (!maxW) { g.restore(); return; }
+
+    function paint(cx, cy){
+      for (var k = 0; k < lines.length; k++){
+        g.fillText(lines[k], cx, cy + (k - (lines.length - 1) / 2) * lineH);
+      }
+    }
+
+    if (o.mode === 'center'){
+      paint(W / 2, H / 2);
+    } else if (o.mode === 'diag'){
+      var rd = (o.ang || -30) * Math.PI / 180;
+      g.translate(W / 2, H / 2);
+      g.rotate(rd);
+      var span = Math.sqrt(W * W + H * H);
+      for (var t = -1; t <= 1; t++) paint(0, t * span * 0.34);
+    } else {
+      var rad = (o.ang || 0) * Math.PI / 180;
+      g.translate(W / 2, H / 2);
+      g.rotate(rad);
+      var stepX = maxW + W * (0.03 + o.gap * 0.32);
+      var stepY = blockH + H * (0.02 + o.gap * 0.24);
+      var D = Math.sqrt(W * W + H * H);
+      var row = 0, off, x, y;
+      for (y = -D / 2; y <= D / 2; y += stepY){
+        off = (row % 2) ? stepX / 2 : 0;
+        for (x = -D / 2; x <= D / 2; x += stepX) paint(x + off, y);
+        row++;
+      }
+    }
+    g.restore();
+  }
+
+  /* ---------- 列表 ---------- */
+  function paintThumb(it){
+    var tw = 340, th = Math.max(1, Math.round(it.h * tw / it.w));
+    if (it.cv.width !== tw || it.cv.height !== th){ it.cv.width = tw; it.cv.height = th; }
+    var g = it.cv.getContext('2d');
+    g.clearRect(0, 0, tw, th);
+    g.drawImage(it.bmp, 0, 0, tw, th);
+    drawWM(g, tw, th, O);
+  }
+
+  function renderList(){
+    if (!items.length){
+      elList.innerHTML = '<div class="wm-empty">还没有图片<br>点「添加图片」，把身份证照片拖进来，或者 Ctrl+V 粘贴<br><span style="font-size:12px">全程本机处理，图片不会离开这台电脑</span></div>';
+      return;
+    }
+    elList.innerHTML = '';
+    items.forEach(function(it){
+      var wrap = document.createElement('div');
+      wrap.className = 'wm-item';
+      wrap.setAttribute('data-id', it.id);
+      wrap.appendChild(it.cv);
+      var meta = document.createElement('div');
+      meta.className = 'wm-meta';
+      var nm = document.createElement('span');
+      nm.className = 'wm-name';
+      nm.textContent = it.name;
+      nm.title = it.name + ' · ' + it.w + ' × ' + it.h;
+      var dl = document.createElement('button');
+      dl.className = 'wm-dl'; dl.type = 'button'; dl.textContent = '下载';
+      dl.setAttribute('data-dl', it.id);
+      var x = document.createElement('button');
+      x.className = 'wm-x'; x.type = 'button'; x.textContent = '×';
+      x.title = '移除这张';
+      x.setAttribute('data-rm', it.id);
+      meta.appendChild(nm); meta.appendChild(dl); meta.appendChild(x);
+      wrap.appendChild(meta);
+      elList.appendChild(wrap);
+    });
+  }
+
+  function repaint(){
+    for (var i = 0; i < items.length; i++) paintThumb(items[i]);
+  }
+  function schedule(){
+    if (timer) clearTimeout(timer);
+    timer = setTimeout(repaint, 90);
+  }
+
+  /* ---------- 读图（含 EXIF 方向修正） ---------- */
+  function loadBitmap(file){
+    return new Promise(function(res){
+      function fb(){
+        var img = new Image();
+        var u = URL.createObjectURL(file);
+        img.onload = function(){ res(img); setTimeout(function(){ try{ URL.revokeObjectURL(u); }catch(e){} }, 100); };
+        img.onerror = function(){ res(null); try{ URL.revokeObjectURL(u); }catch(e){} };
+        img.src = u;
+      }
+      if (window.createImageBitmap){
+        // 手机拍的证件照常带 EXIF 旋转，不修正画出来是横的
+        createImageBitmap(file, { imageOrientation: 'from-image' })
+          .then(function(bmp){ res(bmp); })
+          .catch(fb);
+      } else fb();
+    });
+  }
+
+  function addFiles(list){
+    var arr = [].slice.call(list || []).filter(function(f){ return f && /^image\//.test(f.type); });
+    if (!arr.length){ msg('只支持图片文件', 'err'); return Promise.resolve(); }
+    msg('正在读取 ' + arr.length + ' 张…');
+    var ok = 0, chain = Promise.resolve();
+    arr.forEach(function(f){
+      chain = chain.then(function(){
+        return loadBitmap(f).then(function(bmp){
+          if (!bmp) return;
+          var id = 'w' + (++seq);
+          var it = {
+            id: id, name: f.name || ('图片 ' + (items.length + 1)),
+            bmp: bmp, w: bmp.width, h: bmp.height,
+            cv: document.createElement('canvas')
+          };
+          paintThumb(it);
+          items.push(it);
+          ok++;
+        });
+      });
+    });
+    return chain.then(function(){
+      renderList();
+      msg(ok ? '已加入 ' + ok + ' 张，改参数会实时重算' : '这些文件读不出来，换别的图试试', ok ? 'ok' : 'err');
+    });
+  }
+
+  /* ---------- 导出 ---------- */
+  function mime(){ return O.fmt === 'jpg' ? 'image/jpeg' : 'image/png'; }
+  function ext(){ return O.fmt === 'jpg' ? 'jpg' : 'png'; }
+  function baseName(n){ return String(n || 'image').replace(/\.[^.]+$/, ''); }
+
+  function renderFull(it){
+    var c = document.createElement('canvas');
+    c.width = it.w; c.height = it.h;
+    var g = c.getContext('2d');
+    if (O.fmt === 'jpg'){ g.fillStyle = '#ffffff'; g.fillRect(0, 0, it.w, it.h); }
+    g.drawImage(it.bmp, 0, 0, it.w, it.h);
+    drawWM(g, it.w, it.h, O);
+    return c;
+  }
+
+  function toBlob(canvas){
+    return new Promise(function(res){
+      canvas.toBlob(function(b){ res(b); }, mime(), 0.94);
+    });
+  }
+
+  function dlOne(it){
+    toBlob(renderFull(it)).then(function(b){
+      if (!b){ msg('导出失败，图片可能太大', 'err'); return; }
+      saveBlob(b, baseName(it.name) + '-水印.' + ext());
+      msg('已保存 ' + it.name + '（原尺寸 ' + it.w + '×' + it.h + '）', 'ok');
+    });
+  }
+
+  function dlAll(){
+    if (!items.length){ msg('还没有图片', 'err'); return; }
+    if (items.length === 1){ dlOne(items[0]); return; }
+    msg('正在打包…');
+    var files = [], chain = Promise.resolve();
+    items.forEach(function(it){
+      chain = chain.then(function(){
+        return toBlob(renderFull(it)).then(function(b){
+          if (!b) return null;
+          return b.arrayBuffer().then(function(buf){
+            files.push({ name: baseName(it.name) + '-水印.' + ext(), data: new Uint8Array(buf) });
+          });
+        });
+      });
+    });
+    chain.then(function(){
+      if (!files.length){ msg('导出失败', 'err'); return; }
+      var zip = zipStore(files);
+      saveBlob(new Blob([zip], { type: 'application/zip' }), '证件水印-' + files.length + '张.zip');
+      msg('已打包 ' + files.length + ' 张', 'ok');
+    });
+  }
+
+  /* ---------- 示例图（假的证件卡，纯代码生成） ---------- */
+  function demoCard(no){
+    var c = document.createElement('canvas');
+    c.width = 1000; c.height = 630;
+    var g = c.getContext('2d');
+    var gr = g.createLinearGradient(0, 0, 1000, 630);
+    gr.addColorStop(0, '#e8f0fb');
+    gr.addColorStop(1, '#d5e3f6');
+    g.fillStyle = gr; g.fillRect(0, 0, 1000, 630);
+    if (no === 2) return demoBack(g);
+    g.strokeStyle = 'rgba(60,90,140,.18)';
+    g.lineWidth = 2;
+    for (var i = 0; i < 14; i++){
+      g.beginPath();
+      g.moveTo(0, 40 + i * 46);
+      g.lineTo(1000, 20 + i * 46);
+      g.stroke();
+    }
+    g.fillStyle = 'rgba(255,255,255,.85)';
+    g.fillRect(58, 62, 884, 506);
+    g.fillStyle = '#2b3a52';
+    g.font = '700 34px ' + FONT;
+    g.fillText('中华人民共和国居民身份证', 96, 130);
+    g.font = '400 24px ' + FONT;
+    g.fillStyle = '#5a6a82';
+    g.fillText('姓名', 96, 208);
+    g.fillText('性别', 96, 262);
+    g.fillText('出生', 96, 316);
+    g.fillText('住址', 96, 370);
+    g.fillText('公民身份号码', 96, 470);
+    g.fillStyle = '#1b2432';
+    g.font = '600 26px ' + FONT;
+    g.fillText('示例' + (no === 1 ? '甲' : '乙'), 190, 208);
+    g.fillText('男        民族  汉', 190, 262);
+    g.fillText('1990 年 1 月 1 日', 190, 316);
+    g.fillText('某某省某某市某某区某某路 1 号', 190, 370);
+    g.font = '600 30px "Cascadia Code", ui-monospace, monospace';
+    g.fillText('11010119900101123' + (no === 1 ? '4' : '8'), 96, 520);
+    g.fillStyle = '#c9d6e8';
+    g.fillRect(700, 178, 200, 250);
+    g.fillStyle = '#a9bcd6';
+    g.beginPath(); g.arc(800, 268, 52, 0, Math.PI * 2); g.fill();
+    g.beginPath(); g.arc(800, 400, 96, Math.PI, Math.PI * 2); g.fill();
+    return c;
+  }
+  function demoBack(g){
+    g.fillStyle = 'rgba(255,255,255,.85)';
+    g.fillRect(58, 62, 884, 506);
+    g.strokeStyle = '#b3261e';
+    g.lineWidth = 6;
+    g.beginPath(); g.arc(500, 250, 86, 0, Math.PI * 2); g.stroke();
+    g.fillStyle = '#b3261e';
+    g.font = '700 42px ' + FONT;
+    g.textAlign = 'center';
+    g.fillText('国徽', 500, 266);
+    g.textAlign = 'left';
+    g.fillStyle = '#5a6a82';
+    g.font = '400 24px ' + FONT;
+    g.fillText('签发机关', 150, 430);
+    g.fillText('有效期限', 150, 486);
+    g.fillStyle = '#1b2432';
+    g.font = '600 26px ' + FONT;
+    g.fillText('某某市公安局某某分局', 300, 430);
+    g.fillText('2020.01.01 - 2040.01.01', 300, 486);
+    var c = g.canvas;
+    return c;
+  }
+  function addDemo(){
+    var made = 0;
+    [1, 2].forEach(function(no){
+      var c = demoCard(no);
+      var it = {
+        id: 'w' + (++seq), name: '示例证件-' + (no === 1 ? '正面' : '反面') + '.png',
+        bmp: c, w: c.width, h: c.height, cv: document.createElement('canvas')
+      };
+      paintThumb(it);
+      items.push(it);
+      made++;
+    });
+    renderList();
+    msg('已放入 ' + made + ' 张示例，随便调参数看看效果', 'ok');
+  }
+
+  /* ---------- 控件 ---------- */
+  function setSeg(id, val){
+    var btns = document.querySelectorAll('#' + id + ' button');
+    for (var i = 0; i < btns.length; i++){
+      btns[i].classList.toggle('on', btns[i].getAttribute('data-val') === String(val));
+    }
+  }
+
+  function buildChips(){
+    var box = document.getElementById('wmChips');
+    box.innerHTML = '';
+    CHIPS.forEach(function(p){
+      var b = document.createElement('button');
+      b.className = 'wm-chip';
+      b.type = 'button';
+      b.textContent = p;
+      b.setAttribute('data-p', p);
+      box.appendChild(b);
+    });
+  }
+
+  function buildColors(){
+    var box = document.getElementById('wmColors');
+    box.innerHTML = '';
+    COLORS.forEach(function(c){
+      var b = document.createElement('button');
+      b.className = 'wm-sw' + (c === O.color ? ' on' : '');
+      b.type = 'button';
+      b.style.background = c;
+      b.title = c;
+      b.setAttribute('data-c', c);
+      box.appendChild(b);
+    });
+    var pick = document.createElement('input');
+    pick.type = 'color';
+    pick.className = 'wm-picker';
+    pick.value = O.color;
+    pick.title = '自定义颜色';
+    box.appendChild(pick);
+  }
+
+  function setLabel(id, txt){ document.getElementById(id).textContent = txt; }
+
+  function applyText(t, silent){
+    O.text = t;
+    elText.value = t;
+    setLabel('wmTextN', t.replace(/\s/g, '').length + ' 字');
+    schedule();
+    if (!silent) msg('已套用模板，文字可以直接改');
+  }
+
+  function bindRange(id, key, fmt, toVal){
+    var el = document.getElementById(id);
+    el.addEventListener('input', function(){
+      var v = parseInt(el.value, 10);
+      O[key] = toVal ? toVal(v) : v;
+      setLabel(id + 'V', fmt(v));
+      schedule();
+    });
+  }
+
+  buildChips(); buildColors();
+
+  document.getElementById('wmChips').addEventListener('click', function(e){
+    var b = e.target;
+    if (!b || b.className !== 'wm-chip') return;
+    var p = b.getAttribute('data-p');
+    document.getElementById('wmPurpose').value = p;
+    applyText(p === '复印件无效' ? ('复印件无效 ' + today()) : ('仅供' + p + '使用\n他用无效 ' + today()));
+  });
+
+  document.getElementById('wmPurpose').addEventListener('keydown', function(e){
+    if (e.key !== 'Enter') return;
+    var p = (this.value || '').trim();
+    if (!p) return;
+    applyText('仅供' + p + '使用\n他用无效 ' + today());
+  });
+
+  elText.addEventListener('input', function(){
+    O.text = elText.value;
+    setLabel('wmTextN', O.text.replace(/\s/g, '').length + ' 字');
+    schedule();
+  });
+
+  bindRange('wmSize', 'size', function(v){ return (v / 10).toFixed(1) + '%'; }, function(v){ return v / 1000; });
+  bindRange('wmOpa', 'opa', function(v){ return v + '%'; }, function(v){ return v / 100; });
+  bindRange('wmAng', 'ang', function(v){ return v + '°'; });
+  bindRange('wmGap', 'gap', function(v){ return v < 34 ? '密' : (v < 67 ? '中' : '疏'); }, function(v){ return v / 100; });
+
+  document.getElementById('wmColors').addEventListener('click', function(e){
+    var t = e.target;
+    if (t.className === 'wm-sw'){
+      O.color = t.getAttribute('data-c');
+      var sw = this.querySelectorAll('.wm-sw');
+      for (var i = 0; i < sw.length; i++) sw[i].classList.toggle('on', sw[i] === t);
+      schedule();
+    }
+  });
+  document.getElementById('wmColors').addEventListener('input', function(e){
+    var t = e.target;
+    if (t.className !== 'wm-picker') return;
+    O.color = t.value;
+    var sw = this.querySelectorAll('.wm-sw');
+    for (var i = 0; i < sw.length; i++) sw[i].classList.remove('on');
+    schedule();
+  });
+
+  document.getElementById('wmMode').addEventListener('click', function(e){
+    if (e.target.tagName !== 'BUTTON') return;
+    O.mode = e.target.getAttribute('data-val');
+    setSeg('wmMode', O.mode);
+    schedule();
+  });
+  document.getElementById('wmFmt').addEventListener('click', function(e){
+    if (e.target.tagName !== 'BUTTON') return;
+    O.fmt = e.target.getAttribute('data-val');
+    setSeg('wmFmt', O.fmt);
+  });
+
+  elList.addEventListener('click', function(e){
+    var t = e.target;
+    if (t.hasAttribute && t.hasAttribute('data-dl')){
+      var id = t.getAttribute('data-dl');
+      for (var i = 0; i < items.length; i++) if (items[i].id === id) dlOne(items[i]);
+      return;
+    }
+    if (t.hasAttribute && t.hasAttribute('data-rm')){
+      var rid = t.getAttribute('data-rm');
+      items = items.filter(function(it){ return it.id !== rid; });
+      renderList();
+      msg('已移除', 'ok');
+    }
+  });
+
+  document.getElementById('wmAdd').addEventListener('click', function(){ document.getElementById('wmFile').click(); });
+  document.getElementById('wmFile').addEventListener('change', function(){
+    addFiles(this.files);
+    this.value = '';
+  });
+  document.getElementById('wmDemo').addEventListener('click', addDemo);
+  document.getElementById('wmClear').addEventListener('click', function(){
+    if (!items.length) return;
+    if (!confirm('清空全部 ' + items.length + ' 张图片？')) return;
+    items = [];
+    renderList();
+    msg('');
+  });
+  document.getElementById('wmZip').addEventListener('click', dlAll);
+
+  panel.addEventListener('dragover', function(e){ e.preventDefault(); });
+  panel.addEventListener('drop', function(e){
+    var f = e.dataTransfer && e.dataTransfer.files;
+    if (!f || !f.length) return;
+    e.preventDefault();
+    addFiles(f);
+  });
+
+  document.addEventListener('paste', function(e){
+    if (panel.hidden) return;
+    var t = e.target;
+    if (t && (t.tagName === 'INPUT' || t.tagName === 'TEXTAREA')) return;
+    var list = (e.clipboardData && e.clipboardData.items) || [], files = [];
+    for (var i = 0; i < list.length; i++){
+      if (list[i].kind === 'file' && /^image\//.test(list[i].type)) files.push(list[i].getAsFile());
+    }
+    if (!files.length) return;
+    e.preventDefault();
+    addFiles(files);
+  });
+
+  // 初始化
+  O.text = '仅供办理业务使用\n他用无效 ' + today();
+  elText.value = O.text;
+  setLabel('wmTextN', O.text.replace(/\s/g, '').length + ' 字');
+  renderList();
+  msg('拖入身份证照片即可，默认已经铺好平铺水印；参数随便调。');
+
+  if (window.__toolHook) window.__toolHook('wm', function(){ repaint(); });
+
+  // 供调试与自动化测试使用
+  window.__wm = { opts: O, items: function(){ return items; }, draw: drawWM, addDemo: addDemo, renderFull: renderFull };
 })();
 
 </script>
