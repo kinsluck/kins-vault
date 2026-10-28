@@ -972,7 +972,7 @@ table.cand tr.win td{background:#eefaf3;color:var(--ok);font-weight:600}
       <div data-page-node-id="uZZXyRBcoMTsG6HtZ2Ik8v" class="em-more" hidden id="emMore"><button data-page-node-id="KsQ0HVJhCouRZAKRs1wdra" class="btn" id="emMoreBtn" type="button"><!--pnid:wi4t13Oy1ev4wcvIFTT5Ti-->加载更多</button></div>
       <p data-page-node-id="FLgi2tHUtHb7kcZJ3RdXb6" class="msg" id="emMsg"></p>
     </div>
-    <p data-page-node-id="cr9hSzQELHS3ghI1p9HdBQ" class="hint"><!--pnid:3AAsk7n0McIQAfG2kLnnvt-->点任意 emoji 直接复制到剪贴板，粘贴到微信 / 文档 / 聊天框都行；搜索支持中文、英文名和分类名。数据来自 Unicode 官方 emoji 列表（Emoji 18.0），全部内置在本页，断网也能用。极个别刚发布的新 emoji 在旧系统字体上会显示成空框，复制出来仍是正常字符。</p>
+    <p data-page-node-id="cr9hSzQELHS3ghI1p9HdBQ" class="hint"><!--pnid:3AAsk7n0McIQAfG2kLnnvt-->点任意 emoji 直接复制到剪贴板，粘贴到微信 / 文档 / 聊天框都行；搜索支持中文、英文名和分类名。数据来自 Unicode 官方 emoji 列表（Emoji 18.0），全部内置在本页，断网也能用。系统字体画不出来的极个别新 emoji 会自动隐藏（在字体更新的设备上会自动出现）。</p>
   </section>
 
   <section data-page-node-id="9qv7sZ8FtL5wbLMxZ96Y3c" class="tool-panel" id="tool-money">
@@ -8992,15 +8992,54 @@ var EM_DATA=[["😀","grinning face",0,"1.0"],["😃","grinning face with big ey
     var g = subGroup[d[2]];
     groupCount[g]++;
     return {
-      e: d[0], n: d[1], s: d[2], v: d[3],
+      e: d[0], n: d[1], s: d[2], v: d[3], vn: parseFloat(d[3]) || 0,
       cn: cnw,
       q: (d[1] + ' ' + cnw + ' ' + subCN[d[2]] + ' ' + groupCN[g]).toLowerCase()
     };
   });
+
+  /* 太新的 emoji 在老系统字体里画不出来，会显示成空框 —— 与其留着占位，不如先不显示。
+     用 canvas 把字符画出来跟「缺字形」的基准图形比对，只在 Emoji 14+ 里查（老的基本都有字形）。
+     换到字体更新的设备上，这些会自动回来。 */
+  var droppedNoGlyph = (function(){
+    try {
+      var cv = document.createElement('canvas');
+      cv.width = 32; cv.height = 32;
+      var ctx = cv.getContext('2d', { willReadFrequently: true });
+      if (!ctx || !ctx.getImageData) return 0;
+      ctx.font = '28px "Segoe UI Emoji","Apple Color Emoji","Noto Color Emoji","Twemoji Mozilla",sans-serif';
+      ctx.textBaseline = 'middle'; ctx.textAlign = 'center';
+      function sig(ch){
+        ctx.clearRect(0, 0, 32, 32);
+        ctx.fillText(ch, 16, 16);
+        var d = ctx.getImageData(0, 0, 32, 32).data, n = 0, s1 = 0, s2 = 0;
+        for (var i = 0; i < d.length; i += 4){
+          var a = d[i + 3];
+          if (a > 8){ n++; s1 += a; s2 += (d[i] * 7 + d[i + 1] * 13 + d[i + 2] * 17) & 0xffff; }
+        }
+        return n + '|' + s1 + '|' + s2;
+      }
+      var notdef = sig(String.fromCodePoint(0x10FFFD));
+      var before = items.length, kept = [];
+      for (var i = 0; i < items.length; i++){
+        var it = items[i];
+        if (it.vn >= 14 && sig(it.e) === notdef) continue;
+        kept.push(it);
+      }
+      items = kept;
+      return before - items.length;
+    } catch (e){ return 0; }
+  })();
+
   var byChar = {};
   items.forEach(function(it){ byChar[it.e] = it; });
 
-  elMeta.textContent = items.length + ' 个 · Unicode ' + (EM_VERSION || '18.0');
+  // 去掉无字形的之后重算各类数量
+  groupCount = EM_GROUPS.map(function(){ return 0; });
+  items.forEach(function(it){ groupCount[subGroup[it.s]]++; });
+
+  elMeta.textContent = items.length + ' 个 · Unicode ' + (EM_VERSION || '18.0')
+    + (droppedNoGlyph ? ' · 本机字体缺 ' + droppedNoGlyph + ' 个已隐藏' : '');
 
   /* ---------- 最近使用（内存里维护，落盘防抖，别在点击路径上做 IO） ---------- */
   var recentCache = (function(){
