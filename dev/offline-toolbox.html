@@ -878,7 +878,9 @@ table.cand tr.win td{background:#eefaf3;color:var(--ok);font-weight:600}
   border:1px solid var(--line);background:#fff;border-radius:999px;padding:5px 12px;font:inherit;
   font-size:12.5px;color:var(--ink2);cursor:pointer;transition:.14s;white-space:nowrap;
 }
-.em-tab:hover{border-color:var(--brand-line);color:var(--brand)}
+@media (hover:hover){
+  .em-tab:hover{border-color:var(--brand-line);color:var(--brand)}
+}
 .em-tab.on{background:var(--brand);border-color:var(--brand);color:#fff;font-weight:600}
 .em-tab .n{margin-left:5px;font-size:11px;opacity:.65}
 .em-sub{
@@ -889,11 +891,20 @@ table.cand tr.win td{background:#eefaf3;color:var(--ok);font-weight:600}
 .em-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(44px,1fr));gap:6px}
 .em-btn{
   border:1px solid var(--line);background:#fff;border-radius:10px;padding:7px 0;cursor:pointer;
-  font-size:23px;line-height:1.2;transition:.12s;
+  font-size:23px;line-height:1.2;
   font-family:"Apple Color Emoji","Segoe UI Emoji","Noto Color Emoji","Twemoji Mozilla",sans-serif;
+  /* 点击手感：只管颜色和缩放，别让整块元素重排 */
+  transition:background-color .1s ease,border-color .1s ease,transform .08s ease;
+  -webkit-tap-highlight-color:transparent;   /* 去掉安卓/iOS 点按时的灰色方块 */
+  touch-action:manipulation;                  /* 关掉双击缩放，去掉 300ms 延迟 */
+  user-select:none;-webkit-user-select:none;  /* 连点不会误选中文字 */
 }
-.em-btn:hover{background:var(--brand-soft);border-color:var(--brand-line);transform:translateY(-1px)}
-.em-btn.ok{background:#e6f7ef;border-color:var(--ok);box-shadow:0 0 0 2px rgba(15,138,95,.2)}
+.em-btn:active{transform:scale(.93)}
+/* 只在真有鼠标悬停的设备上做 hover —— 触屏上 hover 会"粘"在最后点过的那个上 */
+@media (hover:hover){
+  .em-btn:hover{background:var(--brand-soft);border-color:var(--brand-line);transform:translateY(-1px)}
+}
+.em-btn.ok{background:#e6f7ef;border-color:var(--ok)}
 .em-empty{padding:30px 8px;text-align:center;color:var(--ink3);font-size:13px;line-height:1.9;margin:0}
 .em-more{display:flex;justify-content:center;margin-top:14px}
 .em-toast{
@@ -961,7 +972,7 @@ table.cand tr.win td{background:#eefaf3;color:var(--ok);font-weight:600}
       <div data-page-node-id="uZZXyRBcoMTsG6HtZ2Ik8v" class="em-more" hidden id="emMore"><button data-page-node-id="KsQ0HVJhCouRZAKRs1wdra" class="btn" id="emMoreBtn" type="button"><!--pnid:wi4t13Oy1ev4wcvIFTT5Ti-->加载更多</button></div>
       <p data-page-node-id="FLgi2tHUtHb7kcZJ3RdXb6" class="msg" id="emMsg"></p>
     </div>
-    <p data-page-node-id="cr9hSzQELHS3ghI1p9HdBQ" class="hint"><!--pnid:3AAsk7n0McIQAfG2kLnnvt-->点任意 emoji 直接复制到剪贴板，粘贴到微信 / 文档 / 聊天框都行；搜索支持中文、英文名和分类名。数据来自 Unicode 官方 emoji 列表（Emoji 18.0），全部内置在本页，断网也能用。</p>
+    <p data-page-node-id="cr9hSzQELHS3ghI1p9HdBQ" class="hint"><!--pnid:3AAsk7n0McIQAfG2kLnnvt-->点任意 emoji 直接复制到剪贴板，粘贴到微信 / 文档 / 聊天框都行；搜索支持中文、英文名和分类名。数据来自 Unicode 官方 emoji 列表（Emoji 18.0），全部内置在本页，断网也能用。极个别刚发布的新 emoji 在旧系统字体上会显示成空框，复制出来仍是正常字符。</p>
   </section>
 
   <section data-page-node-id="9qv7sZ8FtL5wbLMxZ96Y3c" class="tool-panel" id="tool-money">
@@ -8991,17 +9002,20 @@ var EM_DATA=[["😀","grinning face",0,"1.0"],["😃","grinning face with big ey
 
   elMeta.textContent = items.length + ' 个 · Unicode ' + (EM_VERSION || '18.0');
 
-  /* ---------- 最近使用 ---------- */
-  function loadRecent(){
-    try { return JSON.parse(localStorage.getItem(RECENT_KEY) || '[]'); } catch (e){ return []; }
-  }
-  function saveRecent(list){
-    try { localStorage.setItem(RECENT_KEY, JSON.stringify(list.slice(0, 40))); } catch (e){}
+  /* ---------- 最近使用（内存里维护，落盘防抖，别在点击路径上做 IO） ---------- */
+  var recentCache = (function(){
+    try { return JSON.parse(localStorage.getItem(RECENT_KEY) || '[]') || []; } catch (e){ return []; }
+  })();
+  var saveTimer = null;
+  function flushRecent(){
+    clearTimeout(saveTimer);
+    saveTimer = setTimeout(function(){
+      try { localStorage.setItem(RECENT_KEY, JSON.stringify(recentCache.slice(0, 40))); } catch (e){}
+    }, 500);
   }
   function pushRecent(ch){
-    var list = loadRecent().filter(function(x){ return x !== ch; });
-    list.unshift(ch);
-    saveRecent(list);
+    recentCache = [ch].concat(recentCache.filter(function(x){ return x !== ch; })).slice(0, 40);
+    flushRecent();
   }
 
   /* ---------- 复制 ---------- */
@@ -9015,7 +9029,8 @@ var EM_DATA=[["😀","grinning face",0,"1.0"],["😃","grinning face with big ey
     clearTimeout(toastTimer);
     toastTimer = setTimeout(function(){ toast.classList.remove('on'); }, 1500);
   }
-  function copyText(t, done){
+  function copyText(t, done, fail){
+    fail = fail || function(){};
     if (navigator.clipboard && navigator.clipboard.writeText){
       navigator.clipboard.writeText(t).then(done).catch(function(){ fallback(); });
     } else fallback();
@@ -9025,16 +9040,16 @@ var EM_DATA=[["😀","grinning face",0,"1.0"],["😃","grinning face with big ey
       ta.style.cssText = 'position:fixed;left:-9999px;top:0';
       document.body.appendChild(ta);
       ta.select();
-      try { document.execCommand('copy'); done(); } catch (e){ showToast('复制失败，长按选中后手动复制'); }
+      var ok = false;
+      try { ok = document.execCommand('copy'); } catch (e){ ok = false; }
       document.body.removeChild(ta);
+      if (ok) done(); else fail();
     }
   }
 
   /* ---------- 标签 ---------- */
   function renderTabs(){
-    var recent = loadRecent();
-    var html = '';
-    if (recent.length) html += '<button class="em-tab" data-tab="recent" type="button">最近使用<span class="n">' + recent.length + '</span></button>';
+    var html = '<button class="em-tab" data-tab="recent" type="button">最近使用<span class="n">' + recentCache.length + '</span></button>';
     html += '<button class="em-tab" data-tab="all" type="button">全部<span class="n">' + items.length + '</span></button>';
     EM_GROUPS.forEach(function(g, i){
       if (!groupCount[i]) return;
@@ -9066,7 +9081,7 @@ var EM_DATA=[["😀","grinning face",0,"1.0"],["😃","grinning face with big ey
     }
     if (state.tab === 'recent'){
       var out = [];
-      loadRecent().forEach(function(ch){ if (byChar[ch]) out.push(byChar[ch]); });
+      recentCache.forEach(function(ch){ if (byChar[ch]) out.push(byChar[ch]); });
       return out;
     }
     if (state.tab === 'all') return items;
@@ -9080,7 +9095,9 @@ var EM_DATA=[["😀","grinning face",0,"1.0"],["😃","grinning face with big ey
     lastList = currentList();
     elBody.innerHTML = '';
     if (!lastList.length){
-      elBody.innerHTML = '<p class="em-empty">没有匹配的 emoji<br>换个词试试：中文（笑脸、爱心）、英文（heart）、或分类名</p>';
+      elBody.innerHTML = (state.tab === 'recent' && !state.q)
+        ? '<p class="em-empty">还没有复制过 emoji<br>点一下任意 emoji，它就会出现在这里</p>'
+        : '<p class="em-empty">没有匹配的 emoji<br>换个词试试：中文（笑脸、爱心）、英文（heart）、或分类名</p>';
       elMore.hidden = true;
       updateTabState();
       return;
@@ -9141,17 +9158,33 @@ var EM_DATA=[["😀","grinning face",0,"1.0"],["😃","grinning face with big ey
     }, 120);
   });
 
+  var flashBtn = null, flashTimer = null;
+  function updateRecentCount(){
+    var n = elTabs.querySelector('.em-tab[data-tab="recent"] .n');
+    if (n) n.textContent = recentCache.length;
+  }
   elBody.addEventListener('click', function(e){
     var b = e.target.closest ? e.target.closest('.em-btn') : null;
     if (!b) return;
     var ch = b.getAttribute('data-ch');
     var it = byChar[ch] || { n: '', cn: '' };
-    copyText(ch, function(){
-      b.classList.add('ok');
-      setTimeout(function(){ b.classList.remove('ok'); }, 700);
-      pushRecent(ch);
-      showToast('已复制 ' + ch + ' ' + (it.cn ? it.cn.split(' ')[0] : it.n));
-      if (state.tab === 'recent' || !state.q) renderTabs();
+
+    // 先亮、先弹提示：不等剪贴板 API 返回，点下去就有反应
+    if (flashBtn && flashBtn !== b) flashBtn.classList.remove('ok');
+    b.classList.add('ok');
+    flashBtn = b;
+    clearTimeout(flashTimer);
+    flashTimer = setTimeout(function(){
+      if (flashBtn) flashBtn.classList.remove('ok');
+      flashBtn = null;
+    }, 420);
+    showToast('已复制 ' + ch + ' ' + (it.cn ? it.cn.split(' ')[0] : it.n));
+    pushRecent(ch);
+    updateRecentCount();
+
+    // 写剪贴板异步进行，不挡交互；失败时把提示改掉
+    copyText(ch, function(){}, function(){
+      showToast('复制被浏览器拦了，长按 emoji 手动复制');
     });
   });
 
