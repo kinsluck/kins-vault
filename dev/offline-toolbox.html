@@ -1012,7 +1012,7 @@ table.cand tr.win td{background:#eefaf3;color:var(--ok);font-weight:600}
       </div>
     </div>
     <div class="hdr-r">
-      <span class="badge"><!--pnid:rFzqcvyu0Jd6ckVWj8UoC0-->v16 &middot; 2026-10-29</span>
+      <span class="badge"><!--pnid:rFzqcvyu0Jd6ckVWj8UoC0-->v17 &middot; 2026-10-29</span>
       <span class="badge badge-ok"><!--pnid:fij8wnjFigBIaulXEhrBR8-->离线可用</span>
     </div>
   </header>
@@ -1492,7 +1492,7 @@ table.cand tr.win td{background:#eefaf3;color:var(--ok);font-weight:600}
                   <button class="btn primary small" id="ieCropApply" type="button"><!--pnid:a73Zk33gGSnlh2NdWhGovf-->应用裁剪</button>
                 </div>
               </div>
-              <p class="hint"><!--pnid:SDNaMSx0UZDipnOCmjTutc-->拖动框内移动，拖四角缩放；锁了比例就只保留四角手柄。</p>
+              <p class="hint"><!--pnid:SDNaMSx0UZDipnOCmjTutc-->拖动框内移动，拖四角缩放（鼠标移到把手上会变成缩放箭头）；锁了比例就只保留四角手柄。</p>
             </div>
 
             <div hidden id="ieMosaic">
@@ -1523,7 +1523,7 @@ table.cand tr.win td{background:#eefaf3;color:var(--ok);font-weight:600}
                 <div class="ie-blk-h"><!--pnid:Wv9icrMSKbxygAptB5BqYy-->已打码 <span class="ie-cnt" id="ieRegionCnt"></span></div>
                 <div class="ie-regions" id="ieRegions"></div>
               </div>
-              <p class="hint"><!--pnid:8piLCv0V9OnnxK9nvPzSSM-->可连续打多处；点列表里的区域可单独改样式，右侧数字是它的粒度。</p>
+              <p class="hint"><!--pnid:8piLCv0V9OnnxK9nvPzSSM-->可连续打多处；点中画布上的区域会选中它——拖框内移动、拖黄色小方块改形状（涂抹块按比例缩放），右侧列表也能单独改样式或删掉。</p>
             </div>
           </aside>
         </div>
@@ -9491,6 +9491,7 @@ var EM_DATA=[["😀","grinning face",0,"1.0"],["😃","grinning face with big ey
   var myRatios = [], canStore = true;
   var comp = document.createElement('canvas'), cctx = comp.getContext('2d');
   var tmp1 = document.createElement('canvas'), tmp2 = document.createElement('canvas'), tmpM = document.createElement('canvas');
+  var dragBase = document.createElement('canvas'), dbctx = dragBase.getContext('2d');
 
   function clamp(v, a, b){ return v < a ? a : (v > b ? b : v); }
   function clone(o){ return JSON.parse(JSON.stringify(o)); }
@@ -9565,6 +9566,127 @@ var EM_DATA=[["😀","grinning face",0,"1.0"],["😃","grinning face with big ey
       return { x: x0 - half, y: y0 - half, w: (x1 - x0) + half * 2, h: (y1 - y0) + half * 2 };
     }
     return { x: r.x, y: r.y, w: r.w, h: r.h };
+  }
+
+  /* ---------- 区域命中、拖动与缩放 ---------- */
+  function regionHandles(r){ return r.type === 'stroke' ? ['nw', 'ne', 'se', 'sw'] : ['nw', 'n', 'ne', 'e', 'se', 's', 'sw', 'w']; }
+
+  function strokeNear(r, ip){
+    var half = (r.size || 12) / 2 + 2, i, a, b, dx, dy, len, t, px, py;
+    if (r.pts.length === 1){
+      dx = ip.x - r.pts[0][0]; dy = ip.y - r.pts[0][1];
+      return Math.sqrt(dx * dx + dy * dy) <= half;
+    }
+    for (i = 1; i < r.pts.length; i++){
+      a = r.pts[i - 1]; b = r.pts[i];
+      dx = b[0] - a[0]; dy = b[1] - a[1];
+      len = dx * dx + dy * dy;
+      t = len ? ((ip.x - a[0]) * dx + (ip.y - a[1]) * dy) / len : 0;
+      if (t < 0) t = 0; else if (t > 1) t = 1;
+      px = a[0] + t * dx; py = a[1] + t * dy;
+      if (Math.sqrt((ip.x - px) * (ip.x - px) + (ip.y - py) * (ip.y - py)) <= half) return true;
+    }
+    return false;
+  }
+
+  function hitRegion(ip){
+    for (var i = state.regions.length - 1; i >= 0; i--){
+      var r = state.regions[i];
+      if (r.type === 'rect'){
+        if (ip.x >= r.x && ip.x <= r.x + r.w && ip.y >= r.y && ip.y <= r.y + r.h) return i;
+      } else if (strokeNear(r, ip)) return i;
+    }
+    return -1;
+  }
+
+  function moveRegionTo(r, orig, dx, dy, B){
+    if (r.type === 'rect'){
+      r.x = clamp(orig.x + dx, 0, Math.max(0, B.w - orig.w));
+      r.y = clamp(orig.y + dy, 0, Math.max(0, B.h - orig.h));
+      r.w = orig.w; r.h = orig.h;
+      return;
+    }
+    var bb = regionBBox(orig);
+    var mx = clamp(dx, -bb.x, Math.max(0, B.w - (bb.x + bb.w)));
+    var my = clamp(dy, -bb.y, Math.max(0, B.h - (bb.y + bb.h)));
+    for (var i = 0; i < r.pts.length; i++){
+      r.pts[i][0] = orig.pts[i][0] + mx;
+      r.pts[i][1] = orig.pts[i][1] + my;
+    }
+  }
+
+  function scaleRegionTo(r, orig, key, ip, B){
+    var bb = regionBBox(orig);
+    var ax = bb.x, ay = bb.y, aw = bb.w, ah = bb.h;
+    var left = (key === 'nw' || key === 'w' || key === 'sw');
+    var right = (key === 'ne' || key === 'e' || key === 'se');
+    var top = (key === 'nw' || key === 'n' || key === 'ne');
+    var bottom = (key === 'sw' || key === 's' || key === 'se');
+    var nx = ax, ny = ay, nw2 = aw, nh2 = ah;
+    if (left){ nx = clamp(ip.x, 0, ax + aw - 8); nw2 = ax + aw - nx; }
+    else if (right){ nw2 = clamp(ip.x, ax + 8, B.w) - ax; }
+    if (top){ ny = clamp(ip.y, 0, ay + ah - 8); nh2 = ay + ah - ny; }
+    else if (bottom){ nh2 = clamp(ip.y, ay + 8, B.h) - ay; }
+    if (nw2 < 8) nw2 = 8;
+    if (nh2 < 8) nh2 = 8;
+    if (r.type === 'rect'){
+      r.x = nx; r.y = ny; r.w = nw2; r.h = nh2;
+      return;
+    }
+    var sx = aw ? nw2 / aw : 1, sy = ah ? nh2 / ah : 1;
+    for (var i = 0; i < r.pts.length; i++){
+      r.pts[i][0] = nx + (orig.pts[i][0] - ax) * sx;
+      r.pts[i][1] = ny + (orig.pts[i][1] - ay) * sy;
+    }
+    r.size = Math.max(2, (orig.size || 12) * Math.min(sx, sy));
+  }
+
+  var HANDLE_CURSOR = { nw: 'nwse-resize', se: 'nwse-resize', ne: 'nesw-resize', sw: 'nesw-resize', n: 'ns-resize', s: 'ns-resize', e: 'ew-resize', w: 'ew-resize' };
+
+  function hitHandle(p, hs, x, y, w, h, tol){
+    for (var i = 0; i < hs.length; i++){
+      var hp = hsXY(hs[i], x, y, w, h);
+      if (Math.abs(p.x - hp[0]) <= tol && Math.abs(p.y - hp[1]) <= tol) return hs[i];
+    }
+    return '';
+  }
+
+  function cursorFor(p){
+    if (!state.base) return 'crosshair';
+    if (state.mode === 'crop'){
+      var r = state.crop;
+      if (!r) return 'crosshair';
+      var rc = { x: r.x * view.scale, y: r.y * view.scale, w: r.w * view.scale, h: r.h * view.scale };
+      var k = hitHandle(p, hsList(), rc.x, rc.y, rc.w, rc.h, 12);
+      if (k) return HANDLE_CURSOR[k];
+      if (p.x >= rc.x && p.x <= rc.x + rc.w && p.y >= rc.y && p.y <= rc.y + rc.h) return 'move';
+      return state.ratioVal ? 'move' : 'crosshair';
+    }
+    if (state.sel >= 0 && state.regions[state.sel]){
+      var sr = state.regions[state.sel], bb = regionBBox(sr);
+      var k2 = hitHandle(p, regionHandles(sr), bb.x * view.scale, bb.y * view.scale, bb.w * view.scale, bb.h * view.scale, 11);
+      if (k2) return HANDLE_CURSOR[k2];
+    }
+    if (hitRegion(imgPt(p)) >= 0) return 'move';
+    return 'crosshair';
+  }
+
+  function setCursor(c){
+    if (c && cv.style.cursor !== c) cv.style.cursor = c;
+  }
+
+  function buildDragBase(skipIdx){
+    dragBase.width = comp.width;
+    dragBase.height = comp.height;
+    dbctx.setTransform(1, 0, 0, 1, 0, 0);
+    dbctx.clearRect(0, 0, dragBase.width, dragBase.height);
+    if (!state.base) return;
+    dbctx.setTransform(view.dpr, 0, 0, view.dpr, 0, 0);
+    dbctx.drawImage(state.base, 0, 0, view.w, view.h);
+    for (var i = 0; i < state.regions.length; i++){
+      if (i === skipIdx) continue;
+      paintRegion(dbctx, state.regions[i], view.scale, view.dpr, state.base, 0, 0);
+    }
   }
 
   // ox / oy：目标画布原点对应的图像坐标（预览为 0，裁剪烘焙时为选区的左上角）
@@ -9661,11 +9783,14 @@ var EM_DATA=[["😀","grinning face",0,"1.0"],["😃","grinning face with big ey
   }
 
   function draw(){
+    var d = state.drag;
+    var live = (d && (d.kind === 'region-move' || d.kind === 'region-resize') && state.regions[d.idx]) ? state.regions[d.idx] : null;
     ctx.setTransform(1, 0, 0, 1, 0, 0);
     ctx.clearRect(0, 0, cv.width, cv.height);
-    ctx.drawImage(comp, 0, 0);
+    ctx.drawImage(live ? dragBase : comp, 0, 0);
     ctx.setTransform(view.dpr, 0, 0, view.dpr, 0, 0);
-    if (state.drag && state.drag.region) paintRegion(ctx, state.drag.region, view.scale, view.dpr, state.base, 0, 0);
+    if (live) paintRegion(ctx, live, view.scale, view.dpr, state.base, 0, 0);
+    if (d && d.region) paintRegion(ctx, d.region, view.scale, view.dpr, state.base, 0, 0);
     if (state.mode === 'crop') drawCropUI(); else drawMosaicUI();
   }
 
@@ -9747,7 +9872,8 @@ var EM_DATA=[["😀","grinning face",0,"1.0"],["😃","grinning face with big ey
 
   function drawMosaicUI(){
     if (state.sel >= 0 && state.regions[state.sel]){
-      var bb = regionBBox(state.regions[state.sel]);
+      var sr = state.regions[state.sel];
+      var bb = regionBBox(sr);
       var x = bb.x * view.scale, y = bb.y * view.scale, w = bb.w * view.scale, h = bb.h * view.scale;
       ctx.save();
       ctx.strokeStyle = '#f0b429';
@@ -9755,6 +9881,18 @@ var EM_DATA=[["😀","grinning face",0,"1.0"],["😃","grinning face with big ey
       ctx.setLineDash([5, 4]);
       ctx.strokeRect(x + 0.75, y + 0.75, Math.max(0, w - 1.5), Math.max(0, h - 1.5));
       ctx.restore();
+      var hs = regionHandles(sr), k, hp;
+      for (k = 0; k < hs.length; k++){
+        hp = hsXY(hs[k], x, y, w, h);
+        ctx.save();
+        ctx.fillStyle = '#f0b429';
+        ctx.strokeStyle = '#fff';
+        ctx.lineWidth = 1.5;
+        ctx.beginPath();
+        ctx.rect(hp[0] - 4.5, hp[1] - 4.5, 9, 9);
+        ctx.fill(); ctx.stroke();
+        ctx.restore();
+      }
     }
     if (state.drag && state.drag.region && state.drag.region.type === 'rect'){
       var d = state.drag.region;
@@ -10106,25 +10244,54 @@ var EM_DATA=[["😀","grinning face",0,"1.0"],["😃","grinning face with big ey
         hp = hsXY(hs[i], rc.x, rc.y, rc.w, rc.h);
         if (Math.abs(p.x - hp[0]) <= 12 && Math.abs(p.y - hp[1]) <= 12){
           state.drag = { kind: 'handle', key: hs[i], start: imgPt(p), orig: clone(r) };
+          setCursor(HANDLE_CURSOR[hs[i]]);
           return;
         }
       }
       if (p.x >= rc.x && p.x <= rc.x + rc.w && p.y >= rc.y && p.y <= rc.y + rc.h){
         state.drag = { kind: 'move', start: imgPt(p), orig: clone(r) };
+        setCursor('move');
         return;
       }
       if (!state.ratioVal){
         state.drag = { kind: 'new', start: imgPt(p), orig: clone(r) };
+        setCursor('crosshair');
       } else {
         state.drag = { kind: 'move', start: imgPt(p), orig: clone(r) };
+        setCursor('move');
       }
       return;
     }
 
-    // 马赛克
+    // 马赛克：先看是不是在拖已选中区域的手柄 / 点中已有区域
     var ip = imgPt(p);
     var B = imgBounds();
-    if (ip.x < 0 || ip.y < 0 || ip.x > B.w || ip.y > B.h) return;
+    var inB = (ip.x >= 0 && ip.y >= 0 && ip.x <= B.w && ip.y <= B.h);
+
+    if (state.sel >= 0 && state.regions[state.sel]){
+      var selR = state.regions[state.sel], sbb = regionBBox(selR);
+      var key = hitHandle(p, regionHandles(selR), sbb.x * view.scale, sbb.y * view.scale, sbb.w * view.scale, sbb.h * view.scale, 11);
+      if (key){
+        state.drag = { kind: 'region-resize', idx: state.sel, key: key, orig: clone(selR), start: ip };
+        buildDragBase(state.sel);
+        setCursor(HANDLE_CURSOR[key]);
+        return;
+      }
+    }
+
+    var hit = inB ? hitRegion(ip) : -1;
+    if (hit >= 0){
+      state.sel = hit;
+      syncControls();
+      state.drag = { kind: 'region-move', idx: hit, orig: clone(state.regions[hit]), start: ip };
+      buildDragBase(hit);
+      setCursor('move');
+      draw();
+      return;
+    }
+    if (state.sel >= 0){ state.sel = -1; renderRegions(); }
+
+    if (!inB) return;
     var reg;
     if (state.brush === 'stroke'){
       reg = { type: 'stroke', pts: [[ip.x, ip.y]], size: state.brushSize, style: state.style, amount: state.amount, color: state.color };
@@ -10132,12 +10299,25 @@ var EM_DATA=[["😀","grinning face",0,"1.0"],["😃","grinning face with big ey
       reg = { type: 'rect', x: ip.x, y: ip.y, w: 0, h: 0, style: state.style, amount: state.amount, color: state.color };
     }
     state.drag = { kind: 'mosaic', region: reg, start: ip };
+    setCursor('crosshair');
     draw();
   });
 
   cv.addEventListener('pointermove', function(ev){
-    if (!state.drag || !state.base) return;
-    var p = ptOf(ev), ip = imgPt(p), d = state.drag, B = imgBounds();
+    if (!state.base) return;
+    var p = ptOf(ev);
+    if (!state.drag){ setCursor(cursorFor(p)); return; }
+    var ip = imgPt(p), d = state.drag, B = imgBounds();
+    if (d.kind === 'region-move'){
+      if (state.regions[d.idx]) moveRegionTo(state.regions[d.idx], d.orig, ip.x - d.start.x, ip.y - d.start.y, B);
+      draw();
+      return;
+    }
+    if (d.kind === 'region-resize'){
+      if (state.regions[d.idx]) scaleRegionTo(state.regions[d.idx], d.orig, d.key, ip, B);
+      draw();
+      return;
+    }
     if (d.kind === 'mosaic'){
       var r = d.region;
       if (r.type === 'stroke'){
@@ -10174,6 +10354,18 @@ var EM_DATA=[["😀","grinning face",0,"1.0"],["😃","grinning face with big ey
     var d = state.drag;
     state.drag = null;
     if (!d) return;
+    if (d.kind === 'region-move' || d.kind === 'region-resize'){
+      var cur = state.regions[d.idx];
+      var changed = cur && JSON.stringify(cur) !== JSON.stringify(d.orig);
+      buildComp();
+      renderRegions();
+      draw();
+      if (changed){
+        snap(d.kind === 'region-move' ? '移动区域 #' + (d.idx + 1) : '缩放区域 #' + (d.idx + 1));
+        setStatus(d.kind === 'region-move' ? '已移动这块（可继续拖，或按撤销还原）' : '已改形状（可继续拖手柄，或按撤销还原）', 'ok');
+      }
+      return;
+    }
     if (d.kind === 'mosaic' && d.region){
       var r = d.region;
       var ok = r.type === 'stroke' ? r.pts.length >= 1 : (r.w >= 3 && r.h >= 3);
