@@ -998,6 +998,64 @@ table.cand tr.win td{background:#eefaf3;color:var(--ok);font-weight:600}
   .ie-top-r{width:100%;justify-content:flex-start}
   .ie-ratio-in .inp{width:52px}
 }
+/* ===== 房贷计算器 ===== */
+#tool-loan .ln-cols{display:grid;grid-template-columns:300px minmax(0,1fr);grid-template-areas:"f m";gap:14px;align-items:start}
+#tool-loan .ln-form{grid-area:f}
+#tool-loan .ln-main{grid-area:m;display:flex;flex-direction:column;gap:14px;min-width:0}
+#tool-loan .ln-way{width:100%;margin-bottom:2px}
+#tool-loan .ln-way button{flex:1;padding:7px 0;text-align:center}
+#tool-loan .ln-fld{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:9px}
+#tool-loan .ln-k{font-size:12.5px;color:var(--ink2);white-space:nowrap}
+#tool-loan .ln-in{
+  display:flex;align-items:center;gap:6px;border:1.5px solid var(--line);border-radius:9px;
+  padding:0 9px;background:#fbfcfe;transition:.16s;width:124px;flex:none;justify-content:flex-end;
+}
+#tool-loan .ln-in:focus-within{border-color:var(--brand);background:#fff;box-shadow:0 0 0 3px var(--brand-soft)}
+#tool-loan .ln-in input{
+  flex:1;width:100%;border:0;outline:0;background:transparent;font:inherit;font-size:15px;color:var(--ink);
+  padding:7px 0;text-align:right;font-variant-numeric:tabular-nums;min-width:0;
+}
+#tool-loan .ln-in i{font-style:normal;font-size:11.5px;color:var(--ink3);white-space:nowrap}
+#tool-loan .ln-form .chips{margin:2px 0 10px}
+#tool-loan .chip.on{border-color:var(--brand);color:var(--brand);background:var(--brand-soft);font-weight:600}
+#tool-loan .ln-hero{display:flex;align-items:baseline;justify-content:center;gap:7px;flex-wrap:wrap;padding:2px 0 0}
+#tool-loan .ln-hero-k{font-size:12.5px;color:var(--ink2)}
+#tool-loan .ln-hero b{font-size:33px;line-height:1.15;letter-spacing:-.6px;color:var(--ink);font-variant-numeric:tabular-nums}
+#tool-loan .ln-unit{font-size:13px;color:var(--ink3)}
+#tool-loan .ln-facts{
+  display:flex;gap:4px 16px;justify-content:center;flex-wrap:wrap;
+  font-size:12px;color:var(--ink3);margin-top:4px;font-variant-numeric:tabular-nums;
+}
+#tool-loan .ln-facts b{color:var(--ink2);font-weight:600}
+#tool-loan .ln-chart-wrap{position:relative;margin-top:14px;touch-action:pan-y}
+#tool-loan .ln-chart-wrap canvas{display:block;width:100%;height:168px;touch-action:pan-y;cursor:crosshair}
+#tool-loan .ln-tip{
+  position:absolute;z-index:3;pointer-events:none;background:rgba(27,36,50,.92);color:#fff;
+  font-size:11.5px;line-height:1.55;padding:5px 9px;border-radius:8px;white-space:nowrap;
+  transform:translate(-50%,-100%);font-variant-numeric:tabular-nums;
+}
+#tool-loan .ln-tip b{font-weight:600}
+#tool-loan .ln-legend{display:flex;gap:18px;justify-content:center;margin-top:9px;font-size:12px;color:var(--ink2)}
+#tool-loan .ln-legend i{display:inline-block;width:14px;height:3px;border-radius:2px;margin-right:6px;vertical-align:middle}
+#tool-loan .ln-toggle{
+  width:100%;border:0;background:transparent;font:inherit;font-size:12.5px;color:var(--ink2);
+  padding:0;text-align:left;cursor:pointer;display:flex;align-items:center;justify-content:space-between;
+}
+#tool-loan .ln-toggle:hover{color:var(--brand)}
+#tool-loan .ln-toggle i{font-style:normal;font-size:10px;color:var(--ink3);transition:.16s}
+#tool-loan .ln-toggle.on i{transform:rotate(180deg)}
+#tool-loan .ln-tw{margin-top:11px;overflow-x:auto}
+#tool-loan .ln-table{width:100%;border-collapse:collapse;font-size:11.5px;font-variant-numeric:tabular-nums}
+#tool-loan .ln-table th{
+  font-weight:600;color:var(--ink3);font-size:11px;text-align:right;padding:0 0 6px;
+  border-bottom:1px solid var(--line2);white-space:nowrap;
+}
+#tool-loan .ln-table td{text-align:right;padding:5px 0;color:var(--ink2);border-bottom:1px solid #f6f8fc;white-space:nowrap}
+#tool-loan .ln-table th.ln-yr,#tool-loan .ln-table td.ln-yr{text-align:left;color:var(--ink)}
+#tool-loan .ln-table tbody tr:last-child td{border-bottom:0}
+@media screen and (max-width:880px){
+  #tool-loan .ln-cols{grid-template-columns:minmax(0,1fr);grid-template-areas:"f" "m"}
+}
 </style>
 </head>
 <body>
@@ -1008,11 +1066,11 @@ table.cand tr.win td{background:#eefaf3;color:var(--ok);font-weight:600}
       <div class="logo"><!--pnid:5E6tt2utb4u9ogrq6CLvRU-->&#129520;</div>
       <div>
         <h1><!--pnid:T3m0nns9JIsNkMDSCGqRDg-->离线工具箱</h1>
-        <p class="sub"><!--pnid:Y9qhPTagkTO2Wi2clAIrRu-->13 个离线小工具 &middot; 金额 / 二维码 / 图片压缩 / 图片编辑 / 文本对比 / Emoji 大全 / 分级表 / 证件水印 / 列转行 / 文本去重 / 称谓 / 截图套壳 / 文字出图 &middot; 断网可用</p>
+        <p class="sub"><!--pnid:Y9qhPTagkTO2Wi2clAIrRu-->14 个离线小工具 &middot; 金额 / 房贷计算器 / 二维码 / 图片压缩 / 图片编辑 / 文本对比 / Emoji 大全 / 分级表 / 证件水印 / 列转行 / 文本去重 / 称谓 / 截图套壳 / 文字出图 &middot; 断网可用</p>
       </div>
     </div>
     <div class="hdr-r">
-      <span class="badge"><!--pnid:rFzqcvyu0Jd6ckVWj8UoC0-->v18 &middot; 2026-11-03</span>
+      <span class="badge"><!--pnid:rFzqcvyu0Jd6ckVWj8UoC0-->v19 &middot; 2026-11-03</span>
       <span class="badge badge-ok"><!--pnid:fij8wnjFigBIaulXEhrBR8-->离线可用</span>
     </div>
   </header>
@@ -1037,6 +1095,7 @@ table.cand tr.win td{background:#eefaf3;color:var(--ok);font-weight:600}
       <button class="tool" data-tool="textcard" type="button"><span class="ic"><!--pnid:4oYJnT0JirmOd8G8gZdUZc-->&#128395;&#65039;</span><!--pnid:v4D75ZH4Jk0VL31MThlTDn-->文字出图</button>
       <button class="tool" data-tool="tier" type="button"><span class="ic"><!--pnid:QuXtyTb9sVeof2J7BUW9NX-->&#127942;</span><!--pnid:sEitR8Fv1stWclM8odEFg4-->分级表</button>
       <button class="tool" data-tool="wm" type="button"><span class="ic"><!--pnid:mTg0ncVmhebmsPbgnk0lHr-->&#128274;</span><!--pnid:bvN0ZHqD1U19m18nVm09mL-->证件水印</button>
+      <button class="tool" data-tool="loan" type="button"><span class="ic"><!--pnid:bBKdYmE9RYy7kVRsTudrIp-->&#127968;</span><!--pnid:v91e8goGlsducYkEx8fi3E-->房贷计算器</button>
     </div>
   </nav>
 
@@ -2077,6 +2136,50 @@ table.cand tr.win td{background:#eefaf3;color:var(--ok);font-weight:600}
       <p class="msg" id="wmMsg"></p>
     </div>
     <input accept="image/*" hidden id="wmFile" multiple type="file">
+  </section>
+
+  <section class="tool-panel" hidden id="tool-loan">
+    <div class="ln-cols">
+
+      <div class="card ln-form">
+        <label class="lbl"><!--pnid:rDuwPY04cosUVVVhRzI34a-->① 还款方式</label>
+        <div class="seg ln-way" id="lnWay"><button class="on" data-val="benxi" type="button"><!--pnid:oRJ4onp5lAif6XnCsdFCOT-->等额本息</button><button data-val="benjin" type="button"><!--pnid:dgpiqRMZVIGvb35qxJlxV5-->等额本金</button></div>
+        <label class="lbl" style="margin-top:15px"><!--pnid:MsYUL1PWU17b1Xq6UxJX0s-->② 贷款参数</label>
+        <div class="ln-fld"><span class="ln-k"><!--pnid:1nBG5iaEIcTS38rjQbW4oy-->贷款金额</span><span class="ln-in"><input id="lnAmount" inputmode="decimal" spellcheck="false" type="text" value="189"><i><!--pnid:tLIbCCbgt9dbUs4z3J2B9n-->万元</i></span></div>
+        <div class="ln-fld"><span class="ln-k"><!--pnid:H3LI6PAUrLnOywGAMiVdDp-->贷款期限</span><span class="ln-in"><input id="lnYears" inputmode="numeric" spellcheck="false" type="text" value="30"><i><!--pnid:5BcISY77Hyz35zrYbxq1Ns-->年</i></span></div>
+        <div class="ln-fld"><span class="ln-k"><!--pnid:NbMGKsFCQxguAv4CpPVDTM-->年利率</span><span class="ln-in"><input id="lnRate" inputmode="decimal" spellcheck="false" type="text" value="5"><i><!--pnid:7L4nIbobpuUlsNuXXSF6BN-->%</i></span></div>
+        <div class="chips" id="lnChips"><button class="chip" data-y="10" type="button"><!--pnid:gT8zRfDyVP2KuzoUyPoVRU-->10 年</button><button class="chip" data-y="20" type="button"><!--pnid:99yAwmvEUGXtPmXt6Xr2hm-->20 年</button><button class="chip" data-y="25" type="button"><!--pnid:O4fcU3Jb3GMLIXlWM0Ytfc-->25 年</button><button class="chip on" data-y="30" type="button"><!--pnid:pmu5FCNFlVMcH6MsmqFrdA-->30 年</button></div>
+        <p class="hint"><!--pnid:0O2iMFLn44eg4MQCD0XsYt-->按逐期计息口径：每期利息＝剩余本金×月利率，四舍五入到分，末期吸收舍入差（所以月供×期数与总额会差几角钱）。结果仅供参考，以放款行还款计划为准。</p>
+      </div>
+
+      <div class="ln-main">
+        <div class="card ln-res">
+          <div class="ln-hero"><span class="ln-hero-k" id="lnHeroK"><!--pnid:8udKAY6hGVbYNTlPVVXfZT-->月供</span><b id="lnPay"><!--pnid:4uR07TMuROBZYU9g6syxIC-->&mdash;</b><span class="ln-unit"><!--pnid:713gqCFa8EiOqO6YXhOyMT-->元</span></div>
+          <div class="ln-facts">
+            <span><!--pnid:9frNCEGPUU9ofXFva3wWmO-->总利息 <b id="lnInt"><!--pnid:jsddGpTnGmZrL29oRqvwqu-->&mdash;</b><!--pnid:iZmOvhHKWVyWmlcfyd9MXU--> 元</span>
+            <span><!--pnid:QT8rhbKxK3XR47Jlxgf0lz-->还款总额 <b id="lnTotal"><!--pnid:offR0DbAPgPssCn1WJAEZW-->&mdash;</b><!--pnid:nwzBsfvFkEnfSLB6YxWWUN--> 元</span>
+            <span hidden id="lnDecWrap"><!--pnid:OXCBbdVbpfbrbY4MFpHaEp-->每月递减 <b id="lnDec"><!--pnid:b5GUUNJYxtXvosdLB5750V-->&mdash;</b><!--pnid:sWBaih3T4G2iDNw8naLZp0--> 元</span>
+            <span hidden id="lnLastWrap"><!--pnid:6mOSiZXJ3WNotCSIFbzNiI-->末月 <b id="lnLast"><!--pnid:lFcX1xzUYyaefmKXELsTWP-->&mdash;</b><!--pnid:1dwgYks8M5EqOLWg27oexw--> 元</span>
+          </div>
+          <div class="ln-chart-wrap" id="lnChartWrap">
+            <canvas id="lnChart"></canvas>
+            <div class="ln-tip" hidden id="lnTip"></div>
+          </div>
+          <div class="ln-legend"><span><i style="background:#1d4ed8"></i><!--pnid:mAb4w5c1PuLTLTF020ZwZn-->月供本金</span><span><i style="background:#e2820f"></i><!--pnid:3FVaWFqqMSisgLYjrEY633-->月供利息</span></div>
+        </div>
+
+        <div class="card ln-det">
+          <button class="ln-toggle" id="lnToggle" type="button"><!--pnid:BxwDyvXjaz9yq62q2gQTwa-->还款明细（按年汇总）<i><!--pnid:lM5Dr4sxwBxTl4MbPizezu-->&#9662;</i></button>
+          <div class="ln-tw" hidden id="lnTableWrap">
+            <table class="ln-table">
+              <thead><tr><th class="ln-yr"><!--pnid:dyR6isjRuOT1TEuL2IBtjf-->年</th><th><!--pnid:06aAPZ64ginby89En62Gzu-->还本金</th><th><!--pnid:Il9kuLOEbq27k8ZFEw3BTx-->还利息</th><th><!--pnid:hwtEIdkr6cil5AUlMNan14-->年末余额</th></tr></thead>
+              <tbody id="lnTbody"></tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+
+    </div>
   </section>
 
 <footer><!--pnid:yPvPFwf3ZxkHcugIGRmWWN-->
@@ -10647,6 +10750,353 @@ var EM_DATA=[["😀","grinning face",0,"1.0"],["😃","grinning face with big ey
       setTimeout(function(){ fitView(); buildComp(); draw(); }, 0);
     });
   }
+})();
+</script>
+<script>
+/* ================= 房贷计算器 ================= */
+(function(){
+  var panel = document.getElementById('tool-loan');
+  if (!panel) return;
+  function $(id){ return document.getElementById(id); }
+
+  var WAY = 'benxi';
+  var st = { amount: 189, years: 30, rate: 5 };
+  var data = null, geo = null, active = false, hoverIdx = -1;
+
+  var elAmount = $('lnAmount'), elYears = $('lnYears'), elRate = $('lnRate');
+  if (!elAmount) return;
+
+  function r2(x){ return Math.round((x + 1e-9) * 100) / 100; }
+  function group(s){ return s.replace(/\B(?=(\d{3})+(?!\d))/g, ','); }
+  function fmt(n, dec){
+    if (!isFinite(n)) return '\u2014';
+    dec = (dec == null ? 2 : dec);
+    var parts = Math.abs(n).toFixed(dec).split('.');
+    parts[0] = group(parts[0]);
+    return (n < 0 ? '-' : '') + parts.join('.');
+  }
+  function fmtTick(v){
+    if (v >= 10000){
+      var w = v / 10000;
+      return (Math.abs(w - Math.round(w)) < 0.001 ? String(Math.round(w)) : w.toFixed(1)) + '\u4e07';
+    }
+    return group(String(Math.round(v)));
+  }
+  function num(el, def){
+    var v = parseFloat(String(el.value).replace(/[^\d.]/g, ''));
+    return isFinite(v) ? v : def;
+  }
+
+  /* ---------- 计算：逐期计息，末期吸收舍入差 ---------- */
+  function compute(){
+    var P = st.amount * 10000, n = Math.round(st.years * 12), r = st.rate / 100 / 12;
+    if (!(P > 0) || !(n > 0)){ data = null; return; }
+    var rows = [], bal = P, si = 0, sp = 0, k, it, pr, pay, per, m;
+    if (WAY === 'benxi'){
+      m = (r === 0) ? P / n : P * r * Math.pow(1 + r, n) / (Math.pow(1 + r, n) - 1);
+      m = r2(m);
+      for (k = 1; k <= n; k++){
+        it = r2(bal * r);
+        pr = (k === n) ? bal : r2(m - it);
+        if (pr > bal) pr = bal;
+        if (pr < 0) pr = 0;
+        pay = r2(pr + it);
+        rows.push({ k: k, pr: pr, it: it, pay: pay });
+        bal = r2(bal - pr); si += it; sp += pay;
+      }
+    } else {
+      per = r2(P / n);
+      for (k = 1; k <= n; k++){
+        pr = (k === n) ? bal : per;
+        if (pr > bal) pr = bal;
+        it = r2(bal * r);
+        pay = r2(pr + it);
+        rows.push({ k: k, pr: pr, it: it, pay: pay });
+        bal = r2(bal - pr); si += it; sp += pay;
+      }
+    }
+    data = {
+      rows: rows, n: n, P: P,
+      interest: r2(si), total: r2(sp),
+      first: rows[0].pay, last: rows[n - 1].pay,
+      dec: rows.length > 1 ? r2(rows[0].pay - rows[1].pay) : 0
+    };
+  }
+
+  function renderTable(){
+    var tb = $('lnTbody'), html = '';
+    if (!data){ tb.innerHTML = ''; return; }
+    var rows = data.rows, sp = 0, si = 0, bal = data.P, yr = 0, i;
+    for (i = 0; i < rows.length; i++){
+      sp += rows[i].pr; si += rows[i].it; bal = r2(bal - rows[i].pr);
+      if ((i + 1) % 12 === 0 || i === rows.length - 1){
+        yr++;
+        html += '<tr><td class="ln-yr">\u7b2c ' + yr + ' \u5e74</td><td>' + fmt(sp, 0) + '</td><td>' + fmt(si, 0) + '</td><td>' + fmt(bal, 0) + '</td></tr>';
+        sp = 0; si = 0;
+      }
+    }
+    tb.innerHTML = html;
+  }
+
+  function render(){
+    compute();
+    var pay = $('lnPay'), int = $('lnInt'), tot = $('lnTotal');
+    var dw = $('lnDecWrap'), lw = $('lnLastWrap');
+    if (!data){
+      $('lnHeroK').textContent = '\u6708\u4f9b';
+      pay.textContent = int.textContent = tot.textContent = '\u2014';
+      dw.hidden = true; lw.hidden = true;
+      $('lnTbody').innerHTML = '';
+      draw();
+      return;
+    }
+    $('lnHeroK').textContent = (WAY === 'benjin') ? '\u9996\u6708\u6708\u4f9b' : '\u6708\u4f9b';
+    pay.textContent = fmt(data.first, 2);
+    int.textContent = fmt(data.interest, 2);
+    tot.textContent = fmt(data.total, 2);
+    if (WAY === 'benjin'){
+      dw.hidden = false; lw.hidden = false;
+      $('lnDec').textContent = fmt(data.dec, 2);
+      $('lnLast').textContent = fmt(data.last, 2);
+    } else {
+      dw.hidden = true; lw.hidden = true;
+    }
+    renderTable();
+    draw();
+  }
+
+  /* ---------- 图表 ---------- */
+  function draw(){
+    var cv = $('lnChart'), wrap = $('lnChartWrap');
+    if (!cv || !wrap) return;
+    var cssW = wrap.clientWidth || 0, cssH = 168;
+    if (cssW < 40){ geo = null; return; }
+    var dpr = Math.min(window.devicePixelRatio || 1, 2);
+    cv.width = Math.round(cssW * dpr);
+    cv.height = Math.round(cssH * dpr);
+    cv.style.width = cssW + 'px';
+    cv.style.height = cssH + 'px';
+    var g = cv.getContext('2d');
+    g.setTransform(dpr, 0, 0, dpr, 0, 0);
+    g.clearRect(0, 0, cssW, cssH);
+    if (!data){
+      geo = null;
+      g.font = '11px system-ui,-apple-system,"Segoe UI",sans-serif';
+      g.fillStyle = '#b6c0d0';
+      g.textAlign = 'center';
+      g.fillText('\u5148\u586b\u8d37\u6b3e\u53c2\u6570', cssW / 2, cssH / 2);
+      return;
+    }
+
+    var padL = 32, padR = 10, padT = 12, padB = 20;
+    var w = cssW - padL - padR, h = cssH - padT - padB;
+    var rows = data.rows, n = rows.length, i, v;
+
+    var maxV = 0;
+    for (i = 0; i < n; i++){
+      if (rows[i].pr > maxV) maxV = rows[i].pr;
+      if (rows[i].it > maxV) maxV = rows[i].it;
+    }
+    var STEPS = [100, 200, 250, 500, 1000, 2000, 2500, 5000, 10000, 20000, 25000, 50000, 100000, 200000];
+    var step = STEPS[STEPS.length - 1];
+    for (i = 0; i < STEPS.length; i++){ if (maxV / STEPS[i] <= 4){ step = STEPS[i]; break; } }
+    var top = Math.ceil(maxV / step) * step || step;
+
+    function X(k){ return padL + (n <= 1 ? w / 2 : (k / (n - 1)) * w); }
+    function Y(val){ return padT + h - (val / top) * h; }
+
+    g.font = '10px system-ui,-apple-system,"Segoe UI",sans-serif';
+    g.textBaseline = 'middle';
+    var nTick = Math.round(top / step);
+    for (i = 0; i <= nTick; i++){
+      v = i * step;
+      var yy = Y(v);
+      g.strokeStyle = (i === 0) ? 'rgba(27,36,50,.16)' : 'rgba(27,36,50,.07)';
+      g.lineWidth = 1;
+      g.beginPath();
+      g.moveTo(padL, Math.round(yy) + 0.5);
+      g.lineTo(padL + w, Math.round(yy) + 0.5);
+      g.stroke();
+      g.fillStyle = '#8b97ac';
+      g.textAlign = 'right';
+      g.fillText(fmtTick(v), padL - 6, yy);
+    }
+
+    var span = n - 1;
+    var maxLabels = Math.max(2, Math.min(7, Math.floor(w / 52)));
+    var raw = maxLabels > 1 ? span / maxLabels : span;
+    var XSTEPS = [6, 12, 24, 36, 48, 60, 72, 90, 120, 180, 240, 360];
+    var stp = XSTEPS[XSTEPS.length - 1];
+    for (i = 0; i < XSTEPS.length; i++){ if (XSTEPS[i] >= raw){ stp = XSTEPS[i]; break; } }
+    if (span <= 0) stp = 1;
+    g.textAlign = 'center';
+    g.fillStyle = '#8b97ac';
+    for (var idx = span; idx >= 0; idx -= stp){
+      var lx = X(idx);
+      lx = Math.min(Math.max(lx, padL + 14), padL + w - 14);
+      g.fillText((idx + 1) + '\u671f', lx, padT + h + 11);
+    }
+
+    function lineOf(key, color){
+      g.beginPath();
+      g.strokeStyle = color;
+      g.lineWidth = 2;
+      g.lineJoin = 'round';
+      g.lineCap = 'round';
+      for (var k = 0; k < n; k++){
+        var px = X(k), py = Y(rows[k][key]);
+        if (k === 0) g.moveTo(px, py); else g.lineTo(px, py);
+      }
+      g.stroke();
+    }
+    lineOf('pr', '#1d4ed8');
+    lineOf('it', '#e2820f');
+
+    geo = { padL: padL, w: w, padT: padT, h: h, n: n, X: X, Y: Y };
+    if (hoverIdx >= 0 && hoverIdx < n) drawHover(g, cssW);
+  }
+
+  function drawHover(g, cssW){
+    var r = data.rows[hoverIdx], x = geo.X(hoverIdx);
+    g.save();
+    g.strokeStyle = 'rgba(27,36,50,.26)';
+    g.lineWidth = 1;
+    if (g.setLineDash) g.setLineDash([3, 3]);
+    g.beginPath();
+    g.moveTo(x, geo.padT);
+    g.lineTo(x, geo.padT + geo.h);
+    g.stroke();
+    if (g.setLineDash) g.setLineDash([]);
+    var pts = [[r.pr, '#1d4ed8'], [r.it, '#e2820f']];
+    for (var i = 0; i < pts.length; i++){
+      g.beginPath();
+      g.fillStyle = '#fff';
+      g.arc(x, geo.Y(pts[i][0]), 3.6, 0, Math.PI * 2);
+      g.fill();
+      g.lineWidth = 2;
+      g.strokeStyle = pts[i][1];
+      g.stroke();
+    }
+    g.restore();
+
+    var tip = $('lnTip');
+    tip.innerHTML = '<b>\u7b2c ' + (hoverIdx + 1) + ' \u671f</b> \u00b7 \u672c\u91d1 ' + fmt(r.pr) + ' \u00b7 \u5229\u606f ' + fmt(r.it);
+    tip.hidden = false;
+    var tw = tip.offsetWidth || 140;
+    var left = Math.min(Math.max(x, tw / 2 + 4), cssW - tw / 2 - 4);
+    var topY = geo.Y(Math.max(r.pr, r.it)) - 8;
+    tip.style.left = left + 'px';
+    tip.style.top = Math.max(topY, 26) + 'px';
+  }
+
+  function hideTip(){
+    hoverIdx = -1;
+    var tip = $('lnTip');
+    if (tip && !tip.hidden) tip.hidden = true;
+    draw();
+  }
+
+  function pick(ev){
+    if (!geo || !data) return;
+    var rect = $('lnChartWrap').getBoundingClientRect();
+    var rel = ev.clientX - rect.left - geo.padL;
+    var t = geo.w > 0 ? Math.round(rel / geo.w * (geo.n - 1)) : 0;
+    t = Math.max(0, Math.min(geo.n - 1, t));
+    if (t !== hoverIdx || $('lnTip').hidden){
+      hoverIdx = t;
+      draw();
+    }
+  }
+
+  /* ---------- 输入 ---------- */
+  function syncFromInputs(){
+    st.amount = Math.max(0.1, Math.min(9999, num(elAmount, st.amount)));
+    st.years = Math.max(1, Math.min(40, Math.round(num(elYears, st.years))));
+    st.rate = Math.max(0, Math.min(24, num(elRate, st.rate)));
+  }
+  function markChips(){
+    var chips = panel.querySelectorAll('#lnChips .chip');
+    for (var i = 0; i < chips.length; i++){
+      chips[i].classList.toggle('on', parseFloat(chips[i].getAttribute('data-y')) === st.years);
+    }
+  }
+  function refresh(){ hoverIdx = -1; var t = $('lnTip'); if (t) t.hidden = true; render(); }
+  function onInput(){ syncFromInputs(); markChips(); refresh(); }
+
+  var inputs = [elAmount, elYears, elRate];
+  for (var ii = 0; ii < inputs.length; ii++){
+    (function(el){
+      el.addEventListener('input', onInput);
+      el.addEventListener('change', function(){
+        el.value = (el === elAmount) ? String(st.amount) : (el === elYears ? String(st.years) : String(st.rate));
+        onInput();
+      });
+    })(inputs[ii]);
+  }
+
+  var wayBtns = panel.querySelectorAll('#lnWay button');
+  for (var wi = 0; wi < wayBtns.length; wi++){
+    (function(btn){
+      btn.addEventListener('click', function(){
+        WAY = btn.getAttribute('data-val');
+        for (var j = 0; j < wayBtns.length; j++) wayBtns[j].classList.toggle('on', wayBtns[j] === btn);
+        refresh();
+      });
+    })(wayBtns[wi]);
+  }
+
+  var chipEls = panel.querySelectorAll('#lnChips .chip');
+  for (var ci = 0; ci < chipEls.length; ci++){
+    (function(c){
+      c.addEventListener('click', function(){
+        elYears.value = c.getAttribute('data-y');
+        onInput();
+      });
+    })(chipEls[ci]);
+  }
+
+  $('lnToggle').addEventListener('click', function(){
+    var box = $('lnTableWrap');
+    box.hidden = !box.hidden;
+    this.classList.toggle('on', !box.hidden);
+  });
+
+  /* ---------- 指针层 ---------- */
+  var wrapEl = $('lnChartWrap');
+  wrapEl.addEventListener('pointerdown', function(e){
+    active = true;
+    try { wrapEl.setPointerCapture(e.pointerId); } catch (err) {}
+    pick(e);
+    if (e.cancelable) e.preventDefault();
+  });
+  wrapEl.addEventListener('pointermove', function(e){
+    if (active || e.pointerType === 'mouse') pick(e);
+  });
+  wrapEl.addEventListener('pointerup', function(e){
+    active = false;
+    try { wrapEl.releasePointerCapture(e.pointerId); } catch (err) {}
+  });
+  wrapEl.addEventListener('pointerleave', function(e){
+    if (!active && e.pointerType === 'mouse') hideTip();
+  });
+  wrapEl.addEventListener('pointercancel', function(){ active = false; });
+  document.addEventListener('pointerdown', function(e){
+    if (hoverIdx < 0) return;
+    if (wrapEl.contains(e.target)) return;
+    hideTip();
+  });
+
+  /* ---------- 启动 ---------- */
+  syncFromInputs();
+  markChips();
+  render();
+
+  if (window.__toolHook) window.__toolHook('loan', function(){ setTimeout(draw, 0); });
+  var rz;
+  window.addEventListener('resize', function(){
+    clearTimeout(rz);
+    rz = setTimeout(draw, 120);
+  });
 })();
 </script>
 </body>
