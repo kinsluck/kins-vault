@@ -1,0 +1,920 @@
+<!DOCTYPE html>
+<html data-page-node-id="Odh6mcv8qXR6AGoEPm0E5d" lang="zh-CN">
+<head data-page-node-id="B0Bh4Y6hTXkOIXRTHgTFut">
+<meta data-page-node-id="oWl8PqPiU8VPSFsmLu7tN4" charset="UTF-8">
+<meta data-page-node-id="z8Pr7oRO2j6cYfKhgzUWjh" content="width=device-width, initial-scale=1.0, viewport-fit=cover" name="viewport">
+<title data-page-node-id="KJbBJ30cOzQiyn4WqAbW7c" data-pnid-children="uul2SmvE36aK737ouoaKS8">博德之门 3 · 交互地图总台</title>
+<link data-page-node-id="Rgo9AMJQxjuPpTQBGSPGIW" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='88'%3E%F0%9F%97%BA%EF%B8%8F%3C/text%3E%3C/svg%3E" rel="icon">
+<style data-page-node-id="9FteOH4hewrshtery2fS2M" data-pnid-children="ZpcIk9yaoGB6RYFA8Gt19v">
+:root{
+  --ink:#0a0806; --ink2:#12100c; --panel:rgba(23,19,14,.94); --panel2:rgba(30,25,18,.9);
+  --line:rgba(201,164,92,.18); --line2:rgba(201,164,92,.34);
+  --gold:#c9a45c; --gold2:#e6c987; --paper:#e9dcc3; --dim:#9b8f7a; --dim2:#6f6555;
+  --red:#d05548; --blue:#5f8fbf; --green:#7da06a; --purple:#9a7cc0;
+  --shadow:0 18px 50px rgba(0,0,0,.55);
+  --sans:"PingFang SC","Hiragino Sans GB","Microsoft YaHei",system-ui,-apple-system,"Segoe UI",sans-serif;
+  --serif:"Songti SC","Noto Serif SC","Source Han Serif SC",Georgia,serif;
+}
+*{box-sizing:border-box}
+html,body{height:100%}
+body{margin:0;background:
+  radial-gradient(1200px 700px at 20% -10%, #1a150e 0%, transparent 60%),
+  radial-gradient(900px 600px at 110% 110%, #171208 0%, transparent 55%),
+  var(--ink);
+  color:var(--paper); font-family:var(--sans); overflow:hidden; -webkit-font-smoothing:antialiased}
+button{font-family:inherit;color:inherit;cursor:pointer;background:none;border:none}
+input{font-family:inherit}
+::-webkit-scrollbar{width:8px;height:8px}
+::-webkit-scrollbar-thumb{background:rgba(201,164,92,.22);border-radius:8px}
+::-webkit-scrollbar-thumb:hover{background:rgba(201,164,92,.4)}
+::-webkit-scrollbar-track{background:transparent}
+
+/* ---------- layout ---------- */
+.app{height:100%;display:flex;flex-direction:column}
+.topbar{height:54px;flex:0 0 54px;display:flex;align-items:center;gap:18px;padding:0 16px;
+  border-bottom:1px solid var(--line); background:linear-gradient(180deg,rgba(24,19,13,.96),rgba(16,13,9,.9)); z-index:20}
+.brand{display:flex;align-items:baseline;gap:10px;white-space:nowrap}
+.brand b{font-family:var(--serif);font-size:19px;letter-spacing:.16em;font-weight:600;
+  background:linear-gradient(180deg,#f0dcb2,#bd9550);-webkit-background-clip:text;background-clip:text;color:transparent}
+.brand span{font-size:10.5px;letter-spacing:.24em;color:var(--dim2);text-transform:uppercase}
+.crumbs{flex:1;min-width:0;font-size:12.5px;color:var(--dim);display:flex;align-items:center;gap:8px}
+.crumbs i{width:4px;height:4px;border-radius:50%;background:var(--dim2)}
+.crumbs b{color:var(--paper);font-weight:500}
+.prog{display:flex;align-items:center;gap:10px;font-size:11.5px;color:var(--dim)}
+.pbar{width:120px;height:4px;border-radius:4px;background:rgba(255,255,255,.07);overflow:hidden}
+.pbar i{display:block;height:100%;width:0;background:linear-gradient(90deg,#8f6f34,#e6c987);transition:width .3s}
+.ghost{padding:6px 11px;border:1px solid var(--line);border-radius:7px;font-size:11.5px;color:var(--dim);
+  transition:.18s;white-space:nowrap}
+.ghost:hover{color:var(--gold2);border-color:var(--line2);background:rgba(201,164,92,.06)}
+
+.body{flex:1;min-height:0;display:flex}
+
+/* ---------- sidebar ---------- */
+.side{width:322px;flex:0 0 322px;border-right:1px solid var(--line);background:var(--panel);
+  display:flex;flex-direction:column;min-height:0;z-index:10}
+.side-top{padding:12px 14px 0}
+.regions{display:grid;grid-template-columns:1fr 1fr;gap:6px}
+.rg{position:relative;text-align:left;padding:8px 9px;border:1px solid var(--line);border-radius:8px;
+  background:rgba(255,255,255,.012);transition:.16s;overflow:hidden}
+.rg:hover{border-color:var(--line2);background:rgba(201,164,92,.05)}
+.rg.on{border-color:rgba(201,164,92,.6);background:linear-gradient(180deg,rgba(201,164,92,.16),rgba(201,164,92,.04));
+  box-shadow:inset 0 0 0 1px rgba(201,164,92,.1)}
+.rg em{display:block;font-style:normal;font-size:9.5px;letter-spacing:.1em;color:var(--dim2);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.rg b{display:block;font-size:13px;font-weight:600;margin-top:2px;color:var(--paper);letter-spacing:.02em}
+.rg.on b{color:var(--gold2)}
+.rg s{position:absolute;right:8px;bottom:7px;text-decoration:none;font-size:10px;color:var(--dim2)}
+.rg.on s{color:var(--gold)}
+
+.searchbox{margin:10px 0 8px;position:relative}
+.searchbox svg{position:absolute;left:9px;top:50%;transform:translateY(-50%);opacity:.45}
+.searchbox input{width:100%;padding:8px 30px 8px 30px;border-radius:8px;border:1px solid var(--line);
+  background:rgba(0,0,0,.28);color:var(--paper);font-size:12.5px;outline:none;transition:.16s}
+.searchbox input:focus{border-color:var(--line2);background:rgba(0,0,0,.4)}
+.searchbox input::placeholder{color:var(--dim2)}
+.searchbox .clr{position:absolute;right:6px;top:50%;transform:translateY(-50%);width:20px;height:20px;
+  border-radius:50%;color:var(--dim);font-size:13px;line-height:18px;text-align:center;display:none}
+.searchbox.has .clr{display:block}
+
+.tabs{display:flex;gap:2px;border-bottom:1px solid var(--line);padding:0 14px}
+.tabs button{flex:1;padding:9px 4px;font-size:12px;color:var(--dim);border-bottom:2px solid transparent;
+  letter-spacing:.06em;transition:.15s}
+.tabs button.on{color:var(--gold2);border-bottom-color:var(--gold)}
+.tabs button:hover{color:var(--paper)}
+.tabpane{display:none;flex:1;min-height:0;overflow:auto;padding:10px 14px 16px}
+.tabpane.on{display:block}
+
+.presets{display:flex;gap:5px;flex-wrap:wrap;margin-bottom:10px}
+.presets button{padding:4px 8px;border:1px solid var(--line);border-radius:20px;font-size:10.5px;color:var(--dim)}
+.presets button:hover{color:var(--gold2);border-color:var(--line2)}
+.grp{margin-bottom:12px}
+.grp>h4{margin:0 0 6px;font-size:10px;letter-spacing:.18em;color:var(--dim2);font-weight:500;text-transform:uppercase}
+.chips{display:flex;flex-wrap:wrap;gap:5px}
+.chip{display:flex;align-items:center;gap:5px;padding:4px 8px 4px 6px;border:1px solid var(--line);
+  border-radius:6px;font-size:11.5px;color:var(--dim);transition:.14s;background:rgba(255,255,255,.01)}
+.chip:hover{border-color:var(--line2);color:var(--paper)}
+.chip .dot{width:7px;height:7px;border-radius:50%;flex:0 0 7px;opacity:.35}
+.chip b{font-weight:400;font-size:10px;color:var(--dim2);margin-left:1px}
+.chip.on{background:rgba(201,164,92,.1);border-color:rgba(201,164,92,.45);color:var(--paper)}
+.chip.on .dot{opacity:1;box-shadow:0 0 6px currentColor}
+.chip.on b{color:var(--dim)}
+
+.arealist{display:flex;flex-wrap:wrap;gap:4px}
+.arealist button{padding:3px 7px;border-radius:5px;border:1px solid transparent;background:rgba(255,255,255,.028);
+  font-size:11px;color:var(--dim);transition:.14s;max-width:100%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.arealist button:hover{background:rgba(201,164,92,.12);color:var(--gold2)}
+
+.plist{display:flex;flex-direction:column;gap:1px}
+.pitem{display:flex;align-items:center;gap:8px;padding:6px 6px;border-radius:6px;text-align:left;
+  border:1px solid transparent;transition:.12s}
+.pitem:hover{background:rgba(255,255,255,.04)}
+.pitem.sel{background:rgba(201,164,92,.13);border-color:rgba(201,164,92,.3)}
+.pitem .dot{width:8px;height:8px;border-radius:50%;flex:0 0 8px}
+.pitem .tx{flex:1;min-width:0}
+.pitem .tx b{display:block;font-size:12.5px;font-weight:500;color:var(--paper);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.pitem .tx s{display:block;text-decoration:none;font-size:10px;color:var(--dim2);margin-top:1px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.pitem.done .tx b{color:var(--dim2);text-decoration:line-through}
+.pitem .ck{width:18px;height:18px;flex:0 0 18px;border-radius:5px;border:1px solid var(--line);
+  display:grid;place-items:center;font-size:11px;color:transparent;transition:.14s}
+.pitem .ck:hover{border-color:var(--line2)}
+.pitem.done .ck{border-color:rgba(201,164,92,.6);background:rgba(201,164,92,.2);color:var(--gold2)}
+.empty{padding:22px 6px;text-align:center;color:var(--dim2);font-size:12px;line-height:1.9}
+
+/* ---------- stage ---------- */
+.stage{position:relative;flex:1;min-width:0;overflow:hidden;background:#070605;container-type:inline-size}
+#cv{display:block;width:100%;height:100%;cursor:grab;touch-action:none}
+#cv.drag{cursor:grabbing}
+.hud{position:absolute;z-index:5;background:var(--panel);border:1px solid var(--line);border-radius:9px;
+  backdrop-filter:blur(10px)}
+.hint{padding:7px 11px;font-size:11px;color:var(--dim);left:14px;top:12px;max-width:60%;line-height:1.6}
+.hint b{color:var(--gold);font-weight:500}
+.ctrls{right:14px;top:12px;display:flex;flex-direction:column;padding:4px;gap:2px}
+.ctrls button{width:32px;height:30px;border-radius:6px;font-size:15px;color:var(--dim);transition:.14s}
+.ctrls button:hover{background:rgba(201,164,92,.14);color:var(--gold2)}
+.ctrls .sp{height:1px;background:var(--line);margin:2px 6px}
+.legend{left:14px;bottom:14px;padding:9px 11px;display:flex;flex-wrap:wrap;gap:4px 12px;max-width:min(520px,60%)}
+.legend span{display:flex;align-items:center;gap:5px;font-size:10.5px;color:var(--dim)}
+.legend i{width:7px;height:7px;border-radius:50%}
+.zoomtag{right:14px;bottom:14px;padding:5px 9px;font-size:10.5px;color:var(--dim2);letter-spacing:.06em}
+
+/* modal */
+.modal{position:fixed;inset:0;background:rgba(5,4,3,.72);backdrop-filter:blur(3px);z-index:40;display:none;
+  align-items:center;justify-content:center;padding:20px}
+.modal.on{display:flex}
+.mbox{position:relative;width:min(560px,100%);max-height:80vh;overflow:auto;background:linear-gradient(180deg,#1d1811,#14100b);
+  border:1px solid var(--line2);border-radius:14px;padding:22px 24px;box-shadow:var(--shadow)}
+.mbox h3{margin:0 0 12px;font-family:var(--serif);font-size:20px;color:var(--gold2);letter-spacing:.06em}
+.mbox p{margin:0 0 10px;font-size:12.8px;line-height:1.95;color:#cfc2aa}
+.mbox p b{color:var(--gold);font-weight:500}
+.mbox .fine{font-size:11px;color:var(--dim2);border-top:1px solid var(--line);padding-top:10px;margin-top:14px}
+.mx{position:absolute;right:10px;top:8px;width:26px;height:26px;border-radius:50%;color:var(--dim);font-size:16px}
+.mx:hover{background:rgba(255,255,255,.06);color:var(--paper)}
+
+/* detail card */
+.card{position:absolute;right:14px;bottom:14px;width:296px;z-index:8;background:var(--panel);
+  border:1px solid var(--line2);border-radius:12px;box-shadow:var(--shadow);padding:14px 15px 12px;
+  display:none;animation:pop .18s ease-out}
+.card.on{display:block}
+@keyframes pop{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+.card .k{display:flex;align-items:center;gap:6px;font-size:10px;letter-spacing:.12em;color:var(--dim2)}
+.card .k i{width:7px;height:7px;border-radius:50%}
+.card h3{margin:7px 0 3px;font-family:var(--serif);font-size:19px;font-weight:600;color:var(--paper);letter-spacing:.02em;line-height:1.35}
+.card .sub{font-size:11.5px;color:var(--dim);line-height:1.7}
+.card .sub b{color:var(--gold);font-weight:500}
+.card .row{display:flex;gap:7px;margin-top:12px}
+.card .row button{flex:1;padding:8px;border-radius:7px;font-size:12px;border:1px solid var(--line);color:var(--dim);transition:.15s}
+.card .row button:hover{border-color:var(--line2);color:var(--gold2)}
+.card .row button.primary{background:linear-gradient(180deg,rgba(201,164,92,.24),rgba(201,164,92,.1));
+  border-color:rgba(201,164,92,.5);color:var(--gold2)}
+.card .row button.primary.on{background:rgba(201,164,92,.3);color:#1a1409}
+.card .x{position:absolute;right:8px;top:7px;width:22px;height:22px;border-radius:50%;color:var(--dim2);font-size:14px}
+.card .x:hover{background:rgba(255,255,255,.06);color:var(--paper)}
+
+.drawerbtn{display:none}
+@media (max-width:900px){
+  .topbar{gap:8px;padding:0 10px}
+  .brand span{display:none}
+  .brand b{font-size:16px;letter-spacing:.1em}
+  .crumbs{font-size:11px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;min-width:0;flex:1 1 auto}
+  .crumbs i{display:none}
+  #btnReset{display:none}
+  #btnHelp{padding:5px 8px;font-size:11px}
+
+  .side{position:absolute;left:0;top:0;bottom:0;transform:translateX(-100%);transition:transform .26s ease;
+    box-shadow:22px 0 50px rgba(0,0,0,.6);width:300px;flex-basis:300px}
+  .side.open{transform:none}
+  .drawerbtn{display:grid;place-items:center;width:34px;height:34px;border:1px solid var(--line);border-radius:8px;
+    color:var(--dim);flex:0 0 34px}
+  .hint{display:none}
+  .card{left:10px;right:10px;bottom:10px;width:auto}
+  .legend{max-width:calc(100% - 110px);padding:6px 8px;gap:3px 8px}
+  .legend span:nth-child(n+6){display:none}
+  .prog{display:none}
+  .crumbs{font-size:11px}
+  .ctrls{right:10px;top:10px}
+}
+/* 极窄视口 / 手机页面放大 —— 图例改为单行横滑，避免逐字换行撑成竖条 */
+@media (max-width:640px){
+  .topbar{gap:6px;padding:0 8px}
+  .side{width:min(300px,88vw);flex-basis:min(300px,88vw)}
+  .regions{grid-template-columns:1fr}
+  /* 控件尺寸跟随视口宽度（cqw）而非固定 px：页面放大时自动等比缩小，物理大小保持稳定 */
+  .legend{left:8px;right:64px;bottom:8px;max-width:none;
+    padding:max(4px,1.6cqw) max(6px,2.2cqw);
+    flex-wrap:nowrap;overflow-x:auto;overflow-y:hidden;gap:max(3px,1cqw) max(6px,2.6cqw);
+    white-space:nowrap;-webkit-overflow-scrolling:touch;scrollbar-width:none;-ms-overflow-style:none;
+    border-radius:max(6px,2.2cqw)}
+  .legend::-webkit-scrollbar{display:none}
+  .legend span{white-space:nowrap;flex:0 0 auto;display:flex;align-items:center;
+    gap:max(3px,1.2cqw);font-size:clamp(6px,2.7cqw,10.5px)}
+  .legend i{width:clamp(4px,1.8cqw,7px);height:clamp(4px,1.8cqw,7px);border-radius:50%}
+  .legend span:nth-child(n+6){display:flex}
+  .zoomtag{right:8px;bottom:8px;padding:max(3px,1.3cqw) max(5px,2cqw);font-size:clamp(6px,2.5cqw,10.5px);white-space:nowrap}
+  .ctrls{right:8px;top:8px;padding:max(2px,1cqw);gap:max(1px,.5cqw);border-radius:max(7px,2.4cqw)}
+  .ctrls button{width:clamp(17px,8.2cqw,32px);height:clamp(16px,7.7cqw,30px);
+    font-size:clamp(9px,3.9cqw,15px);border-radius:max(4px,1.6cqw)}
+  .ctrls .sp{margin:max(1px,1cqw) max(3px,1.6cqw)}
+}
+/* 更窄（手机页面放大到 200% 左右）——隐藏缩放角标，图例占满整行 */
+@media (max-width:420px){
+  .zoomtag{display:none}
+  .legend{right:8px}
+}
+</style>
+</head>
+<body data-page-node-id="RwiW9Mr2dJBYMKM2pFDYBf">
+<div data-page-node-id="GSt00zEDzuWePrs3mPtuM8" class="app">
+  <header data-page-node-id="BXyvpmWP33aMjPSGgyT6vY" class="topbar">
+    <button data-page-node-id="fyOumrJk7k4uNJxAFNKWGp" aria-label="打开侧栏" class="drawerbtn" id="drawer"><!--pnid:vJNmznnlR1nMj4q4qfrvBW-->☰</button>
+    <div data-page-node-id="f271FznF3JwXS6DNdq71E4" class="brand"><b data-page-node-id="DXUHKTNkiESfRmDczm17zn"><!--pnid:7Ekfs5Zlq0Tnb8ss4fG8Q2-->地图总台</b><span data-page-node-id="zEajgyj8KSvCs07LetuwRu"><!--pnid:uPjmi4I4TqOKXKc8hfamk6-->BG3 Atlas</span></div>
+    <div data-page-node-id="SBaQwp7yTwkXLgC0seoMkU" class="crumbs" id="crumbs"></div>
+    <div data-page-node-id="pwdL1xsvDYaoHgGqkdzObJ" class="prog"><span data-page-node-id="JK1Uck45kt9A66I9ISDPHt" id="progText"><!--pnid:g13LD4TYMUFGnvtgt03214-->已标记 0 / 0</span><div data-page-node-id="gRKKEXp8O6YQm8YxHVVl4K" class="pbar"><i data-page-node-id="GYp2CSNMnAVsGFLkbZhJYb" id="progBar"></i></div></div>
+    <button data-page-node-id="0WhUa4etzINqvVHPBdHw6a" class="ghost" id="btnHelp"><!--pnid:3QbXqKwZuzEgC0HqBbokJe-->说明</button>
+    <button data-page-node-id="g9kUfYwFIaW9xy5ynx3TBJ" class="ghost" id="btnReset"><!--pnid:g82vKEX7m6gONcsGV0lT3A-->重置进度</button>
+  </header>
+  <div data-page-node-id="1L8jk3Wpqe5WVu0bBfnU7K" class="body">
+    <aside data-page-node-id="ygIgWItUGnp6h43QhkxekM" class="side" id="side">
+      <div data-page-node-id="7LWXQZ4HP00kn2j0Vv5xNq" class="side-top">
+        <div data-page-node-id="TaFfNr5hbsmGulaVbzdUR5" class="regions" id="regions"></div>
+        <div data-page-node-id="CZKc2S8g0PKDELNk8mi8Cx" class="searchbox" id="searchbox">
+          <svg data-page-node-id="d3VVmGsduzOKsql7cSFXy9" fill="none" height="13" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" width="13"><circle data-page-node-id="u4oLGFpgiPAZpQW65jnBav" cx="11" cy="11" r="7"/><path data-page-node-id="602mVnjf85xAhoNlvGfWO1" d="M20 20l-4.5-4.5"/></svg>
+          <input data-page-node-id="5hq1xOTPzfFkkTOeuKxjR9" autocomplete="off" id="q" placeholder="搜点位 / 地点，如 血光、染疫村落" type="search">
+          <button data-page-node-id="J2h4vdDSSgxSLLJ44T3VLT" aria-label="清空" class="clr" id="qclr"><!--pnid:8JFf4fXAgwmxrgZvrMA0pV-->×</button>
+        </div>
+      </div>
+      <div data-page-node-id="EC405lyImslabSfeeOLDQh" class="tabs" id="tabs">
+        <button data-page-node-id="n7xALjB67H4rAZllVYOvLD" class="on" data-tab="cat"><!--pnid:vC3O8YzKUyQs6T6miqQ1Fi-->分类</button>
+        <button data-page-node-id="I0qaE4tF2hLaevHffQfNle" data-tab="area"><!--pnid:OKBPX2egsxn1jqLITmkEl9-->地点</button>
+        <button data-page-node-id="avIh7RUaegcDfKaRL8tdoH" data-tab="list"><!--pnid:QN3wgI9riOg1tPJ6neipdW-->点位</button>
+      </div>
+      <div data-page-node-id="nW0rY04Wd0S3crKARzDZNf" class="tabpane on" id="pane-cat">
+        <div data-page-node-id="SHfXa7KWcXiiBz0rNY2tCr" class="presets" id="presets">
+          <button data-page-node-id="cF2tLXTOtmGMmKGW4hRvxJ" data-p="core"><!--pnid:khcVaecB3ZOvcWH2C3yhpV-->推荐</button>
+          <button data-page-node-id="vq9NyexrCoGcLCvW4dMxOu" data-p="gear"><!--pnid:NPqkm1vA2BcCOmeb96CgYy-->只看装备</button>
+          <button data-page-node-id="6a2PhQRrtw2lU1mAJ81gzN" data-p="quest"><!--pnid:clElfrYv5so0Kpg2rR9jL8-->任务与战斗</button>
+          <button data-page-node-id="NMlvWTANCOJyFgLvh964GH" data-p="all"><!--pnid:MJmRuQBhNesa67iGyf1KHW-->全开</button>
+          <button data-page-node-id="CNobdjJPs2TRLmR5Pho7ge" data-p="none"><!--pnid:AIGCSy0FLnjYOMkzmI1Dif-->全关</button>
+        </div>
+        <div data-page-node-id="ghXa9CdmdsGf0t2X1sPtJM" id="filters"></div>
+      </div>
+      <div data-page-node-id="oBuj7bj3ag5FeBGQDdmhCb" class="tabpane" id="pane-area">
+        <div data-page-node-id="uqIuVOsHWeBIarT2eFr575" class="arealist" id="areas"></div>
+      </div>
+      <div data-page-node-id="JRxxgVKqVasxG2K0r53QlY" class="tabpane" id="pane-list">
+        <div data-page-node-id="o8d38lvmxjAd3ulpErjXc2" class="plist" id="plist"></div>
+      </div>
+    </aside>
+    <main data-page-node-id="YDP2YNGImFMGloIczTGchU" class="stage" id="stage">
+      <canvas data-page-node-id="kdyQeSOkD3ajKyhqEYAVj0" id="cv"></canvas>
+      <div data-page-node-id="stIwFvnFmv6LPVSR9FCUSH" class="hud hint"><!--pnid:g1HdzfT7rQVELx1nPGO4gh-->滚轮 / 双指缩放，拖动平移 · 点击点位看详情 · 快捷键 <b data-page-node-id="WwYQ86r7MI3NYblCUwvW2l"><!--pnid:8xshKI3D5UXMZaSXGSUo70-->+ −</b><!--pnid:qNkpKOwGSCbvffvk7WiXyz--> 缩放、<b data-page-node-id="n6sppnePMwiPdycz5ou7Cw"><!--pnid:JrpwI18NIIB4PCwn9lDlt5-->F</b><!--pnid:58P9S26sK7F5M3VhGhJljm--> 复位</div>
+      <div data-page-node-id="P4m3t1RQVBNDRFg7xVpjv1" class="hud ctrls">
+        <button data-page-node-id="YQhD5478GpkdEg0l0p8xON" aria-label="放大" id="zin"><!--pnid:HbVQh6hXgw5GrfFmJgRy84-->＋</button>
+        <button data-page-node-id="9Lpc2dWCj7nqXFjsEOfBwG" aria-label="缩小" id="zout"><!--pnid:r2ygW6vMYXKpHliA2Kt3iO-->－</button>
+        <div data-page-node-id="isXWH8yFHlqcamLTSQWuA3" class="sp"></div>
+        <button data-page-node-id="qEgElW2E0zh5zUsemqfVO3" aria-label="适应窗口" id="fit" style="font-size:13px"><!--pnid:Wv9nOsHY5yEz8wCth1f6rY-->⤢</button>
+      </div>
+      <div data-page-node-id="t2oURrj4KMfp7kAcqzIPE6" class="hud legend" id="legend"></div>
+      <div data-page-node-id="OnA4bkptSf2ih2DNGMACiT" class="hud zoomtag" id="zoomtag"><!--pnid:mgQbcvZGxyTgxTmcbicvE4-->—</div>
+      <div data-page-node-id="juHtmD6BfOUqucJt6Mjfnb" class="card" id="card"></div>
+    </main>
+  </div>
+</div>
+<div data-page-node-id="hdeXw2sgVBbB1cZdX5toLr" class="modal" id="modal">
+  <div data-page-node-id="3d3o62SBxm15w3PqLLFUFl" class="mbox">
+    <button data-page-node-id="gyP0UE2XLWQw1lsE7Qt68N" class="mx" id="mclose"><!--pnid:GxOZDtvS9wSPV8fJIXbxG8-->×</button>
+    <h3 data-page-node-id="nDz2fnNTU6eBEKSkS4w2DL"><!--pnid:DPHtC5rR1TueFBLOYXsajd-->这张图怎么用</h3>
+    <p data-page-node-id="uvePJp3KOo8PknfHmeOsx0"><b data-page-node-id="Od2CkA5WjeUP2fiL9tYAYI"><!--pnid:x5QRoePoUyytesTrT0hu70-->四张大图</b><!--pnid:kme8q69A5jNWcyEeDcW5iF-->：鹦鹉螺（序章）、荒野（第一章，含幽暗地域与室内场景）、幽影诅咒之地（第二章）、博德之门（第三章）。每张都是数千像素的顶视地形图，可无级缩放。</p>
+    <p data-page-node-id="ZeWkrl2lr3LqvUhNhp1O32"><b data-page-node-id="tMjWvOpZkkv4BVKJbJlWMx"><!--pnid:Z8JLX2NbLHWoXqOKP3Laqn-->点位</b><!--pnid:zd19xYfQMu0Oy4stoaf7vJ-->：共 1242 个中文标注，分传送点、独特装备、任务、战斗、人物、物品六组。左侧「分类」按需开关，「地点」可一键跳到某个分区，「点位」是当前筛选的清单。</p>
+    <p data-page-node-id="F3hi8h2qtuaic289kICS8N"><b data-page-node-id="COt4ppKPHv8uZScvwjsKPf"><!--pnid:8DoDq31SLfFea6SeKZJyCH-->标记进度</b><!--pnid:Cnoc91vDEkqK8eOdNhHeGx-->：点开点位后按「标记已收集」，或直接点清单右侧的勾；进度会记在这台设备上，顶部可一键重置。</p>
+    <p data-page-node-id="MVJb73qfRTeXLZm6Zpzytc"><b data-page-node-id="m7io71bGljv3ULjEwqa1X1"><!--pnid:PGV8O0uyhr9k6TcqpqkOxI-->操作</b><!--pnid:jThlL8P5KA54GQ5evqOfYt-->：滚轮 / 双指缩放，拖动平移，双击放大；键盘 <b data-page-node-id="w2UKQA9EFf45fA94URbLY5"><!--pnid:bS111BMDG4T6iDTprjFXLG-->+ −</b><!--pnid:BU5Zd4KpVMpaEziOIhOfyx--> 缩放、<b data-page-node-id="QUsdeoENAWUmUd7KF1NzJL"><!--pnid:avvJ2cdeEYNIpT3XsPg1Jj-->F</b><!--pnid:pZNycjCHxxYVb859ZV6f4h--> 复位、<b data-page-node-id="x2gy90H7KVI5dGsGXJ86NK"><!--pnid:HjSjzxlKwATEHUCTRqWVv2-->Esc</b><!--pnid:zLAjDYJpTObmk4qTp1zp6D--> 收起详情、方向键平移。</p>
+    <p data-page-node-id="9uy1hQcLJIiRLM9uzl0QwC" class="fine"><!--pnid:uQcjDTLAVKxECnwmch6CMr-->点位与地名整理自公开的《博德之门 3》互动地图（2025 年 4 月快照），仅作查阅与路线规划；地图图像版权归原制作者所有。</p>
+  </div>
+</div>
+<script data-page-node-id="JmPrJZ8RKUnH3TmbEoVxiq" data-pnid-children="ccsdT1OvEcBUCpuRW0YIDF">
+/* ================= 数据 ================= */
+var DATA = [{"id":"nautiloid","cn":"鹦鹉螺","en":"Nautiloid","act":"序章","img":"image/JCHaHsUPgK8wfa1ZjNcV0l.jpg","w":3584,"h":2560,"view":{"x":0.0,"y":0.0,"w":99.58,"h":99.42},"areas":[],"pins":[{"n":"恢复站","c":"恢复站","g":"地点","x":33.622,"y":34.453,"z":null},{"n":"恢复站","c":"恢复站","g":"地点","x":49.33,"y":28.02,"z":null},{"n":"恢复站","c":"恢复站","g":"地点","x":73.438,"y":79.376,"z":null},{"n":"恢复站","c":"恢复站","g":"地点","x":55.692,"y":49.297,"z":null},{"n":"电梯","c":"出入口","g":"地点","x":55.692,"y":82.981,"z":null},{"n":"电梯","c":"出入口","g":"地点","x":53.906,"y":76.415,"z":null},{"n":"永燃之刃","c":"强力武器","g":"装备","x":24.944,"y":52.33,"z":null},{"n":"背包","c":"贵重物品","g":"物品","x":54.799,"y":12.422,"z":null},{"n":"箱子","c":"贵重物品","g":"物品","x":88.449,"y":26.455,"z":null},{"n":"诡异的符文","c":"贵重物品","g":"物品","x":88.672,"y":22.078,"z":null},{"n":"金钥匙","c":"贵重物品","g":"物品","x":74.275,"y":23.172,"z":null},{"n":"上锁的箱子","c":"贵重物品","g":"物品","x":58.259,"y":27.784,"z":null},{"n":"箱子","c":"贵重物品","g":"物品","x":83.315,"y":89.927,"z":null},{"n":"箱子","c":"贵重物品","g":"物品","x":72.377,"y":66.726,"z":null},{"n":"逃出鹦鹉螺","c":"主线任务","g":"任务","x":9.933,"y":48.747,"z":null},{"n":"解救灵吸怪的俘虏-影心","c":"同伴任务","g":"任务","x":55.971,"y":14.419,"z":null},{"n":"被困的人","c":"NPC","g":"人物","x":81.25,"y":21.601,"z":null},{"n":"暗夜女士祭司 影心","c":"同伴","g":"人物","x":53.683,"y":12.771,"z":null},{"n":"吉斯洋基战士 莱艾泽尔","c":"同伴","g":"人物","x":33.482,"y":81.565,"z":null},{"n":"噬脑怪“我们”","c":"同伴","g":"人物","x":56.864,"y":87.427,"z":null},{"n":"小鬼*3","c":"遭遇战","g":"敌人","x":28.237,"y":75.483,"z":null},{"n":"敌方援军","c":"遭遇战","g":"敌人","x":53.034,"y":48.515,"z":null},{"n":"按钮","c":"遭遇战","g":"敌人","x":49.833,"y":22.705,"z":null},{"n":"指挥官扎尔克","c":"头目战","g":"敌人","x":22.768,"y":49.047,"z":null}]},{"id":"wilderness","cn":"荒野","en":"Wilderness","act":"第一章","img":"image/Ui77nCBwjjbmpTXKB5gvxp.jpg","w":5200,"h":2232,"view":{"x":46.25,"y":25.24,"w":39.58,"h":69.9},"areas":[{"n":"复仇之炉","x":5.55,"y":27.7},{"n":"幽暗地域","x":26.57,"y":25.88},{"n":"疮痍海滩","x":79.95,"y":86.59},{"n":"隐秘海湾","x":82.56,"y":41.55},{"n":"圣池","x":77.85,"y":47.74},{"n":"空谷","x":74.32,"y":43.95},{"n":"仓库","x":75.69,"y":37.43},{"n":"临时监狱","x":73.65,"y":34.26},{"n":"刺鼻工坊","x":46.76,"y":83.84},{"n":"座狼兽栏","x":45.08,"y":40.85},{"n":"蕈人栖息地","x":24.98,"y":31.57},{"n":"奥术高塔-地下室","x":31.31,"y":62.94},{"n":"破败村落","x":23.13,"y":45.67},{"n":"被弃避难所","x":4.49,"y":38.86},{"n":"奥法高塔","x":18.24,"y":58.51},{"n":"精金熔炉","x":10.01,"y":61.57},{"n":"沃金的休眠地","x":59.14,"y":40.2},{"n":"塞伦涅哨所","x":31.03,"y":52.87},{"n":"征收所地下室","x":69.72,"y":24.81},{"n":"山隘","x":56.32,"y":43.92},{"n":"征收所","x":69.77,"y":41.25},{"n":"鬼婆茶室","x":58.33,"y":80.8},{"n":"腐烂泥潭","x":63.23,"y":80.27},{"n":"营地","x":87.48,"y":90.19},{"n":"翠绿林地","x":75.5,"y":54.43},{"n":"药剂师的地窖","x":49.51,"y":66.75},{"n":"蔓生地道","x":50.08,"y":81.11},{"n":"被亵渎的神殿","x":46.28,"y":25.93},{"n":"染疫村落","x":64.22,"y":60.24},{"n":"低语深地","x":40.89,"y":61.48},{"n":"地精营地","x":56.84,"y":56.79},{"n":"破碎圣所","x":39.54,"y":28.29},{"n":"散塔林会地下室","x":57.3,"y":-0.87},{"n":"枭熊巢穴","x":67.94,"y":12.36},{"n":"隐蔽房间","x":83.25,"y":21.31},{"n":"提夫林避难所","x":90.95,"y":20.73},{"n":"隐藏金库","x":96.92,"y":20.41},{"n":"地下通道","x":89.93,"y":31.95},{"n":"闲庭图书馆","x":98.59,"y":35.53},{"n":"仆人住处","x":96.62,"y":39.38},{"n":"德鲁伊内殿","x":98.08,"y":31.79},{"n":"阴暗墓穴","x":88.69,"y":60.79},{"n":"强盗卧室","x":94.67,"y":64.05}],"pins":[{"n":"散塔林会窝点","c":"传送点","g":"地点","x":55.878,"y":18.924,"z":"散塔林会地下室"},{"n":"幽暗地域-古代熔炉","c":"传送点","g":"地点","x":6.667,"y":55.328,"z":"精金熔炉"},{"n":"幽暗地域-复仇之炉","c":"传送点","g":"地点","x":4.272,"y":42.852,"z":"被弃避难所"},{"n":"幽暗地域-轻语树","c":"传送点","g":"地点","x":18.73,"y":38.773,"z":"破败村落"},{"n":"幽暗地域-蕈人栖息地","c":"传送点","g":"地点","x":27.852,"y":33.516,"z":"蕈人栖息地"},{"n":"幽暗地域-海滩","c":"传送点","g":"地点","x":23.141,"y":48.543,"z":"破败村落"},{"n":"低语深地","c":"传送点","g":"地点","x":35.945,"y":70.019,"z":"奥术高塔-地下室"},{"n":"翠绿林地","c":"传送点","g":"地点","x":77.605,"y":60.066,"z":"翠绿林地"},{"n":"路边山崖","c":"传送点","g":"地点","x":76.546,"y":72.766,"z":"疮痍海滩"},{"n":"蔓生废墟","c":"传送点","g":"地点","x":79.807,"y":76.747,"z":"疮痍海滩"},{"n":"幽暗地域-塞伦涅哨所","c":"传送点","g":"地点","x":32.503,"y":52.216,"z":"塞伦涅哨所"},{"n":"河边茶室","c":"传送点","g":"地点","x":62.611,"y":83.84,"z":"腐烂泥潭"},{"n":"地精营地","c":"传送点","g":"地点","x":58.736,"y":56.169,"z":"地精营地"},{"n":"沃金的休眠地","c":"传送点","g":"地点","x":58.363,"y":39.095,"z":"沃金的休眠地"},{"n":"染疫村落","c":"传送点","g":"地点","x":65.199,"y":62.393,"z":"染疫村落"},{"n":"晋升之路","c":"传送点","g":"地点","x":68.568,"y":34.442,"z":"征收所"},{"n":"铁门","c":"出入口","g":"地点","x":57.213,"y":2.333,"z":"散塔林会地下室"},{"n":"出入口","c":"出入口","g":"地点","x":38.357,"y":44.899,"z":"座狼兽栏"},{"n":"崎岖的岩石","c":"出入口","g":"地点","x":22.717,"y":51.985,"z":"破败村落"},{"n":"镜子门","c":"出入口","g":"地点","x":50.459,"y":72.708,"z":"药剂师的地窖"},{"n":"镜子门","c":"出入口","g":"地点","x":50.459,"y":72.708,"z":"药剂师的地窖"},{"n":"隐藏洞窟","c":"出入口","g":"地点","x":73.534,"y":58.952,"z":"翠绿林地"},{"n":"通道–破碎圣所","c":"出入口","g":"地点","x":60.098,"y":51.899,"z":"地精营地"},{"n":"水井","c":"出入口","g":"地点","x":64.389,"y":62.46,"z":"染疫村落"},{"n":"鱼人村","c":"出入口","g":"地点","x":26.333,"y":53.321,"z":"破败村落"},{"n":"去幽暗诅咒之地升降机","c":"出入口","g":"地点","x":7.315,"y":42.952,"z":"被弃避难所"},{"n":"去低语深渊","c":"出入口","g":"地点","x":64.471,"y":62.446,"z":"染疫村落"},{"n":"鱼人村","c":"出入口","g":"地点","x":26.655,"y":53.023,"z":"塞伦涅哨所"},{"n":"溃烂洞穴","c":"出入口","g":"地点","x":26.629,"y":53.122,"z":"塞伦涅哨所"},{"n":"升降机","c":"出入口","g":"地点","x":7.465,"y":42.964,"z":"被弃避难所"},{"n":"升降机","c":"出入口","g":"地点","x":7.554,"y":42.943,"z":"被弃避难所"},{"n":"隐蔽的楼梯","c":"出入口","g":"地点","x":61.821,"y":14.07,"z":"枭熊巢穴"},{"n":"管道口","c":"出入口","g":"地点","x":18.91,"y":61.443,"z":"奥法高塔"},{"n":"枭熊巢穴入口（裂缝）","c":"出入口","g":"地点","x":66.327,"y":54.397,"z":"染疫村落"},{"n":"枭熊巢穴入口","c":"出入口","g":"地点","x":68.692,"y":57.185,"z":"染疫村落"},{"n":"鱼人祭祀现场","c":"出入口","g":"地点","x":26.779,"y":53.273,"z":"塞伦涅哨所"},{"n":"水井","c":"出入口","g":"地点","x":64.395,"y":62.422,"z":"染疫村落"},{"n":"出入口-地精营地","c":"出入口","g":"地点","x":39.603,"y":51.151,"z":"低语深地"},{"n":"出入口-翠绿林地","c":"出入口","g":"地点","x":82.316,"y":26.557,"z":"隐蔽房间"},{"n":"出入口-晋升之路","c":"出入口","g":"地点","x":68.839,"y":27.836,"z":"征收所地下室"},{"n":"出入口-渥金的休眠地","c":"出入口","g":"地点","x":62.352,"y":18.619,"z":"枭熊巢穴"},{"n":"出入口-散塔林会地下室","c":"出入口","g":"地点","x":55.792,"y":19.798,"z":"散塔林会地下室"},{"n":"出入口-梯子","c":"出入口","g":"地点","x":47.81,"y":75.626,"z":"蔓生地道"},{"n":"出入口-被亵渎的神殿","c":"出入口","g":"地点","x":36.889,"y":40.364,"z":"破碎圣所"},{"n":"出入口-地洞","c":"出入口","g":"地点","x":70.534,"y":39.608,"z":"征收所"},{"n":"出入口- 华丽的木质活板门","c":"出入口","g":"地点","x":69.589,"y":39.806,"z":"征收所"},{"n":"出入口-石门","c":"出入口","g":"地点","x":84.6,"y":25.845,"z":"隐蔽房间"},{"n":"出入口-石门","c":"出入口","g":"地点","x":97.073,"y":45.232,"z":"仆人住处"},{"n":"出入口-雕像螺旋梯","c":"出入口","g":"地点","x":98.595,"y":35.328,"z":"闲庭图书馆"},{"n":"出入口-石门","c":"出入口","g":"地点","x":97.614,"y":33.702,"z":"德鲁伊内殿"},{"n":"出入口-螺旋梯","c":"出入口","g":"地点","x":97.01,"y":25.796,"z":"隐藏金库"},{"n":"出入口-洞","c":"出入口","g":"地点","x":91.832,"y":28.221,"z":"地下通道"},{"n":"出入口-活板门爬梯","c":"出入口","g":"地点","x":89.769,"y":27.574,"z":"地下通道"},{"n":"出入口-石门","c":"出入口","g":"地点","x":89.879,"y":33.016,"z":"地下通道"},{"n":"出入口-石门","c":"出入口","g":"地点","x":91.717,"y":40.361,"z":"地下通道"},{"n":"出入口-荒野","c":"出入口","g":"地点","x":90.964,"y":46.923,"z":"阴暗墓穴"},{"n":"出入口-礼拜堂大门","c":"出入口","g":"地点","x":95.809,"y":66.903,"z":"强盗卧室"},{"n":"出入口-阴暗墓穴","c":"出入口","g":"地点","x":93.541,"y":71.564,"z":"强盗卧室"},{"n":"出入口-古老的门","c":"出入口","g":"地点","x":80.316,"y":75.762,"z":"疮痍海滩"},{"n":"出入口-礼拜堂入口（下）","c":"出入口","g":"地点","x":88.755,"y":77.753,"z":"营地"},{"n":"出入口-卧室","c":"出入口","g":"地点","x":87.765,"y":71.508,"z":"阴暗墓穴"},{"n":"出入口-枭熊巢穴隐藏入口","c":"出入口","g":"地点","x":66.324,"y":54.533,"z":"染疫村落"},{"n":"出入口-低语深地","c":"出入口","g":"地点","x":65.993,"y":60.665,"z":"染疫村落"},{"n":"地窖","c":"出入口","g":"地点","x":62.437,"y":57.862,"z":"染疫村落"},{"n":"出入口-隐蔽的入口","c":"出入口","g":"地点","x":76.676,"y":40.942,"z":"仓库"},{"n":"出入口-隐蔽房间","c":"出入口","g":"地点","x":73.144,"y":43.69,"z":"空谷"},{"n":"出入口-地下通道","c":"出入口","g":"地点","x":75.38,"y":33.842,"z":"仓库"},{"n":"出入口-隐蔽房间","c":"出入口","g":"地点","x":72.786,"y":47.243,"z":"空谷"},{"n":"出入口-荒野","c":"出入口","g":"地点","x":91.236,"y":68.109,"z":"强盗卧室"},{"n":"出入口-内部活板门","c":"出入口","g":"地点","x":82.229,"y":67.709,"z":"阴暗墓穴"},{"n":"出入口-食堂屋顶","c":"出入口","g":"地点","x":80.292,"y":70.534,"z":"疮痍海滩"},{"n":"出入口-卧室","c":"出入口","g":"地点","x":80.28,"y":66.413,"z":"翠绿林地"},{"n":"出入口-石头洞","c":"出入口","g":"地点","x":78.048,"y":39.576,"z":"仓库"},{"n":"出入口-石头门","c":"出入口","g":"地点","x":76.676,"y":44.629,"z":"圣池"},{"n":"出入口-地下通道","c":"出入口","g":"地点","x":73.544,"y":58.675,"z":"翠绿林地"},{"n":"出入口-枭熊巢穴","c":"出入口","g":"地点","x":68.363,"y":56.159,"z":"染疫村落"},{"n":"出入口-地窖","c":"出入口","g":"地点","x":65.126,"y":65.116,"z":"染疫村落"},{"n":"出入口-低语深地","c":"出入口","g":"地点","x":64.392,"y":62.411,"z":"染疫村落"},{"n":"出入口-蘑菇圈","c":"出入口","g":"地点","x":58.045,"y":90.278,"z":"鬼婆茶室"},{"n":"出入口-蔓生地道","c":"出入口","g":"地点","x":58.872,"y":80.949,"z":"鬼婆茶室"},{"n":"出入口-瑰晨修道院小径","c":"出入口","g":"地点","x":53.559,"y":71.915,"z":"药剂师的地窖"},{"n":"出入口-破碎圣所","c":"出入口","g":"地点","x":56.907,"y":53.818,"z":"地精营地"},{"n":"出入口-破碎圣所","c":"出入口","g":"地点","x":56.877,"y":51.498,"z":"地精营地"},{"n":"出入口-破碎圣所","c":"出入口","g":"地点","x":55.572,"y":50.327,"z":"山隘"},{"n":"出入口-瑰晨修道院小径","c":"出入口","g":"地点","x":52.486,"y":42.74,"z":"山隘"},{"n":"出入口-散塔林会地下室","c":"出入口","g":"地点","x":56.132,"y":31.47,"z":"沃金的休眠地"},{"n":"出入口-破碎圣所","c":"出入口","g":"地点","x":45.427,"y":48.288,"z":"座狼兽栏"},{"n":"出入口-破碎圣所","c":"出入口","g":"地点","x":46.856,"y":45.554,"z":"座狼兽栏"},{"n":"出入口-破碎圣所","c":"出入口","g":"地点","x":45.921,"y":35.377,"z":"座狼兽栏"},{"n":"出入口-破碎圣所","c":"出入口","g":"地点","x":46.946,"y":37.108,"z":"座狼兽栏"},{"n":"出入口-塞伦涅信徒哨站","c":"出入口","g":"地点","x":48.24,"y":25.964,"z":"被亵渎的神殿"},{"n":"出入口","c":"出入口","g":"地点","x":70.304,"y":28.249,"z":"征收所地下室"},{"n":"出入口-森林","c":"出入口","g":"地点","x":70.848,"y":20.946,"z":"征收所地下室"},{"n":"出入口-散塔林会地下室","c":"出入口","g":"地点","x":61.814,"y":14.203,"z":"枭熊巢穴"},{"n":"出入口-幽暗地域","c":"出入口","g":"地点","x":55.201,"y":5.352,"z":"散塔林会地下室"},{"n":"出入口-仓库","c":"出入口","g":"地点","x":55.503,"y":3.855,"z":"散塔林会地下室"},{"n":"出入口-木楼梯","c":"出入口","g":"地点","x":54.657,"y":88.287,"z":"鬼婆茶室"},{"n":"出入口-幽暗地域","c":"出入口","g":"地点","x":50.214,"y":83.893,"z":"蔓生地道"},{"n":"出入口-蘑菇圈","c":"出入口","g":"地点","x":46.931,"y":81.748,"z":"刺鼻工坊"},{"n":"出入口-染疫村落","c":"出入口","g":"地点","x":44.916,"y":73.197,"z":"刺鼻工坊"},{"n":"出入口-染疫村落","c":"出入口","g":"地点","x":42.569,"y":72.181,"z":"低语深地"},{"n":"出入口-座狼兽栏","c":"出入口","g":"地点","x":42.265,"y":35.398,"z":"座狼兽栏"},{"n":"出入口","c":"出入口","g":"地点","x":42.265,"y":35.398,"z":"座狼兽栏"},{"n":"出入口","c":"出入口","g":"地点","x":42.265,"y":35.398,"z":"座狼兽栏"},{"n":"出入口","c":"出入口","g":"地点","x":42.265,"y":35.398,"z":"座狼兽栏"},{"n":"出入口","c":"出入口","g":"地点","x":42.265,"y":35.398,"z":"座狼兽栏"},{"n":"出入口-座狼兽栏","c":"出入口","g":"地点","x":42.56,"y":37.298,"z":"座狼兽栏"},{"n":"出入口","c":"出入口","g":"地点","x":42.56,"y":37.298,"z":"座狼兽栏"},{"n":"出入口","c":"出入口","g":"地点","x":42.56,"y":37.298,"z":"座狼兽栏"},{"n":"出入口-地精营地","c":"出入口","g":"地点","x":40.554,"y":44.159,"z":"座狼兽栏"},{"n":"出入口","c":"出入口","g":"地点","x":40.554,"y":44.159,"z":"座狼兽栏"},{"n":"出入口","c":"出入口","g":"地点","x":39.079,"y":47.643,"z":"低语深地"},{"n":"出入口","c":"出入口","g":"地点","x":39.079,"y":47.643,"z":"低语深地"},{"n":"出入口-被亵渎的神殿","c":"出入口","g":"地点","x":37.088,"y":45.183,"z":"塞伦涅哨所"},{"n":"出入口-隘口","c":"出入口","g":"地点","x":36.895,"y":42.873,"z":"破碎圣所"},{"n":"出入口","c":"出入口","g":"地点","x":38.58,"y":36.776,"z":"破碎圣所"},{"n":"出入口-被亵渎的神殿","c":"出入口","g":"地点","x":31.068,"y":56.257,"z":"塞伦涅哨所"},{"n":"出入口-奥术高塔负二层","c":"出入口","g":"地点","x":31.766,"y":64.52,"z":"奥术高塔-地下室"},{"n":"出入口-蔓生地道","c":"出入口","g":"地点","x":27.759,"y":59.045,"z":"奥术高塔-地下室"},{"n":"出入口-蘑菇圈","c":"出入口","g":"地点","x":26.197,"y":57.602,"z":"塞伦涅哨所"},{"n":"出入口-蘑菇圈","c":"出入口","g":"地点","x":24.588,"y":56.439,"z":"破败村落"},{"n":"出入口-溃烂洞穴","c":"出入口","g":"地点","x":26.742,"y":53.18,"z":"塞伦涅哨所"},{"n":"出入口-奥术高塔地下室","c":"出入口","g":"地点","x":31.423,"y":65.473,"z":"奥术高塔-地下室"},{"n":"出入口-被弃避难所","c":"出入口","g":"地点","x":21.23,"y":48.4,"z":"破败村落"},{"n":"出入口-散塔林会窝点","c":"出入口","g":"地点","x":31.014,"y":28.943,"z":"幽暗地域"},{"n":"出入口","c":"出入口","g":"地点","x":30.906,"y":28.467,"z":"幽暗地域"},{"n":"出入口-破败村落","c":"出入口","g":"地点","x":5.144,"y":39.26,"z":"被弃避难所"},{"n":"法术火花","c":"强力武器","g":"装备","x":59.368,"y":34.035,"z":"沃金的休眠地"},{"n":"警觉短弓","c":"强力武器","g":"装备","x":38.032,"y":42.067,"z":"破碎圣所"},{"n":"泰坦弦弓","c":"强力武器","g":"装备","x":58.568,"y":12.707,"z":"散塔林会地下室"},{"n":"狩猎短弓","c":"强力武器","g":"装备","x":73.843,"y":40.444,"z":"空谷"},{"n":"第一滴血短剑","c":"强力武器","g":"装备","x":26.248,"y":44.71,"z":"破败村落"},{"n":"回旋长矛","c":"强力武器","g":"装备","x":57.208,"y":59.162,"z":"地精营地"},{"n":"奥术祝福法杖","c":"强力武器","g":"装备","x":31.703,"y":66.413,"z":"奥术高塔-地下室"},{"n":"生死离别之剑","c":"武器","g":"装备","x":28.803,"y":47.212,"z":"塞伦涅哨所"},{"n":"斯瓦特比的探伤","c":"武器","g":"装备","x":59.299,"y":32.967,"z":"沃金的休眠地"},{"n":"当锤棒喝","c":"武器","g":"装备","x":58.24,"y":30.127,"z":"沃金的休眠地"},{"n":"波尔镰刀","c":"武器","g":"装备","x":26.623,"y":53.326,"z":"塞伦涅哨所"},{"n":"弯曲的火球术魔杖","c":"武器","g":"装备","x":25.244,"y":44.746,"z":"破败村落"},{"n":"山丘巨人力量短棒","c":"武器","g":"装备","x":19.522,"y":59.134,"z":"奥法高塔"},{"n":"萨明拉的舔狗","c":"武器","g":"装备","x":55.643,"y":62.768,"z":"地精营地"},{"n":"瀑布后面","c":"武器","g":"装备","x":55.433,"y":62.807,"z":"地精营地"},{"n":"巨斧+1","c":"武器","g":"装备","x":55.457,"y":62.754,"z":"地精营地"},{"n":"久战剑","c":"武器","g":"装备","x":82.715,"y":24.575,"z":"隐蔽房间"},{"n":"匕首+1","c":"武器","g":"装备","x":64.44,"y":50.939,"z":"染疫村落"},{"n":"哈罗德","c":"武器","g":"装备","x":56.881,"y":12.305,"z":"散塔林会地下室"},{"n":"刺客之触","c":"武器","g":"装备","x":41.503,"y":33.235,"z":"破碎圣所"},{"n":"冰杖的三个配件3","c":"武器","g":"装备","x":18.52,"y":41.295,"z":"破败村落"},{"n":"冰杖的三个配件2","c":"武器","g":"装备","x":24.833,"y":29.739,"z":"蕈人栖息地"},{"n":"冰杖的三个配件1","c":"武器","g":"装备","x":29.437,"y":55.126,"z":"塞伦涅哨所"},{"n":"星界银剑","c":"武器","g":"装备","x":54.779,"y":40.584,"z":"山隘"},{"n":"军团魔长戟","c":"武器","g":"装备","x":6.474,"y":67.314,"z":"精金熔炉"},{"n":"深度挖掘","c":"武器","g":"装备","x":5.722,"y":52.546,"z":"精金熔炉"},{"n":"莎尔信徒之弩","c":"武器","g":"装备","x":3.285,"y":40.049,"z":"被弃避难所"},{"n":"顽固战锤","c":"武器","g":"装备","x":20.996,"y":48.873,"z":"破败村落"},{"n":"山丘巨人力量短棒","c":"武器","g":"装备","x":20.066,"y":57.844,"z":"奥法高塔"},{"n":"剿灭者之斧","c":"武器","g":"装备","x":22.547,"y":47.493,"z":"破败村落"},{"n":"座狼牙","c":"武器","g":"装备","x":45.156,"y":41.373,"z":"座狼兽栏"},{"n":"发光的盾牌","c":"武器","g":"装备","x":59.792,"y":53.043,"z":"地精营地"},{"n":"引火者","c":"武器","g":"装备","x":8.49,"y":42.999,"z":"被弃避难所"},{"n":"军团魔长戟","c":"武器","g":"装备","x":8.89,"y":41.871,"z":"被弃避难所"},{"n":"悼霜","c":"武器","g":"装备","x":26.674,"y":33.457,"z":"蕈人栖息地"},{"n":"劳薇塔的灾祸","c":"武器","g":"装备","x":41.883,"y":42.362,"z":"座狼兽栏"},{"n":"锯齿矛","c":"武器","g":"装备","x":41.718,"y":44.123,"z":"座狼兽栏"},{"n":"根德莱尔的渴望","c":"武器","g":"装备","x":61.37,"y":85.545,"z":"腐烂泥潭"},{"n":"沉重巨斧","c":"武器","g":"装备","x":63.493,"y":59.302,"z":"染疫村落"},{"n":"至上真神之视","c":"武器","g":"装备","x":66.658,"y":16.617,"z":"枭熊巢穴"},{"n":"自然陷阱","c":"武器","g":"装备","x":90.939,"y":42.474,"z":"地下通道"},{"n":"苍白橡树","c":"武器","g":"装备","x":96.817,"y":40.056,"z":"仆人住处"},{"n":"尖叫之剑","c":"武器","g":"装备","x":5.196,"y":52.847,"z":"被弃避难所"},{"n":"火花之手","c":"武器","g":"装备","x":68.718,"y":88.722,"z":"腐烂泥潭"},{"n":"现实火花壁垒","c":"武器","g":"装备","x":1.606,"y":37.785,"z":"被弃避难所"},{"n":"石中剑-生死离别","c":"武器","g":"装备","x":28.881,"y":46.181,"z":"塞伦涅哨所"},{"n":"造物之光","c":"武器","g":"装备","x":19.525,"y":58.871,"z":"奥法高塔"},{"n":"铁匠的愤怒","c":"武器","g":"装备","x":22.966,"y":60.259,"z":"奥法高塔"},{"n":"艾克斯阎蒂","c":"武器","g":"装备","x":41.236,"y":33.24,"z":"破碎圣所"},{"n":"破誓者","c":"武器","g":"装备","x":39.609,"y":34.676,"z":"破碎圣所"},{"n":"至上真神的战争阔盾","c":"武器","g":"装备","x":37.01,"y":42.323,"z":"破碎圣所"},{"n":"钢铸剑","c":"武器","g":"装备","x":44.943,"y":68.137,"z":"药剂师的地窖"},{"n":"科瑞隆的恩赐","c":"武器","g":"装备","x":46.444,"y":88.701,"z":"刺鼻工坊"},{"n":"鬼婆的法杖","c":"武器","g":"装备","x":46.974,"y":82.519,"z":"刺鼻工坊"},{"n":"悲伤","c":"武器","g":"装备","x":96.998,"y":22.768,"z":"隐藏金库"},{"n":"闪电三叉戟、闪电射手、法术火花","c":"武器","g":"装备","x":59.266,"y":33.986,"z":"沃金的休眠地"},{"n":"当锤棒喝","c":"武器","g":"装备","x":58.4,"y":30.762,"z":"沃金的休眠地"},{"n":"损坏的链枷","c":"武器","g":"装备","x":65.084,"y":34.014,"z":"征收所"},{"n":"正义神剑","c":"武器","g":"装备","x":70.033,"y":39.8,"z":"征收所"},{"n":"迅捷回击","c":"武器","g":"装备","x":64.128,"y":33.72,"z":"沃金的休眠地"},{"n":"菘蓝树人盾","c":"武器","g":"装备","x":68.499,"y":87.958,"z":"腐烂泥潭"},{"n":"钢铁卫士的指引","c":"武器","g":"装备","x":88.724,"y":75.626,"z":"阴暗墓穴"},{"n":"精金板条甲","c":"强力防具","g":"装备","x":9.865,"y":64.019,"z":"精金熔炉"},{"n":"喧嚣风暴之靴","c":"强力防具","g":"装备","x":28.58,"y":31.757,"z":"幽暗地域"},{"n":"速度之靴","c":"强力防具","g":"装备","x":26.582,"y":33.741,"z":"蕈人栖息地"},{"n":"迅捷头盔","c":"强力防具","g":"装备","x":64.922,"y":62.148,"z":"染疫村落"},{"n":"卓尔皮甲","c":"强力防具","g":"装备","x":41.327,"y":33.31,"z":"破碎圣所"},{"n":"威能手套","c":"强力防具","g":"装备","x":75.791,"y":58.493,"z":"翠绿林地"},{"n":"地狱骑士的骄傲","c":"强力防具","g":"装备","x":83.014,"y":24.352,"z":"隐蔽房间"},{"n":"偷窃手套","c":"防具","g":"装备","x":57.864,"y":12.455,"z":"散塔林会地下室"},{"n":"发光护符","c":"防具","g":"装备","x":32.461,"y":53.873,"z":"塞伦涅哨所"},{"n":"发光护甲","c":"防具","g":"装备","x":31.677,"y":55.326,"z":"塞伦涅哨所"},{"n":"轻语树附近","c":"防具","g":"装备","x":19.324,"y":41.085,"z":"破败村落"},{"n":"发光护甲","c":"防具","g":"装备","x":32.346,"y":53.772,"z":"塞伦涅哨所"},{"n":"防御护腕","c":"防具","g":"装备","x":50.301,"y":76.151,"z":"蔓生地道"},{"n":"暗夜法官链甲","c":"防具","g":"装备","x":3.998,"y":36.909,"z":"被弃避难所"},{"n":"暗夜法官面具","c":"防具","g":"装备","x":3.998,"y":36.909,"z":"被弃避难所"},{"n":"发光护甲","c":"防具","g":"装备","x":32.48,"y":53.889,"z":"塞伦涅哨所"},{"n":"发光护甲","c":"防具","g":"装备","x":32.418,"y":54.008,"z":"塞伦涅哨所"},{"n":"精金鳞甲","c":"防具","g":"装备","x":9.879,"y":64.328,"z":"精金熔炉"},{"n":"就去左边房子宝箱","c":"防具","g":"装备","x":32.418,"y":53.303,"z":"塞伦涅哨所"},{"n":"发光护甲","c":"防具","g":"装备","x":32.475,"y":53.929,"z":"塞伦涅哨所"},{"n":"暗夜法官头盔","c":"防具","g":"装备","x":7.12,"y":48.725,"z":"被弃避难所"},{"n":"防御护腕","c":"防具","g":"装备","x":50.204,"y":76.09,"z":"蔓生地道"},{"n":"复仇侍卫头骨盔","c":"防具","g":"装备","x":10.621,"y":63.183,"z":"精金熔炉"},{"n":"狂怒头盔","c":"防具","g":"装备","x":5.623,"y":51.354,"z":"被弃避难所"},{"n":"守护火花壁垒","c":"防具","g":"装备","x":4.329,"y":45.894,"z":"被弃避难所"},{"n":"不羁库席戈之衣","c":"防具","g":"装备","x":5.764,"y":52.013,"z":"被弃避难所"},{"n":"密斯特拉的优雅","c":"防具","g":"装备","x":19.552,"y":56.232,"z":"奥法高塔"},{"n":"寒冬之握","c":"防具","g":"装备","x":26.64,"y":33.09,"z":"蕈人栖息地"},{"n":"暗夜法官面具","c":"防具","g":"装备","x":6.053,"y":60.402,"z":"精金熔炉"},{"n":"卓尔镶钉皮甲","c":"防具","g":"装备","x":26.841,"y":48.081,"z":"破败村落"},{"n":"闪电飞靴","c":"防具","g":"装备","x":62.503,"y":57.746,"z":"染疫村落"},{"n":"深渊召唤者","c":"防具","g":"装备","x":58.697,"y":2.054,"z":"散塔林会地下室"},{"n":"自治头盔","c":"防具","g":"装备","x":26.781,"y":53.057,"z":"塞伦涅哨所"},{"n":"暗夜法官头盔","c":"防具","g":"装备","x":7.044,"y":51.275,"z":"精金熔炉"},{"n":"暗夜法官链甲","c":"防具","g":"装备","x":7.603,"y":52.806,"z":"精金熔炉"},{"n":"分崩离析的伏形夜影","c":"防具","g":"装备","x":5.196,"y":52.847,"z":"被弃避难所"},{"n":"惊奇手套","c":"防具","g":"装备","x":1.462,"y":44.149,"z":"被弃避难所"},{"n":"魔索布莱城之影","c":"防具","g":"装备","x":24.826,"y":29.525,"z":"蕈人栖息地"},{"n":"不羁库席戈的手套","c":"防具","g":"装备","x":25.129,"y":32.055,"z":"蕈人栖息地"},{"n":"吸血服","c":"防具","g":"装备","x":29.371,"y":42.645,"z":"塞伦涅哨所"},{"n":"斩击头盔","c":"防具","g":"装备","x":31.64,"y":53.825,"z":"塞伦涅哨所"},{"n":"慈善外套","c":"防具","g":"装备","x":87.611,"y":96.523,"z":"营地"},{"n":"咆哮恶犬手套","c":"防具","g":"装备","x":39.588,"y":29.325,"z":"破碎圣所"},{"n":"弹力之靴","c":"防具","g":"装备","x":39.582,"y":29.49,"z":"破碎圣所"},{"n":"水中火花","c":"防具","g":"装备","x":41.883,"y":33.331,"z":"破碎圣所"},{"n":"跨步之靴","c":"防具","g":"装备","x":41.276,"y":33.113,"z":"破碎圣所"},{"n":"破阵战靴","c":"防具","g":"装备","x":44.696,"y":44.755,"z":"座狼兽栏"},{"n":"投毒者的长袍","c":"防具","g":"装备","x":40.118,"y":66.702,"z":"低语深地"},{"n":"蜘蛛步伐靴子","c":"防具","g":"装备","x":40.358,"y":73.379,"z":"低语深地"},{"n":"跃动指套","c":"防具","g":"装备","x":67.729,"y":69.363,"z":"染疫村落"},{"n":"防御护腕","c":"防具","g":"装备","x":65.377,"y":65.346,"z":"染疫村落"},{"n":"瓦皮拉的皇冠","c":"防具","g":"装备","x":75.529,"y":53.022,"z":"翠绿林地"},{"n":"隐身斗篷","c":"防具","g":"装备","x":79.71,"y":51.616,"z":"圣池"},{"n":"理智之握","c":"防具","g":"装备","x":65.394,"y":28.228,"z":"征收所地下室"},{"n":"橡树之父的拥抱","c":"防具","g":"装备","x":66.324,"y":16.25,"z":"枭熊巢穴"},{"n":"英勇手套","c":"防具","g":"装备","x":68.977,"y":25.929,"z":"征收所地下室"},{"n":"夏之长袍","c":"防具","g":"装备","x":97.199,"y":22.838,"z":"隐藏金库"},{"n":"心灵火花","c":"强力首饰","g":"装备","x":28.252,"y":31.274,"z":"幽暗地域"},{"n":"巢穴之母的复仇","c":"强力首饰","g":"装备","x":96.594,"y":40.504,"z":"仆人住处"},{"n":"白银挂坠","c":"强力首饰","g":"装备","x":72.31,"y":67.275,"z":"翠绿林地"},{"n":"迷踪步护符","c":"首饰","g":"装备","x":45.011,"y":38.121,"z":"座狼兽栏"},{"n":"走私犯之戒","c":"首饰","g":"装备","x":66.337,"y":46.409,"z":"征收所"},{"n":"西凡纳斯护符","c":"首饰","g":"装备","x":78.65,"y":49.74,"z":"圣池"},{"n":"龃龉护符","c":"首饰","g":"装备","x":31.901,"y":37.211,"z":"塞伦涅哨所"},{"n":"远古之匙","c":"首饰","g":"装备","x":89.9,"y":40.633,"z":"地下通道"},{"n":"感知护符","c":"首饰","g":"装备","x":5.605,"y":65.77,"z":"精金熔炉"},{"n":"使者护符","c":"首饰","g":"装备","x":26.423,"y":32.902,"z":"蕈人栖息地"},{"n":"感知护符","c":"首饰","g":"装备","x":5.662,"y":64.804,"z":"精金熔炉"},{"n":"闪电护符","c":"首饰","g":"装备","x":28.946,"y":53.836,"z":"塞伦涅哨所"},{"n":"远古之匙","c":"首饰","g":"装备","x":99.094,"y":40.049,"z":"闲庭图书馆"},{"n":"远古之匙","c":"首饰","g":"装备","x":98.89,"y":39.569,"z":"闲庭图书馆"},{"n":"已解之谜","c":"首饰","g":"装备","x":18.736,"y":58.268,"z":"奥法高塔"},{"n":"照明灯","c":"首饰","g":"装备","x":19.422,"y":58.853,"z":"奥法高塔"},{"n":"法师之友","c":"首饰","g":"装备","x":19.768,"y":57.953,"z":"奥法高塔"},{"n":"观察者眼魔的眼柄","c":"首饰","g":"装备","x":29.082,"y":54.406,"z":"塞伦涅哨所"},{"n":"至上真神护符","c":"首饰","g":"装备","x":37.103,"y":42.372,"z":"破碎圣所"},{"n":"塞伦涅选民护符","c":"首饰","g":"装备","x":39.513,"y":29.511,"z":"破碎圣所"},{"n":"迷踪步护符","c":"首饰","g":"装备","x":45.006,"y":38.356,"z":"座狼兽栏"},{"n":"驯兽师铁链","c":"首饰","g":"装备","x":44.774,"y":45.337,"z":"座狼兽栏"},{"n":"月泪坠饰","c":"首饰","g":"装备","x":68.084,"y":19.628,"z":"征收所地下室"},{"n":"全视之眼","c":"首饰","g":"装备","x":46.943,"y":83.087,"z":"刺鼻工坊"},{"n":"强化冰霜戒指","c":"首饰","g":"装备","x":46.36,"y":88.702,"z":"刺鼻工坊"},{"n":"弯曲的智力头带","c":"首饰","g":"装备","x":63.58,"y":67.029,"z":"染疫村落"},{"n":"柯米拉的吊坠","c":"首饰","g":"装备","x":78.791,"y":43.07,"z":"圣池"},{"n":"西凡那斯护符","c":"首饰","g":"装备","x":78.923,"y":51.379,"z":"圣池"},{"n":"七彩喷射戒指","c":"首饰","g":"装备","x":82.786,"y":49.654,"z":"隐秘海湾"},{"n":"迷失之声护符","c":"首饰","g":"装备","x":88.718,"y":61.671,"z":"阴暗墓穴"},{"n":"投掷之戒","c":"强力戒指","g":"装备","x":75.584,"y":45.847,"z":"空谷"},{"n":"腐蚀指环","c":"强力戒指","g":"装备","x":24.801,"y":32.528,"z":"蕈人栖息地"},{"n":"轻声承诺","c":"强力戒指","g":"装备","x":78.88,"y":47.676,"z":"圣池"},{"n":"走私犯之戒","c":"强力戒指","g":"装备","x":66.667,"y":46.553,"z":"征收所"},{"n":"粉碎机戒指","c":"强力戒指","g":"装备","x":58.962,"y":57.452,"z":"地精营地"},{"n":"慰藉之戒","c":"戒指","g":"装备","x":28.298,"y":31.37,"z":"幽暗地域"},{"n":"照明灯","c":"戒指","g":"装备","x":19.469,"y":59.158,"z":"奥法高塔"},{"n":"探索者戒指","c":"戒指","g":"装备","x":20.998,"y":26.866,"z":"蕈人栖息地"},{"n":"守护戒指","c":"戒指","g":"装备","x":91.012,"y":24.412,"z":"提夫林避难所"},{"n":"探索者戒指","c":"戒指","g":"装备","x":21.149,"y":26.461,"z":"蕈人栖息地"},{"n":"卡勒杜兰·滑手的物像","c":"戒指","g":"装备","x":6.813,"y":39.067,"z":"被弃避难所"},{"n":"心灵护盾之戒","c":"戒指","g":"装备","x":28.327,"y":31.722,"z":"幽暗地域"},{"n":"抵御之戒","c":"戒指","g":"装备","x":5.918,"y":51.999,"z":"精金熔炉"},{"n":"尖刺环带","c":"戒指","g":"装备","x":41.667,"y":67.218,"z":"低语深地"},{"n":"至上真神力量之戒","c":"戒指","g":"装备","x":5.403,"y":51.732,"z":"被弃避难所"},{"n":"抗毒戒指","c":"戒指","g":"装备","x":42.067,"y":37.312,"z":"座狼兽栏"},{"n":"火花壁垒","c":"戒指","g":"装备","x":31.42,"y":67.012,"z":"奥术高塔-地下室"},{"n":"夺心魔寄生虫标本","c":"夺心魔蝌蚪","g":"物品","x":98.306,"y":36.649,"z":"闲庭图书馆"},{"n":"夺心魔寄生虫标本","c":"夺心魔蝌蚪","g":"物品","x":70.927,"y":56.015,"z":"翠绿林地"},{"n":"夺心魔寄生虫标本","c":"夺心魔蝌蚪","g":"物品","x":65.391,"y":32.262,"z":"征收所地下室"},{"n":"夺心魔寄生虫标本","c":"夺心魔蝌蚪","g":"物品","x":37.127,"y":42.081,"z":"破碎圣所"},{"n":"夺心魔寄生虫标本","c":"夺心魔蝌蚪","g":"物品","x":39.579,"y":33.495,"z":"破碎圣所"},{"n":"夺心魔寄生虫标本","c":"夺心魔蝌蚪","g":"物品","x":5.451,"y":52.412,"z":"被弃避难所"},{"n":"夺心魔寄生虫标本","c":"夺心魔蝌蚪","g":"物品","x":41.309,"y":32.346,"z":"破碎圣所"},{"n":"灵魂钱币","c":"灵魂钱币","g":"物品","x":88.072,"y":75.429,"z":"阴暗墓穴"},{"n":"灵魂钱币","c":"灵魂钱币","g":"物品","x":87.121,"y":68.322,"z":"阴暗墓穴"},{"n":"灵魂钱币","c":"灵魂钱币","g":"物品","x":88.724,"y":61.72,"z":"阴暗墓穴"},{"n":"灵魂钱币","c":"灵魂钱币","g":"物品","x":77.696,"y":55.833,"z":"翠绿林地"},{"n":"灵魂钱币","c":"灵魂钱币","g":"物品","x":69.771,"y":41.479,"z":"征收所"},{"n":"商队保卫战","c":"支线任务","g":"任务","x":67.152,"y":37.303,"z":"征收所"},{"n":"寻找丢失的货物","c":"支线任务","g":"任务","x":65.337,"y":31.722,"z":"征收所地下室"},{"n":"解救梅丽娜","c":"支线任务","g":"任务","x":58.974,"y":87.071,"z":"鬼婆茶室"},{"n":"救地精","c":"支线任务","g":"任务","x":73.538,"y":33.522,"z":"临时监狱"},{"n":"救地精","c":"支线任务","g":"任务","x":73.538,"y":33.522,"z":"临时监狱"},{"n":"救地精","c":"支线任务","g":"任务","x":73.538,"y":33.522,"z":"临时监狱"},{"n":"救地精","c":"支线任务","g":"任务","x":73.538,"y":33.522,"z":"临时监狱"},{"n":"救地精","c":"支线任务","g":"任务","x":73.538,"y":33.522,"z":"临时监狱"},{"n":"救地精","c":"支线任务","g":"任务","x":73.538,"y":33.522,"z":"临时监狱"},{"n":"救地精","c":"支线任务","g":"任务","x":73.538,"y":33.522,"z":"临时监狱"},{"n":"救矮人","c":"支线任务","g":"任务","x":20.656,"y":27.494,"z":"蕈人栖息地"},{"n":"德鲁伊壁画","c":"支线任务","g":"任务","x":97.723,"y":43.523,"z":"仆人住处"},{"n":"看穿笼罩沼泽的幻术","c":"支线任务","g":"任务","x":66.003,"y":79.401,"z":"腐烂泥潭"},{"n":"除掉至上真神的眼线","c":"支线任务","g":"任务","x":5.571,"y":47.088,"z":"被弃避难所"},{"n":"寻找多尼","c":"支线任务","g":"任务","x":77.22,"y":45.852,"z":"圣池"},{"n":"三个傻乎乎的巨魔","c":"支线任务","g":"任务","x":63.776,"y":67.094,"z":"染疫村落"},{"n":"狗狗挠挠","c":"支线任务","g":"任务","x":67.186,"y":52.151,"z":"染疫村落"},{"n":"精金熔炉","c":"支线任务","g":"任务","x":3.348,"y":37.126,"z":"被弃避难所"},{"n":"解救复仇之炉的侏儒","c":"支线任务","g":"任务","x":26.291,"y":33.636,"z":"蕈人栖息地"},{"n":"解救地精萨扎","c":"支线任务","g":"任务","x":74.338,"y":34.231,"z":"临时监狱"},{"n":"帮助被诅咒的僧侣","c":"支线任务","g":"任务","x":5.779,"y":64.804,"z":"精金熔炉"},{"n":"为格拉特的族人报仇","c":"支线任务","g":"任务","x":22.629,"y":47.815,"z":"破败村落"},{"n":"找到丢失的鞋子","c":"支线任务","g":"任务","x":23.057,"y":45.074,"z":"破败村落"},{"n":"治好中毒的侏儒","c":"支线任务","g":"任务","x":26.299,"y":34.151,"z":"蕈人栖息地"},{"n":"解读古代典籍","c":"支线任务","g":"任务","x":50.866,"y":74.757,"z":"蔓生地道"},{"n":"交送讷雷的脑袋","c":"支线任务","g":"任务","x":26.474,"y":32.886,"z":"蕈人栖息地"},{"n":"击败灰矮人","c":"支线任务","g":"任务","x":26.603,"y":33.755,"z":"蕈人栖息地"},{"n":"找到蘑菇猎人","c":"支线任务","g":"任务","x":25.111,"y":32.612,"z":"蕈人栖息地"},{"n":"找到暗夜之歌","c":"支线任务","g":"任务","x":69.449,"y":61.251,"z":"染疫村落"},{"n":"狩猎魔鬼","c":"支线任务","g":"任务","x":69.338,"y":40.848,"z":"征收所"},{"n":"击败地精-任务开启点②","c":"支线任务","g":"任务","x":45.915,"y":42.474,"z":"座狼兽栏"},{"n":"击败地精-任务开启点①","c":"支线任务","g":"任务","x":83.093,"y":25.681,"z":"隐蔽房间"},{"n":"解救瓦罗","c":"支线任务","g":"任务","x":56.886,"y":58.146,"z":"地精营地"},{"n":"解救艺术家","c":"支线任务","g":"任务","x":58.406,"y":13.667,"z":"散塔林会地下室"},{"n":"解救被困者","c":"支线任务","g":"任务","x":58.396,"y":30.86,"z":"沃金的休眠地"},{"n":"营救高公爵","c":"支线任务","g":"任务","x":59.23,"y":34.072,"z":"沃金的休眠地"},{"n":"找到丢失的货物","c":"支线任务","g":"任务","x":63.663,"y":45.243,"z":"沃金的休眠地"},{"n":"解救梅丽娜","c":"支线任务","g":"任务","x":66.029,"y":75.57,"z":"腐烂泥潭"},{"n":"完成大师武器","c":"支线任务","g":"任务","x":44.982,"y":68.596,"z":"药剂师的地窖"},{"n":"搜索地窖","c":"支线任务","g":"任务","x":65.475,"y":65.701,"z":"染疫村落"},{"n":"解救侏儒","c":"支线任务","g":"任务","x":63.496,"y":59.87,"z":"染疫村落"},{"n":"洗劫翠绿林地","c":"支线任务","g":"任务","x":41.288,"y":32.971,"z":"破碎圣所"},{"n":"调查卡哈-开启点②","c":"支线任务","g":"任务","x":68.375,"y":88.459,"z":"腐烂泥潭"},{"n":"调查卡哈-开启点①","c":"支线任务","g":"任务","x":95.803,"y":39.845,"z":"仆人住处"},{"n":"偷取神像","c":"支线任务","g":"任务","x":90.866,"y":25.052,"z":"提夫林避难所"},{"n":"调查海滩","c":"支线任务","g":"任务","x":82.714,"y":41.619,"z":"隐秘海湾"},{"n":"探索废墟","c":"支线任务","g":"任务","x":80.325,"y":71.056,"z":"疮痍海滩"},{"n":"解救阿拉贝尔","c":"支线任务","g":"任务","x":78.899,"y":43.406,"z":"圣池"},{"n":"地狱之心","c":"同伴任务","g":"任务","x":74.025,"y":40.399,"z":"空谷"},{"n":"损坏的雕像","c":"同伴任务","g":"任务","x":61.609,"y":57.391,"z":"染疫村落"},{"n":"我们的暴躁朋友","c":"同伴任务","g":"任务","x":69.816,"y":48.116,"z":"征收所"},{"n":"黑暗之女","c":"同伴任务","g":"任务","x":79.847,"y":86.873,"z":"疮痍海滩"},{"n":"苍白的精灵","c":"同伴任务","g":"任务","x":73.971,"y":78.443,"z":"疮痍海滩"},{"n":"深水城的法师","c":"同伴任务","g":"任务","x":76.823,"y":73.383,"z":"疮痍海滩"},{"n":"边境之刃","c":"同伴任务","g":"任务","x":75.535,"y":41.899,"z":"空谷"},{"n":"吉斯洋基战士","c":"同伴任务","g":"任务","x":77.693,"y":66.395,"z":"翠绿林地"},{"n":"塞丽尔","c":"商人","g":"人物","x":69.926,"y":40.473,"z":"征收所"},{"n":"布雷姆","c":"商人","g":"人物","x":58.057,"y":12.259,"z":"散塔林会地下室"},{"n":"石匠基斯","c":"商人","g":"人物","x":3.74,"y":43.966,"z":"被弃避难所"},{"n":"马蒂斯","c":"商人","g":"人物","x":77.825,"y":41.128,"z":"仓库"},{"n":"守墓人","c":"商人","g":"人物","x":24.412,"y":77.192,"z":"奥术高塔-地下室"},{"n":"商人 奥米伦","c":"商人","g":"人物","x":28.484,"y":31.792,"z":"幽暗地域"},{"n":"商人 布尔格","c":"商人","g":"人物","x":28.327,"y":31.344,"z":"幽暗地域"},{"n":"白骨斗篷德里丝","c":"商人","g":"人物","x":24.946,"y":32.644,"z":"蕈人栖息地"},{"n":"商人罗阿·月光","c":"商人","g":"人物","x":38.045,"y":42.278,"z":"破碎圣所"},{"n":"商人格拉","c":"商人","g":"人物","x":57.274,"y":59.095,"z":"地精营地"},{"n":"艾隆","c":"商人","g":"人物","x":75.567,"y":46.66,"z":"空谷"},{"n":"埃塞尔婶婶","c":"商人","g":"人物","x":74.753,"y":42.001,"z":"空谷"},{"n":"戴摩","c":"商人","g":"人物","x":73.869,"y":40.101,"z":"空谷"},{"n":"摩尔","c":"商人","g":"人物","x":91.079,"y":24.17,"z":"提夫林避难所"},{"n":"商人","c":"商人","g":"人物","x":5.461,"y":65.988,"z":"精金熔炉"},{"n":"莱埃泽尔（第二次加入队伍机会）","c":"同伴","g":"人物","x":55.074,"y":39.647,"z":"山隘"},{"n":"威尔","c":"同伴","g":"人物","x":24.634,"y":76.876,"z":"奥术高塔-地下室"},{"n":"盖尔","c":"同伴","g":"人物","x":24.195,"y":76.848,"z":"奥术高塔-地下室"},{"n":"莱埃泽尔","c":"同伴","g":"人物","x":77.718,"y":66.427,"z":"翠绿林地"},{"n":"阿斯戴伦","c":"同伴","g":"人物","x":25.335,"y":72.328,"z":"奥术高塔-地下室"},{"n":"影心","c":"同伴","g":"人物","x":25.513,"y":71.446,"z":"奥术高塔-地下室"},{"n":"卡拉克","c":"同伴","g":"人物","x":25.167,"y":73.204,"z":"奥术高塔-地下室"},{"n":"哈尔辛","c":"同伴","g":"人物","x":25.035,"y":75.027,"z":"奥术高塔-地下室"},{"n":"莱埃泽尔","c":"同伴","g":"人物","x":25.829,"y":74.796,"z":"奥术高塔-地下室"},{"n":"哈尔辛","c":"同伴","g":"人物","x":45.897,"y":41.759,"z":"座狼兽栏"},{"n":"明萨拉","c":"同伴","g":"人物","x":41.616,"y":33.12,"z":"破碎圣所"},{"n":"枭熊幼兽","c":"同伴","g":"人物","x":55.912,"y":58.002,"z":"地精营地"},{"n":"挠挠","c":"同伴","g":"人物","x":67.569,"y":54.575,"z":"染疫村落"},{"n":"卡菈克","c":"同伴","g":"人物","x":69.826,"y":48.112,"z":"征收所"},{"n":"影心","c":"同伴","g":"人物","x":79.654,"y":86.843,"z":"疮痍海滩"},{"n":"阿斯代伦","c":"同伴","g":"人物","x":74.076,"y":78.895,"z":"疮痍海滩"},{"n":"盖尔","c":"同伴","g":"人物","x":76.625,"y":72.931,"z":"疮痍海滩"},{"n":"威尔","c":"同伴","g":"人物","x":75.481,"y":40.655,"z":"仓库"},{"n":"地精x6","c":"遭遇战","g":"敌人","x":39.663,"y":47.604,"z":"低语深地"},{"n":"地精x3","c":"遭遇战","g":"敌人","x":37.323,"y":36.614,"z":"破碎圣所"},{"n":"地精x3","c":"遭遇战","g":"敌人","x":42.304,"y":36.25,"z":"座狼兽栏"},{"n":"地精斗士","c":"遭遇战","g":"敌人","x":65.246,"y":63.372,"z":"染疫村落"},{"n":"地精射手和地精法师","c":"遭遇战","g":"敌人","x":66.095,"y":64.299,"z":"染疫村落"},{"n":"费泽克小队","c":"遭遇战","g":"敌人","x":63.809,"y":59.968,"z":"染疫村落"},{"n":"地精x5","c":"遭遇战","g":"敌人","x":66.089,"y":58.79,"z":"染疫村落"},{"n":"骨瘦如柴的地精","c":"遭遇战","g":"敌人","x":65.328,"y":56.12,"z":"染疫村落"},{"n":"三个地精","c":"遭遇战","g":"敌人","x":56.161,"y":69.921,"z":"鬼婆茶室"},{"n":"吉斯洋基劫掠队","c":"遭遇战","g":"敌人","x":54.516,"y":39.702,"z":"山隘"},{"n":"强盗x5","c":"遭遇战","g":"敌人","x":94.789,"y":70.171,"z":"强盗卧室"},{"n":"安东","c":"遭遇战","g":"敌人","x":95.376,"y":67.039,"z":"强盗卧室"},{"n":"枭熊幼崽","c":"遭遇战","g":"敌人","x":66.634,"y":17.431,"z":"枭熊巢穴"},{"n":"一个冲向赛伦涅哨所的牛头人","c":"遭遇战","g":"敌人","x":31.673,"y":44.135,"z":"塞伦涅哨所"},{"n":"土黄果冻怪*3","c":"遭遇战","g":"敌人","x":7.524,"y":34.96,"z":"被弃避难所"},{"n":"岩浆魔蝠","c":"遭遇战","g":"敌人","x":8.706,"y":59.057,"z":"精金熔炉"},{"n":"波尔玛","c":"遭遇战","g":"敌人","x":45.09,"y":36.642,"z":"座狼兽栏"},{"n":"4级地精","c":"遭遇战","g":"敌人","x":58.351,"y":68.911,"z":"鬼婆茶室"},{"n":"豺狼人小队","c":"遭遇战","g":"敌人","x":65.211,"y":33.376,"z":"征收所"},{"n":"安德斯+赛丽尔","c":"遭遇战","g":"敌人","x":69.988,"y":41.493,"z":"征收所"},{"n":"食人魔*3","c":"遭遇战","g":"敌人","x":63.574,"y":68.21,"z":"染疫村落"},{"n":"地精踪迹","c":"遭遇战","g":"敌人","x":66.625,"y":62.022,"z":"染疫村落"},{"n":"骷髅","c":"遭遇战","g":"敌人","x":88.731,"y":66.907,"z":"阴暗墓穴"},{"n":"火元素","c":"遭遇战","g":"敌人","x":6.533,"y":64.165,"z":"精金熔炉"},{"n":"地狱野猪*3+军团魔步兵*1","c":"遭遇战","g":"敌人","x":8.965,"y":42.67,"z":"被弃避难所"},{"n":"地精*3+座狼*2","c":"遭遇战","g":"敌人","x":45.367,"y":43.707,"z":"座狼兽栏"},{"n":"散塔林窝点所有NPC","c":"遭遇战","g":"敌人","x":57.329,"y":5.509,"z":"散塔林会地下室"},{"n":"活化装甲x4","c":"遭遇战","g":"敌人","x":6.348,"y":59.883,"z":"精金熔炉"},{"n":"格鲁伐与布锡尔","c":"遭遇战","g":"敌人","x":65.454,"y":52.121,"z":"染疫村落"},{"n":"豺狼人小队","c":"遭遇战","g":"敌人","x":62.828,"y":42.313,"z":"沃金的休眠地"},{"n":"豺狼人小队","c":"遭遇战","g":"敌人","x":63.586,"y":45.186,"z":"沃金的休眠地"},{"n":"居然是宝箱怪","c":"遭遇战","g":"敌人","x":1.667,"y":44.254,"z":"被弃避难所"},{"n":"牛头人x2","c":"遭遇战","g":"敌人","x":31.354,"y":39.53,"z":"塞伦涅哨所"},{"n":"奥术炮台","c":"遭遇战","g":"敌人","x":19.16,"y":59.863,"z":"奥法高塔"},{"n":"奥术炮台","c":"遭遇战","g":"敌人","x":19.543,"y":57.296,"z":"奥法高塔"},{"n":"奥术炮台","c":"遭遇战","g":"敌人","x":21.802,"y":59.947,"z":"奥法高塔"},{"n":"奥术炮台","c":"遭遇战","g":"敌人","x":22.732,"y":58.734,"z":"奥法高塔"},{"n":"相位蜘蛛","c":"遭遇战","g":"敌人","x":40.493,"y":67.369,"z":"低语深地"},{"n":"骷髅守护者","c":"遭遇战","g":"敌人","x":49.759,"y":69.368,"z":"药剂师的地窖"},{"n":"敌人x4","c":"遭遇战","g":"敌人","x":52.84,"y":89.552,"z":"蔓生地道"},{"n":"妖怪x4","c":"遭遇战","g":"敌人","x":58.591,"y":88.313,"z":"鬼婆茶室"},{"n":"小红帽x4","c":"遭遇战","g":"敌人","x":64.128,"y":81.366,"z":"腐烂泥潭"},{"n":"远古泥蝠魔","c":"遭遇战","g":"敌人","x":68.415,"y":88.214,"z":"腐烂泥潭"},{"n":"噬脑怪x3","c":"遭遇战","g":"敌人","x":77.531,"y":80.53,"z":"疮痍海滩"},{"n":"强盗x4","c":"遭遇战","g":"敌人","x":80.31,"y":69.675,"z":"疮痍海滩"},{"n":"地精攻城","c":"遭遇战","g":"敌人","x":75.764,"y":59.267,"z":"翠绿林地"},{"n":"地精","c":"遭遇战","g":"敌人","x":77.927,"y":55.384,"z":"翠绿林地"},{"n":"鸟妖x4","c":"遭遇战","g":"敌人","x":83.782,"y":42.32,"z":"隐秘海湾"},{"n":"强盗x4","c":"遭遇战","g":"敌人","x":94.716,"y":74.493,"z":"强盗卧室"},{"n":"地精x4","c":"遭遇战","g":"敌人","x":90.105,"y":39.817,"z":"地下通道"},{"n":"守护者雕像","c":"遭遇战","g":"敌人","x":88.105,"y":39.965,"z":"地下通道"},{"n":"鲨蜥兽","c":"头目战","g":"敌人","x":27.359,"y":51.697,"z":"塞伦涅哨所"},{"n":" 弗林德","c":"头目战","g":"敌人","x":65.339,"y":32.664,"z":"征收所地下室"},{"n":"枭熊","c":"头目战","g":"敌人","x":66.45,"y":16.513,"z":"枭熊巢穴"},{"n":"复仇侍卫","c":"头目战","g":"敌人","x":10.017,"y":64.006,"z":"精金熔炉"},{"n":"明萨拉","c":"头目战","g":"敌人","x":41.477,"y":32.956,"z":"破碎圣所"},{"n":"大地精罗德尔·拉兹格林","c":"头目战","g":"敌人","x":39.667,"y":34.092,"z":"破碎圣所"},{"n":"女祭司迦特","c":"头目战","g":"敌人","x":39.616,"y":37.729,"z":"破碎圣所"},{"n":"真魂者讷雷","c":"头目战","g":"敌人","x":5.403,"y":52.826,"z":"精金熔炉"},{"n":"灰矮人","c":"头目战","g":"敌人","x":22.459,"y":46.678,"z":"破败村落"},{"n":"被遗忘的菲尔罗","c":"头目战","g":"敌人","x":19.29,"y":40.862,"z":"破败村落"},{"n":"鲨蜥兽（初见）","c":"头目战","g":"敌人","x":29.374,"y":42.306,"z":"塞伦涅哨所"},{"n":"鲨蜥兽（第二次战斗）","c":"头目战","g":"敌人","x":19.207,"y":47.621,"z":"破败村落"},{"n":" 伯纳德","c":"头目战","g":"敌人","x":19.552,"y":59.02,"z":"奥法高塔"},{"n":"观察者眼魔","c":"头目战","g":"敌人","x":28.941,"y":54.361,"z":"塞伦涅哨所"},{"n":"相位蜘蛛女王","c":"头目战","g":"敌人","x":38.135,"y":64.454,"z":"低语深地"},{"n":"鬼婆（第二次战斗）","c":"头目战","g":"敌人","x":46.233,"y":88.368,"z":"刺鼻工坊"},{"n":"鬼婆","c":"头目战","g":"敌人","x":59.681,"y":82.158,"z":"鬼婆茶室"}]},{"id":"shadow","cn":"幽影诅咒之地","en":"Shadow-Cursed Lands","act":"第二章","img":"image/c8lVRHOIbj5yySaLmXzudM.jpg","w":4224,"h":5200,"view":{"x":15.42,"y":32.88,"w":48.33,"h":38.98},"areas":[{"n":"通往博德之门时的营地","x":4.25,"y":34.39},{"n":"泥瓦匠工会地下室","x":4.42,"y":50.93},{"n":"幽影诅咒之地营地","x":55.17,"y":42.69},{"n":"莎尔信徒庇护所","x":12.64,"y":54.32},{"n":"深影之家","x":53.22,"y":48.99},{"n":"月出之塔监狱","x":18.41,"y":66.75},{"n":"夺心魔蝌蚪植入中心","x":39.21,"y":86.7},{"n":"兵营","x":43.52,"y":85.65},{"n":"黯蚀实验室","x":42.6,"y":94.41},{"n":"停尸房","x":37.44,"y":92.97},{"n":"地下密牢","x":35.99,"y":96.27},{"n":"同我试炼","x":17.56,"y":9.3},{"n":"蔽影战场","x":50.54,"y":50.13},{"n":"终焉光芒旅店","x":39.52,"y":40.96},{"n":"队长办公区","x":94.79,"y":23.94},{"n":"教室","x":91.03,"y":24.1},{"n":"医务室","x":86.4,"y":27.6},{"n":"孵化所","x":84.74,"y":23.35},{"n":"稳步试炼","x":20.27,"y":11.67},{"n":"夺心魔殖民地","x":43.5,"y":81.84},{"n":"信仰之跃试炼","x":21.39,"y":9.36},{"n":"幽影边域","x":27.33,"y":18.6},{"n":"藏宝室","x":17.07,"y":11.78},{"n":"莎尔的试炼","x":25.62,"y":5.88},{"n":"泥瓦匠行会","x":34.77,"y":50.89},{"n":"大陵寝","x":29.94,"y":44.01},{"n":"治疗中心","x":26.57,"y":51.94},{"n":"征收所","x":35.86,"y":59.42},{"n":"残月酒厂","x":25.74,"y":58.24},{"n":"伊雷珂养育间","x":88.28,"y":13.26},{"n":"营地","x":93.59,"y":58.52},{"n":"冠蓝鸦之选","x":91.2,"y":47.68},{"n":"瑰晨修道院","x":86.76,"y":44.66}],"pins":[{"n":"前往博德之门的路","c":"传送点","g":"地点","x":20.036,"y":55.649,"z":"残月酒厂"},{"n":"传送点-蔽影战场","c":"传送点","g":"地点","x":54.416,"y":45.798,"z":"幽影诅咒之地营地"},{"n":"瑰晨修道院","c":"传送点","g":"地点","x":86.011,"y":45.55,"z":"瑰晨修道院"},{"n":" 传送点-特里尔塔峭壁","c":"传送点","g":"地点","x":78.537,"y":58.271,"z":"营地"},{"n":"传送点-伊雷珂养育间","c":"传送点","g":"地点","x":93.551,"y":26.343,"z":"队长办公区"},{"n":"传送点-终焉光芒旅店","c":"传送点","g":"地点","x":44.41,"y":42.112,"z":"终焉光芒旅店"},{"n":"传送点-蔽影战场","c":"传送点","g":"地点","x":50.422,"y":51.233,"z":"蔽影战场"},{"n":"传送点- 雷斯文小鎮","c":"传送点","g":"地点","x":37.894,"y":56.455,"z":"征收所"},{"n":"传送点- 月初之塔","c":"传送点","g":"地点","x":30.544,"y":60.503,"z":"征收所"},{"n":"传送点- 大陵寝","c":"传送点","g":"地点","x":29.351,"y":46.444,"z":"大陵寝"},{"n":"传送点-莎尔的试炼","c":"传送点","g":"地点","x":23.359,"y":14.623,"z":"稳步试炼"},{"n":"入口","c":"出入口","g":"地点","x":90.478,"y":41.982,"z":"瑰晨修道院"},{"n":"电梯","c":"出入口","g":"地点","x":49.644,"y":89.371,"z":"兵营"},{"n":"电梯","c":"出入口","g":"地点","x":45.489,"y":89.216,"z":"兵营"},{"n":"深不见底的洞","c":"出入口","g":"地点","x":18.947,"y":76.91,"z":"月出之塔监狱"},{"n":"楼梯","c":"出入口","g":"地点","x":30.134,"y":69.818,"z":"月出之塔监狱"},{"n":"楼梯","c":"出入口","g":"地点","x":25.065,"y":73.673,"z":"月出之塔监狱"},{"n":"大门","c":"出入口","g":"地点","x":23.874,"y":72.014,"z":"月出之塔监狱"},{"n":"根须","c":"出入口","g":"地点","x":48.502,"y":40.428,"z":"幽影诅咒之地营地"},{"n":"大门","c":"出入口","g":"地点","x":35.975,"y":67.442,"z":"征收所"},{"n":"入口","c":"出入口","g":"地点","x":31.63,"y":55.273,"z":"泥瓦匠行会"},{"n":"位面投射器","c":"出入口","g":"地点","x":91.166,"y":15.572,"z":"伊雷珂养育间"},{"n":"崎岖的岩石","c":"出入口","g":"地点","x":32.987,"y":95.92,"z":"地下密牢"},{"n":"崎岖的岩石","c":"出入口","g":"地点","x":11.519,"y":71.038,"z":"月出之塔监狱"},{"n":"洞","c":"出入口","g":"地点","x":18.83,"y":71.038,"z":"月出之塔监狱"},{"n":"笨重的橡木门","c":"出入口","g":"地点","x":37.118,"y":67.399,"z":"征收所"},{"n":"笨重的橡木门","c":"出入口","g":"地点","x":23.878,"y":72.245,"z":"月出之塔监狱"},{"n":"楼梯","c":"出入口","g":"地点","x":24.561,"y":73.921,"z":"月出之塔监狱"},{"n":"楼梯","c":"出入口","g":"地点","x":30.214,"y":68.218,"z":"月出之塔监狱"},{"n":"暗影传送器","c":"出入口","g":"地点","x":16.736,"y":9.282,"z":"同我试炼"},{"n":"楼梯","c":"出入口","g":"地点","x":12.614,"y":56.246,"z":"莎尔信徒庇护所"},{"n":"通往莎尔信徒庇护所的密门","c":"出入口","g":"地点","x":31.203,"y":55.647,"z":"残月酒厂"},{"n":"不详的裂隙","c":"出入口","g":"地点","x":31.058,"y":44.621,"z":"大陵寝"},{"n":"停尸房","c":"出入口","g":"地点","x":21.118,"y":51.732,"z":"治疗中心"},{"n":"笨重的橡木门","c":"出入口","g":"地点","x":35.528,"y":60.729,"z":"征收所"},{"n":"升降机","c":"出入口","g":"地点","x":5.64,"y":51.85,"z":"泥瓦匠工会地下室"},{"n":"华丽的木制活板门","c":"出入口","g":"地点","x":33.617,"y":50.536,"z":"泥瓦匠行会"},{"n":"终焉光芒旅店-地窖","c":"出入口","g":"地点","x":37.758,"y":41.264,"z":"终焉光芒旅店"},{"n":"陵墓入口","c":"出入口","g":"地点","x":27.32,"y":43.79,"z":"大陵寝"},{"n":"出入口-审判官的房间","c":"出入口","g":"地点","x":79.171,"y":15.481,"z":"伊雷珂养育间"},{"n":"出入口-隐蔽房间","c":"出入口","g":"地点","x":84.592,"y":15.647,"z":"伊雷珂养育间"},{"n":"出入口-悬崖边缘","c":"出入口","g":"地点","x":98.574,"y":28.663,"z":"队长办公区"},{"n":"出入口-瑰晨修道院","c":"出入口","g":"地点","x":91.147,"y":30.959,"z":"医务室"},{"n":"出入口-修道院地下室","c":"出入口","g":"地点","x":91.205,"y":34.527,"z":"医务室"},{"n":"出入口-伊雷珂养育间","c":"出入口","g":"地点","x":90.522,"y":48.135,"z":"冠蓝鸦之选"},{"n":"出入口-缆车","c":"出入口","g":"地点","x":83.666,"y":46.999,"z":"瑰晨修道院"},{"n":"出入口-缆车","c":"出入口","g":"地点","x":80.718,"y":52.902,"z":"瑰晨修道院"},{"n":"出入口-渥金的休眠地","c":"出入口","g":"地点","x":80.238,"y":60.811,"z":"营地"},{"n":"出入口-山隘","c":"出入口","g":"地点","x":75.425,"y":62.549,"z":"营地"},{"n":"出入口-废弃战场","c":"出入口","g":"地点","x":71.317,"y":56.762,"z":"深影之家"},{"n":"出入口-伊雷珂养育间","c":"出入口","g":"地点","x":61.892,"y":54.879,"z":"深影之家"},{"n":"出入口-幽暗地域入口","c":"出入口","g":"地点","x":56.976,"y":35.692,"z":"幽影诅咒之地营地"},{"n":"出入口-终焉光芒地下室","c":"出入口","g":"地点","x":48.589,"y":40.402,"z":"幽影诅咒之地营地"},{"n":"传送点-前往博德之门的路","c":"出入口","g":"地点","x":19.946,"y":55.51,"z":"残月酒厂"},{"n":"地脉迷城之王的匕首","c":"强力武器","g":"装备","x":93.008,"y":28.789,"z":"教室"},{"n":"智能盾牌","c":"强力武器","g":"装备","x":30.243,"y":66.021,"z":"征收所"},{"n":"龙息","c":"强力武器","g":"装备","x":28.924,"y":66.422,"z":"月出之塔监狱"},{"n":"剥皮者","c":"强力武器","g":"装备","x":93.539,"y":15.603,"z":"伊雷珂养育间"},{"n":"洛山达之血","c":"强力武器","g":"装备","x":71.463,"y":15.454,"z":"孵化所"},{"n":"地狱刺剑","c":"武器","g":"装备","x":38.331,"y":84.283,"z":"夺心魔蝌蚪植入中心"},{"n":"莎尔的仪式匕首","c":"武器","g":"装备","x":13.931,"y":55.435,"z":"莎尔信徒庇护所"},{"n":"压迫灵魂之剑","c":"武器","g":"装备","x":45.244,"y":98.279,"z":"黯蚀实验室"},{"n":"偷生之剑","c":"武器","g":"装备","x":42.315,"y":39.493,"z":"终焉光芒旅店"},{"n":"辉耀法杖","c":"武器","g":"装备","x":43.847,"y":42.399,"z":"终焉光芒旅店"},{"n":"奉献之盾","c":"武器","g":"装备","x":42.897,"y":41.895,"z":"终焉光芒旅店"},{"n":"法官巨盾","c":"武器","g":"装备","x":27.771,"y":10.547,"z":"莎尔的试炼"},{"n":"暗夜法官弯刀","c":"武器","g":"装备","x":27.199,"y":10.562,"z":"莎尔的试炼"},{"n":"警觉长戟","c":"武器","g":"装备","x":29.943,"y":65.328,"z":"征收所"},{"n":"黄金雏龙法杖","c":"武器","g":"装备","x":29.196,"y":66.486,"z":"残月酒厂"},{"n":"地狱火手弩","c":"武器","g":"装备","x":34.393,"y":11.358,"z":"莎尔的试炼"},{"n":"出敌不意","c":"武器","g":"装备","x":26.161,"y":15.265,"z":"幽影边域"},{"n":"刺客短剑","c":"武器","g":"装备","x":21.468,"y":49.842,"z":"治疗中心"},{"n":"莎尔的仪式匕首","c":"武器","g":"装备","x":14.429,"y":55.489,"z":"莎尔信徒庇护所"},{"n":"闪电混语","c":"武器","g":"装备","x":32.687,"y":42.824,"z":"大陵寝"},{"n":"精良手术主题武器一套","c":"武器","g":"装备","x":26.606,"y":48.488,"z":"治疗中心"},{"n":"东倒西歪","c":"武器","g":"装备","x":20.612,"y":59.971,"z":"残月酒厂"},{"n":"卑劣短棒","c":"武器","g":"装备","x":24.173,"y":58.916,"z":"残月酒厂"},{"n":"扭曲幸运","c":"武器","g":"装备","x":36.658,"y":59.547,"z":"征收所"},{"n":"残忍蛰刺","c":"武器","g":"装备","x":45.791,"y":54.969,"z":"蔽影战场"},{"n":"月亮提灯","c":"武器","g":"装备","x":46.214,"y":54.663,"z":"蔽影战场"},{"n":"硬木短棒","c":"武器","g":"装备","x":49.423,"y":48.157,"z":"蔽影战场"},{"n":"黑缕盾牌","c":"武器","g":"装备","x":40.366,"y":61.823,"z":"征收所"},{"n":"奥术力场之弩","c":"武器","g":"装备","x":95.617,"y":29.931,"z":"队长办公区"},{"n":"仪式战斧","c":"武器","g":"装备","x":92.805,"y":37.697,"z":"瑰晨修道院"},{"n":"仪式战锤","c":"武器","g":"装备","x":91.214,"y":36.626,"z":"瑰晨修道院"},{"n":"异能复仇饰环","c":"武器","g":"装备","x":91.515,"y":16.359,"z":"伊雷珂养育间"},{"n":"仪式房间石台上的仪式长剑","c":"武器","g":"装备","x":91.22,"y":42.09,"z":"瑰晨修道院"},{"n":"暗夜之矛","c":"武器","g":"装备","x":17.604,"y":3.211,"z":"同我试炼"},{"n":"仪式硬头锤","c":"武器","g":"装备","x":88.509,"y":38.445,"z":"瑰晨修道院"},{"n":"碎魂者巨剑","c":"武器","g":"装备","x":95.452,"y":23.952,"z":"队长办公区"},{"n":"诡诈之雾披风","c":"强力防具","g":"装备","x":41.229,"y":41.044,"z":"终焉光芒旅店"},{"n":"残缺的黯狱手套","c":"强力防具","g":"装备","x":42.781,"y":39.186,"z":"终焉光芒旅店"},{"n":"奥术敏锐头盔","c":"强力防具","g":"装备","x":2.73,"y":57.006,"z":"泥瓦匠工会地下室"},{"n":"威能长袍","c":"强力防具","g":"装备","x":39.591,"y":41.682,"z":"终焉光芒旅店"},{"n":"天崩手套","c":"强力防具","g":"装备","x":90.471,"y":17.049,"z":"伊雷珂养育间"},{"n":"隐蔽兜帽","c":"防具","g":"装备","x":39.503,"y":42.817,"z":"终焉光芒旅店"},{"n":"巴萨扎尔的密室","c":"防具","g":"装备","x":30.137,"y":67.171,"z":"征收所"},{"n":"投毒者的手套","c":"防具","g":"装备","x":27.063,"y":46.802,"z":"大陵寝"},{"n":"隐蔽兜帽","c":"防具","g":"装备","x":48.783,"y":40.446,"z":"幽影诅咒之地营地"},{"n":"腐液手套","c":"防具","g":"装备","x":23.971,"y":58.532,"z":"残月酒厂"},{"n":"寒意之帽","c":"防具","g":"装备","x":31.213,"y":67.018,"z":"征收所"},{"n":"圣枪头盔","c":"防具","g":"装备","x":95.366,"y":44.55,"z":"冠蓝鸦之选"},{"n":"残缺的暗狱头盔，帽子，手套","c":"防具","g":"装备","x":44.292,"y":39.786,"z":"终焉光芒旅店"},{"n":"脑力汲取手套","c":"防具","g":"装备","x":44.933,"y":98.374,"z":"黯蚀实验室"},{"n":"脑力汲取手套","c":"防具","g":"装备","x":44.933,"y":98.374,"z":"黯蚀实验室"},{"n":"隐蔽之靴","c":"防具","g":"装备","x":40.793,"y":41.092,"z":"终焉光芒旅店"},{"n":"剑圣手套","c":"防具","g":"装备","x":43.207,"y":39.839,"z":"终焉光芒旅店"},{"n":"力量布衣","c":"防具","g":"装备","x":43.673,"y":42.053,"z":"终焉光芒旅店"},{"n":"导引披风","c":"防具","g":"装备","x":32.9,"y":66.525,"z":"征收所"},{"n":"元素吸收披风","c":"防具","g":"装备","x":29.923,"y":66.43,"z":"征收所"},{"n":"铁条盾+1","c":"防具","g":"装备","x":29.884,"y":65.477,"z":"征收所"},{"n":"至上真神保护者","c":"防具","g":"装备","x":31.297,"y":64.916,"z":"征收所"},{"n":"引导披风","c":"防具","g":"装备","x":32.347,"y":66.706,"z":"征收所"},{"n":"决斗者手套","c":"防具","g":"装备","x":29.846,"y":66.1,"z":"征收所"},{"n":"崇敬之甲","c":"防具","g":"装备","x":28.653,"y":66.021,"z":"残月酒厂"},{"n":"碾压手套","c":"防具","g":"装备","x":29.477,"y":65.548,"z":"残月酒厂"},{"n":"尖锐陷阱胸甲","c":"防具","g":"装备","x":29.051,"y":65.737,"z":"残月酒厂"},{"n":"响亮之靴","c":"防具","g":"装备","x":35.47,"y":8.908,"z":"莎尔的试炼"},{"n":"暗夜法官手套","c":"防具","g":"装备","x":32.163,"y":12.744,"z":"幽影边域"},{"n":"骸骨饰环","c":"防具","g":"装备","x":14.36,"y":13.926,"z":"藏宝室"},{"n":"活力披风","c":"防具","g":"装备","x":29.303,"y":36.153,"z":"大陵寝"},{"n":"战斗法师之力手套","c":"防具","g":"装备","x":38.01,"y":59.759,"z":"征收所"},{"n":"灵能守御护甲","c":"防具","g":"装备","x":21.545,"y":55.151,"z":"残月酒厂"},{"n":"赫'拉克'尼尔护腕","c":"防具","g":"装备","x":21.545,"y":55.151,"z":"残月酒厂"},{"n":"卫士盾牌","c":"防具","g":"装备","x":21.468,"y":49.842,"z":"治疗中心"},{"n":"奥术热能手套","c":"防具","g":"装备","x":45.887,"y":54.679,"z":"蔽影战场"},{"n":"火焰敏锐之帽","c":"防具","g":"装备","x":44.303,"y":39.17,"z":"终焉光芒旅店"},{"n":"涟漪之力锁甲","c":"防具","g":"装备","x":43.944,"y":38.737,"z":"终焉光芒旅店"},{"n":"灼热复仇盾牌","c":"防具","g":"装备","x":45.622,"y":35.688,"z":"终焉光芒旅店"},{"n":"半影护甲","c":"防具","g":"装备","x":48.676,"y":41.06,"z":"幽影诅咒之地营地"},{"n":"战法师的骄傲","c":"防具","g":"装备","x":34.306,"y":50.571,"z":"泥瓦匠行会"},{"n":"假死之靴","c":"防具","g":"装备","x":29.932,"y":48.971,"z":"治疗中心"},{"n":"冰噬长袍","c":"防具","g":"装备","x":30.73,"y":47.083,"z":"大陵寝"},{"n":"投毒者的手套","c":"防具","g":"装备","x":27.168,"y":46.707,"z":"大陵寝"},{"n":"铁藤盾牌","c":"防具","g":"装备","x":33.763,"y":60.146,"z":"征收所"},{"n":"腐蚀手套","c":"防具","g":"装备","x":21.874,"y":58.076,"z":"残月酒厂"},{"n":"渡鸦手套","c":"防具","g":"装备","x":58.16,"y":44.219,"z":"幽影诅咒之地营地"},{"n":"发光手套","c":"防具","g":"装备","x":40.919,"y":51.843,"z":"泥瓦匠行会"},{"n":"暗夜法官面具","c":"防具","g":"装备","x":42.373,"y":59.822,"z":"征收所"},{"n":"白霜之靴","c":"防具","g":"装备","x":88.693,"y":15.903,"z":"伊雷珂养育间"},{"n":"暗夜法官半身甲","c":"防具","g":"装备","x":17.563,"y":3.211,"z":"同我试炼"},{"n":"暗夜法官头盔","c":"防具","g":"装备","x":16.782,"y":3.255,"z":"同我试炼"},{"n":"敏捷手套","c":"防具","g":"装备","x":93.503,"y":28.639,"z":"队长办公区"},{"n":"养育官寇库的靴子","c":"防具","g":"装备","x":86.289,"y":24.283,"z":"孵化所"},{"n":"伤口闭合护符","c":"强力首饰","g":"装备","x":78.987,"y":57.097,"z":"营地"},{"n":"外科医生镇压护符","c":"强力首饰","g":"装备","x":26.578,"y":48.7,"z":"治疗中心"},{"n":"烙印护符","c":"强力首饰","g":"装备","x":94.116,"y":28.414,"z":"队长办公区"},{"n":"奥术协同王冠","c":"强力首饰","g":"装备","x":91.787,"y":16.336,"z":"伊雷珂养育间"},{"n":"怪须护符","c":"首饰","g":"装备","x":18.117,"y":51.885,"z":"莎尔信徒庇护所"},{"n":"寒意之帽","c":"首饰","g":"装备","x":31.604,"y":65.799,"z":"征收所"},{"n":"颤脊护符","c":"首饰","g":"装备","x":29.098,"y":67.748,"z":"月出之塔监狱"},{"n":"颤脊护符","c":"首饰","g":"装备","x":28.9,"y":67.691,"z":"月出之塔监狱"},{"n":"精神剧痛饰环","c":"首饰","g":"装备","x":45.593,"y":98.216,"z":"黯蚀实验室"},{"n":"骸骨饰环","c":"首饰","g":"装备","x":14.564,"y":13.693,"z":"藏宝室"},{"n":"严厉之锤的薄雾护符","c":"首饰","g":"装备","x":44.71,"y":53.245,"z":"蔽影战场"},{"n":"竖琴手护符","c":"首饰","g":"装备","x":42.781,"y":42.517,"z":"终焉光芒旅店"},{"n":"法术症结护符","c":"首饰","g":"装备","x":31.269,"y":65.629,"z":"征收所"},{"n":"威逼饰环","c":"首饰","g":"装备","x":18.86,"y":74.197,"z":"月出之塔监狱"},{"n":"法术症结护符","c":"首饰","g":"装备","x":18.365,"y":73.548,"z":"月出之塔监狱"},{"n":"狩猎环饰","c":"首饰","g":"装备","x":33.065,"y":67.037,"z":"征收所"},{"n":"莎尔的诱惑","c":"首饰","g":"装备","x":27.625,"y":51.307,"z":"治疗中心"},{"n":"火焰之心","c":"首饰","g":"装备","x":33.685,"y":58.664,"z":"征收所"},{"n":"冰霜王子","c":"首饰","g":"装备","x":53.709,"y":60.287,"z":"蔽影战场"},{"n":"严厉之锤的薄雾护符","c":"首饰","g":"装备","x":39.688,"y":40.989,"z":"终焉光芒旅店"},{"n":"元素强化项链","c":"首饰","g":"装备","x":91.854,"y":16.856,"z":"伊雷珂养育间"},{"n":"异怪猎人护符","c":"首饰","g":"装备","x":86.347,"y":27.765,"z":"医务室"},{"n":"风险戒指","c":"强力戒指","g":"装备","x":32.793,"y":67.281,"z":"征收所"},{"n":"无情光芒之戒","c":"强力戒指","g":"装备","x":17.483,"y":11.185,"z":"藏宝室"},{"n":"变形者的恩赐之戒","c":"强力戒指","g":"装备","x":44.293,"y":38.776,"z":"终焉光芒旅店"},{"n":"屠夫的甜心","c":"强力戒指","g":"装备","x":16.349,"y":9.32,"z":"同我试炼"},{"n":"奇异通道之戒","c":"强力戒指","g":"装备","x":91.021,"y":16.722,"z":"伊雷珂养育间"},{"n":"自我献祭","c":"戒指","g":"装备","x":48.611,"y":47.952,"z":"蔽影战场"},{"n":"费尔助的交易戒指","c":"戒指","g":"装备","x":18.117,"y":51.885,"z":"莎尔信徒庇护所"},{"n":"奥术协同戒指","c":"戒指","g":"装备","x":91.138,"y":29.095,"z":"医务室"},{"n":"神髓戒指","c":"戒指","g":"装备","x":29.671,"y":68.908,"z":"月出之塔监狱"},{"n":"亲切之戒","c":"戒指","g":"装备","x":38.669,"y":41.604,"z":"终焉光芒旅店"},{"n":"幽影之刃戒指","c":"戒指","g":"装备","x":94.346,"y":61.933,"z":"营地"},{"n":"暮光戒指","c":"戒指","g":"装备","x":42.354,"y":53.84,"z":"泥瓦匠行会"},{"n":"真爱之拥","c":"戒指","g":"装备","x":25.414,"y":52.71,"z":"治疗中心"},{"n":"家族戒指","c":"戒指","g":"装备","x":56.268,"y":42.368,"z":"幽影诅咒之地营地"},{"n":"移形换影之戒指","c":"戒指","g":"装备","x":39.872,"y":39.304,"z":"终焉光芒旅店"},{"n":"真爱之抚","c":"戒指","g":"装备","x":31.434,"y":49.241,"z":"泥瓦匠行会"},{"n":"蔽影戒指","c":"戒指","g":"装备","x":40.958,"y":49.913,"z":"泥瓦匠行会"},{"n":"精神抑制之戒","c":"戒指","g":"装备","x":53.137,"y":49.362,"z":"深影之家"},{"n":"暗影之戒","c":"戒指","g":"装备","x":53.166,"y":49.764,"z":"深影之家"},{"n":"自我献祭","c":"戒指","g":"装备","x":48.763,"y":47.747,"z":"蔽影战场"},{"n":"雪花迸射","c":"戒指","g":"装备","x":38.34,"y":40.359,"z":"终焉光芒旅店"},{"n":"夺心魔寄生虫","c":"夺心魔蝌蚪","g":"物品","x":32.056,"y":68.179,"z":"征收所"},{"n":"夺心魔寄生虫","c":"夺心魔蝌蚪","g":"物品","x":34.762,"y":67.439,"z":"征收所"},{"n":"夺心魔寄生虫x2","c":"夺心魔蝌蚪","g":"物品","x":39.203,"y":67.391,"z":"征收所"},{"n":"夺心魔寄生虫","c":"夺心魔蝌蚪","g":"物品","x":39.329,"y":39.981,"z":"终焉光芒旅店"},{"n":"夺心魔寄生虫","c":"夺心魔蝌蚪","g":"物品","x":35.014,"y":94.518,"z":"地下密牢"},{"n":"夺心魔寄生虫","c":"夺心魔蝌蚪","g":"物品","x":38.553,"y":84.042,"z":"夺心魔蝌蚪植入中心"},{"n":"夺心魔寄生虫","c":"夺心魔蝌蚪","g":"物品","x":84.029,"y":26.662,"z":"医务室"},{"n":"夺心魔寄生虫x2","c":"夺心魔蝌蚪","g":"物品","x":84.311,"y":27.946,"z":"医务室"},{"n":"夺心魔寄生虫标本","c":"夺心魔蝌蚪","g":"物品","x":31.214,"y":63.289,"z":"征收所"},{"n":"夺心魔寄生虫标本","c":"夺心魔蝌蚪","g":"物品","x":31.05,"y":63.033,"z":"征收所"},{"n":"灵魂钱币x3","c":"灵魂钱币","g":"物品","x":30.433,"y":65.874,"z":"征收所"},{"n":"解救提夫林","c":"支线任务","g":"任务","x":42.684,"y":37.988,"z":"终焉光芒旅店"},{"n":"阿拉贝尔的父母","c":"支线任务","g":"任务","x":28.43,"y":51.78,"z":"治疗中心"},{"n":"解除幽影诅咒——唤醒阿尔特·库拉","c":"支线任务","g":"任务","x":26.656,"y":48.992,"z":"治疗中心"},{"n":"边境之刃","c":"支线任务","g":"任务","x":38.016,"y":84.098,"z":"夺心魔蝌蚪植入中心"},{"n":"深影之家","c":"支线任务","g":"任务","x":53.016,"y":49.707,"z":"深影之家"},{"n":"拯救罗兰","c":"支线任务","g":"任务","x":40.807,"y":61.596,"z":"征收所"},{"n":"寻找摩尔","c":"支线任务","g":"任务","x":39.261,"y":41.064,"z":"终焉光芒旅店"},{"n":"寻找赛夫洛-任务开启点①","c":"支线任务","g":"任务","x":37.651,"y":41.808,"z":"终焉光芒旅店"},{"n":"米佐拉的财产","c":"支线任务","g":"任务","x":31.145,"y":60.909,"z":"征收所"},{"n":"寻找洛山达之血","c":"支线任务","g":"任务","x":90.953,"y":41.903,"z":"瑰晨修道院"},{"n":"解除幽影诅咒","c":"支线任务","g":"任务","x":38.976,"y":36.578,"z":"终焉光芒旅店"},{"n":"寻找赛洛夫","c":"支线任务","g":"任务","x":39.406,"y":87.083,"z":"夺心魔蝌蚪植入中心"},{"n":"解救乌尔布伦-任务开启点①","c":"支线任务","g":"任务","x":38.728,"y":42.053,"z":"终焉光芒旅店"},{"n":"解救提夫林-任务触发点①","c":"支线任务","g":"任务","x":38.98,"y":41.533,"z":"终焉光芒旅店"},{"n":"唤醒阿尔特·库拉","c":"支线任务","g":"任务","x":39.232,"y":39.595,"z":"终焉光芒旅店"},{"n":"找到阿拉贝尔的父母","c":"支线任务","g":"任务","x":31.106,"y":51.323,"z":"泥瓦匠行会"},{"n":"解救提夫林-任务开启点②","c":"支线任务","g":"任务","x":19.627,"y":71.677,"z":"月出之塔监狱"},{"n":"解救乌尔布伦","c":"支线任务","g":"任务","x":17.474,"y":71.276,"z":"月出之塔监狱"},{"n":"调查塞伦涅信徒抵抗势力","c":"支线任务","g":"任务","x":40.731,"y":51.671,"z":"泥瓦匠行会"},{"n":"拉斐尔的宿敌","c":"支线任务","g":"任务","x":27.594,"y":44.687,"z":"大陵寝"},{"n":"惩罚邪恶","c":"支线任务","g":"任务","x":58.379,"y":44.331,"z":"幽影诅咒之地营地"},{"n":"偷蛋","c":"支线任务","g":"任务","x":80.286,"y":57.019,"z":"营地"},{"n":"阿拉吉 欧布罗扎","c":"商人","g":"人物","x":33.806,"y":67.756,"z":"征收所"},{"n":"巴克斯·鲁特","c":"商人","g":"人物","x":38.204,"y":41.596,"z":"终焉光芒旅店"},{"n":"马蒂斯","c":"商人","g":"人物","x":40.803,"y":41.005,"z":"终焉光芒旅店"},{"n":"兰恩·塔夫","c":"商人","g":"人物","x":30.33,"y":65.84,"z":"征收所"},{"n":"拉克里萨","c":"商人","g":"人物","x":21.39,"y":72.448,"z":"月出之塔监狱"},{"n":"阿拉吉·欧布罗扎","c":"商人","g":"人物","x":33.065,"y":67.281,"z":"征收所"},{"n":"罗阿·月光","c":"商人","g":"人物","x":29.206,"y":66.021,"z":"残月酒厂"},{"n":"埃斯特女士","c":"商人","g":"人物","x":79.55,"y":56.9,"z":"营地"},{"n":"丽德雯姐妹","c":"商人","g":"人物","x":28.463,"y":51.236,"z":"治疗中心"},{"n":"戴摩","c":"商人","g":"人物","x":43.106,"y":39.465,"z":"终焉光芒旅店"},{"n":"军需官塔利","c":"商人","g":"人物","x":43.193,"y":42.419,"z":"终焉光芒旅店"},{"n":"商人 阿贾克’尼尔·吉拉","c":"商人","g":"人物","x":93.251,"y":28.907,"z":"队长办公区"},{"n":"贾希拉","c":"同伴","g":"人物","x":31.824,"y":67.856,"z":"征收所"},{"n":"贾希拉","c":"同伴","g":"人物","x":39.319,"y":40.706,"z":"终焉光芒旅店"},{"n":"哈尔辛","c":"同伴","g":"人物","x":38.989,"y":35.87,"z":"终焉光芒旅店"},{"n":"埋伏的树人","c":"遭遇战","g":"敌人","x":53.893,"y":60.271,"z":"蔽影战场"},{"n":"夜袭战","c":"遭遇战","g":"敌人","x":3.791,"y":37.961,"z":"通往博德之门时的营地"},{"n":"三个不死暗夜法官","c":"遭遇战","g":"敌人","x":13.078,"y":55.475,"z":"莎尔信徒庇护所"},{"n":"小法妖遭遇战","c":"遭遇战","g":"敌人","x":88.412,"y":44.872,"z":"瑰晨修道院"},{"n":"2×阴影","c":"遭遇战","g":"敌人","x":41.122,"y":61.376,"z":"征收所"},{"n":"7×幽影诅咒枯针怪","c":"遭遇战","g":"敌人","x":52.613,"y":44.235,"z":"幽影诅咒之地营地"},{"n":"仪式守卫","c":"遭遇战","g":"敌人","x":92.572,"y":37.461,"z":"瑰晨修道院"},{"n":"百夫长","c":"遭遇战","g":"敌人","x":94.589,"y":24.118,"z":"队长办公区"},{"n":"幽影渡鸦*12","c":"遭遇战","g":"敌人","x":48.647,"y":43.21,"z":"幽影诅咒之地营地"},{"n":"阴影*6","c":"遭遇战","g":"敌人","x":51.731,"y":40.627,"z":"幽影诅咒之地营地"},{"n":"死亡牧者*2","c":"遭遇战","g":"敌人","x":76.001,"y":56.285,"z":"营地"},{"n":"审判官+4养鸡人战士","c":"遭遇战","g":"敌人","x":91.592,"y":16.594,"z":"伊雷珂养育间"},{"n":"祭坛守卫*3","c":"遭遇战","g":"敌人","x":13.158,"y":55.458,"z":"莎尔信徒庇护所"},{"n":"月出之塔攻坚战","c":"遭遇战","g":"敌人","x":31.063,"y":64.426,"z":"征收所"},{"n":"保护传送门5个回合","c":"遭遇战","g":"敌人","x":38.863,"y":35.988,"z":"终焉光芒旅店"},{"n":"夺心魔*4+蚀脑怪*6","c":"遭遇战","g":"敌人","x":39.29,"y":86.452,"z":"夺心魔蝌蚪植入中心"},{"n":"老鼠","c":"遭遇战","g":"敌人","x":27.363,"y":10.728,"z":"信仰之跃试炼"},{"n":"飞天恐魔*3+僵尸*10+死亡牧者","c":"遭遇战","g":"敌人","x":42.587,"y":93.321,"z":"黯蚀实验室"},{"n":"切割者+蚀脑怪*4","c":"遭遇战","g":"敌人","x":38.039,"y":92.84,"z":"停尸房"},{"n":"恐爪怪*2","c":"遭遇战","g":"敌人","x":37.322,"y":96.771,"z":"地下密牢"},{"n":"同我试炼","c":"遭遇战","g":"敌人","x":17.085,"y":9.369,"z":"同我试炼"},{"n":"老鼠xN","c":"遭遇战","g":"敌人","x":28.217,"y":8.877,"z":"莎尔的试炼"},{"n":"蛰伏伪怪","c":"遭遇战","g":"敌人","x":17.415,"y":20.589,"z":"幽影边域"},{"n":"审判复仇者+暗影战栗xN","c":"遭遇战","g":"敌人","x":17.008,"y":13.855,"z":"藏宝室"},{"n":"幽影诅咒枯藤怪x3+幽影诅咒枯针怪x3","c":"遭遇战","g":"敌人","x":53.333,"y":60.817,"z":"蔽影战场"},{"n":"阴影x3，被诅咒的竖琴手x4","c":"遭遇战","g":"敌人","x":31.228,"y":54.902,"z":"治疗中心"},{"n":"被诅咒的寇涛鱼人x13","c":"遭遇战","g":"敌人","x":32.251,"y":42.815,"z":"大陵寝"},{"n":"幽影诅咒三人组、缚灵、阴影、幽影獒犬","c":"遭遇战","g":"敌人","x":23.038,"y":51.732,"z":"治疗中心"},{"n":"吉斯洋基人追杀小队","c":"遭遇战","g":"敌人","x":21.719,"y":55.119,"z":"残月酒厂"},{"n":"缚灵x1 阴影x5","c":"遭遇战","g":"敌人","x":2.769,"y":56.02,"z":"泥瓦匠工会地下室"},{"n":"卡'尼斯巡逻队or竖琴手小分队","c":"遭遇战","g":"敌人","x":46.329,"y":54.143,"z":"蔽影战场"},{"n":"莎尔的审判复仇者","c":"遭遇战","g":"敌人","x":26.952,"y":14.654,"z":"幽影边域"},{"n":" 鬾魊x4","c":"遭遇战","g":"敌人","x":41.966,"y":52.102,"z":"泥瓦匠行会"},{"n":"幽影獒犬首领*1+幽影獒犬*4","c":"遭遇战","g":"敌人","x":41.811,"y":50.882,"z":"泥瓦匠行会"},{"n":"格灵哥斯·索姆","c":"头目战","g":"敌人","x":36.946,"y":57.33,"z":"征收所"},{"n":"凯瑟里克·索姆 第一战","c":"头目战","g":"敌人","x":31.31,"y":66.52,"z":"征收所"},{"n":"凯瑟里克·索姆","c":"头目战","g":"敌人","x":55.987,"y":89.367,"z":"兵营"},{"n":"至上之神狂信者*2+侍僧+教士","c":"头目战","g":"敌人","x":38.941,"y":67.454,"z":"征收所"},{"n":"眼睛+守卫","c":"头目战","g":"敌人","x":20.159,"y":72.747,"z":"月出之塔监狱"},{"n":"典狱长","c":"头目战","g":"敌人","x":18.379,"y":73.782,"z":"月出之塔监狱"},{"n":"尤格（血甲魔）+军团魔*8+移位兽","c":"头目战","g":"敌人","x":34.393,"y":11.358,"z":"莎尔的试炼"},{"n":"巴萨扎尔","c":"头目战","g":"敌人","x":14.36,"y":13.926,"z":"藏宝室"},{"n":"焰拳马库斯","c":"头目战","g":"敌人","x":39.823,"y":39.256,"z":"终焉光芒旅店"},{"n":"西索博得·索姆","c":"头目战","g":"敌人","x":25.029,"y":58.367,"z":"残月酒厂"},{"n":"幽影诅咒蔓生怪","c":"头目战","g":"敌人","x":50.014,"y":48.07,"z":"蔽影战场"},{"n":"马鲁斯·索姆","c":"头目战","g":"敌人","x":26.602,"y":49.043,"z":"治疗中心"}]},{"id":"city","cn":"博德之门","en":"Baldur's Gate","act":"第三章","img":"image/9nGT5MpUX5b0dGxa4zvv6U.jpg","w":5200,"h":4785,"view":{"x":10.42,"y":36.36,"w":40.42,"h":28.64},"areas":[{"n":"巫术杂货店-2楼","x":44.41,"y":54.75},{"n":"蜂巢杂货铺地下室","x":18.91,"y":75.22},{"n":"染血地下室","x":56.44,"y":33.43},{"n":"走私海湾","x":64.1,"y":58.99},{"n":"拉吉玛斯高塔下层","x":61.45,"y":43.95},{"n":"菲尔格雷弗宅邸-2楼","x":40.1,"y":59.25},{"n":"菲尔格雷弗宅邸-1楼","x":39.9,"y":57.24},{"n":"烟花铺地下室","x":33.46,"y":34.57},{"n":"斯郎博房屋地窖","x":47.06,"y":51.3},{"n":"工会对面房屋地下室","x":47.35,"y":29.51},{"n":"品酒节地下室","x":67.37,"y":32.46},{"n":"精灵之歌酒馆地下室","x":56.19,"y":37.41},{"n":"梨木的地下室","x":24.03,"y":75.22},{"n":"魔鬼的小费","x":36.7,"y":43.3},{"n":"精灵之歌酒馆-2楼","x":43.17,"y":36.67},{"n":"扎尔宅邸-地下","x":28.61,"y":14.24},{"n":"扎尔宅邸-屋顶","x":39.54,"y":13.92},{"n":"谋杀裁判所","x":47.97,"y":16.74},{"n":"古代密室","x":28.17,"y":77.87},{"n":"老加洛的地下室","x":36.23,"y":59.08},{"n":"庭院管理员地下室","x":15.45,"y":41.66},{"n":"雨林的地下室","x":56.04,"y":59.91},{"n":"博得之口地下室","x":43.16,"y":31.08},{"n":"斯郎博房屋地窖","x":15.56,"y":35.1},{"n":"拉玛吉斯高塔","x":61.51,"y":40.88},{"n":"菲尔格雷弗宅邸地下室","x":54.44,"y":46.19},{"n":"白骨斗篷地下室","x":28.35,"y":73.7},{"n":"盾牌骑士藏身点","x":53.53,"y":91.87},{"n":"风暴海岸圣所地下室","x":38.63,"y":32.02},{"n":"塑境迷潭","x":46.81,"y":66.56},{"n":"高歌鲁特琴","x":30.98,"y":53.71},{"n":"罗拉之家","x":35.04,"y":50.51},{"n":"迦纳斯夫人的宅邸","x":21.51,"y":47.24},{"n":"半音商店","x":27.7,"y":48.67},{"n":"加尔布雷斯的地窖","x":38.71,"y":35.68},{"n":"费加罗的地下室","x":34.79,"y":66.08},{"n":"园丁的地下室","x":23.81,"y":71.84},{"n":"半音商店地下室","x":18.81,"y":71.22},{"n":"潜水器","x":8.55,"y":53.66},{"n":"山坡区监狱","x":53.7,"y":49.85},{"n":"巴尔神殿","x":48.69,"y":74.08},{"n":"塑境迷潭码头","x":39.3,"y":65.9},{"n":"塑境迷潭码头","x":39.3,"y":65.9},{"n":"白骨斗篷药材店","x":37.52,"y":46.43},{"n":"日光洞穴","x":57.48,"y":68.16},{"n":"飞龙岩要塞-底层","x":59.44,"y":50.3},{"n":"至高大殿","x":64.67,"y":9.62},{"n":"脸红的美人鱼地下室","x":23.99,"y":26.89},{"n":"贾希拉的地下室","x":27.16,"y":32.72},{"n":"飞龙岩要塞-顶层","x":65.74,"y":45.5},{"n":"大陵寝","x":47.74,"y":33.42},{"n":"葛立安&胡内陵墓","x":51.81,"y":33.18},{"n":"杜林博德陵墓","x":47.97,"y":38.51},{"n":"停尸房地窖","x":51.4,"y":39.91},{"n":"巨龙密室","x":81.71,"y":31.32},{"n":"楚尔特半岛","x":65.74,"y":74.1},{"n":"扎尔宅邸","x":33.45,"y":13.98},{"n":"钢铁卫士铸造厂-控制中心","x":13.53,"y":51.59},{"n":"钢铁卫士铸造厂 实验层","x":13.8,"y":60.23},{"n":"水女王之家-地窖","x":17.98,"y":66.06},{"n":"弗莱姆货运地下室","x":28.57,"y":64.68},{"n":"清账屋高度安全保险库","x":43.52,"y":59.25},{"n":"清账屋保险库","x":49.11,"y":58.97},{"n":"清账屋","x":49.57,"y":55.38},{"n":"巫术杂货店","x":61.48,"y":32.14},{"n":"雨林之家","x":32.98,"y":52.56},{"n":"集会","x":25.57,"y":50.58},{"n":"博德之口","x":42.87,"y":47.88},{"n":"钢铁铸造厂","x":20.18,"y":54.6},{"n":"废弃蓄水池","x":26.74,"y":86.97},{"n":"失落之间","x":87.43,"y":61.7},{"n":"阴影之拥修道院","x":91.66,"y":56.39},{"n":"慈爱神殿地窖","x":56.8,"y":83.23},{"n":"走私者走廊","x":57.24,"y":74.73},{"n":"弗洛杰尔烟花铺","x":39.27,"y":53.13},{"n":"弗莱姆货运","x":28.84,"y":54.26},{"n":"钢铁王座","x":3.56,"y":50.37},{"n":"外界传送门","x":41.05,"y":25.28},{"n":"卡扎多尔的地牢","x":35.31,"y":-0.07},{"n":"埃拉辛之家","x":24.48,"y":47.21},{"n":"飞龙岩要塞-礼堂","x":65.9,"y":50.27},{"n":"水女王之家","x":24.06,"y":61.55},{"n":"清账屋","x":32.72,"y":56.97},{"n":"老加洛之家","x":35.59,"y":54.22},{"n":"哀伤之邸","x":20.58,"y":43.81},{"n":"坎德哈洛墓碑店","x":44.86,"y":42.55},{"n":"菲尔格雷弗宅邸","x":39.78,"y":55.59},{"n":"扎尔宅邸","x":33.5,"y":42.58},{"n":"石化蜥蜴之门营房","x":48.47,"y":45.24},{"n":"底城废墟","x":35.16,"y":82.25},{"n":"木爬梯","x":39.5,"y":89.29},{"n":"公会大厅-九指办公室","x":42.2,"y":94.55},{"n":"下城区下水道","x":37.5,"y":85.83},{"n":"蜂巢杂货店","x":34.23,"y":52.22},{"n":"脸红的美人鱼","x":30.96,"y":50.49},{"n":"暴风海岸军械库","x":36.58,"y":49.93},{"n":"繁花山脊公园","x":32.39,"y":47.46},{"n":"巫术杂物店","x":39.25,"y":50.08},{"n":"品酒节","x":40.5,"y":46.91},{"n":"风暴海岸圣所","x":46.56,"y":45.85},{"n":"精灵之歌酒馆","x":43.17,"y":44.33},{"n":"墓园","x":40.19,"y":41.85},{"n":"勇气之间","x":83.32,"y":48.79},{"n":"正义之间","x":79.75,"y":48.42},{"n":"洞察之间","x":78.82,"y":45.35},{"n":"策略之间","x":82.78,"y":46.0},{"n":"远古龙之路","x":81.05,"y":44.63},{"n":"希望之邸","x":37.17,"y":18.68},{"n":"九层锻炉","x":38.78,"y":44.02},{"n":"慈爱神殿","x":72.1,"y":68.59},{"n":"末日马戏团","x":71.7,"y":71.69},{"n":"药水店","x":74.53,"y":58.49},{"n":"丹瑟隆的飞斧","x":74.43,"y":57.92},{"n":"小卡行装","x":76.66,"y":58.37},{"n":"夏芮丝的爱抚","x":76.88,"y":61.77},{"n":"弗雷戈招待所","x":74.24,"y":62.02},{"n":"南翼检查点","x":75.49,"y":65.17},{"n":"剑湾快递","x":76.7,"y":67.51},{"n":"古尔营地","x":82.15,"y":69.28},{"n":"被遗弃的磨坊","x":78.2,"y":70.36},{"n":"利文顿综合商店","x":75.28,"y":72.26},{"n":"阿尔弗宅邸","x":77.18,"y":73.2},{"n":"强制征用的谷仓","x":80.63,"y":76.77},{"n":"利文顿","x":74.07,"y":75.19},{"n":"飞龙岩要塞","x":75.68,"y":53.0},{"n":"飞龙岩要塞监狱","x":82.84,"y":55.5},{"n":"魔鬼的小费-2楼","x":36.65,"y":39.65},{"n":"唤颜精品店","x":27.7,"y":46.65},{"n":"博德之门","x":26.07,"y":42.05}],"pins":[{"n":"传送点-塑境迷潭码头","c":"传送点","g":"地点","x":39.724,"y":66.79,"z":"塑境迷潭码头"},{"n":"卡扎多尔的地牢","c":"传送点","g":"地点","x":35.306,"y":11.441,"z":"扎尔宅邸"},{"n":"底城废墟","c":"传送点","g":"地点","x":35.427,"y":83.014,"z":"底城废墟"},{"n":"传送点-利文顿","c":"传送点","g":"地点","x":73.806,"y":76.389,"z":"利文顿"},{"n":"传送点- 飞龙关南翼","c":"传送点","g":"地点","x":76.638,"y":62.679,"z":"夏芮丝的爱抚"},{"n":"传送点-飞龙岩要塞","c":"传送点","g":"地点","x":58.514,"y":52.637,"z":"飞龙岩要塞-底层"},{"n":"传送点-城市下水道","c":"传送点","g":"地点","x":37.909,"y":94.74,"z":"公会大厅-九指办公室"},{"n":"传送点-巴尔神庙","c":"传送点","g":"地点","x":40.8,"y":77.536,"z":"底城废墟"},{"n":"传送点- 石化蜥蜴之门","c":"传送点","g":"地点","x":48.285,"y":46.769,"z":"石化蜥蜴之门营房"},{"n":"传送点- 下城主墙","c":"传送点","g":"地点","x":35.75,"y":48.019,"z":"暴风海岸军械库"},{"n":"传送点- 灰色港口","c":"传送点","g":"地点","x":24.452,"y":55.48,"z":"钢铁铸造厂"},{"n":"传送点-博德之门","c":"传送点","g":"地点","x":25.79,"y":45.848,"z":"埃拉辛之家"},{"n":"传送点-山坡区海岸","c":"传送点","g":"地点","x":40.773,"y":53.719,"z":"弗洛杰尔烟花铺"},{"n":"传送阵","c":"出入口","g":"地点","x":43.793,"y":56.669,"z":"巫术杂货店-2楼"},{"n":"木爬梯","c":"出入口","g":"地点","x":55.01,"y":61.804,"z":"雨林的地下室"},{"n":"木爬梯","c":"出入口","g":"地点","x":19.525,"y":76.428,"z":"蜂巢杂货铺地下室"},{"n":"木爬梯","c":"出入口","g":"地点","x":15.642,"y":42.022,"z":"庭院管理员地下室"},{"n":"楼梯","c":"出入口","g":"地点","x":55.952,"y":35.088,"z":"染血地下室"},{"n":"上方","c":"出入口","g":"地点","x":61.168,"y":44.594,"z":"拉吉玛斯高塔下层"},{"n":"通向地下室","c":"出入口","g":"地点","x":39.743,"y":60.751,"z":"菲尔格雷弗宅邸-2楼"},{"n":"洞","c":"出入口","g":"地点","x":55.048,"y":47.579,"z":"菲尔格雷弗宅邸地下室"},{"n":"菲尔格雷弗宅邸-2层","c":"出入口","g":"地点","x":53.931,"y":47.799,"z":"菲尔格雷弗宅邸地下室"},{"n":"监牢出口","c":"出入口","g":"地点","x":54.556,"y":51.103,"z":"山坡区监狱"},{"n":"木爬梯","c":"出入口","g":"地点","x":47.001,"y":30.42,"z":"工会对面房屋地下室"},{"n":"木爬梯","c":"出入口","g":"地点","x":45.901,"y":53.461,"z":"巫术杂货店-2楼"},{"n":"木爬梯","c":"出入口","g":"地点","x":47.001,"y":30.42,"z":"工会对面房屋地下室"},{"n":"品酒节","c":"出入口","g":"地点","x":67.532,"y":32.942,"z":"品酒节地下室"},{"n":"品酒节","c":"出入口","g":"地点","x":67.532,"y":32.942,"z":"品酒节地下室"},{"n":"下城区下水道","c":"出入口","g":"地点","x":52.326,"y":92.858,"z":"盾牌骑士藏身点"},{"n":"下城区下水道","c":"出入口","g":"地点","x":52.326,"y":92.858,"z":"盾牌骑士藏身点"},{"n":"暗门","c":"出入口","g":"地点","x":53.534,"y":97.808,"z":"盾牌骑士藏身点"},{"n":"暗门","c":"出入口","g":"地点","x":56.288,"y":38.101,"z":"精灵之歌酒馆地下室"},{"n":"木爬梯","c":"出入口","g":"地点","x":56.321,"y":41.558,"z":"精灵之歌酒馆地下室"},{"n":"木爬梯","c":"出入口","g":"地点","x":30.141,"y":75.073,"z":"白骨斗篷地下室"},{"n":"梨木之家","c":"出入口","g":"地点","x":23.601,"y":76.223,"z":"梨木的地下室"},{"n":"下城区-墓碑店","c":"出入口","g":"地点","x":45.061,"y":21.137,"z":"谋杀裁判所"},{"n":"下城区下水道","c":"出入口","g":"地点","x":27.647,"y":78.107,"z":"古代密室"},{"n":"洞口","c":"出入口","g":"地点","x":29.834,"y":80.466,"z":"古代密室"},{"n":"风暴海岸圣所","c":"出入口","g":"地点","x":38.165,"y":33.533,"z":"风暴海岸圣所地下室"},{"n":"登陆点","c":"出入口","g":"地点","x":46.468,"y":73.559,"z":"巴尔神殿"},{"n":"木爬梯","c":"出入口","g":"地点","x":35.383,"y":67.125,"z":"费加罗的地下室"},{"n":"井盖","c":"出入口","g":"地点","x":28.47,"y":48.473,"z":"半音商店"},{"n":"半音商店地下室","c":"出入口","g":"地点","x":27.764,"y":48.689,"z":"半音商店"},{"n":"卡扎多尔的宫殿","c":"出入口","g":"地点","x":40.876,"y":14.12,"z":"扎尔宅邸-屋顶"},{"n":"下城区下水道","c":"出入口","g":"地点","x":23.405,"y":72.708,"z":"园丁的地下室"},{"n":"下城区","c":"出入口","g":"地点","x":24.56,"y":72.714,"z":"园丁的地下室"},{"n":"下城区-半音商店","c":"出入口","g":"地点","x":18.208,"y":72.398,"z":"半音商店地下室"},{"n":"清账屋高度安全保险库","c":"出入口","g":"地点","x":52.152,"y":61.78,"z":"清账屋保险库"},{"n":"下城区-清账屋","c":"出入口","g":"地点","x":47.014,"y":61.802,"z":"清账屋保险库"},{"n":"下城区-弗莱姆货运","c":"出入口","g":"地点","x":28.683,"y":65.531,"z":"弗莱姆货运地下室"},{"n":"下城区下水道","c":"出入口","g":"地点","x":27.124,"y":67.681,"z":"弗莱姆货运地下室"},{"n":"电梯","c":"出入口","g":"地点","x":12.119,"y":63.482,"z":"钢铁卫士铸造厂 实验层"},{"n":"控制中心","c":"出入口","g":"地点","x":13.76,"y":60.696,"z":"钢铁卫士铸造厂 实验层"},{"n":"钢铁卫士铸造厂-实验层","c":"出入口","g":"地点","x":10.646,"y":54.804,"z":"潜水器"},{"n":"下城区-水女王之家","c":"出入口","g":"地点","x":20.585,"y":67.697,"z":"水女王之家-地窖"},{"n":"白骨斗篷地下室","c":"出入口","g":"地点","x":36.422,"y":46.661,"z":"白骨斗篷药材店"},{"n":"梨木的地下室","c":"出入口","g":"地点","x":41.103,"y":52.421,"z":"弗洛杰尔烟花铺"},{"n":"下城区下水道","c":"出入口","g":"地点","x":54.476,"y":53.749,"z":"山坡区监狱"},{"n":"下城区下水道","c":"出入口","g":"地点","x":55.056,"y":53.718,"z":"山坡区监狱"},{"n":"下城区-墓园","c":"出入口","g":"地点","x":53.279,"y":37.395,"z":"精灵之歌酒馆地下室"},{"n":"洞-杜林伯德陵墓","c":"出入口","g":"地点","x":51.19,"y":38.836,"z":"停尸房地窖"},{"n":"下城区-墓园","c":"出入口","g":"地点","x":50.054,"y":37.922,"z":"杜林博德陵墓"},{"n":"葛立安陵墓","c":"出入口","g":"地点","x":39.98,"y":41.615,"z":"墓园"},{"n":"九层锻炉地下室","c":"出入口","g":"地点","x":38.308,"y":44.074,"z":"九层锻炉"},{"n":"大陵寝","c":"出入口","g":"地点","x":38.717,"y":41.313,"z":"墓园"},{"n":"胡内陵墓","c":"出入口","g":"地点","x":40.391,"y":40.992,"z":"墓园"},{"n":"杜林伯德陵墓","c":"出入口","g":"地点","x":41.475,"y":42.698,"z":"墓园"},{"n":"停尸房地窖","c":"出入口","g":"地点","x":41.446,"y":42.233,"z":"墓园"},{"n":"洞-葛立安陵墓","c":"出入口","g":"地点","x":46.611,"y":40.216,"z":"杜林博德陵墓"},{"n":"下城区-墓园","c":"出入口","g":"地点","x":48.028,"y":39.555,"z":"杜林博德陵墓"},{"n":"传送门","c":"出入口","g":"地点","x":61.426,"y":35.967,"z":"巫术杂货店"},{"n":"传送门","c":"出入口","g":"地点","x":61.426,"y":35.967,"z":"巫术杂货店"},{"n":"利文顿-水井","c":"出入口","g":"地点","x":58.252,"y":69.078,"z":"日光洞穴"},{"n":"利文顿","c":"出入口","g":"地点","x":57.7,"y":72.647,"z":"走私者走廊"},{"n":"顶层","c":"出入口","g":"地点","x":64.6,"y":51.146,"z":"飞龙岩要塞-礼堂"},{"n":"礼堂","c":"出入口","g":"地点","x":64.533,"y":46.466,"z":"飞龙岩要塞-顶层"},{"n":"飞龙岩监狱","c":"出入口","g":"地点","x":81.493,"y":33.296,"z":"巨龙密室"},{"n":"远古龙之路","c":"出入口","g":"地点","x":81.476,"y":40.372,"z":"远古龙之路"},{"n":"水井入口","c":"出入口","g":"地点","x":76.323,"y":69.177,"z":"剑湾快递"},{"n":"安苏巢穴","c":"出入口","g":"地点","x":81.459,"y":55.571,"z":"飞龙岩要塞监狱"},{"n":"通往飞龙岩要塞外围的洞","c":"出入口","g":"地点","x":82.286,"y":56.222,"z":"飞龙岩要塞监狱"},{"n":"捷径","c":"出入口","g":"地点","x":72.764,"y":53.323,"z":"飞龙岩要塞"},{"n":"水女王的地窖","c":"出入口","g":"地点","x":22.186,"y":63.425,"z":"水女王之家"},{"n":"紧闭的裂缝","c":"出入口","g":"地点","x":79.206,"y":64.583,"z":"夏芮丝的爱抚"},{"n":"活板门","c":"出入口","g":"地点","x":41.762,"y":50.902,"z":"巫术杂物店"},{"n":"圆桌骑士会议厅","c":"出入口","g":"地点","x":48.503,"y":93.494,"z":"盾牌骑士藏身点"},{"n":"门","c":"出入口","g":"地点","x":27.828,"y":33.881,"z":"贾希拉的地下室"},{"n":"门","c":"出入口","g":"地点","x":22.589,"y":28.626,"z":"脸红的美人鱼地下室"},{"n":"地窖门","c":"出入口","g":"地点","x":22.179,"y":28.875,"z":"脸红的美人鱼地下室"},{"n":"橡木门","c":"出入口","g":"地点","x":30.827,"y":51.033,"z":"脸红的美人鱼"},{"n":"传送门","c":"出入口","g":"地点","x":26.677,"y":50.149,"z":"集会"},{"n":"下水道入口","c":"出入口","g":"地点","x":50.33,"y":44.441,"z":"石化蜥蜴之门营房"},{"n":"黑暗沉淀","c":"出入口","g":"地点","x":32.932,"y":5.108,"z":"卡扎多尔的地牢"},{"n":"金属华盖","c":"出入口","g":"地点","x":35.346,"y":11.752,"z":"扎尔宅邸"},{"n":"门","c":"出入口","g":"地点","x":33.434,"y":18.358,"z":"希望之邸"},{"n":"活板门","c":"出入口","g":"地点","x":33.194,"y":52.539,"z":"雨林之家"},{"n":"活板门","c":"出入口","g":"地点","x":33.194,"y":52.539,"z":"雨林之家"},{"n":"古代密室出入口","c":"出入口","g":"地点","x":31.748,"y":82.968,"z":"底城废墟"},{"n":"楼梯","c":"出入口","g":"地点","x":44.896,"y":97.966,"z":"公会大厅-九指办公室"},{"n":"贾希拉的藏身点入口","c":"出入口","g":"地点","x":24.116,"y":46.392,"z":"埃拉辛之家"},{"n":"双开金属门","c":"出入口","g":"地点","x":27.841,"y":54.417,"z":"弗莱姆货运"},{"n":"木爬梯","c":"出入口","g":"地点","x":25.706,"y":86.899,"z":"废弃蓄水池"},{"n":"门","c":"出入口","g":"地点","x":22.32,"y":50.324,"z":"迦纳斯夫人的宅邸"},{"n":"洞口","c":"出入口","g":"地点","x":58.426,"y":84.315,"z":"慈爱神殿地窖"},{"n":"铁爬梯","c":"出入口","g":"地点","x":54.237,"y":84.326,"z":"慈爱神殿地窖"},{"n":"显露秘密的台阶","c":"出入口","g":"地点","x":97.445,"y":56.039,"z":"阴影之拥修道院"},{"n":"通道","c":"出入口","g":"地点","x":56.113,"y":76.612,"z":"走私者走廊"},{"n":"活板门","c":"出入口","g":"地点","x":38.978,"y":52.809,"z":"弗洛杰尔烟花铺"},{"n":"活板门","c":"出入口","g":"地点","x":77.942,"y":73.119,"z":"阿尔弗宅邸"},{"n":"地下室","c":"出入口","g":"地点","x":28.393,"y":54.344,"z":"弗莱姆货运"},{"n":"地下室","c":"出入口","g":"地点","x":28.393,"y":54.344,"z":"弗莱姆货运"},{"n":"地库大门","c":"出入口","g":"地点","x":33.309,"y":57.567,"z":"清账屋"},{"n":"监狱舱门","c":"出入口","g":"地点","x":39.18,"y":25.908,"z":"外界传送门"},{"n":"地窖门","c":"出入口","g":"地点","x":31.217,"y":50.799,"z":"脸红的美人鱼"},{"n":"通道 ","c":"出入口","g":"地点","x":34.109,"y":81.516,"z":"底城废墟"},{"n":"金属华盖","c":"出入口","g":"地点","x":31.784,"y":16.877,"z":"扎尔宅邸"},{"n":"门","c":"出入口","g":"地点","x":32.468,"y":16.381,"z":"扎尔宅邸"},{"n":"扎尔宅邸","c":"出入口","g":"地点","x":33.584,"y":43.55,"z":"扎尔宅邸"},{"n":"黑暗沉淀","c":"出入口","g":"地点","x":37.243,"y":86.398,"z":"下城区下水道"},{"n":"显露的秘密阶梯","c":"出入口","g":"地点","x":20.76,"y":43.535,"z":"哀伤之邸"},{"n":"前往下城区","c":"出入口","g":"地点","x":75.548,"y":48.79,"z":"飞龙岩要塞"},{"n":"门","c":"出入口","g":"地点","x":67.518,"y":52.78,"z":"飞龙岩要塞-礼堂"},{"n":"门","c":"出入口","g":"地点","x":77.888,"y":53.014,"z":"飞龙岩要塞"},{"n":"通往飞龙岩要塞监狱的裂缝","c":"出入口","g":"地点","x":78.568,"y":54.49,"z":"飞龙岩要塞"},{"n":"监狱通往飞龙岩要塞的裂缝","c":"出入口","g":"地点","x":84.062,"y":54.424,"z":"飞龙岩要塞监狱"},{"n":"通道","c":"出入口","g":"地点","x":82.874,"y":56.834,"z":"飞龙岩要塞监狱"},{"n":"通道","c":"出入口","g":"地点","x":73.699,"y":53.021,"z":"飞龙岩要塞"},{"n":"门","c":"出入口","g":"地点","x":81.688,"y":51.23,"z":"勇气之间"},{"n":"门","c":"出入口","g":"地点","x":81.769,"y":54.446,"z":"飞龙岩要塞监狱"},{"n":"传送门","c":"出入口","g":"地点","x":37.135,"y":28.126,"z":"风暴海岸圣所地下室"},{"n":"传送门","c":"出入口","g":"地点","x":37.034,"y":41.109,"z":"魔鬼的小费-2楼"},{"n":"传送点","c":"出入口","g":"地点","x":45.461,"y":56.247,"z":"巫术杂货店-2楼"},{"n":"通风口","c":"出入口","g":"地点","x":22.751,"y":53.456,"z":"钢铁铸造厂"},{"n":"黏腻腻臭烘烘地上爬梯","c":"出入口","g":"地点","x":34.109,"y":90.161,"z":"下城区下水道"},{"n":"隐秘入口","c":"出入口","g":"地点","x":43.477,"y":51.22,"z":"博德之口"},{"n":"木爬梯","c":"出入口","g":"地点","x":47.902,"y":94.448,"z":"公会大厅-九指办公室"},{"n":"井盖","c":"出入口","g":"地点","x":47.619,"y":46.272,"z":"风暴海岸圣所"},{"n":"木爬梯","c":"出入口","g":"地点","x":48.48,"y":93.191,"z":"盾牌骑士藏身点"},{"n":"活板门","c":"出入口","g":"地点","x":78.386,"y":70.703,"z":"被遗弃的磨坊"},{"n":"活板门","c":"出入口","g":"地点","x":78.386,"y":70.703,"z":"被遗弃的磨坊"},{"n":"角铁地窖","c":"出入口","g":"地点","x":77.424,"y":66.092,"z":"剑湾快递"},{"n":"阁楼","c":"出入口","g":"地点","x":34.664,"y":13.99,"z":"扎尔宅邸"},{"n":"地下室","c":"出入口","g":"地点","x":36.947,"y":42.91,"z":"魔鬼的小费"},{"n":"礼拜堂地下室","c":"出入口","g":"地点","x":46.204,"y":46.086,"z":"风暴海岸圣所"},{"n":"木爬梯","c":"出入口","g":"地点","x":39.28,"y":89.16,"z":"木爬梯"},{"n":"井盖","c":"出入口","g":"地点","x":24.909,"y":49.001,"z":"集会"},{"n":"洞","c":"出入口","g":"地点","x":41.13,"y":56.032,"z":"菲尔格雷弗宅邸"},{"n":"地窖门","c":"出入口","g":"地点","x":45.461,"y":42.709,"z":"坎德哈洛墓碑店"},{"n":"木楼梯","c":"出入口","g":"地点","x":43.457,"y":43.615,"z":"精灵之歌酒馆"},{"n":"通道","c":"出入口","g":"地点","x":60.696,"y":59.862,"z":"走私海湾"},{"n":"大门","c":"出入口","g":"地点","x":81.002,"y":46.137,"z":"远古龙之路"},{"n":"通往飞龙岩监狱的老鼠洞","c":"出入口","g":"地点","x":70.545,"y":53.606,"z":"飞龙岩要塞"},{"n":"出入口-慈爱神殿地下室","c":"出入口","g":"地点","x":71.423,"y":67.929,"z":"慈爱神殿"},{"n":"出入口-最终决战","c":"出入口","g":"地点","x":38.85,"y":66.413,"z":"塑境迷潭码头"},{"n":"恶毒短弓","c":"强力武器","g":"装备","x":49.391,"y":20.708,"z":"谋杀裁判所"},{"n":"多洛的凄凉","c":"强力武器","g":"装备","x":49.18,"y":20.697,"z":"谋杀裁判所"},{"n":"混沌之剑","c":"强力武器","g":"装备","x":50.188,"y":21.018,"z":"谋杀裁判所"},{"n":"地狱骑士团长弓","c":"强力武器","g":"装备","x":78.904,"y":75.172,"z":"强制征用的谷仓"},{"n":"猩红诡计","c":"强力武器","g":"装备","x":51.005,"y":77.741,"z":"巴尔神殿"},{"n":"寒潮","c":"强力武器","g":"装备","x":78.523,"y":75.184,"z":"阿尔弗宅邸"},{"n":"矮人投手","c":"强力武器","g":"装备","x":78.661,"y":74.957,"z":"阿尔弗宅邸"},{"n":"玛科赫什基","c":"强力武器","g":"装备","x":61.575,"y":44.982,"z":"拉吉玛斯高塔下层"},{"n":"锻神旋涡","c":"强力武器","g":"装备","x":13.542,"y":54.859,"z":"钢铁卫士铸造厂-控制中心"},{"n":"星界银剑","c":"强力武器","g":"装备","x":76.927,"y":61.652,"z":"夏芮丝的爱抚"},{"n":"致命一击","c":"强力武器","g":"装备","x":36.98,"y":50.237,"z":"暴风海岸军械库"},{"n":"维康妮亚的行走堡垒","c":"强力武器","g":"装备","x":91.56,"y":62.032,"z":"失落之间"},{"n":"尼鲁纳","c":"强力武器","g":"装备","x":68.016,"y":80.606,"z":"楚尔特半岛"},{"n":"死灵珍爱法杖","c":"强力武器","g":"装备","x":40.096,"y":55.16,"z":"菲尔格雷弗宅邸"},{"n":"灵魂捕捉手套","c":"强力武器","g":"装备","x":36.891,"y":28.696,"z":"风暴海岸圣所地下室"},{"n":"狂想曲","c":"强力武器","g":"装备","x":35.286,"y":1.725,"z":"卡扎多尔的地牢"},{"n":"武器塞山，极效防御长袍，水妖精披风。","c":"武器","g":"装备","x":78.242,"y":75.16,"z":"阿尔弗宅邸"},{"n":"君主之剑","c":"武器","g":"装备","x":53.877,"y":92.31,"z":"盾牌骑士藏身点"},{"n":"反抗尖杖","c":"武器","g":"装备","x":27.609,"y":80.703,"z":"古代密室"},{"n":"正义之锤","c":"武器","g":"装备","x":39.335,"y":33.429,"z":"风暴海岸圣所地下室"},{"n":"古尔的长臂","c":"武器","g":"装备","x":42.905,"y":63.209,"z":"清账屋高度安全保险库"},{"n":"波涛三叉戟","c":"武器","g":"装备","x":44.008,"y":60.388,"z":"清账屋高度安全保险库"},{"n":"雷文伽德的鞭笞","c":"武器","g":"装备","x":43.416,"y":60.344,"z":"清账屋高度安全保险库"},{"n":"地狱硬头锤","c":"武器","g":"装备","x":20.086,"y":54.963,"z":"钢铁铸造厂"},{"n":"地狱火引擎弩","c":"武器","g":"装备","x":17.521,"y":54.181,"z":"钢铁铸造厂"},{"n":"雷文伽德公爵长剑","c":"武器","g":"装备","x":6.039,"y":54.322,"z":"潜水器"},{"n":"阿斯卡特拉的绝望","c":"武器","g":"装备","x":61.379,"y":42.323,"z":"拉玛吉斯高塔"},{"n":"破敌者","c":"武器","g":"装备","x":59.254,"y":38.36,"z":"精灵之歌酒馆地下室"},{"n":"地狱火双刃斧","c":"武器","g":"装备","x":61.479,"y":40.312,"z":"拉玛吉斯高塔"},{"n":"不死灾祸","c":"武器","g":"装备","x":81.87,"y":68.916,"z":"古尔营地"},{"n":"组装劲弩","c":"武器","g":"装备","x":63.753,"y":48.192,"z":"飞龙岩要塞-礼堂"},{"n":"地狱短矛","c":"武器","g":"装备","x":64.481,"y":52.363,"z":"飞龙岩要塞-礼堂"},{"n":"杀死神父的武器","c":"武器","g":"装备","x":58.685,"y":85.597,"z":"慈爱神殿地窖"},{"n":"博德安的巨人杀手","c":"武器","g":"装备","x":81.426,"y":36.008,"z":"巨龙密室"},{"n":"沃斯的银剑","c":"武器","g":"装备","x":76.671,"y":61.762,"z":"夏芮丝的爱抚"},{"n":"沃斯的银剑","c":"武器","g":"装备","x":76.671,"y":61.762,"z":"夏芮丝的爱抚"},{"n":"俄耳甫斯之锤","c":"武器","g":"装备","x":76.853,"y":61.579,"z":"夏芮丝的爱抚"},{"n":"咸味弯刀","c":"武器","g":"装备","x":24.095,"y":30.102,"z":"脸红的美人鱼地下室"},{"n":"公羊法杖","c":"武器","g":"装备","x":24.647,"y":38.076,"z":"博德之门"},{"n":"贝尔姆","c":"武器","g":"装备","x":24.519,"y":38.032,"z":"博德之门"},{"n":"嗜血","c":"武器","g":"装备","x":51.069,"y":77.935,"z":"巴尔神殿"},{"n":"星界银剑","c":"武器","g":"装备","x":39.871,"y":91.028,"z":"木爬梯"},{"n":"信徒硬头锤","c":"武器","g":"装备","x":36.624,"y":28.685,"z":"风暴海岸圣所地下室"},{"n":"圣星","c":"武器","g":"装备","x":46.147,"y":45.501,"z":"风暴海岸圣所"},{"n":"霍洛的法杖","c":"武器","g":"装备","x":70.316,"y":70.299,"z":"末日马戏团"},{"n":"侍女硬头锤","c":"武器","g":"装备","x":91.533,"y":61.557,"z":"失落之间"},{"n":"决斗者的特权","c":"武器","g":"装备","x":49.388,"y":44.631,"z":"石化蜥蜴之门营房"},{"n":"静止者","c":"武器","g":"装备","x":58.547,"y":86.116,"z":"慈爱神殿地窖"},{"n":"蹁跹轻风","c":"武器","g":"装备","x":76.207,"y":70.582,"z":"利文顿综合商店"},{"n":"斯怀尔斯的滑板","c":"武器","g":"装备","x":76.026,"y":70.545,"z":"利文顿综合商店"},{"n":"舞光匕首","c":"武器","g":"装备","x":60.868,"y":59.935,"z":"走私海湾"},{"n":"培罗的阳光之刃","c":"武器","g":"装备","x":35.568,"y":9.581,"z":"扎尔宅邸"},{"n":"干扰法杖","c":"武器","g":"装备","x":35.531,"y":54.715,"z":"老加洛之家"},{"n":"驱散火把","c":"武器","g":"装备","x":40.282,"y":55.506,"z":"菲尔格雷弗宅邸"},{"n":"绞尸机","c":"武器","g":"装备","x":60.928,"y":59.65,"z":"走私海湾"},{"n":"俄耳甫斯之锤","c":"武器","g":"装备","x":74.638,"y":59.583,"z":"药水店"},{"n":"小丑之锤","c":"武器","g":"装备","x":72.845,"y":70.473,"z":"末日马戏团"},{"n":"法术之力法杖","c":"武器","g":"装备","x":36.786,"y":24.174,"z":"外界传送门"},{"n":"不死灾祸","c":"武器","g":"装备","x":35.293,"y":10.59,"z":"扎尔宅邸"},{"n":"悲伤","c":"武器","g":"装备","x":35.353,"y":2.514,"z":"卡扎多尔的地牢"},{"n":"凶残切割","c":"武器","g":"装备","x":32.603,"y":45.23,"z":"繁花山脊公园"},{"n":"巴尔信徒护甲","c":"强力防具","g":"装备","x":49.556,"y":20.558,"z":"谋杀裁判所"},{"n":"沙佛洛克的角盔","c":"强力防具","g":"装备","x":50.316,"y":21.176,"z":"谋杀裁判所"},{"n":"火热之欲手套","c":"强力防具","g":"装备","x":48.982,"y":20.513,"z":"谋杀裁判所"},{"n":"天赋神权","c":"强力防具","g":"装备","x":39.734,"y":50.013,"z":"巫术杂物店"},{"n":"不羁库席戈之靴","c":"强力防具","g":"装备","x":58.194,"y":53.723,"z":"飞龙岩要塞-底层"},{"n":"疾速纵火帽","c":"强力防具","g":"装备","x":63.606,"y":37.951,"z":"拉玛吉斯高塔"},{"n":"黯狱之靴","c":"强力防具","g":"装备","x":63.46,"y":47.112,"z":"飞龙岩要塞-顶层"},{"n":"黯狱手套","c":"强力防具","g":"装备","x":37.606,"y":20.105,"z":"希望之邸"},{"n":"博德安之盔","c":"强力防具","g":"装备","x":81.581,"y":33.61,"z":"巨龙密室"},{"n":"骨刺手套","c":"强力防具","g":"装备","x":35.474,"y":78.888,"z":"底城废墟"},{"n":"坚毅之甲","c":"强力防具","g":"装备","x":39.475,"y":43.981,"z":"九层锻炉"},{"n":"坚毅之靴","c":"强力防具","g":"装备","x":38.561,"y":44.185,"z":"九层锻炉"},{"n":"大师的遗产","c":"强力防具","g":"装备","x":38.574,"y":44.595,"z":"九层锻炉"},{"n":"识魂面具","c":"强力防具","g":"装备","x":37.088,"y":40.056,"z":"魔鬼的小费-2楼"},{"n":"法威手套","c":"强力防具","g":"装备","x":70.397,"y":70.035,"z":"末日马戏团"},{"n":"位移斗篷","c":"强力防具","g":"装备","x":74.835,"y":58.049,"z":"丹瑟隆的飞斧"},{"n":"勇气头盔","c":"强力防具","g":"装备","x":27.846,"y":18.107,"z":"扎尔宅邸-地下"},{"n":"黯狱护甲","c":"强力防具","g":"装备","x":37.129,"y":28.406,"z":"风暴海岸圣所地下室"},{"n":"火焰搪瓷护甲","c":"防具","g":"装备","x":73.79,"y":54.703,"z":"飞龙岩要塞"},{"n":"魔网长袍","c":"防具","g":"装备","x":61.333,"y":45.143,"z":"拉吉玛斯高塔下层"},{"n":"额叶堡垒护甲","c":"防具","g":"装备","x":54.124,"y":92.909,"z":"盾牌骑士藏身点"},{"n":"额叶堡垒手套","c":"防具","g":"装备","x":54.114,"y":92.785,"z":"盾牌骑士藏身点"},{"n":"灵能移动之靴","c":"防具","g":"装备","x":53.23,"y":95.493,"z":"盾牌骑士藏身点"},{"n":"屏蔽护盾","c":"防具","g":"装备","x":39.734,"y":33.46,"z":"风暴海岸圣所地下室"},{"n":"水妖精披风","c":"防具","g":"装备","x":44.156,"y":63.34,"z":"清账屋高度安全保险库"},{"n":"迦纳斯的帽子","c":"防具","g":"装备","x":43.268,"y":63.267,"z":"清账屋高度安全保险库"},{"n":"优雅镶钉皮甲","c":"防具","g":"装备","x":45.071,"y":61.805,"z":"清账屋高度安全保险库"},{"n":"灵指手套","c":"防具","g":"装备","x":42.381,"y":61.805,"z":"清账屋高度安全保险库"},{"n":"钢铁卫士头盔","c":"防具","g":"装备","x":20.963,"y":53.891,"z":"钢铁铸造厂"},{"n":"元帅纹章板甲","c":"防具","g":"装备","x":6.354,"y":54.366,"z":"潜水器"},{"n":"阿斯卡特拉避难所","c":"防具","g":"装备","x":61.688,"y":42.359,"z":"拉玛吉斯高塔"},{"n":"权威服饰","c":"防具","g":"装备","x":63.779,"y":48.192,"z":"飞龙岩要塞-礼堂"},{"n":"暴君铁手套","c":"防具","g":"装备","x":63.739,"y":47.724,"z":"飞龙岩要塞-顶层"},{"n":"火焰搪瓷护甲","c":"防具","g":"装备","x":57.12,"y":55.147,"z":"雨林的地下室"},{"n":"尖顶帽","c":"防具","g":"装备","x":70.027,"y":70.338,"z":"末日马戏团"},{"n":"敏锐施法者之帽","c":"防具","g":"装备","x":36.924,"y":40.852,"z":"魔鬼的小费-2楼"},{"n":"血腥皮甲","c":"防具","g":"装备","x":74.445,"y":61.805,"z":"弗雷戈招待所"},{"n":"神圣战士斗篷","c":"防具","g":"装备","x":47.007,"y":45.603,"z":"风暴海岸圣所"},{"n":"复苏之手","c":"防具","g":"装备","x":46.389,"y":45.676,"z":"风暴海岸圣所"},{"n":"战神的铁手套","c":"防具","g":"装备","x":74.829,"y":58.458,"z":"药水店"},{"n":"维康妮亚的女祭司袍","c":"防具","g":"装备","x":92.071,"y":61.835,"z":"失落之间"},{"n":"波浪之母的披风","c":"防具","g":"装备","x":23.073,"y":62.039,"z":"水女王之家"},{"n":"月照护甲","c":"防具","g":"装备","x":33.981,"y":82.619,"z":"底城废墟"},{"n":"骨制头盔","c":"防具","g":"装备","x":34.412,"y":82.583,"z":"底城废墟"},{"n":"变形生物帽子","c":"防具","g":"装备","x":37.135,"y":40.875,"z":"魔鬼的小费-2楼"},{"n":"魔网斗篷","c":"防具","g":"装备","x":37.115,"y":40.743,"z":"魔鬼的小费-2楼"},{"n":"双子手套","c":"防具","g":"装备","x":36.449,"y":40.794,"z":"魔鬼的小费-2楼"},{"n":"骨刺鞋","c":"防具","g":"装备","x":58.109,"y":77.05,"z":"走私者走廊"},{"n":"骨刺装束","c":"防具","g":"装备","x":75.911,"y":70.479,"z":"利文顿综合商店"},{"n":"斯凯比的拳击手饰环","c":"防具","g":"装备","x":78.615,"y":77.131,"z":"强制征用的谷仓"},{"n":"黑暗移位手套","c":"防具","g":"装备","x":70.518,"y":72.198,"z":"末日马戏团"},{"n":"狂战士的号角","c":"防具","g":"装备","x":74.492,"y":57.983,"z":"丹瑟隆的飞斧"},{"n":"黯影杀手披风","c":"防具","g":"装备","x":43.45,"y":96.245,"z":"公会大厅-九指办公室"},{"n":"醉酒服装","c":"防具","g":"装备","x":43.403,"y":95.142,"z":"公会大厅-九指办公室"},{"n":"清晨面纱","c":"防具","g":"装备","x":40.666,"y":55.79,"z":"菲尔格雷弗宅邸"},{"n":"孢子守护者护甲","c":"防具","g":"装备","x":40.533,"y":55.573,"z":"菲尔格雷弗宅邸"},{"n":"尖顶帽","c":"防具","g":"装备","x":69.926,"y":69.676,"z":"慈爱神殿"},{"n":"拳击天使","c":"防具","g":"装备","x":69.657,"y":68.324,"z":"慈爱神殿"},{"n":"黯狱头盔","c":"防具","g":"装备","x":37.205,"y":24.484,"z":"外界传送门"},{"n":"山丘巨人力量手套","c":"防具","g":"装备","x":32.621,"y":24.091,"z":"希望之邸"},{"n":"妖精外观护符","c":"强力首饰","g":"装备","x":35.467,"y":54.505,"z":"老加洛之家"},{"n":"酒鬼护符","c":"强力首饰","g":"装备","x":76.96,"y":62.368,"z":"夏芮丝的爱抚"},{"n":"高等生命护符","c":"强力首饰","g":"装备","x":32.754,"y":26.453,"z":"烟花铺地下室"},{"n":"法术学者护符","c":"首饰","g":"装备","x":43.658,"y":63.311,"z":"清账屋高度安全保险库"},{"n":"感知护符","c":"首饰","g":"装备","x":53.638,"y":85.527,"z":"慈爱神殿地窖"},{"n":"风暴圣所地下室","c":"首饰","g":"装备","x":39.849,"y":33.223,"z":"风暴海岸圣所地下室"},{"n":"翼猫颈圈","c":"首饰","g":"装备","x":72.508,"y":68.689,"z":"慈爱神殿"},{"n":"卡利德的礼物","c":"首饰","g":"装备","x":24.176,"y":37.842,"z":"博德之门"},{"n":"绝对信心护符","c":"首饰","g":"装备","x":76.819,"y":58.751,"z":"小卡行装"},{"n":"修复护符","c":"首饰","g":"装备","x":32.966,"y":57.647,"z":"清账屋"},{"n":"驭风护肤","c":"首饰","g":"装备","x":49.617,"y":44.682,"z":"石化蜥蜴之门营房"},{"n":"乌鸦徽记","c":"首饰","g":"装备","x":79.529,"y":76.736,"z":"强制征用的谷仓"},{"n":"元素强化项链","c":"首饰","g":"装备","x":69.287,"y":59.96,"z":"走私海湾"},{"n":"变形者的恩赐之戒","c":"强力戒指","g":"装备","x":48.541,"y":48.121,"z":"石化蜥蜴之门营房"},{"n":"纪念戒指","c":"戒指","g":"装备","x":55.857,"y":40.615,"z":"精灵之歌酒馆地下室"},{"n":"神秘无赖头箍","c":"戒指","g":"装备","x":64.618,"y":80.503,"z":"楚尔特半岛"},{"n":"妖精荒野火花戒","c":"戒指","g":"装备","x":24.748,"y":27.625,"z":"脸红的美人鱼地下室"},{"n":"无宝石戒指","c":"戒指","g":"装备","x":78.495,"y":63.162,"z":"夏芮丝的爱抚"},{"n":"铮亮的戒指","c":"戒指","g":"装备","x":39.18,"y":26.273,"z":"外界传送门"},{"n":"气巨灵戒指","c":"戒指","g":"装备","x":71.149,"y":72.492,"z":"末日马戏团"},{"n":"真实之戒","c":"戒指","g":"装备","x":78.621,"y":70.608,"z":"被遗弃的磨坊"},{"n":"地穴领主戒指","c":"戒指","g":"装备","x":43.275,"y":52.458,"z":"巫术杂货店-2楼"},{"n":"纪念戒指","c":"戒指","g":"装备","x":43.578,"y":43.747,"z":"精灵之歌酒馆"},{"n":"闪烁之戒","c":"戒指","g":"装备","x":72.495,"y":68.31,"z":"慈爱神殿"},{"n":"夺心魔大脑","c":"夺心魔蝌蚪","g":"物品","x":79.151,"y":70.104,"z":"被遗弃的磨坊"},{"n":"夺心魔寄生虫","c":"夺心魔蝌蚪","g":"物品","x":63.45,"y":47.255,"z":"飞龙岩要塞-顶层"},{"n":"夺心魔寄生虫","c":"夺心魔蝌蚪","g":"物品","x":43.016,"y":60.757,"z":"清账屋高度安全保险库"},{"n":"夺心魔寄生虫x2 ","c":"夺心魔蝌蚪","g":"物品","x":37.238,"y":52.193,"z":"暴风海岸军械库"},{"n":"夺心魔寄生虫 ","c":"夺心魔蝌蚪","g":"物品","x":33.324,"y":50.323,"z":"罗拉之家"},{"n":"夺心魔寄生虫","c":"夺心魔蝌蚪","g":"物品","x":32.297,"y":45.382,"z":"繁花山脊公园"},{"n":"夺心魔寄生虫","c":"夺心魔蝌蚪","g":"物品","x":25.632,"y":50.105,"z":"集会"},{"n":"夺心魔寄生虫x6","c":"夺心魔蝌蚪","g":"物品","x":25.559,"y":53.253,"z":"集会"},{"n":"夺心魔寄生虫","c":"夺心魔蝌蚪","g":"物品","x":23.828,"y":54.601,"z":"钢铁铸造厂"},{"n":"夺心魔寄生虫","c":"夺心魔蝌蚪","g":"物品","x":20.108,"y":54.066,"z":"钢铁铸造厂"},{"n":"夺心魔寄生虫","c":"夺心魔蝌蚪","g":"物品","x":15.319,"y":61.707,"z":"钢铁卫士铸造厂 实验层"},{"n":"夺心魔寄生虫","c":"夺心魔蝌蚪","g":"物品","x":1.258,"y":57.592,"z":"钢铁王座"},{"n":"夺心魔蝌蚪","c":"夺心魔蝌蚪","g":"物品","x":23.995,"y":29.547,"z":"脸红的美人鱼地下室"},{"n":"夺心魔寄生虫","c":"夺心魔蝌蚪","g":"物品","x":39.348,"y":53.357,"z":"弗洛杰尔烟花铺"},{"n":"夺心魔蝌蚪","c":"夺心魔蝌蚪","g":"物品","x":39.011,"y":50.686,"z":"巫术杂物店"},{"n":"夺心魔寄生虫标本","c":"夺心魔蝌蚪","g":"物品","x":61.372,"y":58.469,"z":"走私海湾"},{"n":"夺心魔寄生虫标本","c":"夺心魔蝌蚪","g":"物品","x":60.773,"y":59.449,"z":"走私海湾"},{"n":"灵魂钱币","c":"灵魂钱币","g":"物品","x":40.417,"y":57.852,"z":"菲尔格雷弗宅邸-1楼"},{"n":"灵魂钱币","c":"灵魂钱币","g":"物品","x":41.47,"y":51.217,"z":"巫术杂物店"},{"n":" 灵魂钱币x2","c":"灵魂钱币","g":"物品","x":41.546,"y":50.777,"z":"巫术杂物店"},{"n":"灵魂钱币","c":"灵魂钱币","g":"物品","x":36.292,"y":21.156,"z":"希望之邸"},{"n":"木乃伊的记忆","c":"支线任务","g":"任务","x":54.765,"y":46.841,"z":"菲尔格雷弗宅邸地下室"},{"n":"秘术师卡里翁任务","c":"支线任务","g":"任务","x":27.385,"y":78.515,"z":"古代密室"},{"n":"找回拉凯斯的金子","c":"支线任务","g":"任务","x":43.639,"y":61.312,"z":"清账屋高度安全保险库"},{"n":"解救瓦罗","c":"支线任务","g":"任务","x":24.067,"y":56.596,"z":"钢铁铸造厂"},{"n":"解救贡德信徒","c":"支线任务","g":"任务","x":8.689,"y":54.931,"z":"潜水器"},{"n":"解救奥米伦","c":"支线任务","g":"任务","x":0.928,"y":57.427,"z":"钢铁王座"},{"n":"调查谋杀案-中途点","c":"支线任务","g":"任务","x":74.647,"y":62.462,"z":"弗雷戈招待所"},{"n":"调查谋杀案-中途点","c":"支线任务","g":"任务","x":74.647,"y":62.462,"z":"弗雷戈招待所"},{"n":"处理侏儒","c":"支线任务","g":"任务","x":77.128,"y":63.592,"z":"夏芮丝的爱抚"},{"n":"加冕典礼","c":"支线任务","g":"任务","x":66.685,"y":52.784,"z":"飞龙岩要塞-礼堂"},{"n":"寻找石头领主明斯克","c":"支线任务","g":"任务","x":28.077,"y":87.347,"z":"废弃蓄水池"},{"n":"释放顾问弗洛瑞克","c":"支线任务","g":"任务","x":82.737,"y":56.156,"z":"飞龙岩要塞监狱"},{"n":"帕莱&达利瑞亚","c":"支线任务","g":"任务","x":72.421,"y":61.141,"z":"弗雷戈招待所"},{"n":"出卖暗夜之歌","c":"支线任务","g":"任务","x":38.78,"y":50.059,"z":"巫术杂物店"},{"n":"调查可疑的玩具","c":"支线任务","g":"任务","x":80.167,"y":77.185,"z":"强制征用的谷仓"},{"n":"出卖暗夜之歌","c":"支线任务","g":"任务","x":38.78,"y":50.059,"z":"巫术杂物店"},{"n":"萨林的骨架","c":"支线任务","g":"任务","x":36.387,"y":90.725,"z":"木爬梯"},{"n":"撕毁契约","c":"支线任务","g":"任务","x":35.94,"y":43.875,"z":"魔鬼的小费"},{"n":"调查可疑的玩具","c":"支线任务","g":"任务","x":75.843,"y":73.632,"z":"利文顿综合商店"},{"n":"寻找摩尔-任务终点","c":"支线任务","g":"任务","x":44.069,"y":96.476,"z":"公会大厅-九指办公室"},{"n":"找回奥米伦","c":"支线任务","g":"任务","x":25.397,"y":49.927,"z":"集会"},{"n":"营救高公爵","c":"支线任务","g":"任务","x":6.725,"y":54.648,"z":"潜水器"},{"n":"帮助魔鬼牛","c":"支线任务","g":"任务","x":78.238,"y":77.957,"z":"强制征用的谷仓"},{"n":"希望之邸","c":"支线任务","g":"任务","x":36.98,"y":43.652,"z":"魔鬼的小费"},{"n":"寻找“图书馆员”","c":"支线任务","g":"任务","x":77.135,"y":62.492,"z":"夏芮丝的爱抚"},{"n":"被诅咒的僧侣-任务完成点","c":"支线任务","g":"任务","x":54.014,"y":85.777,"z":"慈爱神殿地窖"},{"n":"为铁手侏儒复仇","c":"支线任务","g":"任务","x":77.202,"y":65.788,"z":"剑湾快递"},{"n":"高阶竖琴手","c":"支线任务","g":"任务","x":74.257,"y":58.473,"z":"药水店"},{"n":"造访君主的旧藏身点","c":"支线任务","g":"任务","x":43.107,"y":45.998,"z":"精灵之歌酒馆"},{"n":"打动谋杀裁判所","c":"支线任务","g":"任务","x":28.178,"y":46.593,"z":"唤颜精品店"},{"n":"调查谋杀案","c":"支线任务","g":"任务","x":42.286,"y":45.563,"z":"精灵之歌酒馆"},{"n":"释放夺心魔","c":"支线任务","g":"任务","x":78.137,"y":70.974,"z":"被遗弃的磨坊"},{"n":"协助地下势力","c":"支线任务","g":"任务","x":61.244,"y":61.484,"z":"走私海湾"},{"n":"找到丢失的信件","c":"支线任务","g":"任务","x":76.772,"y":67.279,"z":"剑湾快递"},{"n":"释放顾问弗洛瑞克","c":"支线任务","g":"任务","x":82.428,"y":54.643,"z":"飞龙岩要塞监狱"},{"n":"解救万娜","c":"支线任务","g":"任务","x":35.104,"y":54.256,"z":"老加洛之家"},{"n":"解救艺术家②","c":"支线任务","g":"任务","x":21.661,"y":47.693,"z":"迦纳斯夫人的宅邸"},{"n":"击败秘术师卡里托","c":"支线任务","g":"任务","x":43.188,"y":52.583,"z":"巫术杂货店-2楼"},{"n":"寻找小丑德里波斯","c":"支线任务","g":"任务","x":70.673,"y":70.459,"z":"末日马戏团"},{"n":"调查卡扎多尔的宫殿","c":"支线任务","g":"任务","x":32.963,"y":42.871,"z":"扎尔宅邸"},{"n":"破解慈爱神殿的谋杀案","c":"支线任务","g":"任务","x":74.257,"y":68.39,"z":"慈爱神殿"},{"n":"对付魔鬼","c":"支线任务","g":"任务","x":76.483,"y":61.505,"z":"夏芮丝的爱抚"},{"n":"罗维尔的仓库","c":"支线任务","g":"任务","x":43.941,"y":43.601,"z":"精灵之歌酒馆"},{"n":"为赫尔希克取回铁手套","c":"支线任务","g":"任务","x":36.49,"y":43.557,"z":"魔鬼的小费"},{"n":"阻止刊发","c":"支线任务","g":"任务","x":44.264,"y":47.818,"z":"博德之口"},{"n":"为溺死鬼复仇","c":"支线任务","g":"任务","x":23.891,"y":62.786,"z":"水女王之家"},{"n":"找到秘术师卡里托的仆人","c":"支线任务","g":"任务","x":40.498,"y":55.338,"z":"菲尔格雷弗宅邸"},{"n":"帮助鬼婆幸存者","c":"支线任务","g":"任务","x":47.875,"y":49.324,"z":"斯郎博房屋地窖"},{"n":"解救希望","c":"支线任务","g":"任务","x":36.974,"y":27.267,"z":"外界传送门"},{"n":"新闻小贩","c":"商人","g":"人物","x":47.562,"y":48.907,"z":"斯郎博房屋地窖"},{"n":"酒保","c":"商人","g":"人物","x":43.248,"y":44.163,"z":"精灵之歌酒馆"},{"n":"塔玛拉","c":"商人","g":"人物","x":39.26,"y":52.963,"z":"弗洛杰尔烟花铺"},{"n":"罗兰","c":"商人","g":"人物","x":39.387,"y":49.78,"z":"巫术杂物店"},{"n":"新闻小贩杰森","c":"商人","g":"人物","x":37.452,"y":48.411,"z":"暴风海岸军械库"},{"n":" 奥利弗.特福科","c":"商人","g":"人物","x":34.447,"y":51.925,"z":"蜂巢杂货店"},{"n":"温柔的亨克","c":"商人","g":"人物","x":30.937,"y":53.62,"z":"高歌鲁特琴"},{"n":"书籍商人","c":"商人","g":"人物","x":31.974,"y":52.999,"z":"雨林之家"},{"n":"布尔格","c":"商人","g":"人物","x":25.461,"y":49.645,"z":"集会"},{"n":"新闻记者乔纳","c":"商人","g":"人物","x":25.783,"y":46.86,"z":"埃拉辛之家"},{"n":"药水商人","c":"商人","g":"人物","x":74.191,"y":57.774,"z":"丹瑟隆的飞斧"},{"n":"铁手侏儒","c":"商人","g":"人物","x":77.485,"y":65.664,"z":"剑湾快递"},{"n":"红衣主教科尔","c":"商人","g":"人物","x":58.648,"y":18.329,"z":"至高大殿"},{"n":"阿巴济戈的回声","c":"商人","g":"人物","x":49.311,"y":20.37,"z":"谋杀裁判所"},{"n":"卓尔血商","c":"商人","g":"人物","x":33.006,"y":50.335,"z":"罗拉之家"},{"n":"德里斯·骨蓬","c":"商人","g":"人物","x":37.357,"y":46.748,"z":"白骨斗篷药材店"},{"n":"老鼠小柱","c":"商人","g":"人物","x":54.209,"y":53.48,"z":"山坡区监狱"},{"n":"旅行家格瑞斯卡","c":"商人","g":"人物","x":73.927,"y":62.703,"z":"弗雷戈招待所"},{"n":"旅行家格瑞斯卡","c":"商人","g":"人物","x":73.927,"y":62.703,"z":"弗雷戈招待所"},{"n":"奎尼亚·阿维","c":"商人","g":"人物","x":74.586,"y":61.564,"z":"弗雷戈招待所"},{"n":"木乃伊扎拉","c":"商人","g":"人物","x":72.075,"y":73.433,"z":"末日马戏团"},{"n":"炎拳军需官","c":"商人","g":"人物","x":57.814,"y":53.907,"z":"飞龙岩要塞-底层"},{"n":"弗莱姆皮匠","c":"商人","g":"人物","x":36.651,"y":52.345,"z":"老加洛之家"},{"n":"博尼","c":"商人","g":"人物","x":69.67,"y":73.222,"z":"末日马戏团"},{"n":"弗格·德罗戈","c":"商人","g":"人物","x":78.489,"y":74.973,"z":"阿尔弗宅邸"},{"n":"狗头人商人","c":"商人","g":"人物","x":69.792,"y":72.461,"z":"末日马戏团"},{"n":"布尔格","c":"商人","g":"人物","x":27.888,"y":48.183,"z":"半音商店"},{"n":"霍兹·霍丽根","c":"商人","g":"人物","x":76.759,"y":62.164,"z":"夏芮丝的爱抚"},{"n":"沮丧的芬东森","c":"商人","g":"人物","x":36.469,"y":49.44,"z":"暴风海岸军械库"},{"n":"炮仗菲兹","c":"商人","g":"人物","x":36.9,"y":50.039,"z":"暴风海岸军械库"},{"n":"诚实的小贩","c":"商人","g":"人物","x":35.992,"y":52.59,"z":"老加洛之家"},{"n":"夜曲","c":"商人","g":"人物","x":91.748,"y":58.981,"z":"阴影之拥修道院"},{"n":"埃克维凯普","c":"商人","g":"人物","x":76.079,"y":70.473,"z":"利文顿综合商店"},{"n":"卡尔曼·钱赫","c":"商人","g":"人物","x":76.584,"y":58.539,"z":"小卡行装"},{"n":"格林达·奥尔托尔","c":"商人","g":"人物","x":75.454,"y":58.239,"z":"药水店"},{"n":"恩索尔·丹塞隆","c":"商人","g":"人物","x":74.761,"y":58.407,"z":"药水店"},{"n":"维尔斯·奥斯卡","c":"商人","g":"人物","x":75.212,"y":59.971,"z":"药水店"},{"n":"罗伯逊·司尔特","c":"商人","g":"人物","x":76.019,"y":61.425,"z":"夏芮丝的爱抚"},{"n":"索德里科·谢德维尔","c":"商人","g":"人物","x":75.461,"y":62.31,"z":"弗雷戈招待所"},{"n":"老特劳特曼","c":"商人","g":"人物","x":42.286,"y":54.322,"z":"巫术杂货店-2楼"},{"n":"黏糊糊的东多","c":"商人","g":"人物","x":43.652,"y":95.997,"z":"公会大厅-九指办公室"},{"n":"塞弗恩","c":"商人","g":"人物","x":43.423,"y":95.522,"z":"公会大厅-九指办公室"},{"n":"赛弗恩","c":"商人","g":"人物","x":43.423,"y":95.522,"z":"公会大厅-九指办公室"},{"n":"维卡·谦趾","c":"商人","g":"人物","x":46.639,"y":45.449,"z":"风暴海岸圣所"},{"n":"秘术大师卡里翁","c":"商人","g":"人物","x":40.383,"y":55.294,"z":"菲尔格雷弗宅邸"},{"n":"赫尔希克","c":"商人","g":"人物","x":36.759,"y":40.48,"z":"魔鬼的小费-2楼"},{"n":"无声忏悔者巴瑞克","c":"商人","g":"人物","x":35.232,"y":82.831,"z":"底城废墟"},{"n":"马蒂斯","c":"商人","g":"人物","x":79.07,"y":76.74,"z":"强制征用的谷仓"},{"n":"戴摩","c":"商人","g":"人物","x":39.031,"y":44.545,"z":"九层锻炉"},{"n":"多场战斗","c":"遭遇战","g":"敌人","x":70.343,"y":15.669,"z":"至高大殿"},{"n":"多场战斗","c":"遭遇战","g":"敌人","x":66.711,"y":16.108,"z":"至高大殿"},{"n":"多场战斗","c":"遭遇战","g":"敌人","x":62.004,"y":15.61,"z":"至高大殿"},{"n":"多场战斗","c":"遭遇战","g":"敌人","x":59.933,"y":15.808,"z":"至高大殿"},{"n":"若干食尸鬼","c":"遭遇战","g":"敌人","x":39.903,"y":58.353,"z":"菲尔格雷弗宅邸-2楼"},{"n":"吉斯洋基人狩猎队","c":"遭遇战","g":"敌人","x":53.515,"y":95.69,"z":"盾牌骑士藏身点"},{"n":"使徒","c":"遭遇战","g":"敌人","x":39.145,"y":33.109,"z":"风暴海岸圣所地下室"},{"n":"一堆老鼠","c":"遭遇战","g":"敌人","x":56.16,"y":40.681,"z":"精灵之歌酒馆地下室"},{"n":"巴尔信徒若干","c":"遭遇战","g":"敌人","x":31.66,"y":86.613,"z":"废弃蓄水池"},{"n":"大量不死生物","c":"遭遇战","g":"敌人","x":27.908,"y":80.463,"z":"古代密室"},{"n":"巴尔刺客袭击","c":"遭遇战","g":"敌人","x":43.564,"y":61.809,"z":"清账屋高度安全保险库"},{"n":"钢铁卫士铸造厂叛乱","c":"遭遇战","g":"敌人","x":13.029,"y":62.821,"z":"钢铁卫士铸造厂 实验层"},{"n":"贡德信徒与班恩信徒","c":"遭遇战","g":"敌人","x":21.287,"y":54.946,"z":"钢铁铸造厂"},{"n":"钢铁卫士","c":"遭遇战","g":"敌人","x":14.788,"y":62.854,"z":"钢铁卫士铸造厂 实验层"},{"n":"清账屋守卫","c":"遭遇战","g":"敌人","x":30.823,"y":59.116,"z":"清账屋"},{"n":"小恶魔","c":"遭遇战","g":"敌人","x":27.114,"y":61.422,"z":"水女王之家"},{"n":"水池","c":"遭遇战","g":"敌人","x":15.931,"y":66.629,"z":"水女王之家-地窖"},{"n":"鱼人刷新点","c":"遭遇战","g":"敌人","x":2.865,"y":57.018,"z":"钢铁王座"},{"n":"遭遇战","c":"遭遇战","g":"敌人","x":47.847,"y":40.64,"z":"杜林博德陵墓"},{"n":"顶楼战斗","c":"遭遇战","g":"敌人","x":67.236,"y":47.914,"z":"飞龙岩要塞-礼堂"},{"n":"勇气试炼","c":"遭遇战","g":"敌人","x":83.198,"y":48.755,"z":"勇气之间"},{"n":"遭遇战，营救竖琴手","c":"遭遇战","g":"敌人","x":72.529,"y":57.961,"z":"丹瑟隆的飞斧"},{"n":"恐龙","c":"遭遇战","g":"敌人","x":66.326,"y":78.471,"z":"楚尔特半岛"},{"n":"巴尔信徒伏击战","c":"遭遇战","g":"敌人","x":37.067,"y":81.32,"z":"底城废墟"},{"n":"好多老鼠","c":"遭遇战","g":"敌人","x":43.253,"y":43.739,"z":"精灵之歌酒馆"},{"n":"地狱野猪+小恶魔","c":"遭遇战","g":"敌人","x":37.189,"y":25.411,"z":"外界传送门"},{"n":"档案管理员+小恶魔+地狱火球","c":"遭遇战","g":"敌人","x":34.62,"y":25.031,"z":"希望之邸"},{"n":"巴尔的看门人","c":"遭遇战","g":"敌人","x":36.846,"y":80.734,"z":"底城废墟"},{"n":"散塔林会攻击工会大厅的战斗","c":"遭遇战","g":"敌人","x":42.768,"y":95.726,"z":"公会大厅-九指办公室"},{"n":"巴尔的死亡信徒*4","c":"遭遇战","g":"敌人","x":32.757,"y":45.662,"z":"繁花山脊公园"},{"n":"骷髅戈蒂","c":"遭遇战","g":"敌人","x":28.64,"y":17.035,"z":"扎尔宅邸-地下"},{"n":"华沙鱼人*7","c":"遭遇战","g":"敌人","x":43.1,"y":53.978,"z":"巫术杂货店-2楼"},{"n":"变形怪*5","c":"遭遇战","g":"敌人","x":40.592,"y":47.266,"z":"品酒节"},{"n":"变形怪*3","c":"遭遇战","g":"敌人","x":57.868,"y":86.27,"z":"慈爱神殿地窖"},{"n":"明斯克+冒充贾希拉的变形怪","c":"遭遇战","g":"敌人","x":27.592,"y":87.253,"z":"废弃蓄水池"},{"n":"工会对战石头领主","c":"遭遇战","g":"敌人","x":61.083,"y":59.752,"z":"走私海湾"},{"n":"观察者眼魔*2+小恶魔*4","c":"遭遇战","g":"敌人","x":39.085,"y":26.331,"z":"外界传送门"},{"n":"小丑德里波斯的变形怪+野兽","c":"遭遇战","g":"敌人","x":73.08,"y":70.364,"z":"末日马戏团"},{"n":"莎尔的信徒*4","c":"遭遇战","g":"敌人","x":22.083,"y":44.442,"z":"哀伤之邸"},{"n":"炎拳士兵*4","c":"遭遇战","g":"敌人","x":73.887,"y":51.552,"z":"飞龙岩要塞"},{"n":"七个恶棍","c":"遭遇战","g":"敌人","x":24.052,"y":55.201,"z":"钢铁铸造厂"},{"n":"巴尔的死亡牧首布莱斯+4个杂鱼","c":"遭遇战","g":"敌人","x":43.268,"y":92.803,"z":"公会大厅-九指办公室"},{"n":"几只座狼小怪","c":"遭遇战","g":"敌人","x":28.87,"y":54.749,"z":"弗莱姆货运"},{"n":"两匹狼加几个小怪","c":"遭遇战","g":"敌人","x":33.438,"y":15.534,"z":"扎尔宅邸"},{"n":"与乌玛一行发生战斗","c":"遭遇战","g":"敌人","x":35.313,"y":10.918,"z":"扎尔宅邸"},{"n":"红龙","c":"头目战","g":"敌人","x":79.973,"y":15.172,"z":"巨龙密室"},{"n":"钢铁卫士泰坦","c":"头目战","g":"敌人","x":13.371,"y":54.973,"z":"钢铁卫士铸造厂-控制中心"},{"n":"安苏","c":"头目战","g":"敌人","x":81.157,"y":35.891,"z":"巨龙密室"},{"n":"鬼婆-埃塞尔婶婶","c":"头目战","g":"敌人","x":24.206,"y":27.696,"z":"脸红的美人鱼地下室"},{"n":"洛若坎","c":"头目战","g":"敌人","x":38.615,"y":49.725,"z":"巫术杂物店"},{"n":"恩维尔·戈塔什大人","c":"头目战","g":"敌人","x":64.253,"y":47.831,"z":"飞龙岩要塞-顶层"},{"n":"多洛+4个巴尔信徒","c":"头目战","g":"敌人","x":28.238,"y":46.973,"z":"唤颜精品店"},{"n":"维康尼亚·迪佛+莎尔信徒","c":"头目战","g":"敌人","x":92.011,"y":61.791,"z":"失落之间"},{"n":"boss奥琳","c":"头目战","g":"敌人","x":48.77,"y":77.932,"z":"巴尔神殿"},{"n":"拉斐尔","c":"头目战","g":"敌人","x":37.135,"y":27.969,"z":"风暴海岸圣所地下室"},{"n":"魅魔哈勒普","c":"头目战","g":"敌人","x":37.189,"y":19.959,"z":"希望之邸"},{"n":"卡扎多尔","c":"头目战","g":"敌人","x":35.299,"y":3.055,"z":"卡扎多尔的地牢"}]}];
+
+var CAT = {
+  '传送点':   {c:'#d9b45a', g:'地点', key:1},
+  '出入口':   {c:'#6f7a86', g:'地点'},
+  '强力武器': {c:'#e0654f', g:'装备', key:1},
+  '武器':     {c:'#b8785a', g:'装备'},
+  '强力防具': {c:'#5f95cc', g:'装备', key:1},
+  '防具':     {c:'#6b8fa8', g:'装备'},
+  '强力首饰': {c:'#cf7ac8', g:'装备', key:1},
+  '首饰':     {c:'#9c7fa8', g:'装备'},
+  '强力戒指': {c:'#e0a94a', g:'装备', key:1},
+  '戒指':     {c:'#ab8a60', g:'装备'},
+  '主线任务': {c:'#86d3f2', g:'任务', key:1},
+  '支线任务': {c:'#6fb3d8', g:'任务', key:1},
+  '同伴任务': {c:'#b98ce6', g:'任务', key:1},
+  '头目战':   {c:'#dc4a5e', g:'战斗', key:1},
+  '遭遇战':   {c:'#c2733f', g:'战斗'},
+  '同伴':     {c:'#dd90ab', g:'人物', key:1},
+  '商人':     {c:'#7fb07a', g:'人物'},
+  'NPC':      {c:'#8fa07f', g:'人物'},
+  '夺心魔蝌蚪':{c:'#9d7ad8', g:'物品'},
+  '灵魂钱币': {c:'#c9a24a', g:'物品'},
+  '贵重物品': {c:'#b8a06a', g:'物品'},
+  '恢复站':   {c:'#6fb0a0', g:'物品'}
+};
+var ORDER = ['地点','装备','任务','战斗','人物','物品'];
+var DEFAULT_ON = ['传送点','强力武器','强力防具','强力首饰','强力戒指','支线任务','同伴任务','头目战'];
+var PRESETS = {
+  core: DEFAULT_ON,
+  gear: ['强力武器','强力防具','强力首饰','强力戒指','武器','防具','首饰','戒指'],
+  quest: ['支线任务','主线任务','同伴任务','头目战','遭遇战','传送点'],
+  all: Object.keys(CAT),
+  none: []
+};
+function catOf(name){ return CAT[name] || {c:'#8a8172', g:'物品'}; }
+
+/* ================= 状态 ================= */
+var state = {
+  rid: 'wilderness',
+  cats: new Set(DEFAULT_ON),
+  q: '',
+  done: new Set(),
+  sel: null,
+  hover: null,
+  labels: true,
+  tab: 'cat'
+};
+var view = {x:0, y:0, k:1};
+var IMG = {};
+var SCREEN = [];
+var anim = null;
+
+var $ = function(s){ return document.querySelector(s); };
+var cv = $('#cv'), ctx = cv.getContext('2d');
+
+/* ---------- 进度存储（隔离环境降级） ---------- */
+var STORE_KEY = 'bg3atlas.done.v1';
+function loadDone(){
+  try{
+    var raw = localStorage.getItem(STORE_KEY);
+    if(raw) JSON.parse(raw).forEach(function(k){ state.done.add(k); });
+  }catch(e){}
+}
+function saveDone(){
+  try{ localStorage.setItem(STORE_KEY, JSON.stringify(Array.from(state.done))); }catch(e){}
+}
+function pinId(r, p){ return r.id + '|' + p.n + '|' + p.x + ',' + p.y; }
+
+/* ================= 工具 ================= */
+function region(){ for(var i=0;i<DATA.length;i++) if(DATA[i].id===state.rid) return DATA[i]; }
+function imgW(r){ return r.w; }
+function imgH(r){ return r.h; }
+function clamp(v,a,b){ return v<a?a:(v>b?b:v); }
+
+function ensureImage(r, cb){
+  if(IMG[r.id]){ if(IMG[r.id].complete && cb) cb(); return; }
+  var im = new Image();
+  im.decoding = 'async';
+  im.onload = function(){ IMG[r.id] = im; resizeCanvas(); draw(); if(cb) cb(); };
+  im.onerror = function(){ IMG[r.id] = {complete:false, failed:true}; draw(); };
+  im.src = r.img;
+  IMG[r.id] = im;
+}
+
+/* ================= 视图 ================= */
+function vp(){ return {w: cv.clientWidth || 1, h: cv.clientHeight || 1}; }
+function resizeCanvas(){
+  var dpr = Math.min(window.devicePixelRatio || 1, 2);
+  var s = vp();
+  if(cv.width !== Math.round(s.w*dpr) || cv.height !== Math.round(s.h*dpr)){
+    cv.width = Math.round(s.w*dpr); cv.height = Math.round(s.h*dpr);
+  }
+  draw();
+}
+function fitView(instant){
+  var r = region(), s = vp();
+  var b = r.view && r.view.w ? r.view : {x:0,y:0,w:100,h:100};
+  var bx = b.x/100*r.w, by = b.y/100*r.h, bw = b.w/100*r.w, bh = b.h/100*r.h;
+  var narrow = s.w / s.h < 0.78;
+  var k = (narrow ? Math.max(s.w/bw, s.h/bh) : Math.min(s.w/bw, s.h/bh)) * (narrow ? 0.98 : 0.92);
+  var v = {k:k, x: bx + bw/2 - s.w/(2*k), y: by + bh/2 - s.h/(2*k)};
+  if(instant){ view = v; draw(); } else { animateTo(v); }
+}
+function animateTo(target){
+  if(anim) cancelAnimationFrame(anim);
+  var from = {x:view.x, y:view.y, k:view.k}, t0 = performance.now(), dur = 420;
+  function step(t){
+    var p = Math.min(1, (t-t0)/dur), e = 1-Math.pow(1-p,3);
+    view.x = from.x + (target.x-from.x)*e;
+    view.y = from.y + (target.y-from.y)*e;
+    view.k = from.k + (target.k-from.k)*e;
+    draw();
+    if(p<1) anim = requestAnimationFrame(step); else anim = null;
+  }
+  anim = requestAnimationFrame(step);
+}
+function zoomAt(sx, sy, factor){
+  var k2 = clamp(view.k*factor, minK(), maxK());
+  var f = k2/view.k;
+  view.x = (view.x + sx/view.k) - sx/k2;
+  view.y = (view.y + sy/view.k) - sy/k2;
+  view.k = k2;
+  draw();
+}
+function minK(){
+  var r = region(), s = vp();
+  return Math.min(s.w/r.w, s.h/r.h) * 0.35;
+}
+function maxK(){ return 2.2; }
+function flyToPin(r, p, targetK){
+  var s = vp();
+  var k = targetK || clamp(Math.max(view.k, 0.85), minK(), maxK());
+  var px = p.x/100*r.w, py = p.y/100*r.h;
+  animateTo({k:k, x: px - s.w/(2*k), y: py - s.h/(2*k)});
+}
+
+/* ================= 绘制 ================= */
+function draw(){
+  var s = vp(), dpr = Math.min(window.devicePixelRatio||1, 2);
+  ctx.setTransform(dpr,0,0,dpr,0,0);
+  ctx.clearRect(0,0,s.w,s.h);
+  ctx.fillStyle = '#070605';
+  ctx.fillRect(0,0,s.w,s.h);
+
+  var r = region(), im = IMG[r.id];
+  if(im && im.complete){
+    ctx.imageSmoothingEnabled = true;
+    ctx.imageSmoothingQuality = 'high';
+    ctx.drawImage(im, -view.x*view.k, -view.y*view.k, r.w*view.k, r.h*view.k);
+  } else if(im && im.failed){
+    ctx.fillStyle = '#8a8172'; ctx.font = '13px sans-serif'; ctx.textAlign='center';
+    ctx.fillText('地图贴图加载失败，请检查网络后刷新', s.w/2, s.h/2);
+  } else {
+    ctx.fillStyle = '#5b5346'; ctx.font = '13px sans-serif'; ctx.textAlign='center';
+    ctx.fillText('地图贴图载入中…', s.w/2, s.h/2);
+  }
+
+  // 点位
+  var k = view.k, q = state.q.trim().toLowerCase();
+  SCREEN = [];
+  var shown = [];
+  for(var i=0;i<r.pins.length;i++){
+    var p = r.pins[i];
+    if(!q && !state.cats.has(p.c)) continue;
+    var id = pinId(r,p);
+    var isDone = state.done.has(id);
+    var sx = (p.x/100*r.w - view.x)*k, sy = (p.y/100*r.h - view.y)*k;
+    if(sx < -60 || sy < -60 || sx > s.w+60 || sy > s.h+60) continue;
+    var hit = (!q) || p.n.toLowerCase().indexOf(q)>=0 || (p.z||'').toLowerCase().indexOf(q)>=0 || p.c.indexOf(q)>=0;
+    SCREEN.push({p:p, id:id, sx:sx, sy:sy, hit:hit, done:isDone});
+    if(hit) shown.push(SCREEN[SCREEN.length-1]);
+  }
+
+  // 非命中项先画，弱化
+  var radius = 4.6 + Math.min(2.2, k*1.1);
+  ctx.font = '500 11.5px ' + (getComputedStyle(document.body).fontFamily||'sans-serif');
+
+  if(true){
+    for(var j=0;j<SCREEN.length;j++){
+      if(SCREEN[j].hit) continue;
+      drawPin(SCREEN[j], radius*0.8, q?0.10:0.16);
+    }
+  }
+  for(var j2=0;j2<shown.length;j2++) drawPin(shown[j2], radius, 1);
+
+  // 标签：按优先级摆放，做碰撞避让
+  var placed = [];
+  var cands = [];
+  var showAll = k >= 1.05;
+  for(var m=0;m<shown.length;m++){
+    var o = shown[m], cat = catOf(o.p.c);
+    var isSel = state.sel && state.sel.id===o.id;
+    var isHov = state.hover && state.hover.id===o.id;
+    var pri = isSel ? 1000 : (isHov ? 900 : (cat.key ? (o.p.c==='传送点'?300:o.p.c==='支线任务'?280:o.p.c==='头目战'?260:200) : 10));
+    if(!isSel && !isHov){
+      if(!showAll && !(cat.key && k >= (window.innerWidth<=900?0.24:0.34))) continue;
+    }
+    cands.push({o:o, c:cat.c, strong:isSel||isHov, pri:pri});
+  }
+  cands.sort(function(a,b){ return b.pri-a.pri; });
+  for(var n2=0;n2<cands.length && placed.length<42;n2++){
+    var c2 = cands[n2];
+    var box = labelBox(c2.o, c2.strong);
+    if(box.x < 6 || box.x+box.w > s.w-6) continue;
+    var clash = false;
+    for(var q2=0;q2<placed.length;q2++){
+      var b2 = placed[q2];
+      if(box.x < b2.x+b2.w+3 && box.x+box.w+3 > b2.x && box.y < b2.y+b2.h+2 && box.y+box.h+2 > b2.y){ clash = true; break; }
+    }
+    if(clash && !c2.strong) continue;
+    drawLabel(c2.o, c2.c, c2.strong);
+    placed.push(box);
+  }
+
+  // 选中环
+  var sel = null;
+  for(var n=0;n<SCREEN.length;n++) if(state.sel && SCREEN[n].id===state.sel.id) sel = SCREEN[n];
+  if(sel){
+    var t = (performance.now()%1600)/1600;
+    ctx.beginPath();
+    ctx.arc(sel.sx, sel.sy, 10 + t*16, 0, Math.PI*2);
+    ctx.strokeStyle = 'rgba(230,201,135,' + (0.55*(1-t)) + ')';
+    ctx.lineWidth = 1.6; ctx.stroke();
+  }
+
+  $('#zoomtag').textContent = '缩放 ' + (k*100).toFixed(0) + '%';
+}
+
+function drawPin(o, r, alpha){
+  var cat = catOf(o.p.c);
+  ctx.globalAlpha = alpha;
+  ctx.beginPath(); ctx.arc(o.sx, o.sy, r+1.6, 0, Math.PI*2);
+  ctx.fillStyle = 'rgba(0,0,0,.65)'; ctx.fill();
+  if(o.done){
+    ctx.beginPath(); ctx.arc(o.sx, o.sy, r, 0, Math.PI*2);
+    ctx.fillStyle = 'rgba(0,0,0,.4)'; ctx.fill();
+    ctx.strokeStyle = cat.c; ctx.lineWidth = 1.4; ctx.stroke();
+    ctx.beginPath();
+    ctx.moveTo(o.sx-r*0.42, o.sy+0.5); ctx.lineTo(o.sx-0.5, o.sy+r*0.42); ctx.lineTo(o.sx+r*0.46, o.sy-r*0.4);
+    ctx.strokeStyle = cat.c; ctx.lineWidth = 1.6; ctx.stroke();
+  } else {
+    ctx.beginPath(); ctx.arc(o.sx, o.sy, r, 0, Math.PI*2);
+    ctx.fillStyle = cat.c; ctx.fill();
+    ctx.lineWidth = 1.2; ctx.strokeStyle = 'rgba(255,255,255,.55)'; ctx.stroke();
+  }
+  ctx.globalAlpha = 1;
+}
+
+function labelBox(o, strong){
+  ctx.font = (strong ? '600 ' : '500 ') + '11.5px ' + (getComputedStyle(document.body).fontFamily||'sans-serif');
+  var txt = o.p.n, w = ctx.measureText(txt).width, s = vp();
+  var x = o.sx + 8;
+  if(x + w + 8 > s.w - 6) x = o.sx - w - 12;
+  var y = o.sy - 16;
+  if(y < 6) y = o.sy + 8;
+  if(y > s.h - 22) y = o.sy - 22;
+  return {x:x, y:y, w:w+8, h:15, txt:txt};
+}
+function drawLabel(o, color, strong){
+  var b = labelBox(o, strong);
+  ctx.fillStyle = strong ? 'rgba(14,11,8,.95)' : 'rgba(14,11,8,.82)';
+  roundRect(b.x-4, b.y, b.w, b.h, 4); ctx.fill();
+  if(strong){ ctx.strokeStyle = 'rgba(230,201,135,.5)'; ctx.lineWidth = 1; ctx.stroke(); }
+  ctx.fillStyle = strong ? '#f4e7cb' : 'rgba(233,220,195,.9)';
+  ctx.textAlign = 'left'; ctx.textBaseline = 'middle';
+  ctx.fillText(b.txt, b.x, b.y + b.h/2 + 0.5);
+}
+function roundRect(x,y,w,h,r){
+  ctx.beginPath();
+  ctx.moveTo(x+r,y); ctx.lineTo(x+w-r,y); ctx.quadraticCurveTo(x+w,y,x+w,y+r);
+  ctx.lineTo(x+w,y+h-r); ctx.quadraticCurveTo(x+w,y+h,x+w-r,y+h);
+  ctx.lineTo(x+r,y+h); ctx.quadraticCurveTo(x,y+h,x,y+h-r);
+  ctx.lineTo(x,y+r); ctx.quadraticCurveTo(x,y,x+r,y);
+}
+
+/* ================= 侧栏 ================= */
+function renderRegions(){
+  var host = $('#regions'); host.innerHTML = '';
+  DATA.forEach(function(r){
+    var b = document.createElement('button');
+    b.className = 'rg' + (r.id===state.rid ? ' on' : '');
+    b.innerHTML = '<em>' + r.act + ' · ' + r.en + '</em><b>' + r.cn + '</b><s>' + r.pins.length + '</s>';
+    b.onclick = function(){ switchRegion(r.id); };
+    host.appendChild(b);
+  });
+}
+
+function renderFilters(){
+  var host = $('#filters'); host.innerHTML = '';
+  var counts = {}, cur = region();
+  cur.pins.forEach(function(p){ counts[p.c] = (counts[p.c]||0)+1; });
+  ORDER.forEach(function(g){
+    var names = Object.keys(CAT).filter(function(c){ return CAT[c].g===g && counts[c]; });
+    if(!names.length) return;
+    var box = document.createElement('div'); box.className='grp';
+    box.innerHTML = '<h4>' + g + '</h4>';
+    var chips = document.createElement('div'); chips.className='chips';
+    names.forEach(function(c){
+      var on = state.cats.has(c), col = catOf(c).c;
+      var el = document.createElement('button');
+      el.className = 'chip' + (on?' on':'');
+      el.innerHTML = '<i class="dot" style="background:'+col+';color:'+col+'"></i>' + c +
+        '<b>' + (counts[c]||0) + '</b>';
+      el.onclick = function(){
+        if(state.cats.has(c)) state.cats.delete(c); else state.cats.add(c);
+        el.classList.toggle('on'); draw(); renderList();
+      };
+      chips.appendChild(el);
+    });
+    box.appendChild(chips); host.appendChild(box);
+  });
+}
+
+function renderAreas(){
+  var r = region(), host = $('#areas');
+  host.innerHTML = '';
+  if(!r.areas || !r.areas.length){ host.innerHTML = '<div class="empty">这一区没有分区地名</div>'; return; }
+  r.areas.forEach(function(a){
+    var b = document.createElement('button');
+    b.textContent = a.n;
+    b.onclick = function(){
+      var s = vp(), k = clamp(1.05, minK(), maxK());
+      animateTo({k:k, x: a.x/100*r.w - s.w/(2*k), y: a.y/100*r.h - s.h/(2*k)});
+      state.sel = null; renderCard();
+    };
+    host.appendChild(b);
+  });
+  $('#areaCount') && ($('#areaCount').textContent = r.areas.length + ' 处');
+}
+
+function fitToList(list){
+  var r = region(), s = vp();
+  if(!list.length) return;
+  var xs = list.map(function(p){ return p.x/100*r.w; }), ys = list.map(function(p){ return p.y/100*r.h; });
+  var x0 = Math.min.apply(null,xs), x1 = Math.max.apply(null,xs);
+  var y0 = Math.min.apply(null,ys), y1 = Math.max.apply(null,ys);
+  var pad = Math.max(120, Math.max(x1-x0,y1-y0)*0.35);
+  x0-=pad; y0-=pad; x1+=pad; y1+=pad;
+  var k = clamp(Math.min(s.w/(x1-x0), s.h/(y1-y0))*0.85, minK(), maxK());
+  animateTo({k:k, x:(x0+x1)/2 - s.w/(2*k), y:(y0+y1)/2 - s.h/(2*k)});
+}
+function visiblePins(){
+  var r = region(), q = state.q.trim().toLowerCase();
+  return r.pins.filter(function(p){
+    if(q) return p.n.toLowerCase().indexOf(q)>=0 || (p.z||'').toLowerCase().indexOf(q)>=0 || p.c.indexOf(q)>=0;
+    return state.cats.has(p.c);
+  });
+}
+
+function renderList(){
+  var r = region(), host = $('#plist'), q = state.q.trim();
+  var arr = visiblePins().slice();
+  arr.sort(function(a,b){
+    var ka = catOf(a.c).key?0:1, kb = catOf(b.c).key?0:1;
+    if(ka!==kb) return ka-kb;
+    if(a.c!==b.c) return a.c.localeCompare(b.c,'zh');
+    return a.n.localeCompare(b.n,'zh');
+  });
+  var head = '<div style="font-size:10.5px;color:var(--dim2);letter-spacing:.08em;margin:0 0 6px">' +
+    (q ? '搜索「'+q+'」· '+arr.length+' 个结果' : '当前筛选 · '+arr.length+' 个点位') + '</div>';
+  if(!arr.length){
+    host.innerHTML = '<div class="empty">' + (q ? '没有匹配「'+q+'」的点位<br>试试地名，或放宽分类筛选' : '当前分类都是关闭的，先在上方打开几类') + '</div>';
+    return;
+  }
+  var limit = 400, frag = document.createDocumentFragment();
+  arr.slice(0, limit).forEach(function(p){
+    var id = pinId(r,p), done = state.done.has(id), cat = catOf(p.c);
+    var b = document.createElement('button');
+    b.className = 'pitem' + (done?' done':'') + (state.sel && state.sel.id===id?' sel':'');
+    b.innerHTML = '<i class="dot" style="background:'+cat.c+'"></i><s style="display:none"></s>' +
+      '<span class="tx"><b>' + p.n + '</b><s>' + p.c + (p.z? ' · '+p.z : '') + '</s></span>' +
+      '<span class="ck">✓</span>';
+    b.onclick = function(ev){
+      if(ev.target.classList.contains('ck')){ toggleDone(id); return; }
+      selectPin(p, id, true);
+    };
+    frag.appendChild(b);
+  });
+  host.innerHTML = head;
+  host.appendChild(frag);
+  if(arr.length > limit){
+    var more = document.createElement('div');
+    more.className = 'empty'; more.textContent = '还有 ' + (arr.length-limit) + ' 个点位，缩小范围或搜索后再看';
+    host.appendChild(more);
+  }
+}
+
+function renderLegend(){
+  var host = $('#legend'), r = region(), counts = {};
+  r.pins.forEach(function(p){ counts[p.c]=(counts[p.c]||0)+1; });
+  var html = '';
+  ORDER.forEach(function(g){
+    Object.keys(CAT).forEach(function(c){
+      if(CAT[c].g!==g || !counts[c] || !state.cats.has(c)) return;
+      html += '<span><i style="background:'+CAT[c].c+'"></i>'+c+' '+counts[c]+'</span>';
+    });
+  });
+  host.innerHTML = html || '<span>未选择分类</span>';
+}
+
+/* ================= 详情卡 ================= */
+function selectPin(p, id, fly){
+  var r = region();
+  state.sel = {p:p, id:id, rid:r.id};
+  if(fly) flyToPin(r, p);
+  renderCard(); renderList(); draw();
+}
+function renderCard(){
+  var card = $('#card');
+  if(!state.sel){ card.classList.remove('on'); card.innerHTML=''; return; }
+  var p = state.sel.p, r = region(), cat = catOf(p.c), done = state.done.has(state.sel.id);
+  card.classList.add('on');
+  card.innerHTML =
+    '<button class="x" aria-label="关闭">×</button>' +
+    '<div class="k"><i style="background:'+cat.c+'"></i>'+p.c+' · '+cat.g+'</div>' +
+    '<h3>'+p.n+'</h3>' +
+    '<div class="sub">'+(p.z? '所在区域 <b>'+p.z+'</b><br>' : '')+
+      '大型地图 <b>'+r.cn+'</b> · '+r.act+'</div>' +
+    '<div class="row">' +
+      '<button class="primary'+(done?' on':'')+'" data-act="done">'+(done?'✓ 已标记':'标记已收集')+'</button>' +
+      '<button data-act="fly">居中</button>' +
+    '</div>';
+  card.querySelector('.x').onclick = function(){ state.sel=null; renderCard(); renderList(); draw(); };
+  card.querySelector('[data-act="fly"]').onclick = function(){ flyToPin(region(), p, 1.25); };
+  card.querySelector('[data-act="done"]').onclick = function(){ toggleDone(state.sel.id); };
+}
+function toggleDone(id){
+  if(state.done.has(id)) state.done.delete(id); else state.done.add(id);
+  saveDone(); renderCard(); renderList(); renderProgress(); draw();
+}
+function renderProgress(){
+  var total = 0, done = 0;
+  DATA.forEach(function(r){ r.pins.forEach(function(p){ total++; if(state.done.has(pinId(r,p))) done++; }); });
+  $('#progText').textContent = '已标记 ' + done + ' / ' + total;
+  $('#progBar').style.width = total? (done/total*100).toFixed(1)+'%' : '0%';
+}
+
+/* ================= 切换 ================= */
+function switchRegion(id){
+  state.rid = id; state.sel = null; state.hover = null;
+  if(!visiblePins().length){
+    var have = {}; region().pins.forEach(function(p){ have[p.c]=1; });
+    var pick = (region().pins.length < 60) ? Object.keys(have) : DEFAULT_ON.filter(function(c){ return have[c]; });
+    if(!pick.length) pick = Object.keys(have).slice(0,6);
+    state.cats = new Set(pick);
+  }
+  renderRegions(); renderAreas(); renderFilters(); renderLegend(); renderList(); renderCard();
+  ensureImage(region(), function(){ fitView(true); });
+  fitView(true);
+  updateCrumbs();
+  draw();
+  if(window.innerWidth <= 900) $('#side').classList.remove('open');
+}
+function updateCrumbs(){
+  var r = region();
+  if(window.innerWidth <= 900){
+    $('#crumbs').innerHTML = '<b>'+r.cn+'</b><i></i>'+r.act+'<i></i>'+r.pins.length+' 点';
+  } else {
+    $('#crumbs').innerHTML = '<b>'+r.cn+'</b><i></i>'+r.act+' · '+r.en+'<i></i>'+r.pins.length+' 个点位<i></i>高清 '+
+      (r.w>r.h? r.w : r.h)+'px';
+  }
+}
+
+/* ================= 交互 ================= */
+var drag = null, pointers = new Map(), pinch = null;
+
+cv.addEventListener('pointerdown', function(e){
+  cv.setPointerCapture(e.pointerId);
+  pointers.set(e.pointerId, {x:e.clientX, y:e.clientY});
+  if(pointers.size===1){
+    drag = {x:e.clientX, y:e.clientY, vx:view.x, vy:view.y, moved:0};
+    cv.classList.add('drag');
+  } else if(pointers.size===2){
+    var pts = Array.from(pointers.values());
+    pinch = {d: dist(pts[0],pts[1]), k:view.k};
+    drag = null;
+  }
+});
+cv.addEventListener('pointermove', function(e){
+  if(pointers.has(e.pointerId)) pointers.set(e.pointerId, {x:e.clientX, y:e.clientY});
+  if(pinch && pointers.size===2){
+    var pts = Array.from(pointers.values());
+    var d = dist(pts[0],pts[1]);
+    zoomAt(vp().w/2, vp().h/2, d/pinch.d * (pinch.k/view.k));
+    pinch.k = view.k; pinch.d = d;
+    return;
+  }
+  if(drag){
+    var dx = e.clientX-drag.x, dy = e.clientY-drag.y;
+    drag.moved = Math.max(drag.moved, Math.abs(dx)+Math.abs(dy));
+    view.x = drag.vx - dx/view.k;
+    view.y = drag.vy - dy/view.k;
+    clampView();
+    draw();
+  } else {
+    hoverAt(e.clientX, e.clientY);
+  }
+});
+cv.addEventListener('pointerup', function(e){
+  pointers.delete(e.pointerId);
+  if(pointers.size<2) pinch = null;
+  if(drag){
+    cv.classList.remove('drag');
+    if(drag.moved < 5) clickAt(e.clientX, e.clientY);
+    drag = null;
+  }
+});
+cv.addEventListener('pointercancel', function(e){ pointers.delete(e.pointerId); drag=null; pinch=null; cv.classList.remove('drag'); });
+cv.addEventListener('wheel', function(e){
+  e.preventDefault();
+  var rect = cv.getBoundingClientRect();
+  zoomAt(e.clientX-rect.left, e.clientY-rect.top, e.deltaY<0 ? 1.16 : 1/1.16);
+}, {passive:false});
+cv.addEventListener('dblclick', function(e){
+  var rect = cv.getBoundingClientRect();
+  zoomAt(e.clientX-rect.left, e.clientY-rect.top, 1.8);
+});
+function dist(a,b){ var dx=a.x-b.x, dy=a.y-b.y; return Math.sqrt(dx*dx+dy*dy) || 1; }
+function clampView(){
+  var r = region(), s = vp();
+  var mw = s.w/view.k, mh = s.h/view.k;
+  view.x = clamp(view.x, -mw*0.2, r.w - mw*0.8);
+  view.y = clamp(view.y, -mh*0.2, r.h - mh*0.8);
+}
+function hitAt(cx, cy){
+  var rect = cv.getBoundingClientRect(), x = cx-rect.left, y = cy-rect.top;
+  var best = null, bd = 16*16;
+  for(var i=0;i<SCREEN.length;i++){
+    var o = SCREEN[i]; if(!o.hit) continue;
+    var dx = o.sx-x, dy = o.sy-y, d = dx*dx+dy*dy;
+    if(d < bd){ bd = d; best = o; }
+  }
+  return best;
+}
+function hoverAt(cx, cy){
+  var o = hitAt(cx, cy);
+  var next = o ? {id:o.id, p:o.p} : null;
+  if((state.hover&&state.hover.id)!==(next&&next.id)){
+    state.hover = next;
+    cv.style.cursor = next ? 'pointer' : 'grab';
+    draw();
+  }
+}
+function clickAt(cx, cy){
+  var o = hitAt(cx, cy);
+  if(o) selectPin(o.p, o.id, false);
+  else { state.sel = null; renderCard(); renderList(); draw(); }
+}
+
+/* ================= 控件 ================= */
+$('#zin').onclick = function(){ zoomAt(vp().w/2, vp().h/2, 1.35); };
+$('#zout').onclick = function(){ zoomAt(vp().w/2, vp().h/2, 1/1.35); };
+$('#fit').onclick = function(){ fitView(false); };
+$('#drawer').onclick = function(){ $('#side').classList.toggle('open'); };
+$('#btnHelp').onclick = function(){ $('#modal').classList.add('on'); };
+$('#mclose').onclick = function(){ $('#modal').classList.remove('on'); };
+$('#modal').addEventListener('click', function(e){ if(e.target.id==='modal') $('#modal').classList.remove('on'); });
+$('#btnReset').onclick = function(){
+  if(!state.done.size) return;
+  if(confirm('清空全部「已收集」标记？')){
+    state.done.clear(); saveDone(); renderProgress(); renderList(); renderCard(); draw();
+  }
+};
+var qTimer = null;
+$('#q').addEventListener('input', function(e){
+  state.q = e.target.value;
+  $('#searchbox').classList.toggle('has', !!state.q);
+  if(state.q) setTab('list');
+  renderList(); draw();
+  clearTimeout(qTimer);
+  if(state.q.trim().length >= 1){
+    qTimer = setTimeout(function(){
+      var list = visiblePins();
+      if(list.length && list.length <= 40) fitToList(list);
+    }, 420);
+  }
+});
+$('#qclr').onclick = function(){ $('#q').value=''; state.q=''; $('#searchbox').classList.remove('has'); renderList(); draw(); };
+$('#presets').addEventListener('click', function(e){
+  var b = e.target.closest('button'); if(!b) return;
+  var set = PRESETS[b.dataset.p] || [];
+  state.cats = new Set(set);
+  renderFilters(); renderLegend(); renderList(); draw();
+});
+$('#tabs').addEventListener('click', function(e){
+  var b = e.target.closest('button'); if(!b) return; setTab(b.dataset.tab);
+});
+function setTab(t){
+  state.tab = t;
+  Array.prototype.forEach.call($('#tabs').children, function(b){ b.classList.toggle('on', b.dataset.tab===t); });
+  ['cat','area','list'].forEach(function(k){ $('#pane-'+k).classList.toggle('on', k===t); });
+  if(t==='list') renderList();
+  if(t==='area') renderAreas();
+}
+
+document.addEventListener('keydown', function(e){
+  if(e.target.tagName==='INPUT') return;
+  var s = vp();
+  if(e.key==='+'||e.key==='='){ zoomAt(s.w/2,s.h/2,1.3); }
+  else if(e.key==='-'){ zoomAt(s.w/2,s.h/2,1/1.3); }
+  else if(e.key==='f'||e.key==='F'){ fitView(false); }
+  else if(e.key==='Escape'){ state.sel=null; renderCard(); renderList(); draw(); }
+  else if(e.key==='ArrowLeft'){ view.x -= 80/view.k; clampView(); draw(); }
+  else if(e.key==='ArrowRight'){ view.x += 80/view.k; clampView(); draw(); }
+  else if(e.key==='ArrowUp'){ view.y -= 80/view.k; clampView(); draw(); }
+  else if(e.key==='ArrowDown'){ view.y += 80/view.k; clampView(); draw(); }
+});
+
+/* ================= 初始化 ================= */
+loadDone();
+renderRegions();
+renderFilters();
+renderAreas();
+renderLegend();
+renderProgress();
+updateCrumbs();
+setTab('cat');
+ensureImage(region(), function(){ fitView(true); });
+resizeCanvas();
+fitView(true);
+window.addEventListener('resize', function(){ resizeCanvas(); draw(); });
+setInterval(function(){ if(state.sel) draw(); }, 700);
+
+</script>
+</body>
+</html>
