@@ -441,13 +441,13 @@ table.cand tr.win td{background:#eefaf3;color:var(--ok);font-weight:600}
 #tool-mockup .mk-a,#tool-mockup .mk-b{display:flex;flex-direction:column;gap:12px;min-width:0}
 #tool-mockup .card{padding:15px 15px 13px}
 #tool-mockup .lbl{margin-bottom:8px}
-#tool-mockup .mk-devs{display:grid;grid-template-columns:1fr 1fr;gap:6px}
+#tool-mockup .mk-devs{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:6px}
 #tool-mockup .mk-dev{
   border:1px solid var(--line);background:#fff;border-radius:10px;padding:7px 9px 6px;text-align:left;
   cursor:pointer;font:inherit;transition:.16s;min-width:0;
 }
-#tool-mockup .mk-dev b{display:block;font-size:12.5px;color:var(--ink);font-weight:600;line-height:1.35;white-space:nowrap}
-#tool-mockup .mk-dev span{display:block;font-size:10.5px;color:var(--ink3);line-height:1.4;margin-top:1px;white-space:nowrap}
+#tool-mockup .mk-dev b{display:block;font-size:12.5px;color:var(--ink);font-weight:600;line-height:1.35;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+#tool-mockup .mk-dev span{display:block;font-size:10px;color:var(--ink3);line-height:1.4;margin-top:1px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 #tool-mockup .mk-dev:hover{border-color:var(--brand-line);background:#fbfcff}
 #tool-mockup .mk-dev.on{border-color:var(--brand);background:var(--brand-soft);box-shadow:0 0 0 2px rgba(29,78,216,.09)}
 #tool-mockup .mk-dev.on b{color:var(--brand)}
@@ -1012,7 +1012,7 @@ table.cand tr.win td{background:#eefaf3;color:var(--ok);font-weight:600}
       </div>
     </div>
     <div class="hdr-r">
-      <span class="badge"><!--pnid:rFzqcvyu0Jd6ckVWj8UoC0-->v17 &middot; 2026-10-29</span>
+      <span class="badge"><!--pnid:rFzqcvyu0Jd6ckVWj8UoC0-->v18 &middot; 2026-11-03</span>
       <span class="badge badge-ok"><!--pnid:fij8wnjFigBIaulXEhrBR8-->离线可用</span>
     </div>
   </header>
@@ -6706,7 +6706,8 @@ window.MK_BEZELS={"b15nat":{"s":"data:image/webp;base64,UklGRtR9AABXRUJQVlA4WAoA
         b.className = 'mk-dev' + (d.id === st.dev ? ' on' : '');
         var hasReal = false;
         for (var ci0 = 0; ci0 < d.colors.length; ci0++){ if (d.colors[ci0].b){ hasReal = true; break; } }
-        b.innerHTML = '<b>' + d.name + '</b><span>' + d.sub + (hasReal ? ' \u00b7 \u771f\u673a' : '') + '</span>';
+        b.innerHTML = '<b>' + d.name + '</b><span>' + d.sub + '</span>';
+        b.title = d.name + ' \u00b7 ' + d.sub + (hasReal ? ' \u00b7 \u5b98\u65b9\u771f\u673a\u8fb9\u6846' : ' \u00b7 \u6309\u7269\u7406\u5c3a\u5bf8\u7ed8\u5236');
         b.addEventListener('click', function(){
           st.dev = d.id; st.ci = 0;
           renderDevs(); renderColors(); refresh();
