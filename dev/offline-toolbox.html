@@ -934,7 +934,7 @@ table.cand tr.win td{background:#eefaf3;color:var(--ok);font-weight:600}
   font-size:12.5px;color:var(--ink2);background:rgba(255,255,255,.86);border-radius:12px;z-index:2;
 }
 .ie-side{min-width:0}
-#tool-imgedit .ie-blk .seg{width:-moz-fit-content;width:fit-content}
+#tool-imgedit .ie-blk .seg,#tool-caption .ie-blk .seg{width:-moz-fit-content;width:fit-content}
 .ie-blk{padding:11px 0;border-bottom:1px dashed var(--line2)}
 .ie-blk:first-child{padding-top:0}
 .ie-blk:last-child{border-bottom:0;padding-bottom:0}
@@ -1056,6 +1056,19 @@ table.cand tr.win td{background:#eefaf3;color:var(--ok);font-weight:600}
 @media screen and (max-width:880px){
   #tool-loan .ln-cols{grid-template-columns:minmax(0,1fr);grid-template-areas:"f" "m"}
 }
+/* ===== 图片加字（图下快速加一行字幕） ===== */
+.cap-ta{min-height:80px;font-family:var(--font-sans);font-size:13px;line-height:1.65}
+#capCanvas{display:block;max-width:100%;border-radius:2px;background:#fff;box-shadow:0 2px 12px rgba(20,35,70,.14)}
+.cap-sw{
+  width:24px;height:24px;border-radius:7px;border:1px solid var(--line);padding:0;cursor:pointer;
+  transition:.15s;flex:none;
+}
+.cap-sw:hover{transform:translateY(-1px)}
+.cap-sw.on{border-color:var(--brand);box-shadow:0 0 0 2px var(--brand-line)}
+.cap-num{font-variant-numeric:tabular-nums}
+@media screen and (max-width:900px){
+  .cap-ta{min-height:64px}
+}
 </style>
 </head>
 <body>
@@ -1066,11 +1079,11 @@ table.cand tr.win td{background:#eefaf3;color:var(--ok);font-weight:600}
       <div class="logo"><!--pnid:5E6tt2utb4u9ogrq6CLvRU-->&#129520;</div>
       <div>
         <h1><!--pnid:T3m0nns9JIsNkMDSCGqRDg-->离线工具箱</h1>
-        <p class="sub"><!--pnid:Y9qhPTagkTO2Wi2clAIrRu-->14 个离线小工具 &middot; 金额 / 房贷计算器 / 二维码 / 图片压缩 / 图片编辑 / 文本对比 / Emoji 大全 / 分级表 / 证件水印 / 列转行 / 文本去重 / 称谓 / 截图套壳 / 文字出图 &middot; 断网可用</p>
+        <p class="sub"><!--pnid:Y9qhPTagkTO2Wi2clAIrRu-->15 个离线小工具 &middot; 金额 / 房贷计算器 / 二维码 / 图片压缩 / 图片编辑 / 图片加字 / 文本对比 / Emoji 大全 / 分级表 / 证件水印 / 列转行 / 文本去重 / 称谓 / 截图套壳 / 文字出图 &middot; 断网可用</p>
       </div>
     </div>
     <div class="hdr-r">
-      <span class="badge"><!--pnid:rFzqcvyu0Jd6ckVWj8UoC0-->v19 &middot; 2026-11-03</span>
+      <span class="badge"><!--pnid:rFzqcvyu0Jd6ckVWj8UoC0-->v20 &middot; 2026-11-04</span>
       <span class="badge badge-ok"><!--pnid:fij8wnjFigBIaulXEhrBR8-->离线可用</span>
     </div>
   </header>
@@ -1090,6 +1103,7 @@ table.cand tr.win td{background:#eefaf3;color:var(--ok);font-weight:600}
       <button class="tool" data-tool="qr" type="button"><span class="ic"><!--pnid:AnoZP3PbsufScwpSzjyfAX-->&#128307;</span><!--pnid:TmjewAzlYUVJUnCtfCGDZU-->二维码</button>
       <button class="tool" data-tool="image" type="button"><span class="ic"><!--pnid:AKNwRkxdKBqyIIjofGayjF-->&#128444;&#65039;</span><!--pnid:tgpZT5PJWqSHhDFKCBsKkY-->图片压缩</button>
       <button class="tool" data-tool="imgedit" type="button"><span class="ic"><!--pnid:ICyB8gyjbv95irH8284rI7-->&#128396;&#65039;</span><!--pnid:qNtIrmqNOBJbDeJh3107kp-->图片编辑</button>
+      <button class="tool" data-tool="caption" type="button"><span class="ic"><!--pnid:VYWcZx3G8yxDVQBofLpyhO-->&#127991;&#65039;</span><!--pnid:zrG6wYQpCoos8v3KqIy9il-->图片加字</button>
       <button class="tool" data-tool="kin" type="button"><span class="ic"><!--pnid:JQBQA5GyVjFAYE5HD69LHY-->&#128106;</span><!--pnid:UEEQSUP2ZvQ2JJO5MAOs85-->三姑六婆</button>
       <button class="tool" data-tool="mockup" type="button"><span class="ic"><!--pnid:WdW3ZTeFdysKCr0jur0OSX-->&#128241;</span><!--pnid:tqZfLe8HhzRvT9QmzUH5yR--><!--pnid:mkMockupNav--><!--pnid:jP8OVbiZbcoEQalMhWVnAY-->截图套壳</button>
       <button class="tool" data-tool="textcard" type="button"><span class="ic"><!--pnid:4oYJnT0JirmOd8G8gZdUZc-->&#128395;&#65039;</span><!--pnid:v4D75ZH4Jk0VL31MThlTDn-->文字出图</button>
@@ -1599,6 +1613,81 @@ table.cand tr.win td{background:#eefaf3;color:var(--ok);font-weight:600}
       </div>
     </div>
   </section>
+
+  <section class="tool-panel" hidden id="tool-caption">
+    <div class="card" id="capEmpty">
+      <div class="drop" id="capDrop">
+        <div class="big" style="line-height:0"><svg aria-hidden="true" fill="none" height="44" stroke="#7b8798" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.3" viewBox="0 0 24 24" width="44"><rect height="15" rx="2.5" width="18" x="3" y="4.5"/><circle cx="8.6" cy="10" r="1.55"/><path d="M20.5 15.6 16 11.1 7.4 19.5"/></svg></div>
+        <div class="t"><!--pnid:oF3wke5JX9p5RWiCAxEwd5-->把图片拖进来、点击选择，或直接 Ctrl+V 粘贴</div>
+        <div class="s"><!--pnid:1I7uZE4cQPJFhbuyQ856cC-->JPG / PNG / WebP &middot; 在图片下方加一行字，一键导出合成图</div>
+        <input accept="image/*" hidden id="capFile" type="file">
+      </div>
+      <p class="msg" id="capMsg"></p>
+    </div>
+
+    <div hidden id="capWrap">
+      <div class="card">
+        <div class="ie-top">
+          <span class="ie-meta cap-num" id="capSize"><!--pnid:gXQXpd9d7NPT7DKfI5HekW-->&mdash;</span>
+          <div class="btn-row ie-top-r">
+            <button class="btn small" id="capDemo" type="button"><!--pnid:8F5leOwUEyVctfjLBit8jX-->示例</button>
+            <button class="btn small" id="capChange" type="button"><!--pnid:vSepO3UN8fzu3m5BXhkQwk-->换一张</button>
+            <button class="btn primary small" id="capSave" type="button"><!--pnid:x54oI9d4x7p9cIhgXt09tL-->下载图片</button>
+          </div>
+        </div>
+        <div class="ie-main">
+          <div class="ie-stage" id="capStage">
+            <canvas id="capCanvas"></canvas>
+            <div class="ie-loading" hidden id="capLoading"><span class="spin"></span><span><!--pnid:DDMTCfQjvuyoyv2AsVqV9T-->正在读取图片…</span></div>
+          </div>
+          <aside class="ie-side">
+            <div class="ie-blk">
+              <div class="ie-blk-h"><!--pnid:qVS6ptTsh4O4vGdLwdc9Gy-->文字 <span class="ie-cnt" id="capCount"></span></div>
+              <textarea autocomplete="off" class="ta cap-ta" id="capText" placeholder="在这里输入要加在图下的文字，回车换行" spellcheck="false"></textarea>
+              <p class="hint" style="margin-top:6px"><!--pnid:NBVHAiLTxvzjENFyq4H9Ox-->太长会自动折行；想分两行就直接回车。</p>
+            </div>
+            <div class="ie-blk">
+              <div class="ie-blk-h"><!--pnid:jp2IMUJXNY0GC6V6yvUXxX-->字号</div>
+              <div class="slider"><input id="capSizeR" max="12" min="2" step="0.2" type="range" value="5.6"><span class="v" id="capSizeV"><!--pnid:5HaXykeq6C4uH0tIHlh36B-->5.6%</span></div>
+            </div>
+            <div class="ie-blk">
+              <div class="ie-blk-h"><!--pnid:Cz3y144w79ZDofaF8bJKHf-->文字颜色</div>
+              <div class="fld">
+                <input aria-label="文字颜色" id="capColor" type="color" value="#c0201a">
+                <button class="cap-sw" data-capcolor="#1b2432" title="黑" type="button" style="background:#1b2432"></button>
+                <button class="cap-sw" data-capcolor="#c0201a" title="红" type="button" style="background:#c0201a"></button>
+                <button class="cap-sw" data-capcolor="#ffffff" title="白" type="button" style="background:#ffffff"></button>
+                <button class="cap-sw" data-capcolor="#1d4ed8" title="蓝" type="button" style="background:#1d4ed8"></button>
+              </div>
+            </div>
+            <div class="ie-blk">
+              <div class="ie-blk-h"><!--pnid:8daIjpEKSK0y8zw4DgCzZy-->字重 / 对齐</div>
+              <div class="seg" data-cap="weight"><button class="on" data-val="700" type="button"><!--pnid:5D7KJ6vtAYILEAw9cQmCDE-->加粗</button><button data-val="400" type="button"><!--pnid:rQASlhWOkKHTAK0kQH8gZp-->常规</button></div>
+              <div class="seg" data-cap="align" style="margin-top:6px"><button data-val="left" type="button"><!--pnid:EARiPAyNTtmPsX4egFDvSh-->左</button><button class="on" data-val="center" type="button"><!--pnid:s0cKrRJaS4kt15FxryMmik-->居中</button><button data-val="right" type="button"><!--pnid:42s2nIR9Er1IRpzFCK1Knw-->右</button></div>
+            </div>
+            <div class="ie-blk">
+              <div class="ie-blk-h"><!--pnid:0V8JEW9JYTjSVJiOwy0ulJ-->字体</div>
+              <div class="seg" data-cap="font"><button class="on" data-val="sans" type="button"><!--pnid:Y19WqsYVJkf70GZCTULIUP-->黑体</button><button data-val="serif" type="button"><!--pnid:IB7pZ70j2pf1YbSLEOZeus-->宋体</button><button data-val="kai" type="button"><!--pnid:IGAoylLHVOHIlQNyPlFRjK-->楷体</button></div>
+            </div>
+            <div class="ie-blk">
+              <div class="ie-blk-h"><!--pnid:6szvty8b8JG2m8HSLqtV6i-->文字位置</div>
+              <div class="seg" data-cap="pos"><button class="on" data-val="below" type="button"><!--pnid:jLOCkxCPMP5Nc4izTy0V0B-->在下方</button><button data-val="above" type="button"><!--pnid:WMDWoWXQQSI4sSaoh3ffcy-->在上方</button></div>
+            </div>
+            <div class="ie-blk">
+              <div class="ie-blk-h"><!--pnid:OBVSyTYHD4NP9ZMIHT18DS-->底色 / 留白</div>
+              <div class="fld">
+                <input aria-label="底色" id="capBg" type="color" value="#ffffff">
+                <div class="seg" data-cap="alphaBg"><button class="on" data-val="0" type="button"><!--pnid:IlfaginQyrBYrHCE04F8jh-->不透明</button><button data-val="1" type="button"><!--pnid:YgT4o9p7HQ739Kdn6pIcm6-->透明</button></div>
+              </div>
+              <div class="slider" style="margin-top:8px"><input id="capPad" max="12" min="0" step="0.5" type="range" value="4"><span class="v" id="capPadV"><!--pnid:A4UPT7J6e9FOoOJm2unHeV-->4%</span></div>
+            </div>
+          </aside>
+        </div>
+        <p class="msg" id="capStatus"></p>
+      </div>
+    </div>
+  </section>
+
 
   <section class="tool-panel" hidden id="tool-join">
     <div class="tool-grid">
@@ -11097,6 +11186,349 @@ var EM_DATA=[["😀","grinning face",0,"1.0"],["😃","grinning face with big ey
     clearTimeout(rz);
     rz = setTimeout(draw, 120);
   });
+})();
+</script>
+<script>
+/* ================= 图片加字：图下快速加字幕并导出 ================= */
+(function(){
+  var panel = document.getElementById('tool-caption');
+  if (!panel) return;
+
+  var elEmpty = document.getElementById('capEmpty');
+  var elWrap = document.getElementById('capWrap');
+  var elDrop = document.getElementById('capDrop');
+  var elFile = document.getElementById('capFile');
+  var elMsg = document.getElementById('capMsg');
+  var elStatus = document.getElementById('capStatus');
+  var elStage = document.getElementById('capStage');
+  var elLoading = document.getElementById('capLoading');
+  var elSize = document.getElementById('capSize');
+  var elText = document.getElementById('capText');
+  var elCount = document.getElementById('capCount');
+  var elSizeR = document.getElementById('capSizeR');
+  var elSizeV = document.getElementById('capSizeV');
+  var elPad = document.getElementById('capPad');
+  var elPadV = document.getElementById('capPadV');
+  var elColor = document.getElementById('capColor');
+  var elBg = document.getElementById('capBg');
+  var cv = document.getElementById('capCanvas');
+  var ctx = cv.getContext('2d');
+
+  var MAX_EDGE = 4000;
+  var full = document.createElement('canvas');
+  var st = {
+    img: null, srcType: '',
+    text: '', sizePct: 5.6, weight: 700, color: '#c0201a',
+    align: 'center', font: 'sans', pos: 'below',
+    bg: '#ffffff', alphaBg: false, padPct: 4
+  };
+  var timer = null;
+  var lastExport = null;
+
+  function clamp(v, a, b){ return v < a ? a : (v > b ? b : v); }
+  function setMsg(t, cls){ elMsg.textContent = t || ''; elMsg.className = 'msg' + (cls ? ' ' + cls : ''); }
+  function setStatus(t, cls){ elStatus.textContent = t || ''; elStatus.className = 'msg' + (cls ? ' ' + cls : ''); }
+  function fmtSize(b){
+    if (b < 1024) return b + ' B';
+    if (b < 1024 * 1024) return Math.round(b / 1024) + ' KB';
+    return (b / 1024 / 1024).toFixed(2) + ' MB';
+  }
+  function stamp(){
+    var d = new Date(), p = function(n){ return (n < 10 ? '0' : '') + n; };
+    return d.getFullYear() + p(d.getMonth() + 1) + p(d.getDate()) + '-' + p(d.getHours()) + p(d.getMinutes());
+  }
+
+  // canvas 不认 CSS 变量，取计算后的真实字体栈
+  function fontStack(k){
+    var v = '';
+    try { v = getComputedStyle(document.documentElement).getPropertyValue('--font-' + k); } catch (e){}
+    v = (v || '').trim();
+    if (!v) v = k === 'kai' ? '"KaiTi", serif' : (k === 'serif' ? 'serif' : 'sans-serif');
+    return v;
+  }
+
+  /* ---------- 排版：按图片宽度断行 ---------- */
+  function wrapLines(c, text, maxW){
+    var out = [], paras = String(text).replace(/\r\n?/g, '\n').split('\n'), i, j;
+    for (i = 0; i < paras.length; i++){
+      var chars = Array.from(paras[i]);
+      if (!chars.length){ out.push(''); continue; }
+      var cur = '';
+      for (j = 0; j < chars.length; j++){
+        var next = cur + chars[j];
+        if (cur && c.measureText(next).width > maxW){
+          var sp = cur.lastIndexOf(' ');
+          if (sp > 0){
+            out.push(cur.slice(0, sp));
+            cur = cur.slice(sp + 1) + chars[j];
+          } else {
+            out.push(cur);
+            cur = chars[j];
+          }
+        } else {
+          cur = next;
+        }
+      }
+      out.push(cur);
+    }
+    return out;
+  }
+
+  /* ---------- 合成（原分辨率） ---------- */
+  function buildFull(){
+    var img = st.img;
+    if (!img) return null;
+    var W = img.width, H = img.height;
+    var pad = Math.round(W * st.padPct / 100);
+    var fontPx = Math.max(8, Math.round(W * st.sizePct / 100));
+    var lineH = Math.round(fontPx * 1.32);
+    var maxW = Math.max(1, W - pad * 2);
+    var hasText = !!(st.text && st.text.replace(/\s/g, ''));
+
+    var probe = full.getContext('2d');
+    probe.font = st.weight + ' ' + fontPx + 'px ' + fontStack(st.font);
+    var lines = hasText ? wrapLines(probe, st.text, maxW) : [];
+    var textH = hasText ? (lines.length * lineH + pad * 2) : 0;
+
+    full.width = W;
+    full.height = H + textH;
+    var c = full.getContext('2d');
+    c.setTransform(1, 0, 0, 1, 0, 0);
+    c.clearRect(0, 0, full.width, full.height);
+    if (!st.alphaBg){
+      c.fillStyle = st.bg;
+      c.fillRect(0, 0, full.width, full.height);
+    }
+    var imgY = st.pos === 'below' ? 0 : textH;
+    c.imageSmoothingQuality = 'high';
+    c.drawImage(img, 0, imgY, W, H);
+
+    if (hasText){
+      c.font = st.weight + ' ' + fontPx + 'px ' + fontStack(st.font);
+      c.fillStyle = st.color;
+      c.textBaseline = 'middle';
+      c.textAlign = st.align === 'center' ? 'center' : st.align;
+      var blockTop = st.pos === 'below' ? H : 0;
+      var x = st.align === 'left' ? pad : (st.align === 'right' ? W - pad : Math.round(W / 2));
+      for (var i = 0; i < lines.length; i++){
+        c.fillText(lines[i], x, blockTop + pad + lineH * i + Math.round(lineH / 2));
+      }
+    }
+    return { W: W, H: full.height, textH: textH, lines: lines.length, fontPx: fontPx };
+  }
+
+  /* ---------- 预览 ---------- */
+  function render(){
+    if (!st.img) return;
+    var info = buildFull();
+    if (!info) return;
+    var maxW = Math.max(200, (elStage.clientWidth || 620) - 24);
+    var maxH = Math.max(180, Math.min(560, Math.round((window.innerHeight || 800) * 0.58)));
+    var s = Math.min(maxW / full.width, maxH / full.height, 1);
+    if (!isFinite(s) || s <= 0) s = 1;
+    var dpr = Math.min(window.devicePixelRatio || 1, 2);
+    var w = Math.max(1, Math.round(full.width * s));
+    var h = Math.max(1, Math.round(full.height * s));
+    cv.width = Math.round(w * dpr);
+    cv.height = Math.round(h * dpr);
+    cv.style.width = w + 'px';
+    cv.style.height = h + 'px';
+    ctx.setTransform(1, 0, 0, 1, 0, 0);
+    ctx.clearRect(0, 0, cv.width, cv.height);
+    ctx.imageSmoothingQuality = 'high';
+    ctx.drawImage(full, 0, 0, cv.width, cv.height);
+
+    elSize.textContent = info.W + ' × ' + info.H + (info.textH ? ' · 文字区 ' + info.textH + 'px' : '');
+    elCount.textContent = st.text ? '· ' + Array.from(st.text).length + ' 字 / ' + info.lines + ' 行' : '';
+    lastExport = full;
+  }
+
+  function schedule(){
+    if (timer) clearTimeout(timer);
+    timer = setTimeout(render, 110);
+  }
+
+  /* ---------- 导入 ---------- */
+  function setLoading(on){ elLoading.hidden = !on; }
+
+  function startWith(im, type){
+    st.srcType = type || '';
+    var w = im.naturalWidth || im.width, h = im.naturalHeight || im.height;
+    var s = Math.min(1, MAX_EDGE / Math.max(w, h));
+    var cw = Math.max(1, Math.round(w * s)), chh = Math.max(1, Math.round(h * s));
+    var c = document.createElement('canvas');
+    c.width = cw; c.height = chh;
+    var cc = c.getContext('2d');
+    cc.imageSmoothingQuality = 'high';
+    if (!/png|webp|gif|svg/i.test(type)){ cc.fillStyle = '#fff'; cc.fillRect(0, 0, cw, chh); }
+    cc.drawImage(im, 0, 0, cw, chh);
+
+    st.img = c;
+    elEmpty.hidden = true;
+    elWrap.hidden = false;
+    setLoading(false);
+    setMsg('');
+    render();
+    var note = '已载入 ' + w + ' × ' + h;
+    if (s < 1) note += '（超过 ' + MAX_EDGE + 'px，已缩到 ' + cw + ' × ' + chh + ' 再排版）';
+    setStatus(note, 'ok');
+  }
+
+  function loadFile(file){
+    if (!file) return;
+    if (!/^image\//.test(file.type || '')){ setMsg('这个文件不是图片', 'err'); return; }
+    setLoading(true);
+    var fr = new FileReader();
+    fr.onload = function(){
+      var im = new Image();
+      im.onload = function(){ startWith(im, file.type); };
+      im.onerror = function(){ setLoading(false); setMsg('图片解码失败，换一张试试', 'err'); };
+      im.src = fr.result;
+    };
+    fr.onerror = function(){ setLoading(false); setMsg('读取失败', 'err'); };
+    fr.readAsDataURL(file);
+  }
+
+  /* ---------- 导出 ---------- */
+  function save(){
+    if (!st.img) return;
+    var info = buildFull();
+    if (!info) return;
+    var type = (!st.alphaBg && /jpe?g/i.test(st.srcType)) ? 'image/jpeg' : 'image/png';
+    var name = 'caption-' + stamp() + (type === 'image/png' ? '.png' : '.jpg');
+    var cb = function(blob){
+      if (!blob){ setStatus('导出失败，换个浏览器试试', 'err'); return; }
+      var url = URL.createObjectURL(blob);
+      var a = document.createElement('a');
+      a.href = url;
+      a.download = name;
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+      setTimeout(function(){ URL.revokeObjectURL(url); }, 3000);
+      setStatus('已导出 ' + full.width + ' × ' + full.height + ' · ' + fmtSize(blob.size) + ' · ' + name, 'ok');
+    };
+    if (full.toBlob) full.toBlob(cb, type, 0.92); else cb(null);
+  }
+
+  /* ---------- 事件 ---------- */
+  elText.addEventListener('input', function(){
+    st.text = elText.value;
+    schedule();
+  });
+  elSizeR.addEventListener('input', function(){
+    st.sizePct = parseFloat(elSizeR.value) || 5.6;
+    elSizeV.textContent = st.sizePct.toFixed(1) + '%';
+    schedule();
+  });
+  elPad.addEventListener('input', function(){
+    st.padPct = parseFloat(elPad.value);
+    elPadV.textContent = st.padPct + '%';
+    schedule();
+  });
+  elColor.addEventListener('input', function(){
+    st.color = elColor.value;
+    syncSwatch();
+    schedule();
+  });
+  elBg.addEventListener('input', function(){
+    st.bg = elBg.value;
+    schedule();
+  });
+
+  function syncSwatch(){
+    var sws = panel.querySelectorAll('.cap-sw');
+    for (var i = 0; i < sws.length; i++){
+      sws[i].classList.toggle('on', sws[i].getAttribute('data-capcolor').toLowerCase() === String(st.color).toLowerCase());
+    }
+  }
+
+  panel.addEventListener('click', function(ev){
+    var t = ev.target;
+    if (!t || !t.getAttribute) return;
+    var sc = t.getAttribute('data-capcolor');
+    if (sc){
+      st.color = sc;
+      elColor.value = sc;
+      syncSwatch();
+      schedule();
+    }
+  });
+
+  wbSeg(null, 'data-cap', function(key, val){
+    if (key === 'weight') st.weight = parseInt(val, 10) || 700;
+    else if (key === 'alphaBg') st.alphaBg = (val === '1');
+    else st[key] = val;
+    if (key === 'alphaBg'){
+      elBg.disabled = st.alphaBg;
+    }
+    render();
+  });
+
+  elDrop.addEventListener('click', function(){ elFile.click(); });
+  elDrop.addEventListener('dragover', function(e){ e.preventDefault(); elDrop.classList.add('over'); });
+  elDrop.addEventListener('dragleave', function(){ elDrop.classList.remove('over'); });
+  elDrop.addEventListener('drop', function(e){
+    e.preventDefault();
+    elDrop.classList.remove('over');
+    if (e.dataTransfer && e.dataTransfer.files && e.dataTransfer.files[0]) loadFile(e.dataTransfer.files[0]);
+  });
+  elFile.addEventListener('change', function(){
+    if (elFile.files && elFile.files[0]) loadFile(elFile.files[0]);
+    elFile.value = '';
+  });
+
+  document.addEventListener('paste', function(ev){
+    if (panel.hidden) return;
+    var items = (ev.clipboardData && ev.clipboardData.items) || [];
+    for (var i = 0; i < items.length; i++){
+      if (items[i].type && items[i].type.indexOf('image/') === 0){
+        var f = items[i].getAsFile();
+        if (f){ ev.preventDefault(); loadFile(f); return; }
+      }
+    }
+  });
+
+  document.getElementById('capSave').addEventListener('click', save);
+  document.getElementById('capChange').addEventListener('click', function(){
+    elWrap.hidden = true;
+    elEmpty.hidden = false;
+    st.img = null;
+    setStatus('');
+    setMsg('');
+  });
+  document.getElementById('capDemo').addEventListener('click', function(){
+    elText.value = '扫一扫，关注「离线工具箱」';
+    st.text = elText.value;
+    st.sizePct = 6.4;
+    st.weight = 700;
+    st.color = '#c0201a';
+    elSizeR.value = st.sizePct;
+    elSizeV.textContent = st.sizePct.toFixed(1) + '%';
+    elColor.value = st.color;
+    var btns = panel.querySelectorAll('.seg[data-cap="weight"] button');
+    for (var i = 0; i < btns.length; i++) btns[i].classList.toggle('on', btns[i].getAttribute('data-val') === '700');
+    syncSwatch();
+    render();
+    setStatus('已填入示例文字，改内容即可', 'ok');
+  });
+
+  var rt = null;
+  window.addEventListener('resize', function(){
+    if (panel.hidden || !st.img) return;
+    if (rt) clearTimeout(rt);
+    rt = setTimeout(render, 160);
+  });
+
+  /* ---------- 初始化 ---------- */
+  syncSwatch();
+  elSizeV.textContent = st.sizePct.toFixed(1) + '%';
+  elPadV.textContent = st.padPct + '%';
+  if (window.__toolHook){
+    window.__toolHook('caption', function(){
+      if (st.img) setTimeout(render, 0);
+    });
+  }
 })();
 </script>
 </body>
