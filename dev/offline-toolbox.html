@@ -660,6 +660,10 @@ table.cand tr.win td{background:#eefaf3;color:var(--ok);font-weight:600}
 #tool-tier input[type=range]{accent-color:var(--brand);width:96px;vertical-align:middle}
 #tool-tier input[type=checkbox]{accent-color:var(--brand);width:15px;height:15px;vertical-align:middle}
 #tool-tier .tl-board{display:flex;flex-direction:column;gap:8px;min-height:80px}
+/* 自动缩放：限高后所有卡片共用一个 CSS 变量，改一次即整页等比缩小 */
+#tool-tier.tl-fit .tl-pool{overflow-y:auto;overflow-x:hidden;overscroll-behavior:contain}
+#tool-tier.tl-capped .tl-items{max-height:var(--tl-rowmax,220px);overflow-y:auto;overflow-x:hidden}
+#tool-tier .tl-val{font-variant-numeric:tabular-nums;color:var(--brand);font-weight:600;min-width:36px;text-align:right}
 /* 常驻快速投放条：看板很长时，把卡片拖到这里的档位 chip 即可跨屏投放 */
 #tool-tier .tl-rail{
   position:sticky;top:0;z-index:20;
@@ -690,8 +694,12 @@ table.cand tr.win td{background:#eefaf3;color:var(--ok);font-weight:600}
 #tool-tier .tl-tile.tl-sel{outline:3px solid var(--brand);outline-offset:1px}
 #tool-tier .tl-tile.tl-sel::after{
   content:'\2713';position:absolute;top:2px;right:3px;z-index:2;
-  width:17px;height:17px;line-height:17px;text-align:center;border-radius:50%;
-  background:var(--brand);color:#fff;font-size:11px;font-weight:700;
+  width:clamp(12px,calc(var(--tl-tile,88px)*.2),17px);
+  height:clamp(12px,calc(var(--tl-tile,88px)*.2),17px);
+  line-height:clamp(12px,calc(var(--tl-tile,88px)*.2),17px);
+  text-align:center;border-radius:50%;
+  background:var(--brand);color:#fff;
+  font-size:clamp(8px,calc(var(--tl-tile,88px)*.12),11px);font-weight:700;
   box-shadow:0 1px 4px rgba(0,0,0,.3);
 }
 #tool-tier .tl-row{
@@ -731,15 +739,17 @@ table.cand tr.win td{background:#eefaf3;color:var(--ok);font-weight:600}
 }
 #tool-tier .tl-items.tl-over{background:var(--brand-soft)}
 #tool-tier .tl-tile{
-  position:relative;border-radius:8px;overflow:hidden;background:#fff;cursor:grab;flex:none;
+  position:relative;width:var(--tl-tile,88px);height:var(--tl-tile,88px);
+  border-radius:8px;overflow:hidden;background:#fff;cursor:grab;flex:none;
   box-shadow:0 1px 3px rgba(20,35,70,.18);transition:transform .12s,box-shadow .12s;
 }
 #tool-tier .tl-tile:hover{transform:translateY(-1px);box-shadow:0 4px 12px rgba(20,35,70,.22)}
 #tool-tier .tl-tile:active{cursor:grabbing}
 #tool-tier .tl-tile img{display:block;width:100%;height:100%;object-fit:cover;pointer-events:none}
 #tool-tier .tl-tile .tl-cap{
-  position:absolute;left:0;right:0;bottom:0;font-size:10.5px;line-height:1.55;
-  padding:1px 4px;background:rgba(10,16,28,.6);color:#fff;text-align:center;
+  position:absolute;left:0;right:0;bottom:0;
+  font-size:clamp(8px,calc(var(--tl-tile,88px)*.12),10.5px);line-height:1.45;
+  padding:1px 3px;background:rgba(10,16,28,.6);color:#fff;text-align:center;
   overflow:hidden;white-space:nowrap;text-overflow:ellipsis;
 }
 #tool-tier .tl-tile.dragging{opacity:.35;transform:none}
@@ -1273,7 +1283,7 @@ table.cand tr.win td{background:#eefaf3;color:var(--ok);font-weight:600}
       </div>
     </div>
     <div class="hdr-r">
-      <span class="badge"><!--pnid:rFzqcvyu0Jd6ckVWj8UoC0-->v24 &middot; 2026-11-15</span>
+      <span class="badge"><!--pnid:rFzqcvyu0Jd6ckVWj8UoC0-->v25 &middot; 2026-11-15</span>
       <span class="badge badge-ok"><!--pnid:fij8wnjFigBIaulXEhrBR8-->离线可用</span>
     </div>
   </header>
@@ -2387,7 +2397,9 @@ table.cand tr.win td{background:#eefaf3;color:var(--ok);font-weight:600}
       </div>
       <div class="tl-bar2">
         <label><!--pnid:wbbRm2VihqJkbDq9oVxowk-->标题 <input id="tlTitle" maxlength="40" placeholder="分级表标题" type="text" style="width:150px"></label>
-        <label><!--pnid:nLm1qRs8FySu2B1hYWYLmc-->卡片 <input id="tlSize" max="132" min="56" step="4" type="range"></label>
+        <label title="头像尺寸上限；开启自动缩放后，看板变满时头像会按比例缩小到这个尺寸以下"><!--pnid:nLm1qRs8FySu2B1hYWYLmc-->头像上限 <input id="tlSize" max="132" min="56" step="4" type="range"></label>
+        <label title="把上方档位看板限制在设定高度内；卡片越多头像越小，继续拖入也不会把看板撑长"><input id="tlFit" type="checkbox"> 自动缩放</label>
+        <label title="上方档位看板的最大高度；导出 PNG 仍按头像上限尺寸排版">看板限高 <input id="tlFitH" max="1200" min="400" step="40" type="range"><span class="tl-val" id="tlFitVal">720</span></label>
         <label><input id="tlShowLabel" type="checkbox"><!--pnid:d4eMAaylGhXiosROE87D0p--> 显示名称</label>
         <label title="开启后点卡片=选中，再点上方的档位 chip 即可批量投放；Ctrl/⌘+点击随时可选中，双击卡片仍可裁剪改名"><input id="tlPick" type="checkbox"> 点选投放</label>
         <label><!--pnid:TBoUimpTNrTpuAoQPS1nXb-->筛选 <input id="tlSearch" placeholder="卡片名称" type="text" style="width:128px"></label>
@@ -2397,7 +2409,7 @@ table.cand tr.win td{background:#eefaf3;color:var(--ok);font-weight:600}
       <div class="tl-poolwrap">
         <div class="io-head" style="margin-bottom:8px">
           <span class="io-title"><!--pnid:7Iel8NPEgBweNqIWiSgfE2-->待分级 · <b id="tlPoolN"><!--pnid:ovSTOoYkrE1dt9wmu5cWml-->0</b><!--pnid:FhT8ZXrQ2OHh65hzEnSCdG--> 张</span>
-          <span class="hint" style="margin:0">拖进来 / Ctrl+V 粘贴 / 拖到顶部档位条即可快速投放 / 点卡片可裁剪改名</span>
+          <span class="hint" style="margin:0">拖进来 / Ctrl+V 粘贴 / 拖到顶部档位条即可快速投放 / 点卡片可裁剪改名 / 看板自动限高</span>
         </div>
         <div class="tl-pool" id="tlPool"></div>
       </div>
@@ -8336,7 +8348,7 @@ window.MK_BEZELS={"b15nat":{"s":"data:image/webp;base64,UklGRtR9AABXRUJQVlA4WAoA
 
   function blank(){
     return {
-      title: '我的分级表', tile: 88, showLabel: true,
+      title: '我的分级表', tile: 88, showLabel: true, fit: true, fitH: 720,
       tiers: [
         { id: 't1', name: 'S', color: COLORS[0], items: [] },
         { id: 't2', name: 'A', color: COLORS[1], items: [] },
@@ -8349,7 +8361,7 @@ window.MK_BEZELS={"b15nat":{"s":"data:image/webp;base64,UklGRtR9AABXRUJQVlA4WAoA
   }
 
   function clone(){
-    var o = { title: S.title, tile: S.tile, showLabel: S.showLabel, pool: S.pool.slice(), tiers: [], items: {} };
+    var o = { title: S.title, tile: S.tile, showLabel: S.showLabel, fit: S.fit, fitH: S.fitH, pool: S.pool.slice(), tiers: [], items: {} };
     for (var i = 0; i < S.tiers.length; i++){
       var t = S.tiers[i];
       o.tiers.push({ id: t.id, name: t.name, color: t.color, items: t.items.slice() });
@@ -8382,22 +8394,85 @@ window.MK_BEZELS={"b15nat":{"s":"data:image/webp;base64,UklGRtR9AABXRUJQVlA4WAoA
       if (!d || !d.tiers) return false;
       S = d;
       for (var k in S.items) if (S.items.hasOwnProperty(k) && !S.items[k].src0) S.items[k].src0 = S.items[k].src;
+      normalize();
       return true;
     } catch (e){ return false; }
   }
 
-  /* ---------- 渲染 ---------- */
-  function cols(){
-    var w = board.clientWidth || 860;
-    var labelW = window.innerWidth < 560 ? 72 : 92;
-    return Math.max(1, Math.floor((w - labelW - 22) / (S.tile + 8)));
+  /* 老草稿 / 老工程文件没有缩放字段，给一份安全默认值 */
+  function normalize(){
+    S.tile = Math.max(56, Math.min(132, parseInt(S.tile, 10) || 88));
+    S.fit = (S.fit === undefined) ? true : !!S.fit;
+    S.fitH = Math.max(400, Math.min(1200, parseInt(S.fitH, 10) || 720));
+    S.showLabel = S.showLabel !== false;
+  }
+
+  /* ---------- 自动缩放：看板限高，卡片越多头像越小 ---------- */
+  var TILE_GAP = 8, MIN_TILE = 34;
+  var effTile = 88, lastW = 0;
+
+  function fitTarget(){ return Math.max(400, Math.min(1200, parseInt(S.fitH, 10) || 720)); }
+
+  // .tl-items 的可用内容宽 = 看板宽 - 档位标签宽 - 左右 padding 20 - 行边框 2
+  function itemsInnerW(){
+    var w = board.clientWidth;
+    if (!w) w = lastW || 860; else lastW = w;
+    var tagW = window.innerWidth < 560 ? 72 : 92;
+    return Math.max(120, w - tagW - 22);
+  }
+
+  // 估算某个头像尺寸下整个档位看板的高度（.tl-cap 是绝对定位，不占高度）
+  function guessH(t, inner){
+    var per = Math.max(1, Math.floor((inner + TILE_GAP) / (t + TILE_GAP)));
+    var h = 0;
+    for (var i = 0; i < S.tiers.length; i++){
+      var n = S.tiers[i].items.length;
+      // 空档里有一行「把卡片拖到这里」提示，实测约 80px，比 min-height:60 高
+      if (!n){ h += 80 + 2; continue; }
+      var lines = Math.max(1, Math.ceil(n / per));
+      h += Math.max(60, 20 + lines * t + (lines - 1) * TILE_GAP) + 2;
+    }
+    return h + Math.max(0, S.tiers.length - 1) * 8;
+  }
+
+  /* 从上往下找最大的可用头像尺寸；再用真实 DOM 高度微调，抵消 CSS 细节误差 */
+  function applyFit(){
+    panel.classList.remove('tl-capped');
+    var maxT = Math.max(MIN_TILE, Math.min(132, parseInt(S.tile, 10) || 88));
+    var t = maxT, target = fitTarget();
+    if (S.fit){
+      var inner = itemsInnerW();
+      for (; t > MIN_TILE; t -= 2) if (guessH(t, inner) <= target) break;
+      for (var guard = 0; guard < 24 && t > MIN_TILE; guard++){
+        panel.style.setProperty('--tl-tile', t + 'px');
+        if (board.getBoundingClientRect().height <= target + 4) break;
+        t -= 2;
+      }
+    }
+    effTile = t;
+    panel.style.setProperty('--tl-tile', t + 'px');
+    panel.classList.toggle('tl-fit', !!S.fit);
+    poolBox.style.maxHeight = S.fit ? Math.max(260, Math.round(target * .7)) + 'px' : '';
+    // 卡片多到缩到最小仍超限时，给每档内部滚动，保证看板高度不再增长
+    if (S.fit && board.getBoundingClientRect().height > target + 12){
+      // 按「总限高 - 档间距」平摊到每一档，减 2 是 .tl-row 的上下边框
+      var n = Math.max(1, S.tiers.length);
+      var room = Math.floor((target - (n - 1) * 8) / n) - 2;
+      panel.style.setProperty('--tl-rowmax', Math.max(88, room) + 'px');
+      panel.classList.add('tl-capped');
+    }
+    var v = document.getElementById('tlFitVal');
+    if (v) v.textContent = target;
+    return t;
   }
 
   function tileHtml(id){
     var it = S.items[id];
     if (!it) return '';
     var cap = (S.showLabel && it.label) ? '<span class="tl-cap">' + wbEsc(it.label) + '</span>' : '';
-    return '<div class="tl-tile' + (sel[id] ? ' tl-sel' : '') + '" data-item="' + id + '" draggable="true" style="width:' + S.tile + 'px;height:' + S.tile + 'px">'
+    // 头像缩小后名称会被省略号截断，悬停仍可看全名
+    var tip = it.label ? ' title="' + wbEsc(it.label).replace(/"/g, '&quot;') + '"' : '';
+    return '<div class="tl-tile' + (sel[id] ? ' tl-sel' : '') + '" data-item="' + id + '" draggable="true"' + tip + '>'
       + '<img alt="" draggable="false" src="' + it.src + '">' + cap + '</div>';
   }
 
@@ -8441,9 +8516,12 @@ window.MK_BEZELS={"b15nat":{"s":"data:image/webp;base64,UklGRtR9AABXRUJQVlA4WAoA
 
   function renderRail(){
     var picked = selIds().length;
+    var fitInfo = !S.fit ? '' : (effTile < S.tile
+      ? ' · 自动缩放 <b>' + S.tile + '→' + effTile + '</b>px'
+      : ' · 自动缩放');
     var html = picked
       ? '<span class="tl-rail-l">已选 <b>' + picked + '</b> 张 · 点档位批量投放</span>'
-      : '<span class="tl-rail-l">快速投放 · 拖卡片到档位 / 点档位定位</span>';
+      : '<span class="tl-rail-l">快速投放 · 拖卡片到档位 / 点档位定位' + fitInfo + '</span>';
     for (var i = 0; i < S.tiers.length; i++){
       var t = S.tiers[i];
       html += '<button class="tl-chip" type="button" data-rail="' + t.id + '" title="拖到这里放入该档；点击跳到这一档" style="background:' + t.color + ';color:' + inkOn(t.color) + '">'
@@ -8459,10 +8537,14 @@ window.MK_BEZELS={"b15nat":{"s":"data:image/webp;base64,UklGRtR9AABXRUJQVlA4WAoA
     var html = '';
     for (var i = 0; i < S.tiers.length; i++) html += rowHtml(S.tiers[i]);
     board.innerHTML = html;
+    applyFit();
     renderRail();
     renderPool();
     persist();
   }
+
+  /* 缩放相关控件只改 CSS 变量，不必重建整块 DOM */
+  function refit(){ applyFit(); renderRail(); persist(); }
 
   /* ---------- 撤销 ---------- */
   function pushUndo(){
@@ -8802,6 +8884,7 @@ window.MK_BEZELS={"b15nat":{"s":"data:image/webp;base64,UklGRtR9AABXRUJQVlA4WAoA
   }
 
   function buildCanvas(){
+    // 导出 PNG 不受屏幕限高约束，按「头像上限」尺寸排版，画面更清晰
     var tile = S.tile, gap = 8, pad = 28, labelW = 100, capH = S.showLabel ? 17 : 0;
     // 导出按内容宽度排版（不跟窗口宽度走）：至少 4 列，最多排满 1040 的预算
     var maxN = 1, i;
@@ -8938,6 +9021,7 @@ window.MK_BEZELS={"b15nat":{"s":"data:image/webp;base64,UklGRtR9AABXRUJQVlA4WAoA
         pushUndo();
         S = d;
         for (var k in S.items) if (S.items.hasOwnProperty(k) && !S.items[k].src0) S.items[k].src0 = S.items[k].src;
+        normalize();
         syncInputs();
         render();
         msg('工程已导入：' + S.tiers.length + ' 档 / ' + Object.keys(S.items).length + ' 张卡片', 'ok');
@@ -9179,7 +9263,18 @@ window.MK_BEZELS={"b15nat":{"s":"data:image/webp;base64,UklGRtR9AABXRUJQVlA4WAoA
       ? '点选投放已开：点卡片选中 → 点顶部档位批量投放；双击卡片仍可裁剪改名'
       : '点选投放已关：点卡片直接裁切改名（Ctrl/⌘+点击仍可选中）', '');
   });
-  document.getElementById('tlSize').addEventListener('input', function(){ S.tile = parseInt(this.value, 10) || 88; render(); });
+  document.getElementById('tlSize').addEventListener('input', function(){ S.tile = parseInt(this.value, 10) || 88; refit(); });
+  document.getElementById('tlFit').addEventListener('change', function(){
+    S.fit = this.checked;
+    refit();
+    msg(S.fit
+      ? '自动缩放已开：看板限高 ' + fitTarget() + 'px，当前头像 ' + S.tile + '→' + effTile + 'px；导出 PNG 仍按上限尺寸排版'
+      : '自动缩放已关：头像固定为 ' + S.tile + 'px，看板高度随卡片数量增长');
+  });
+  document.getElementById('tlFitH').addEventListener('input', function(){
+    S.fitH = parseInt(this.value, 10) || 720;
+    refit();
+  });
   document.getElementById('tlSearch').addEventListener('input', renderPool);
 
   /* ---------- 弹层事件 ---------- */
@@ -9251,17 +9346,21 @@ window.MK_BEZELS={"b15nat":{"s":"data:image/webp;base64,UklGRtR9AABXRUJQVlA4WAoA
   function syncInputs(){
     document.getElementById('tlTitle').value = S.title || '';
     document.getElementById('tlSize').value = S.tile;
+    document.getElementById('tlFit').checked = !!S.fit;
+    document.getElementById('tlFitH').value = S.fitH;
+    document.getElementById('tlFitVal').textContent = S.fitH;
     document.getElementById('tlShowLabel').checked = !!S.showLabel;
     document.getElementById('tlPick').checked = !!pickMode;
   }
 
   if (!restore()) S = blank();
   if (!S.tiers || !S.tiers.length) S = blank();
+  normalize();
   sel = {};
   syncInputs();
   render();
   syncBtns();
-  msg('拖图片进来开始分级；看板很长时，拖到顶部档位条即可快速投放，或勾「点选投放」批量归类。');
+  msg('拖图片进来开始分级；看板会自动限高、卡片越多头像越小，也可以拖到顶部档位条或勾「点选投放」批量归类。');
 
   if (window.__toolHook) window.__toolHook('tier', function(){ render(); });
 
@@ -9269,13 +9368,16 @@ window.MK_BEZELS={"b15nat":{"s":"data:image/webp;base64,UklGRtR9AABXRUJQVlA4WAoA
   window.addEventListener('resize', function(){
     if (panel.hidden) return;
     if (rzTimer) clearTimeout(rzTimer);
-    rzTimer = setTimeout(render, 180);
+    rzTimer = setTimeout(refit, 140);
   });
 
   // 供调试与自动化测试使用
   window.__tier = {
     state: function(){ return S; }, render: render, preload: preload, buildCanvas: buildCanvas,
     blank: blank, moveMany: moveMany, selIds: selIds, toggleSel: toggleSel, clearSel: clearSel,
+    fit: applyFit, eff: function(){ return effTile; }, fitTarget: fitTarget,
+    setFit: function(v){ S.fit = !!v; document.getElementById('tlFit').checked = S.fit; refit(); },
+    setFitH: function(v){ S.fitH = +v || 720; document.getElementById('tlFitH').value = S.fitH; refit(); },
     setPick: function(v){ pickMode = !!v; document.getElementById('tlPick').checked = pickMode; }
   };
 })();
