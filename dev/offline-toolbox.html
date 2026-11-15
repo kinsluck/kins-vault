@@ -660,6 +660,40 @@ table.cand tr.win td{background:#eefaf3;color:var(--ok);font-weight:600}
 #tool-tier input[type=range]{accent-color:var(--brand);width:96px;vertical-align:middle}
 #tool-tier input[type=checkbox]{accent-color:var(--brand);width:15px;height:15px;vertical-align:middle}
 #tool-tier .tl-board{display:flex;flex-direction:column;gap:8px;min-height:80px}
+/* 常驻快速投放条：看板很长时，把卡片拖到这里的档位 chip 即可跨屏投放 */
+#tool-tier .tl-rail{
+  position:sticky;top:0;z-index:20;
+  display:flex;gap:6px;flex-wrap:wrap;align-items:center;
+  padding:8px 10px;margin:0 0 10px;
+  background:rgba(255,255,255,.97);border:1px solid var(--line);border-radius:10px;
+  box-shadow:0 4px 14px rgba(20,35,70,.10);
+}
+#tool-tier .tl-rail-l{font-size:11.5px;color:var(--ink3);white-space:nowrap;margin-right:2px}
+#tool-tier .tl-rail-l b{color:var(--brand);font-variant-numeric:tabular-nums}
+#tool-tier .tl-chip{
+  display:inline-flex;align-items:center;gap:6px;
+  border:1px solid transparent;border-radius:8px;padding:5px 10px;
+  font:inherit;font-size:12.5px;font-weight:600;color:#fff;cursor:pointer;
+  white-space:nowrap;box-shadow:0 1px 3px rgba(20,35,70,.16);
+  transition:transform .12s,box-shadow .12s;
+}
+#tool-tier .tl-chip:hover{transform:translateY(-1px)}
+#tool-tier .tl-chip em{font-style:normal;font-size:11px;opacity:.85;font-variant-numeric:tabular-nums}
+#tool-tier .tl-chip.tl-chip-pool{background:#f1f4fa;color:var(--ink2);border-color:var(--line)}
+#tool-tier .tl-chip.tl-chip-over{outline:3px solid var(--brand);outline-offset:2px;transform:scale(1.06)}
+#tool-tier.tl-drag .tl-chip{box-shadow:0 2px 10px rgba(30,80,200,.28)}
+#tool-tier .tl-rail-x{
+  border:0;background:#f1f4fa;color:var(--ink2);border-radius:7px;padding:5px 9px;
+  font:inherit;font-size:12px;cursor:pointer;
+}
+#tool-tier .tl-row.tl-row-over .tl-items{background:var(--brand-soft)}
+#tool-tier .tl-tile.tl-sel{outline:3px solid var(--brand);outline-offset:1px}
+#tool-tier .tl-tile.tl-sel::after{
+  content:'\2713';position:absolute;top:2px;right:3px;z-index:2;
+  width:17px;height:17px;line-height:17px;text-align:center;border-radius:50%;
+  background:var(--brand);color:#fff;font-size:11px;font-weight:700;
+  box-shadow:0 1px 4px rgba(0,0,0,.3);
+}
 #tool-tier .tl-row{
   display:flex;border-radius:10px;overflow:hidden;
   border:1px solid rgba(20,35,70,.10);background:#fff;
@@ -761,6 +795,10 @@ table.cand tr.win td{background:#eefaf3;color:var(--ok);font-weight:600}
   #tool-tier .tl-tag{width:72px}
   #tool-tier .tl-bar2{gap:10px}
   #tool-tier input[type=range]{width:80px}
+  #tool-tier .tl-rail{padding:5px 6px;gap:4px}
+  #tool-tier .tl-chip{padding:3px 7px;font-size:11px;gap:4px}
+  #tool-tier .tl-chip em{font-size:10px}
+  #tool-tier .tl-rail-l{width:100%;font-size:10.5px}
 }
 /* ===== 证件水印 ===== */
 #tool-wm .wm-bar{display:flex;gap:8px;flex-wrap:wrap;align-items:center;justify-content:space-between;margin-bottom:14px}
@@ -1235,7 +1273,7 @@ table.cand tr.win td{background:#eefaf3;color:var(--ok);font-weight:600}
       </div>
     </div>
     <div class="hdr-r">
-      <span class="badge"><!--pnid:rFzqcvyu0Jd6ckVWj8UoC0-->v23 &middot; 2026-11-12</span>
+      <span class="badge"><!--pnid:rFzqcvyu0Jd6ckVWj8UoC0-->v24 &middot; 2026-11-15</span>
       <span class="badge badge-ok"><!--pnid:fij8wnjFigBIaulXEhrBR8-->离线可用</span>
     </div>
   </header>
@@ -2351,13 +2389,15 @@ table.cand tr.win td{background:#eefaf3;color:var(--ok);font-weight:600}
         <label><!--pnid:wbbRm2VihqJkbDq9oVxowk-->标题 <input id="tlTitle" maxlength="40" placeholder="分级表标题" type="text" style="width:150px"></label>
         <label><!--pnid:nLm1qRs8FySu2B1hYWYLmc-->卡片 <input id="tlSize" max="132" min="56" step="4" type="range"></label>
         <label><input id="tlShowLabel" type="checkbox"><!--pnid:d4eMAaylGhXiosROE87D0p--> 显示名称</label>
+        <label title="开启后点卡片=选中，再点上方的档位 chip 即可批量投放；Ctrl/⌘+点击随时可选中，双击卡片仍可裁剪改名"><input id="tlPick" type="checkbox"> 点选投放</label>
         <label><!--pnid:TBoUimpTNrTpuAoQPS1nXb-->筛选 <input id="tlSearch" placeholder="卡片名称" type="text" style="width:128px"></label>
       </div>
+      <div class="tl-rail" id="tlRail"></div>
       <div class="tl-board" id="tlBoard"></div>
       <div class="tl-poolwrap">
         <div class="io-head" style="margin-bottom:8px">
           <span class="io-title"><!--pnid:7Iel8NPEgBweNqIWiSgfE2-->待分级 · <b id="tlPoolN"><!--pnid:ovSTOoYkrE1dt9wmu5cWml-->0</b><!--pnid:FhT8ZXrQ2OHh65hzEnSCdG--> 张</span>
-          <span class="hint" style="margin:0"><!--pnid:4SzlcLO0qZD5rhNTaocAOF-->拖进来 / Ctrl+V 粘贴 / 点卡片可裁剪改名</span>
+          <span class="hint" style="margin:0">拖进来 / Ctrl+V 粘贴 / 拖到顶部档位条即可快速投放 / 点卡片可裁剪改名</span>
         </div>
         <div class="tl-pool" id="tlPool"></div>
       </div>
@@ -8244,6 +8284,7 @@ window.MK_BEZELS={"b15nat":{"s":"data:image/webp;base64,UklGRtR9AABXRUJQVlA4WAoA
   var KEY = 'wb_tier_v1';
   var COLORS = ['#e0503f', '#ef8b3c', '#f0c33c', '#5fb85c', '#4a9ad6', '#8a6cd4', '#c96ba8', '#8d8d8d'];
   var board = document.getElementById('tlBoard');
+  var railEl = document.getElementById('tlRail');
   var poolBox = document.getElementById('tlPool');
   var msgEl = document.getElementById('tlMsg');
   var modal = document.getElementById('tlModal');
@@ -8255,6 +8296,8 @@ window.MK_BEZELS={"b15nat":{"s":"data:image/webp;base64,UklGRtR9AABXRUJQVlA4WAoA
   var saveTimer = null, seq = 0;
   var dragId = null, dragTier = null, dropBefore = null, dropAfter = false, dropKey = null;
   var suppressClick = false, cur = null, crop = null, panning = null;
+  var sel = {}, pickMode = false;                       // 点选投放：选中集合 / 模式开关
+  var dragging = false, dragY = null, scrollRAF = 0, overRail = false;  // 拖拽边缘自动滚动
 
   function uid(p){ seq++; return p + seq.toString(36) + Date.now().toString(36).slice(-3); }
   function msg(t, cls){ msgEl.textContent = t || ''; msgEl.className = 'msg' + (cls ? ' ' + cls : ''); }
@@ -8354,7 +8397,7 @@ window.MK_BEZELS={"b15nat":{"s":"data:image/webp;base64,UklGRtR9AABXRUJQVlA4WAoA
     var it = S.items[id];
     if (!it) return '';
     var cap = (S.showLabel && it.label) ? '<span class="tl-cap">' + wbEsc(it.label) + '</span>' : '';
-    return '<div class="tl-tile" data-item="' + id + '" draggable="true" style="width:' + S.tile + 'px;height:' + S.tile + 'px">'
+    return '<div class="tl-tile' + (sel[id] ? ' tl-sel' : '') + '" data-item="' + id + '" draggable="true" style="width:' + S.tile + 'px;height:' + S.tile + 'px">'
       + '<img alt="" draggable="false" src="' + it.src + '">' + cap + '</div>';
   }
 
@@ -8389,10 +8432,34 @@ window.MK_BEZELS={"b15nat":{"s":"data:image/webp;base64,UklGRtR9AABXRUJQVlA4WAoA
     document.getElementById('tlPoolN').textContent = S.pool.length;
   }
 
+  /* 顶部常驻投放条：永远可见，拖到 chip 即投放，点击 chip 定位到那一档 */
+  function selIds(){
+    var out = [];
+    for (var k in sel) if (sel.hasOwnProperty(k) && S.items[k]) out.push(k);
+    return out;
+  }
+
+  function renderRail(){
+    var picked = selIds().length;
+    var html = picked
+      ? '<span class="tl-rail-l">已选 <b>' + picked + '</b> 张 · 点档位批量投放</span>'
+      : '<span class="tl-rail-l">快速投放 · 拖卡片到档位 / 点档位定位</span>';
+    for (var i = 0; i < S.tiers.length; i++){
+      var t = S.tiers[i];
+      html += '<button class="tl-chip" type="button" data-rail="' + t.id + '" title="拖到这里放入该档；点击跳到这一档" style="background:' + t.color + ';color:' + inkOn(t.color) + '">'
+        + wbEsc(t.name) + ' <em>' + t.items.length + '</em></button>';
+    }
+    html += '<button class="tl-chip tl-chip-pool" type="button" data-rail="pool" title="拖到这里移回待分级；点击跳到待选池">待分级 <em>' + S.pool.length + '</em></button>';
+    if (picked) html += '<button class="tl-rail-x" type="button" data-rail-clear="1">取消选择</button>';
+    railEl.innerHTML = html;
+  }
+
   function render(){
+    for (var k in sel) if (sel.hasOwnProperty(k) && !S.items[k]) delete sel[k];
     var html = '';
     for (var i = 0; i < S.tiers.length; i++) html += rowHtml(S.tiers[i]);
     board.innerHTML = html;
+    renderRail();
     renderPool();
     persist();
   }
@@ -8435,6 +8502,27 @@ window.MK_BEZELS={"b15nat":{"s":"data:image/webp;base64,UklGRtR9AABXRUJQVlA4WAoA
     if (at < 0) dst.push(id); else dst.splice(at, 0, id);
     render();
   }
+
+  /* 批量投放：整批只记一次撤销，避免 N 张卡片留下 N 步历史 */
+  function moveMany(ids, destKey){
+    var dst = arrOf(destKey);
+    if (!dst || !ids.length) return;
+    pushUndo();
+    var moved = 0, i, id, src, at;
+    for (i = 0; i < ids.length; i++){
+      id = ids[i];
+      src = arrOf(ownerOf(id));
+      if (!src) continue;
+      at = src.indexOf(id);
+      if (at >= 0){ src.splice(at, 1); moved++; }
+    }
+    if (!moved){ undoStack.pop(); syncBtns(); return; }
+    for (i = 0; i < ids.length; i++) if (S.items[ids[i]] && dst.indexOf(ids[i]) < 0) dst.push(ids[i]);
+    render();
+  }
+
+  function toggleSel(id){ if (sel[id]) delete sel[id]; else sel[id] = 1; render(); }
+  function clearSel(){ sel = {}; render(); }
 
   function moveBeside(id, refId, after){
     var key = ownerOf(refId);
@@ -8860,15 +8948,55 @@ window.MK_BEZELS={"b15nat":{"s":"data:image/webp;base64,UklGRtR9AABXRUJQVlA4WAoA
 
   /* ---------- 拖拽 ---------- */
   function clearMarks(){
-    var els = panel.querySelectorAll('.tl-over, .ins-l, .ins-r');
-    for (var i = 0; i < els.length; i++) els[i].classList.remove('tl-over', 'ins-l', 'ins-r');
+    var els = panel.querySelectorAll('.tl-over, .ins-l, .ins-r, .tl-chip-over, .tl-row-over');
+    for (var i = 0; i < els.length; i++) els[i].classList.remove('tl-over', 'ins-l', 'ins-r', 'tl-chip-over', 'tl-row-over');
   }
+
+  /* 看板很长时原生拖拽不会可靠滚屏：指针靠近视口上下边缘就自己滚 */
+  function autoTick(){
+    if (!dragging){ scrollRAF = 0; return; }
+    var h = window.innerHeight || 800;
+    var edge = Math.min(130, Math.round(h * 0.22)), v = 0;
+    // 投放条本身吸在视口顶端，悬停在它上面时不能触发上边缘滚屏
+    if (!overRail && dragY !== null){
+      if (dragY < edge) v = -Math.max(2, Math.round((edge - dragY) / edge * 24));
+      else if (dragY > h - edge) v = Math.max(2, Math.round((dragY - (h - edge)) / edge * 24));
+    }
+    if (v) window.scrollBy(0, v);
+    scrollRAF = requestAnimationFrame(autoTick);
+  }
+  function dragStartScroll(){
+    if (dragging) return;
+    dragging = true; dragY = null; overRail = false;
+    panel.classList.add('tl-drag');
+    scrollRAF = requestAnimationFrame(autoTick);
+  }
+  function dragStopScroll(){
+    dragging = false; dragY = null; overRail = false;
+    if (scrollRAF) cancelAnimationFrame(scrollRAF);
+    scrollRAF = 0;
+    panel.classList.remove('tl-drag');
+  }
+
+  // 捕获阶段记录指针位置；拖出面板范围也能继续滚屏
+  document.addEventListener('dragover', function(e){
+    if (!dragging) return;
+    dragY = e.clientY;
+    var t = e.target;
+    overRail = !!(t && t.closest && t.closest('#tlRail'));
+  }, true);
+  document.addEventListener('dragend', function(){
+    if (!dragging) return;
+    dragStopScroll(); clearMarks();
+    dragId = null; dragTier = null;
+  }, true);
 
   panel.addEventListener('dragstart', function(e){
     var tile = closest(e.target, 'tl-tile');
     if (tile && e.target !== panel){
       dragId = tile.getAttribute('data-item'); dragTier = null;
       suppressClick = true;
+      dragStartScroll();
       try { e.dataTransfer.setData('text/plain', dragId); e.dataTransfer.effectAllowed = 'move'; } catch (x){}
       tile.classList.add('dragging');
       return;
@@ -8877,6 +9005,7 @@ window.MK_BEZELS={"b15nat":{"s":"data:image/webp;base64,UklGRtR9AABXRUJQVlA4WAoA
     if (tag){
       dragTier = tag.getAttribute('data-handle'); dragId = null;
       suppressClick = true;
+      dragStartScroll();
       try { e.dataTransfer.setData('text/plain', 'tier:' + dragTier); e.dataTransfer.effectAllowed = 'move'; } catch (x){}
     }
   });
@@ -8889,6 +9018,8 @@ window.MK_BEZELS={"b15nat":{"s":"data:image/webp;base64,UklGRtR9AABXRUJQVlA4WAoA
     try { dt.dropEffect = 'move'; } catch (x){}
     clearMarks();
     if (dragId){
+      var chip = closest(e.target, 'tl-chip');
+      if (chip){ chip.classList.add('tl-chip-over'); return; }
       var tile = closest(e.target, 'tl-tile');
       if (tile && tile.getAttribute('data-item') !== dragId){
         var r = tile.getBoundingClientRect();
@@ -8897,6 +9028,8 @@ window.MK_BEZELS={"b15nat":{"s":"data:image/webp;base64,UklGRtR9AABXRUJQVlA4WAoA
       } else if (!tile){
         var cont = closest(e.target, 'tl-items') || closest(e.target, 'tl-pool');
         if (cont) cont.classList.add('tl-over');
+        var rowEl = closest(e.target, 'tl-row');   // 彩色档位标签也算落点
+        if (rowEl) rowEl.classList.add('tl-row-over');
       }
     }
   });
@@ -8914,6 +9047,13 @@ window.MK_BEZELS={"b15nat":{"s":"data:image/webp;base64,UklGRtR9AABXRUJQVlA4WAoA
       dragTier = null; suppressClick = false;
       return;
     }
+    var chip = closest(e.target, 'tl-chip');
+    if (chip){
+      var rk = chip.getAttribute('data-rail');
+      if (rk) moveTo(dragId, rk, null);
+      dragId = null; suppressClick = false;
+      return;
+    }
     var tile = closest(e.target, 'tl-tile');
     if (tile){
       var tid = tile.getAttribute('data-item');
@@ -8925,6 +9065,9 @@ window.MK_BEZELS={"b15nat":{"s":"data:image/webp;base64,UklGRtR9AABXRUJQVlA4WAoA
       if (cont2){
         var key = cont2.getAttribute('data-drop') || 'pool';
         moveTo(dragId, key, null);
+      } else {
+        var rowEl2 = closest(e.target, 'tl-row');
+        if (rowEl2) moveTo(dragId, rowEl2.getAttribute('data-row'), null);
       }
     }
     dragId = null; suppressClick = false;
@@ -8934,6 +9077,7 @@ window.MK_BEZELS={"b15nat":{"s":"data:image/webp;base64,UklGRtR9AABXRUJQVlA4WAoA
     var d = panel.querySelectorAll('.dragging');
     for (var i = 0; i < d.length; i++) d[i].classList.remove('dragging');
     clearMarks();
+    dragStopScroll();
     dragId = null; dragTier = null;
     setTimeout(function(){ suppressClick = false; }, 60);
   });
@@ -8941,10 +9085,38 @@ window.MK_BEZELS={"b15nat":{"s":"data:image/webp;base64,UklGRtR9AABXRUJQVlA4WAoA
   /* ---------- 点击 / 输入 ---------- */
   panel.addEventListener('click', function(e){
     if (suppressClick) return;
+    if (closest(e.target, 'tl-rail-x')){ clearSel(); return; }
+    var chip = closest(e.target, 'tl-chip');
+    if (chip){
+      var key = chip.getAttribute('data-rail');
+      var ids = selIds();
+      if (ids.length){
+        var n = ids.length;
+        sel = {};
+        moveMany(ids, key);
+        var tr = tierById(key);
+        msg('已把 ' + n + ' 张放入「' + (key === 'pool' ? '待分级' : (tr ? tr.name : '该档')) + '」', 'ok');
+      } else {
+        var jump = key === 'pool' ? poolBox : board.querySelector('[data-row="' + key + '"]');
+        if (jump) jump.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      }
+      return;
+    }
     var del = closest(e.target, 'tl-deltier');
     if (del){ delTier(del.getAttribute('data-deltier')); return; }
     var tile = closest(e.target, 'tl-tile');
-    if (tile && !closest(e.target, 'tl-tag')){ openModal(tile.getAttribute('data-item')); return; }
+    if (tile && !closest(e.target, 'tl-tag')){
+      var id = tile.getAttribute('data-item');
+      if (pickMode || e.ctrlKey || e.metaKey || e.shiftKey){ toggleSel(id); return; }
+      openModal(id); return;
+    }
+  });
+
+  // 点选投放模式下双击仍可直接裁切 / 改名
+  panel.addEventListener('dblclick', function(e){
+    if (!pickMode) return;
+    var tile = closest(e.target, 'tl-tile');
+    if (tile) openModal(tile.getAttribute('data-item'));
   });
 
   panel.addEventListener('input', function(e){
@@ -9000,6 +9172,13 @@ window.MK_BEZELS={"b15nat":{"s":"data:image/webp;base64,UklGRtR9AABXRUJQVlA4WAoA
 
   document.getElementById('tlTitle').addEventListener('input', function(){ S.title = this.value; persist(); });
   document.getElementById('tlShowLabel').addEventListener('change', function(){ S.showLabel = this.checked; render(); });
+  document.getElementById('tlPick').addEventListener('change', function(){
+    pickMode = this.checked;
+    if (!pickMode) clearSel();
+    msg(pickMode
+      ? '点选投放已开：点卡片选中 → 点顶部档位批量投放；双击卡片仍可裁剪改名'
+      : '点选投放已关：点卡片直接裁切改名（Ctrl/⌘+点击仍可选中）', '');
+  });
   document.getElementById('tlSize').addEventListener('input', function(){ S.tile = parseInt(this.value, 10) || 88; render(); });
   document.getElementById('tlSearch').addEventListener('input', renderPool);
 
@@ -9073,14 +9252,16 @@ window.MK_BEZELS={"b15nat":{"s":"data:image/webp;base64,UklGRtR9AABXRUJQVlA4WAoA
     document.getElementById('tlTitle').value = S.title || '';
     document.getElementById('tlSize').value = S.tile;
     document.getElementById('tlShowLabel').checked = !!S.showLabel;
+    document.getElementById('tlPick').checked = !!pickMode;
   }
 
   if (!restore()) S = blank();
   if (!S.tiers || !S.tiers.length) S = blank();
+  sel = {};
   syncInputs();
   render();
   syncBtns();
-  msg('把图片拖进来开始分级；点任意卡片可以裁切、改名、换档。');
+  msg('拖图片进来开始分级；看板很长时，拖到顶部档位条即可快速投放，或勾「点选投放」批量归类。');
 
   if (window.__toolHook) window.__toolHook('tier', function(){ render(); });
 
@@ -9092,7 +9273,11 @@ window.MK_BEZELS={"b15nat":{"s":"data:image/webp;base64,UklGRtR9AABXRUJQVlA4WAoA
   });
 
   // 供调试与自动化测试使用
-  window.__tier = { state: function(){ return S; }, render: render, preload: preload, buildCanvas: buildCanvas, blank: blank };
+  window.__tier = {
+    state: function(){ return S; }, render: render, preload: preload, buildCanvas: buildCanvas,
+    blank: blank, moveMany: moveMany, selIds: selIds, toggleSel: toggleSel, clearSel: clearSel,
+    setPick: function(v){ pickMode = !!v; document.getElementById('tlPick').checked = pickMode; }
+  };
 })();
 
 /* ================= 证件水印 ================= */
