@@ -1283,7 +1283,7 @@ table.cand tr.win td{background:#eefaf3;color:var(--ok);font-weight:600}
       </div>
     </div>
     <div class="hdr-r">
-      <span class="badge"><!--pnid:rFzqcvyu0Jd6ckVWj8UoC0-->v25 &middot; 2026-11-15</span>
+      <span class="badge"><!--pnid:rFzqcvyu0Jd6ckVWj8UoC0-->v26 &middot; 2026-11-15</span>
       <span class="badge badge-ok"><!--pnid:fij8wnjFigBIaulXEhrBR8-->离线可用</span>
     </div>
   </header>
@@ -2390,7 +2390,8 @@ table.cand tr.win td{background:#eefaf3;color:var(--ok);font-weight:600}
           <button class="btn" id="tlBack" type="button"><!--pnid:tqOGdz8HhdC5NtbeUlUg79-->全部移回</button>
         </div>
         <div class="btn-row">
-          <button class="btn primary" id="tlDl" type="button"><!--pnid:XqkO92PjxjSyf9Zc8zHHqj-->下载图片</button>
+          <button class="btn primary" id="tlDl" type="button" title="导出 2 倍分辨率的无损 PNG 原图"><!--pnid:XqkO92PjxjSyf9Zc8zHHqj-->下载图片</button>
+          <button class="btn" id="tlDlLite" type="button" title="视觉无损压缩：SSIM ≥ 0.995 前提下自动选最小体积的 JPG；若 PNG 更小则直接输出 PNG 原图">压缩版 JPG</button>
           <button class="btn" id="tlSave" type="button"><!--pnid:O2ht4daeQZqTCaQ1ONHdsH-->导出工程</button>
           <button class="btn" id="tlLoad" type="button"><!--pnid:PAhodaokFoIzNsoWNh2S7L-->导入工程</button>
         </div>
@@ -2409,7 +2410,7 @@ table.cand tr.win td{background:#eefaf3;color:var(--ok);font-weight:600}
       <div class="tl-poolwrap">
         <div class="io-head" style="margin-bottom:8px">
           <span class="io-title"><!--pnid:7Iel8NPEgBweNqIWiSgfE2-->待分级 · <b id="tlPoolN"><!--pnid:ovSTOoYkrE1dt9wmu5cWml-->0</b><!--pnid:FhT8ZXrQ2OHh65hzEnSCdG--> 张</span>
-          <span class="hint" style="margin:0">拖进来 / Ctrl+V 粘贴 / 拖到顶部档位条即可快速投放 / 点卡片可裁剪改名 / 看板自动限高</span>
+          <span class="hint" style="margin:0">拖进来 / Ctrl+V 粘贴 / 拖到顶部档位条即可快速投放 / 点卡片可裁剪改名 / 看板限高时拖动不会自动滚屏</span>
         </div>
         <div class="tl-pool" id="tlPool"></div>
       </div>
@@ -8309,7 +8310,9 @@ window.MK_BEZELS={"b15nat":{"s":"data:image/webp;base64,UklGRtR9AABXRUJQVlA4WAoA
   var dragId = null, dragTier = null, dropBefore = null, dropAfter = false, dropKey = null;
   var suppressClick = false, cur = null, crop = null, panning = null;
   var sel = {}, pickMode = false;                       // 点选投放：选中集合 / 模式开关
-  var dragging = false, dragY = null, scrollRAF = 0, overRail = false;  // 拖拽边缘自动滚动
+  // 拖拽边缘自动滚动：必须带终止条件，否则 dragend 丢失后 RAF 会永久滚屏
+  var dragging = false, dragX = 0, dragY = null, scrollRAF = 0, overRail = false;
+  var lastDragTs = 0, scrollStartTs = 0, lastFrameTs = 0;
 
   function uid(p){ seq++; return p + seq.toString(36) + Date.now().toString(36).slice(-3); }
   function msg(t, cls){ msgEl.textContent = t || ''; msgEl.className = 'msg' + (cls ? ' ' + cls : ''); }
@@ -8974,23 +8977,113 @@ window.MK_BEZELS={"b15nat":{"s":"data:image/webp;base64,UklGRtR9AABXRUJQVlA4WAoA
     return out;
   }
 
+  function dlBlob(blob, name){
+    var url = URL.createObjectURL(blob);
+    var a = document.createElement('a');
+    a.href = url;
+    a.download = name;
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+    setTimeout(function(){ URL.revokeObjectURL(url); }, 4000);
+  }
+
   function download(){
     preload(function(){
       var c = buildCanvas();
       try {
         c.toBlob(function(blob){
           if (!blob){ msg('导出失败，试试减少卡片数量', 'err'); return; }
-          var url = URL.createObjectURL(blob);
-          var a = document.createElement('a');
-          a.href = url;
-          a.download = (S.title || 'tier-list').replace(/[\\/:*?"<>|]/g, '_') + '.png';
-          document.body.appendChild(a);
-          a.click();
-          document.body.removeChild(a);
-          setTimeout(function(){ URL.revokeObjectURL(url); }, 4000);
+          dlBlob(blob, (S.title || 'tier-list').replace(/[\\/:*?"<>|]/g, '_') + '.png');
           msg('已导出 ' + c.width + ' × ' + c.height + ' 的 PNG', 'ok');
         }, 'image/png');
       } catch (e){ msg('导出失败：' + e.message, 'err'); }
+    });
+  }
+
+  /* ---------- 压缩版导出（视觉无损优先） ----------
+     复用工具箱「图片压缩」内核的 ssimCompare / imgBytes：原画布降采样到长边 720 作基准，
+     在 SSIM ≥ 0.995 的前提下二分找「刚好达标的最低质量」，即视觉无损前提下的最小体积。
+     与图片压缩工具保持一致，只输出 JPG / PNG（WebP 在微信里会被当成文件而非图片）。 */
+  var COMPACT_THR = 0.995, COMPACT_SIDE = 720;
+
+  function compactRef(c){
+    var s = Math.min(1, COMPACT_SIDE / Math.max(c.width, c.height));
+    var w = Math.max(1, Math.round(c.width * s)), h = Math.max(1, Math.round(c.height * s));
+    var cv = document.createElement('canvas');
+    cv.width = w; cv.height = h;
+    var cx = cv.getContext('2d', { willReadFrequently: true });
+    cx.fillStyle = '#fff'; cx.fillRect(0, 0, w, h);
+    cx.drawImage(c, 0, 0, w, h);
+    return { data: cx.getImageData(0, 0, w, h).data, w: w, h: h };
+  }
+  function encodeJpg(c, q){
+    return new Promise(function(res){ c.toBlob(function(b){ res(b || null); }, 'image/jpeg', q); });
+  }
+  function decodeAt(blob, w, h){
+    return new Promise(function(res){
+      createImageBitmap(blob).then(function(bmp){
+        var cv = document.createElement('canvas');
+        cv.width = w; cv.height = h;
+        var cx = cv.getContext('2d', { willReadFrequently: true });
+        cx.fillStyle = '#fff'; cx.fillRect(0, 0, w, h);
+        cx.drawImage(bmp, 0, 0, w, h);
+        var d = cx.getImageData(0, 0, w, h).data;
+        if (bmp.close) bmp.close();
+        res(d);
+      }, function(){ res(null); });
+    });
+  }
+  async function trialQ(c, q, ref){
+    var blob = await encodeJpg(c, q);
+    if (!blob) return null;
+    var d = await decodeAt(blob, ref.w, ref.h);
+    if (!d) return null;
+    return { q: q, blob: blob, size: blob.size, ssim: ssimCompare(ref.data, d, ref.w, ref.h, 8).ssim };
+  }
+  async function compactCanvas(c){
+    var ref = compactRef(c);
+    var top = await trialQ(c, 0.98, ref);
+    if (!top) throw new Error('浏览器未能编码 JPG');
+    var best = top, passing = top.ssim >= COMPACT_THR;
+    if (passing){
+      var lo = 0.78, hi = 0.98;
+      for (var i = 0; i < 5; i++){
+        var q = Math.round((lo + hi) / 2 * 100) / 100;
+        var t = await trialQ(c, q, ref);
+        if (!t) break;
+        if (t.ssim >= COMPACT_THR){ best = t; hi = q; } else lo = q;
+      }
+    }
+    var pngBlob = await new Promise(function(res){ c.toBlob(function(b){ res(b || null); }, 'image/png'); });
+    // 纯色块/大段文字的图 PNG 可能比 JPG 更小：压缩版永远挑真正更小的那个
+    var usePng = !!(pngBlob && pngBlob.size <= best.size);
+    return {
+      blob: best.blob, pngBlob: pngBlob, q: best.q, ssim: best.ssim, size: best.size,
+      pngSize: pngBlob ? pngBlob.size : 0, thr: COMPACT_THR, passing: passing,
+      usePng: usePng, winner: usePng ? pngBlob : best.blob,
+      winnerSize: usePng ? pngBlob.size : best.size,
+      saved: pngBlob ? Math.max(0, Math.round((1 - (usePng ? pngBlob.size : best.size) / pngBlob.size) * 100)) : null
+    };
+  }
+  function downloadCompact(){
+    preload(function(){
+      msg('正在生成视觉无损压缩版…');
+      var c;
+      try { c = buildCanvas(); } catch (e){ msg('导出失败：' + e.message, 'err'); return; }
+      compactCanvas(c).then(function(r){
+        var base = (S.title || 'tier-list').replace(/[\\/:*?"<>|]/g, '_');
+        if (r.usePng){
+          dlBlob(r.winner, base + '.png');
+          msg('这张图 PNG 已是最小（' + imgBytes(r.winnerSize) + '），已导出 PNG 原图', 'ok');
+          return;
+        }
+        dlBlob(r.winner, base + '-压缩.jpg');
+        msg('已导出压缩版 JPG ' + imgBytes(r.size) + ' · SSIM ' + r.ssim.toFixed(4)
+          + ' · 质量 ' + Math.round(r.q * 100) + '%'
+          + (r.saved !== null ? ' · 比 PNG 小 ' + r.saved + '%' : '')
+          + (r.passing ? '（视觉无损）' : '（细节过多，已用最高质量）'), r.passing ? 'ok' : '');
+      }).catch(function(e){ msg('压缩版导出失败：' + e.message, 'err'); });
     });
   }
 
@@ -9036,27 +9129,67 @@ window.MK_BEZELS={"b15nat":{"s":"data:image/webp;base64,UklGRtR9AABXRUJQVlA4WAoA
     for (var i = 0; i < els.length; i++) els[i].classList.remove('tl-over', 'ins-l', 'ins-r', 'tl-chip-over', 'tl-row-over');
   }
 
-  /* 看板很长时原生拖拽不会可靠滚屏：指针靠近视口上下边缘就自己滚 */
-  function autoTick(){
+  /* 指针靠近视口上下边缘时辅助滚屏。这里刻意加了 5 道终止条件：
+     1) drop 立即停  2) dragend 停  3) 到顶/到底（滚动量不再变化）立刻停
+     4) 超时/无新 dragover 停  5) 窗口失焦停
+     原因：投放成功后 render() 会重建 DOM，源卡片被移除时 Chrome 可能不派发 dragend，
+     旧实现只依赖 dragend，RAF 就会带着粘滞的 dragY 永久滚下去。 */
+  var SCROLL_SPEED = 520;      // px/s，按帧时间差换算，避免瞬间冲到顶
+  var SCROLL_IDLE_MS = 900;    // 超过这么久没有 dragover，判定拖拽已结束
+  var SCROLL_MAX_MS = 3500;    // 单次拖拽连续滚屏上限
+
+  function nowMs(){ return (window.performance && performance.now) ? performance.now() : Date.now(); }
+  function inRail(x, y){
+    // 投放条 sticky 吸顶，页面滚动后它会移到指针下方但不产生新的 dragover；
+    // 因此不能只靠最后一次事件的 target，必须每帧按实时位置重新判断。
+    if (!railEl || !railEl.isConnected) return false;
+    var r = railEl.getBoundingClientRect();
+    if (r.bottom <= 0 || r.top >= (window.innerHeight || 800)) return false;
+    if (y >= r.top - 2 && y <= r.bottom + 2) return true;
+    try {
+      var el = document.elementFromPoint(x, y);
+      return !!(el && el.closest && el.closest('#tlRail'));
+    } catch (e){ return false; }
+  }
+  function autoTick(now){
     if (!dragging){ scrollRAF = 0; return; }
-    var h = window.innerHeight || 800;
-    var edge = Math.min(130, Math.round(h * 0.22)), v = 0;
-    // 投放条本身吸在视口顶端，悬停在它上面时不能触发上边缘滚屏
-    if (!overRail && dragY !== null){
-      if (dragY < edge) v = -Math.max(2, Math.round((edge - dragY) / edge * 24));
-      else if (dragY > h - edge) v = Math.max(2, Math.round((dragY - (h - edge)) / edge * 24));
+    var t = (typeof now === 'number') ? now : nowMs();
+    var dt = lastFrameTs ? Math.min(80, Math.max(1, t - lastFrameTs)) : 16;
+    lastFrameTs = t;
+    // 事件流断了（含 drop 后 DOM 重建导致 dragend 丢失）→ 立刻收尾
+    if ((lastDragTs && t - lastDragTs > SCROLL_IDLE_MS) ||
+        (scrollStartTs && t - scrollStartTs > SCROLL_MAX_MS)){
+      dragStopScroll(); return;
     }
-    if (v) window.scrollBy(0, v);
+    var h = window.innerHeight || 800;
+    var edge = Math.min(110, Math.round(h * 0.18)), v = 0;
+    if (dragY !== null && !overRail && !inRail(dragX, dragY)){
+      if (dragY < edge) v = -Math.max(1, Math.round((edge - dragY) / edge * SCROLL_SPEED * dt / 1000));
+      else if (dragY > h - edge) v = Math.max(1, Math.round((dragY - (h - edge)) / edge * SCROLL_SPEED * dt / 1000));
+    }
+    if (v){
+      var y0 = window.pageYOffset || document.documentElement.scrollTop || 0;
+      window.scrollBy(0, v);
+      var y1 = window.pageYOffset || document.documentElement.scrollTop || 0;
+      // 已经到顶/到底，再滚也不会动：必须停，否则留下一个永远空转的 RAF
+      if (y1 === y0){ dragStopScroll(); return; }
+    }
     scrollRAF = requestAnimationFrame(autoTick);
   }
   function dragStartScroll(){
-    if (dragging) return;
-    dragging = true; dragY = null; overRail = false;
+    if (dragging) dragStopScroll();        // 上次漏停时强制重置，避免计时器继续累加
+    // 看板限高 + 投放条吸顶时，S 档与待选池同屏可见，拖到顶部 chip 不需要滚屏；
+    // 此时辅助滚屏只会把页面带跑，直接不启用。关闭「自动缩放」后才需要跨屏辅助。
+    if (S && S.fit) return;
+    var t = nowMs();
+    dragging = true; dragX = 0; dragY = null; overRail = false;
+    lastDragTs = t; scrollStartTs = t; lastFrameTs = 0;
     panel.classList.add('tl-drag');
     scrollRAF = requestAnimationFrame(autoTick);
   }
   function dragStopScroll(){
     dragging = false; dragY = null; overRail = false;
+    lastDragTs = 0; scrollStartTs = 0; lastFrameTs = 0;
     if (scrollRAF) cancelAnimationFrame(scrollRAF);
     scrollRAF = 0;
     panel.classList.remove('tl-drag');
@@ -9065,15 +9198,20 @@ window.MK_BEZELS={"b15nat":{"s":"data:image/webp;base64,UklGRtR9AABXRUJQVlA4WAoA
   // 捕获阶段记录指针位置；拖出面板范围也能继续滚屏
   document.addEventListener('dragover', function(e){
     if (!dragging) return;
-    dragY = e.clientY;
+    dragX = e.clientX; dragY = e.clientY;
+    lastDragTs = nowMs();
     var t = e.target;
-    overRail = !!(t && t.closest && t.closest('#tlRail'));
+    overRail = !!(t && t.closest && t.closest('#tlRail')) || inRail(e.clientX, e.clientY);
   }, true);
+  // drop 后 render() 会重建 DOM，源卡片被移除时 Chrome 可能不派发 dragend；
+  // 因此在 document 捕获阶段无条件收尾，不能只等 dragend。
+  document.addEventListener('drop', function(){ if (dragging) dragStopScroll(); }, true);
   document.addEventListener('dragend', function(){
     if (!dragging) return;
     dragStopScroll(); clearMarks();
     dragId = null; dragTier = null;
   }, true);
+  window.addEventListener('blur', function(){ if (dragging) dragStopScroll(); });
 
   panel.addEventListener('dragstart', function(e){
     var tile = closest(e.target, 'tl-tile');
@@ -9119,6 +9257,7 @@ window.MK_BEZELS={"b15nat":{"s":"data:image/webp;base64,UklGRtR9AABXRUJQVlA4WAoA
   });
 
   panel.addEventListener('drop', function(e){
+    dragStopScroll();               // 投放完成即停滚，不等 dragend（DOM 重建后它可能不触发）
     var dt = e.dataTransfer;
     if (dt && dt.files && dt.files.length){ e.preventDefault(); addFiles(dt.files); clearMarks(); return; }
     if (!dragId && !dragTier) return;
@@ -9247,6 +9386,7 @@ window.MK_BEZELS={"b15nat":{"s":"data:image/webp;base64,UklGRtR9AABXRUJQVlA4WAoA
     msg('全部移回待分级');
   });
   document.getElementById('tlDl').addEventListener('click', download);
+  document.getElementById('tlDlLite').addEventListener('click', downloadCompact);
   document.getElementById('tlSave').addEventListener('click', saveJson);
   document.getElementById('tlLoad').addEventListener('click', function(){ document.getElementById('tlJson').click(); });
   document.getElementById('tlJson').addEventListener('change', function(){
@@ -9378,7 +9518,16 @@ window.MK_BEZELS={"b15nat":{"s":"data:image/webp;base64,UklGRtR9AABXRUJQVlA4WAoA
     fit: applyFit, eff: function(){ return effTile; }, fitTarget: fitTarget,
     setFit: function(v){ S.fit = !!v; document.getElementById('tlFit').checked = S.fit; refit(); },
     setFitH: function(v){ S.fitH = +v || 720; document.getElementById('tlFitH').value = S.fitH; refit(); },
-    setPick: function(v){ pickMode = !!v; document.getElementById('tlPick').checked = pickMode; }
+    setPick: function(v){ pickMode = !!v; document.getElementById('tlPick').checked = pickMode; },
+    // 自动滚屏状态：供回归测试验证「不会无限滚」
+    scrollState: function(){ return { dragging: dragging, dragY: dragY, overRail: overRail, y: window.pageYOffset }; },
+    compact: function(c){ return compactCanvas(c || buildCanvas()); },
+    _scrollStep: function(t){
+      if (scrollRAF){ cancelAnimationFrame(scrollRAF); scrollRAF = 0; }
+      autoTick(t);
+      if (scrollRAF){ cancelAnimationFrame(scrollRAF); scrollRAF = 0; }
+      return window.pageYOffset;
+    }
   };
 })();
 
